@@ -1,101 +1,7 @@
 #import pygame
 import datetime
 import time
-from enum import IntEnum
-
-# General Helper functions
-#----------------------------------------------
-def textReader(text):
-    for text in text:
-            print(text, end="")
-            time.sleep(.04)
-            #add blip-like sound on output?
-
-def quitSave():
-    print("Speichern...")
-    save()
-    print("Spiel wird beendet.")
-    quit()
-
-def save():
-    print("IMPLEMENT SAVE!")
-    print("Gespeichert!")
-
-def inputCheck(text, expNumOfDigits):
-    number = 1000000
-    inptLoop = True
-    while inptLoop:
-        resp = input(text)
-        try :
-            number = int(resp)
-        except :
-            if resp.lower() == "quit":
-                quitSave()
-            else:
-                print("Bitte eine Zahl eingeben oder das Spiel mittels 'quit' beenden.")
-        resp = len(resp)  
-        if resp == expNumOfDigits:
-            inptLoop = False
-            return number
-        else:
-            print("Bitte eine Ganzzahl mit " + str(expNumOfDigits) + " Stellen eingeben.")              
-
-#----------------------------------------------
-
-# Data structure helper functions
-#----------------------------------------------
-def spotList(roomNumber):
-    """Generates a list of spots that the roon contains
-    based on room number, using spot dictionary."""
-    spotObjList = {}
-    #get valid spot numbers for room
-    for i in range(roomNumber, roomNumber+9):
-        if i in dictSpots:
-            #generate spots
-            spotObjList[i] = Spot(i)
-    return spotObjList
-
-def roomList(roomNumber):
-    roomObjList = {}
-    for i in range(0, len(dictConnectedRooms[roomNumber])):
-        #generate adjacent rooms
-        roomObjList[dictConnectedRooms[roomNumber][i]] = Room(dictConnectedRooms[roomNumber][i])
-    return roomObjList
-    
-#----------------------------------------------
-def itemBuilder(generateFromNr):
-    """Generates the item connected to the spot, if any"""
-    #check if called via spot (3-digit) number
-    if len(str(generateFromNr)) == 3:
-        if generateFromNr in dictItems:
-            if (not generateFromNr in dictInventory):
-                dictInventory[dictSpotItems[generateFromNr]]= Item(dictSpotItems[generateFromNr])
-                print("Der Gegenstand " + dictItems[dictSpotitems[generateFromNr]] + " wurde dem Inventar hinzugefügt.")      
-            else:
-                print("Das ist bereits im Inventar...")
-        else:
-            print("Der Gegenstand existiert nicht...?")
-    #check if called via item-item combination (4-digit) number
-    elif len(str(generateFromNr)) == 4:
-        item1 = int(generateFromNr)/100
-        item2 = generateFromNr%100
-        if (item1 in dictInventory) & (item2 in dictInventory):
-            #only add items if both are available in inventory
-            if generateFromNr in dictItems:
-                dictInventory[dictSpotItems[generateFromNr]]= Item(dictSpotItems[generateFromNr])
-            else:
-                print("Das lässt sich nicht kombinieren!")
-        else:
-            print("Nette Idee, allerdings habt ihr die Gegenstände " + str(item1) + \
-                  " und " + str(item2) + " nicht beide im Inventar...")
-    #check if called via item-spot combination
-    elif len(str(generateFromNr)) == 5:
-        item = int(generateFromNr)/1000
-        spot = generateFromNr%1000
-        if generateFromNr in dictUseItems:
-            print("TODO: Allow combine items with surrounding.")
-            
-        
+from enum import IntEnum         
  
 # Enums and data structures
 #----------------------------------------------
@@ -115,94 +21,6 @@ actionDict = {
     4 : " nehmen?"
     }
 #----------------------------------------------
-    
-# Game classes
-#----------------------------------------------
-class Room:
-    """A place, room, or scene within the game.
-    It has a 3-digit number, of which the first two refer to the room
-    and the last digit will be 0 as it is the spot ID."""
-    def __init__(self, number):
-        self.number = number
-        self.name = dictRooms[number]
-        self.description = dictTexts[number]
-
-    def onEnter(self):
-        dictRoomsInventory.append(self.number)
-        self.spot_list = spotList(self.number)
-        self.room_list = roomList(self.number)
-        textReader(self.description)
-        textReader("Ihr befindet euch bei " + str(self.number) + ": "\
-                   + self.name + ".\n\n")
-        print("Ihr seht:")
-        for element in self.spot_list.values():
-            print(str(element.number) + ": "\
-                  + element.name)
-            time.sleep(.5)
-        print("\nVon hier aus sind folgende Orte erreichbar:")
-        for element in self.room_list.values():
-            if element.number < self.number:
-                #room is known
-                print(str(element.number) + ": "\
-                      + element.name)
-            else:
-                print(str(element.number) + ": ???")
-            time.sleep(.5)
-
-class Spot:
-    """A spot within a room, referred to as a 3-Digit number.
-    The first two digits stand for the room in which the spot is
-    and the last digit is the spot ID"""
-    def __init__(self, number):
-        self.number = number
-        self.name = dictSpots[number]
-        self.description = dictTexts[number]
-        self.action_id = dictSpotActions[number]
-        self.item_id = dictSpotItems[number]
-
-    def action(self):
-        """Interaction with the spot depending on context VIEW, GOTO, OPEN, GET or NOCHOICE
-        May modify character's properties or set flags plot changes"""
-        print("\nIhr untersucht " + self.name + ":")
-        textReader(self.description)
-        if self.action_id < Action_id.NOC:
-            print("Möchtet ihr " + self.name + actionDict[self.action_id])
-            resp = input("Bitte eingeben: JA: '1', NEIN: '0'. ")
-            
-            if resp == "1": 
-                print("HAT GEKLAPPT JAJAJAJAAA")
-            else:
-                print("FEIGLING!")
-        else:
-            print("KEINE WAHL MUAHAHAH")
-            
-
-class Item:
-    """An item is possibly combineable with other items or with a spot within
-    a room. It carries a two-digit item ID. It may permanently or temporarily
-    modify the obtaining character's properties."""
-    def __init__(self, number, name, mod_fit, mod_mot):
-        self.number = number
-        self.name = name
-        self.description = dictTexts[number]
-        self.mod_fit = mod_fit
-        self.mod_mot = mod_mot
-
-class Player:
-    def __init__(self, name, color, fitness, motivation):
-        self.name = name
-        self.color = color
-        self.fitness = fitness
-        self.motivation = motivation
-
-    def ChangeMotivation(by_value):
-        self.motivation = self.motivaiton + by_value
-
-    def ChangeFitness(by_value):
-        self.fitness = self.fitness + by_value
-
-#----------------------------------------------
-
 #DICTIONARIES
 #----------------------------------------------
 #text ID rules:
@@ -255,14 +73,13 @@ vor dem Pfosten steht. Man kann die Karte jetzt klar und deutlich erkennen.\n",
     110 : \
 "Der Fußweg zu eurem ersten Etappenziel Maria Laach.\n\
 Ihr wolltet ungern an der Landstraße entlang gehen und habt euch für diesen\n\
-zugewachsenen, schmalen Weg entschieden,\n\
-den das Wild sicher auch als Straße benutzt. Die Sonne blinzelt immer wieder\n\
+zugewachsenen, schmalen Pfad entschieden,\n\
+den das Wild sicher auch als Weg benutzt. Die Sonne blinzelt immer wieder\n\
 durch das Blätterdach, es duftet nach Heckenrosen und ab und zu erhascht ihr\n\
 einen Blick auf den Wald.\n\
 Schließlich gelangt ihr an eine Weggabelung in einer kleinen Senke.\n\
 Der Wegweiser wird den letzten Winter wohl nicht überlebt haben,\n\
-sein mit zackigen Holzsplittern versehener Stumpf ragt\n\
-ein paar Zentimeter aus dem Boden.\n",
+sein mit abgebrochener Stumpf ragt ein paar Zentimeter aus dem Boden.\n",
     120: \
 "Nach ein paar hundert Metern sanft bergab verläuft sich der Weg\n\
 und endet in lockeren, aber leicht erhöhten, festen Grasbüscheln.\n\
@@ -302,33 +119,6 @@ dictSpots = {
     105 : "die Übersichtskarte, verschattet"
     }
 
-#Defines item number and names
-dictItems = {
-    10 : "Ein Smartphone",\
-    11 : "Ein Foto der Umgebungskarte",\
-    12 : "Ein Foto der Umgebungskarte",\
-    13 : "Ein Verbandkasten",\
-    14 : "Eine ordentliche Mahlzeit für mehrere Personen"\
-    }
-
-#Defines how spots are connected to items   
-dictSpotItems = {
-    101 : 11,\
-    102 : None,\
-    103 : 13,\
-    104 : 14,\
-    105 : 12\
-    }
-
-#Defines item modifiers
-dictMods = {
-    10 : [0,0],\
-    11 : [0,-1],\
-    12 : [0,1],\
-    13 : [5,1],\
-    14 : [3,-2]\
-    }
-
 #Defines which actions can be performed on spots  
 dictSpotActions = {
     101 : Action_id.VIEW,\
@@ -338,34 +128,352 @@ dictSpotActions = {
     105 : Action_id.VIEW\
     }
 
-dictItemsInventory = []
-dictRoomsInventory= []
+#Defines what happens on closer investigation or usage of an item
+dictAction = {
+    101 : \
+"Der Kartenausschnitt scheint perfekt zu eurer geplanten Tour zu passen,\n\
+nur leider könnt ihr wegen der Spiegelung im Glas nichts Genaues erkennen.\n",
+    102 : \
+"Du stehst am Pfosten des Kartenkastens.\n\
+An dieser Position schattest du den Kartenkasten ab,\n\
+sodass die Karte einwandfrei lesbar ist.\n",
+    103 : \
+"Ihr betretet die Apotheke. Warum, das ist euch selbst noch nicht klargeworden,\n\
+als euch schon ein freundlicher Herr hohen Alters mit Haarkranz,\n\
+goldener Brille und weißem Kittel - ganz nach dem Klischee - anspricht.\n\
+Aus Verlegenheit kauft ihr einen Verbandkasten.\n\
+Tja, dieses sperrige Stück muss nun den ganzen Weg mitgeschleppt werden.\n",
+    104 : \
+"Hach, ganz wie zu Hause! So eine Zugfahrt macht ganz schön hungrig, und so\n\
+kauft ihr, obwohl ihr euch natürlich ein paar Brote geschmiert habt, einen\n\
+ganzen Haufen Lebensmitteln zusammen. Wohl bekomm's!\n",
+    105 : \
+"Die Übersichtskarte ist jetzt perfekt lesbar.\n"
+    }
 
-#Vorgeschichte!
-#Room1: Train station Mendig, RB26, 1.5h from cologne     
-currentRoom = Room(100)
+#Defines what happens if a closer investigation of spot is refused
+dictActionRefused = {
+    # TODO
+    }
 
-#player1 = Player("Lukas", "red", 5,8)
-#print(player1.name)
-#print(player1.fitness)
+#Defines how spots are connected to items   
+dictSpotItems = {
+    101 : [11],\
+    102 : [None],\
+    103 : [13],\
+    104 : [14],\
+    105 : [12]\
+    }
 
-#enter a room routine
-currentRoom.onEnter()
-playerAction = inputCheck("Was wollt ihr untersuchen? ", 3)
-print("\n")
-if playerAction in dictRooms:
-    #player selected a room
-    currentRoom = currentRoom.room_list[playerAction]
-    currentRoom.onEnter()
-elif playerAction in dictSpots:
-    #player selected a spot
-    activeSpot = currentRoom.spot_list[playerAction]
-else:
-    #player selected an item, an item-item combination, or an item-spot combination
-    print("TODO: as per comment above")
+#Defines item number and names
+dictItems = {
+    10 : "Ein Smartphone",\
+    11 : "Ein Foto der Umgebungskarte",\
+    12 : "Ein Foto der Umgebungskarte",\
+    13 : "Ein Verbandkasten",\
+    14 : "Eine ordentliche Mahlzeit für mehrere Personen"\
+    }
 
+#Defines item modifiers
+# [0] = fitness, [1] = motivation
+dictMods = {
+    10 : [0,0],\
+    11 : [0,-1],\
+    12 : [0,1],\
+    13 : [5,1],\
+    14 : [3,-2],\
+    104 : [0,-1]\
+    }
 
+dictModsRefused = {
+    #TODO: add
+    }
+
+dictInventory = {}
+listRoomsVisited= []
+listItemsYielded = []
 
     
+# Game classes
+#----------------------------------------------
+class Room:
+    """A place, room, or scene within the game.
+    It has a 3-digit number, of which the first two refer to the room
+    and the last digit will be 0 as it is the spot ID."""
+    def __init__(self, number):
+        self.number = number
+        self.name = dictRooms[number]
+        self.description = dictTexts[number]
+
+    def onEnter(self):
+        listRoomsVisited.append(self.number)
+        self.spot_list = spotBuilder(self.number)
+        self.room_list = roomBuilder(self.number)
+        textReader(self.description)
+        textReader("Ihr befindet euch bei " + str(self.number) + ": "\
+                   + self.name + ".\n\n")
+        print("Ihr seht:")
+        for element in self.spot_list.values():
+            print(str(element.number) + ": "\
+                  + element.name)
+            time.sleep(.5)
+        print("\nVon hier aus sind folgende Orte erreichbar:")
+        for element in self.room_list.values():
+            if element.number in listRoomsVisited:
+                #room is known
+                print(str(element.number) + ": "\
+                      + element.name)
+            else:
+                print(str(element.number) + ": ???")
+            time.sleep(.5)
+
+class Spot:
+    """A spot within a room, referred to as a 3-Digit number.
+    The first two digits stand for the room in which the spot is
+    and the last digit is the spot ID"""
+    def __init__(self, number):
+        self.number = number
+        self.name = dictSpots[number]
+        self.description = dictTexts[number]
+        self.action_id = dictSpotActions[number]
+
+    def action(self):
+        """Interaction with the spot depending on context VIEW, GOTO, OPEN, GET or NOCHOICE
+        May modify character's properties or set flags plot changes"""
+        print("\nIhr untersucht " + self.name + ":")
+        textReader(self.description)
+        if self.action_id < Action_id.NOC:
+            print("Möchtet ihr " + self.name + actionDict[self.action_id])
+            resp = inputCheck("Bitte eingeben: JA: '1', NEIN: '0'. ")           
+            if resp == "1": 
+                if self.number in dictAction:
+                    textReader(dictAction[self.number])
+                if self.number in dictMods:
+                    changeMod(dictMods[self.number])
+            else:
+                if self.number in dictActionRefused:
+                    textReader(dictActionRefused[self.number])
+                else:
+                    textReader("Ja, manchmal ist es auch gut, Dinge NICHT zu tun.\n")
+                if self.number in dictModsRefused:
+                    changeMod(dictMods[self.number])
+        else:
+            if self.number in dictAction:
+                textReader(dictAction[self.number])
+            if self.number in dictMods:
+                changeMod(dictMods[self.number])
+            
+
+class Item:
+    """An item is possibly combineable with other items or with a spot within
+    a room. It carries a two-digit item ID. It may permanently or temporarily
+    modify the obtaining character's properties."""
+    def __init__(self, number):
+        self.number = number
+        self.name = dictItems[number]
+        self.description = dictTexts[number]
+        self.mod_fit = dictMods[number][0]
+        self.mod_mot = dictMods[number][1]
+        #allow different kinds of item:
+        # -self-using directly
+        # -self-using over time
+        # -can be used once
+        # -permanent
+
+class Player:
+    def __init__(self, number, name, color, fitness, motivation):
+        self.number = number
+        self.name = name
+        self.color = color
+        self.fitness = fitness
+        self.motivation = motivation
+
+    def GetMotivation():
+        return self.motivation
+
+    def GetFitness():
+        return self.fitness
+
+    def ChangeMotivation(by_value):
+        self.motivation = self.motivaiton + by_value
+
+    def ChangeFitness(by_value):
+        self.fitness = self.fitness + by_value
+        
+#----------------------------------------------
+# General Helper functions
+#----------------------------------------------
+def textReader(text):
+    for text in text:
+            print(text, end="")
+            time.sleep(.04)
+            #add blip-like sound on output?
+
+def quitSave():
+    print("Speichern...")
+    save()
+    print("Spiel wird beendet.")
+    quit()
+
+def save():
+    print("IMPLEMENT SAVE!")
+    print("Gespeichert!")
+
+def inputCheck(text):
+    number = 1000000
+    inptLoop = True
+    while inptLoop:
+        resp = input(text)
+        try :
+            number = int(resp)
+            inptLoop = False
+            return number
+        except :
+            if resp.lower() == "quit":
+                quitSave()
+            else:
+                print("Bitte eine Zahl eingeben oder das Spiel mittels 'quit' beenden.")              
+
+#----------------------------------------------
+# Object builder functions
+#----------------------------------------------
+def spotBuilder(roomNumber):
+    """Generates a list of spots that the roon contains
+    based on room number, using spot dictionary."""
+    spotObjList = {}
+    #get valid spot numbers for room
+    for i in range(roomNumber, roomNumber+9):
+        if i in dictSpots:
+            #generate spots
+            spotObjList[i] = Spot(i)
+    return spotObjList
+
+def roomBuilder(roomNumber):
+    roomObjList = {}
+    for i in range(0, len(dictConnectedRooms[roomNumber])):
+        #generate adjacent rooms
+        roomObjList[dictConnectedRooms[roomNumber][i]] = Room(dictConnectedRooms[roomNumber][i])
+    return roomObjList
+
+def itemBuilder(itemNumber):
+    """This function generates the item object in the inventory
+    and adds its  number to the list of items the players received already"""
+    dictInventory[itemNumber] = Item(itemNumber)
+    listItemsYielded.append(itemNumber)
+
+def itemList(spotNumber):
+    itemObjList = {}
+    for i in range(0, len(dictSpotItems[spotNumber])):
+        #generate adjacent rooms
+        itemHandler(spotNumber)
+#----------------------------------------------
+# Handlers
+#----------------------------------------------
+def itemHandler(generateFromNr):
+    nrOfDigits = len(str(generateFromNr))
+    if nrOfDigits == 2:
+        itemInfo(generateFromNr)
+    elif nrOfDigits == 3:
+        itemFromSpot(generateFromNr)
+    elif nrOfDigits == 4:
+        itemItem(generateFromNr)
+    elif nrOfDigits == 5:
+        itemSpot(generateFromNr)
+    else:
+        print("Kein bekanntes Kommando.")
+
+def itemInfo(generateFromNr):
+    """Generates the item connected to the spot, if any"""
+    #check if it is just an item (2-digit) number
+    if generateFromNr in dictItems:
+        if generateFromNr in dictInventory:
+            #show item information 
+            obj = dictInventory[generateFromNr]
+            textReader("Information zum Gegenstand " + str(obj.number)\
+                        + ": " + obj.name\
+                        + "\n" + obj.description)
+        else:
+            print("Leider hast du diesen Gegenstand nicht im Inventar...")      
+    else:
+        print("Dieses Objekt existiert nicht...?")
+def itemFromSpot(generateFromNr):
+    if generateFromNr in dictItems:
+        if (not generateFromNr in listItemsYielded):
+            objRef = dictSpotItems[generateFromNr]
+            itemBuilder(objRef) #generate item
+            textReader("Der Gegenstand " + dictInventory[objRef].number + ": "\
+                  + dictInventory[objRef].name + " wurde dem Inventar hinzugefügt.")      
+        else:
+            print("Das ist bereits im Inventar oder wurde verbraucht...")
+    else:
+        print("Dieses Objekt existiert nicht...?")
+def itemItem(generateFromNr):
+    item1 = int(generateFromNr)/100
+    item2 = generateFromNr%100
+    if (item1 in dictInventory) & (item2 in dictInventory):
+        #only add items if both are available in inventory
+        if generateFromNr in dictItems:
+            dictInventory[dictSpotItems[generateFromNr]]= Item(dictSpotItems[generateFromNr])
+            #TODO: complete
+        else:
+            print("Das lässt sich nicht kombinieren!")
+    else:
+        print("Nette Idee, allerdings habt ihr die Gegenstände " + str(item1) + \
+              " und " + str(item2) + " nicht beide im Inventar...")
+def itemSpot(generateFromNr):
+    item = int(generateFromNr)/1000
+    spot = generateFromNr%1000
+    if generateFromNr in dictUseItems:
+        print("TODO: Allow combine items with surrounding.")
+
+def changeMod(modifierList):
+    currentPlayer.ChangeMotivation(modifierList[0])
+    currentPlayer.ChangeMotivation(modifierList[1])
+    if modifierList[0] > 0:
+        textReader("Cool, deine Motivation erhöht sich auf: " + \
+                   currentPlayer.GetMotivation)
+    elif modifierList[0] < 0:
+        textReader("Schade, deine Motivation lässt nach: " + \
+                   currentPlayer.GetMotivation)
+    if modifierList[1] > 0:
+        textReader("Cool, deine Fitness erhöht sich auf: " + \
+                   currentPlayer.GetMotivation)
+    elif modifierList[1] < 0:
+        textReader("Schade, deine Fitness lässt nach: " + \
+                   currentPlayer.GetMotivation)
+    # TODO: low/no stat left : End game/delay etc.
+    
+#----------------------------------------------
+
+playerList = [Player(1, "Lukas", "red", 5,10), Player(2, "Marie", "green", 7, 6)]
+
+#Vorgeschichte!      
+#Room1: Train station Mendig, RB26, 1.5h from cologne
+currentPlayer = playerList[0]
+currentRoom = Room(100)
+
+#generate inventory
+itemBuilder(10)
+#enter a room routine
+currentRoom.onEnter()
+while True:
+    textReader(currentPlayer.name + " ist an der Reihe.\n")
+    playerAction = inputCheck("Was wollt ihr tun? ")
+    print("\n")
+    if playerAction in dictRooms:
+        #player selected a room
+        currentRoom = currentRoom.room_list[playerAction]
+        currentRoom.onEnter()
+    elif playerAction in dictSpots:
+        #player selected a spot
+        activeSpot = currentRoom.spot_list[playerAction]
+        activeSpot.action()
+    else:
+        #player selected an item, an item-item combination, or an item-spot combination
+        itemHandler(playerAction)
+    if currentPlayer.number == 1:
+        currentPlayer = playerList[1]
+    else:
+        currentPlayer = playerList[0]
 
         
