@@ -417,18 +417,24 @@ class Item:
                 textReader("Ja, manchmal ist es auch gut, von Taten abzusehen.\n")
 
     def GetType(self):
-        return self.__type
-
-                
+        return self.__type             
 
 class Player:
     maxMod = [10, 10]
     def __init__(self, name, color, mod, position):
-        self.position = position
-        self.name = name
+        self.__position = position
+        self.__name = name
         self.__color = color
         self.__mod = mod
-        
+
+    def GetName(self):
+        return self.__name
+
+    def SetPos(self, position):
+        self.__position = position
+
+    def GetPos(self):
+        return self.__position
 
     def GetMod(self):
         return self.__mod
@@ -603,25 +609,23 @@ def nextPlayer():
 #----------------------------------------------    
 #----------------------------------------------
 
-#listPlayers Types [int currentPlayer, Player player1, Player player2, ...]
-listPlayers = [1, Player("Lukas", "red", [5,10], 100), Player("Marie", "green", [7,6], 100)]
 
 #Vorgeschichte!      
 #Room1: Train station Mendig, RB26, 1.5h from cologne
-currentPlayerId = listPlayers[0]
-currentPlayer = listPlayers[currentPlayerId]
 currentRoom = Room(100)
-activeSpot = [currentRoom] * len(listPlayers)
-
 #generate start items in inventory
 Item(10)
+#listPlayers Types [int currentPlayer, Player player1, Player player2, ...]
+listPlayers = [1, Player("Lukas", "red", [5,10], currentRoom), \
+               Player("Marie", "green", [7,6], currentRoom)]
+currentPlayer = listPlayers[listPlayers[0]]
 #enter a room routine
 currentRoom.OnEnter()
 while True:
-    currentPlayerId = listPlayers[0]
-    textReader("\n" + currentPlayer.name + " ist an der Reihe.\n")
+    textReader("\n" + currentPlayer.GetName() + " ist an der Reihe.\n")
     roomObjList = currentRoom.GetRoomList()
     spotObjList = currentRoom.GetSpotList()
+    activeSpot = currentPlayer.GetPos()
     playerAction = inputCheck("Was wollt ihr tun?\n ")
     if playerAction in dictRooms:
         #player enters a room
@@ -630,8 +634,8 @@ while True:
             textReader(currentRoom.description)
         elif playerAction in dictConnectedRooms[currentRoom.number]:
             #player selected another room
-            if  not activeSpot[currentPlayerId].number == playerAction:
-                activeSpot[currentPlayerId].OnLeave()
+            if  not activeSpot.number == playerAction:
+                activeSpot.OnLeave()
             currentRoom = roomObjList[playerAction]
             currentRoom.OnEnter()
         else:
@@ -640,10 +644,10 @@ while True:
         #player enters a spot
         if playerAction in spotObjList:
             #player selected a spot
-            if not activeSpot[currentPlayerId].number == playerAction:
-                activeSpot[currentPlayerId].OnLeave()
-            activeSpot[currentPlayerId] = spotObjList[playerAction]
-            activeSpot[currentPlayerId].OnEnter()
+            if not activeSpot.number == playerAction:
+                activeSpot.OnLeave()
+            currentPlayer.SetPos(spotObjList[playerAction])
+            currentPlayer.GetPos().OnEnter()
         else:
             notReachable(currentRoom, playerAction)  
     else:
