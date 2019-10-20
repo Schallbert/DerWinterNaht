@@ -11,12 +11,14 @@ class Action_id(IntEnum):
     OPEN = 2
     USE = 3
     GET = 4
-    NOC = 5
+    NOC_YES = 5 #NO Choice, answer is YES
+    NOC_NO = 6 #NO Choice, answer is NO
 
 class Mod_typ(IntEnum):
     EFFONE = 0 #Once usable, effect on calling player
     EFFALL = 1 #Once usable, effect on all players
     NOTUSABLE = 2 #Item that cannot be used without a combination
+    PERMANENT = 3 #Item cannot be consumed, it is permanently available
 
 actionDict = {
     0 : " genauer untersuchen?",
@@ -145,7 +147,7 @@ dictActionRefused = {
 #Action type of the spot when visited
 dictActionType = {
     101 : Action_id.VIEW,\
-    102 : Action_id.NOC,\
+    102 : Action_id.NOC_YES,\
     103 : Action_id.GOTO,\
     104 : Action_id.GOTO,\
     105 : Action_id.VIEW\
@@ -186,6 +188,13 @@ dictSpotItems = {
     10105 : [12]\
     }
 
+#Defines which spots can change through interaction
+#with spot or item combination
+# Trigger : [[Exchange targets], [Exchange spots]]
+dictSpotChange = {
+    102: [[101], [105]]
+    }
+
 #Defines item number and names
 dictItems = {
     10 : "Ein Smartphone",\
@@ -201,14 +210,14 @@ dictMods = {
     11 : [0,1],\
     12 : [1,-1],\
     13 : [5,-1],\
-    14 : [-2,-4],\
+    14 : [-2,-5],\
     104 : [0,-1]\
     }
 
 dictModType = {
-    10 : Mod_typ.NOTUSABLE,\
+    10 : Mod_typ.PERMANENT,\
     11 : Mod_typ.NOTUSABLE,\
-    12 : Mod_typ.NOTUSABLE,\
+    12 : Mod_typ.PERMANENT,\
     13 : Mod_typ.EFFALL,\
     14 : Mod_typ.EFFALL,\
     104 : Mod_typ.EFFONE\
@@ -235,20 +244,23 @@ class Room:
         self.name = dictRooms[number]
         self.description = dictTexts[number]
 
-    def onEnter(self):
-        self.spot_list = spotBuilder(self.number)
-        self.room_list = roomBuilder(self.number)
+    def OnEnter(self):
+        self.__spot_list = spotBuilder(self.number)
+        self.__room_list = roomBuilder(self.number)
+        self.__ReloadRoom()
+
+    def __ReloadRoom(self):
+        print("")
         if self.number not in listRoomsVisited:
             textReader(self.description)
         textReader("Ihr befindet euch bei " + str(self.number) + ": "\
                    + self.name + ".\n\n")
         print("Ihr seht:")
-        for element in self.spot_list.values():
-            print(str(element.number) + ": "\
-                  + element.name)
+        for element in self.__spot_list.values():
+            print(str(element.number) + ": " + element.name)
             time.sleep(.5)
         print("\nVon hier aus sind folgende Orte erreichbar:")
-        for element in self.room_list.values():
+        for element in self.__room_list.values():
             if element.number in listRoomsVisited:
                 #room is known
                 print(str(element.number) + ": "\
@@ -257,6 +269,31 @@ class Room:
                 print(str(element.number) + ": ???")
             time.sleep(.5)
         listRoomsVisited.append(self.number)
+
+    def SpotExchange(self, fromSpotId, targetSpotId):
+        """This Method exchanges a spot within the list with another
+        target spot needed when a spot changes its meaning throughout
+        the game"""
+        if targetSpotId not in self.__spot_list:
+            tgtSpot = Spot(targetSpotId)
+            self.__spot_list[targetSpotId] = tgtSpot
+            self.__spot_list.pop(fromSpotId)
+            self.__ReloadRoom()
+        else:
+            #don't switch als switch has already happened
+            pass
+
+    def GetSpotList(self):
+        return self.__spot_list
+
+    def GetRoomList(self):
+        return self.__room_list
+
+    def OnLeave(self):
+        #not implemented (yet)
+        pass
+                
+        
 
 class Spot:
     """A spot within a room, referred to as a 3-Digit number.
@@ -272,15 +309,36 @@ class Spot:
         if number in dictModType:
             self.__modType = dictModType[number]
 
-    def action(self):
+    def OnEnter(self):
+        """Routines that are executed when a spot is entered,
+        i.e. description, trigger spot exchange, trigger actions"""
+        textReader("\nIhr untersucht: " + self.name + "\n" + self.description)
+        self.__action() #perform spot action
+        if self.number in dictSpotChange: 
+            for element in range(0, len(dictSpotChange[self.number][0])):
+                #exchange spots in room dictionary
+                fromSpotId = dictSpotChange[self.number][0][element]
+                tgtSpotId = dictSpotChange[self.number][1][element]
+                currentRoom.SpotExchange(fromSpotId, tgtSpotId)
+
+    def OnLeave(self):
+        if self.number in dictSpotChange: #if it can be found in the keys
+            for element in range(0, len(dictSpotChange[self.number][1])):
+                #exchange spots back in room dictionary
+                fromSpotId = dictSpotChange[self.number][1][element]
+                tgtSpotId = dictSpotChange[self.number][0][element]
+                currentRoom.SpotExchange(fromSpotId, tgtSpotId)
+        
+                
+    def __action(self):
         """Interaction with the spot depending on context VIEW, GOTO, OPEN, GET or NOCHOICE
         May modify character's properties or set flags plot changes"""
-        print("\nIhr untersucht: " + self.name)
-        textReader(self.description)
-        if self.__action_id < Action_id.NOC:
+        print("")
+        if self.__action_id < Action_id.NOC_YES:
             textReader("Möchtet ihr " + self.name + actionDict[self.__action_id] + "\n")
             resp = inputCheck("Bitte eingeben: JA: '1', NEIN: '0'. ")
             if resp == 1:
+                self.__action_id == Action_id.NOC_NO #mitigate re-enter action
                 if self.number in dictAction:
                     textReader(dictAction[self.number])
                 if self.number in dictMods:
@@ -297,12 +355,14 @@ class Spot:
                     textReader("Ja, manchmal ist es auch gut, Dinge NICHT zu tun.\n")
                 if self.number in dictModsRefused:
                     changeMod(dictMods[self.number])
-        else:
+        elif self.__action_id == Action_id.NOC_YES:
+            self.__action_id == Action_id.NOC_NO #mitigate re-enter action
             if self.number in dictAction:
                 textReader(dictAction[self.number])
             if self.number in dictMods:
                 changeMod(dictMods[self.number])
-            
+       #else: action_id is NOC_NO and nothing happens
+                    
 
 class Item:
     """An item is possibly combineable with other items or with a spot within
@@ -337,39 +397,53 @@ class Item:
         Items are only 'usable' if they do not need any other object for interaction
         except the player and the item itself."""
         textReader(self.description)
-        textReader("Möchtet ihr " + self.name + " benutzen?\n")
-        resp = inputCheck("Bitte eingeben: JA: '1', NEIN: '0'. ")
-        if resp == 1:
-            textReader(self.__action)
-            if self.__type == Mod_typ.EFFONE or self.__type == Mod_typ.EFFALL:
-                if self.__mod is not None:
-                    invokeChangeMod(self.__mod, self.__type)
-                #item uses up and is then deleted
-                self.DelItem()
-                textReader(self.name + " wurde verbraucht.\n")
-            else:
-                textReader(self.name + " kann nicht allein benutzt oder verbraucht werden.\n")
+        if self.__type == Mod_typ.NOTUSABLE \
+           or self.__type == Mod_typ.PERMANENT:
+            print("Dieser Gegenstand kann nicht ohne Kombination benutzt werden.")
         else:
-            textReader("Ja, manchmal ist es auch gut, von Taten abzusehen.\n")  
+            textReader("Möchtet ihr " + self.name + " benutzen?\n")
+            resp = inputCheck("Bitte eingeben: JA: '1', NEIN: '0'. ")
+            if resp == 1:
+                textReader(self.__action)
+                if self.__type == Mod_typ.EFFONE or self.__type == Mod_typ.EFFALL:
+                    if self.__mod is not None:
+                        invokeChangeMod(self.__mod, self.__type)
+                    #item uses up and is then deleted
+                    self.DelItem()
+                    textReader(self.name + " wurde verbraucht.\n")
+                else:
+                    textReader(self.name + " kann nicht allein benutzt oder verbraucht werden.\n")
+            else:
+                textReader("Ja, manchmal ist es auch gut, von Taten abzusehen.\n")
 
-        
+    def GetType(self):
+        return self.__type
+
+                
 
 class Player:
-    def __init__(self, name, color, mod):
+    maxMod = [10, 10]
+    def __init__(self, name, color, mod, position):
+        self.position = position
         self.name = name
-        self.color = color
+        self.__color = color
         self.__mod = mod
-        self.__maxMod = [10, 10]
+        
 
     def GetMod(self):
         return self.__mod
 
+    def GetColor(self):
+        return self.__color
+
     def ChangeMod(self, valueList):
         for i in range(0, len(self.__mod)):
             self.__mod[i] = self.__mod[i] + valueList[i]
-            if self.__mod[i] > self.__maxMod[i]:
-                self.__mod[i] = self.__maxMod[i]
+            if self.__mod[i] > maxMod[i]:
+                self.__mod[i] = maxMod[i]
             elif self.__mod[i] < 1:
+                #exchange motivation/tiredness 2:1
+                #If that is not possible, --> minigame or --> quit game for time x
                 print("TODO: GAME OVER")
 
 #----------------------------------------------
@@ -415,9 +489,15 @@ def spotBuilder(roomNumber):
     spotObjList = {}
     #get valid spot numbers for room
     for i in range(roomNumber, roomNumber+9):
+        hiddenObj = False
+        #only list if there's a valid spot that is not hidden
         if i in dictSpots:
+            for x in dictSpotChange.values():
+                if i in x[1]:
+                    hiddenObj = True
             #generate spots
-            spotObjList[i] = Spot(i)
+            if hiddenObj == False:
+                spotObjList[i] = Spot(i)
     return spotObjList
 #----------------------------------------------
 def roomBuilder(roomNumber):
@@ -473,17 +553,20 @@ def itemItem(generateFromNr):
 def itemSpot(generateFromNr):
     item = int(generateFromNr/1000)
     spot = generateFromNr%1000
-    if spot in currentRoom.spot_list:
+    spotList = currentRoom.GetSpotList()
+    if spot in spotList:
         if item in dictInventory:
             if generateFromNr in dictSpotItems:
                 #generate item
-                newItemNr = dictSpotItems[generateFromNr]
-                newItem = Item(newItemNr)
-                #delete old item
-                dictInventory[item].DelItem()
-                textReader("Das war erfolgreich! Ihr erhaltet " + \
+                for element in range(0, len(dictSpotItems[generateFromNr])):
+                    newItemNr = dictSpotItems[generateFromNr][element]
+                    newItem = Item(newItemNr)
+                    textReader("Das war erfolgreich! Ihr erhaltet " + \
                            str(newItem.number) + \
                                ": " + newItem.name)
+                #delete old item
+                if not dictInventory[item].GetType == Mod_typ.PERMANENT:
+                    dictInventory[item].DelItem()
             else:
                 #generate game progress only
                 textReader(dictTexts[generateFromNr])
@@ -521,41 +604,52 @@ def nextPlayer():
 #----------------------------------------------
 
 #listPlayers Types [int currentPlayer, Player player1, Player player2, ...]
-listPlayers = [1, Player("Lukas", "red", [5,10]), Player("Marie", "green", [7,6])]
+listPlayers = [1, Player("Lukas", "red", [5,10], 100), Player("Marie", "green", [7,6], 100)]
 
 #Vorgeschichte!      
 #Room1: Train station Mendig, RB26, 1.5h from cologne
-currentPlayer = listPlayers[listPlayers[0]]
+currentPlayerId = listPlayers[0]
+currentPlayer = listPlayers[currentPlayerId]
 currentRoom = Room(100)
+activeSpot = [currentRoom] * len(listPlayers)
 
 #generate start items in inventory
 Item(10)
 #enter a room routine
-currentRoom.onEnter()
+currentRoom.OnEnter()
 while True:
+    currentPlayerId = listPlayers[0]
     textReader("\n" + currentPlayer.name + " ist an der Reihe.\n")
-    playerAction = inputCheck("Was wollt ihr tun? ")
-    print("\n")
+    roomObjList = currentRoom.GetRoomList()
+    spotObjList = currentRoom.GetSpotList()
+    playerAction = inputCheck("Was wollt ihr tun?\n ")
     if playerAction in dictRooms:
+        #player enters a room
         if playerAction == currentRoom.number:
             #only show description if specifically asked
             textReader(currentRoom.description)
         elif playerAction in dictConnectedRooms[currentRoom.number]:
-            #player selected a room
-            currentRoom = currentRoom.room_list[playerAction]
-            currentRoom.onEnter()
+            #player selected another room
+            if  not activeSpot[currentPlayerId].number == playerAction:
+                activeSpot[currentPlayerId].OnLeave()
+            currentRoom = roomObjList[playerAction]
+            currentRoom.OnEnter()
         else:
             notReachable(currentRoom, playerAction)    
     elif playerAction in dictSpots:
-        if playerAction in currentRoom.spot_list:
+        #player enters a spot
+        if playerAction in spotObjList:
             #player selected a spot
-            activeSpot = currentRoom.spot_list[playerAction]
-            activeSpot.action()
+            if not activeSpot[currentPlayerId].number == playerAction:
+                activeSpot[currentPlayerId].OnLeave()
+            activeSpot[currentPlayerId] = spotObjList[playerAction]
+            activeSpot[currentPlayerId].OnEnter()
         else:
             notReachable(currentRoom, playerAction)  
     else:
         #player selected an item, an item-item combination, or an item-spot combination
         actionHandler(playerAction)
+        #EVALUATE: Player does not have a position here. Is that problematic?
     currentPlayer = listPlayers[nextPlayer()]
     
     # TODO: Update inventory/stat screen
