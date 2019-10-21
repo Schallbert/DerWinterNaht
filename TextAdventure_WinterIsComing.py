@@ -598,14 +598,14 @@ def notReachable(room, tgt):
     textReader("Der Raum bzw. die Aktion " + str(tgt) + " ist von hier aus\n" \
 + str(room.number) + ": " + room.name + " leider nicht erreichbar...\n")
 #----------------------------------------------
-def nextPlayer():
-    if listPlayers[0] < (len(listPlayers) - 1):
+def nextPlayer(currentPlayerId):
+    if currentPlayerId < (len(listPlayers) - 1):
         #next player
-        listPlayers[0] = listPlayers[0] + 1
+        currentPlayerId += 1
     else:
         #start again with first player
-        listPlayers[0] =  1
-    return listPlayers[0]
+        currentPlayerId =  0
+    return currentPlayerId
 #----------------------------------------------    
 #----------------------------------------------
 
@@ -616,9 +616,10 @@ currentRoom = Room(100)
 #generate start items in inventory
 Item(10)
 #listPlayers Types [int currentPlayer, Player player1, Player player2, ...]
-listPlayers = [1, Player("Lukas", "red", [5,10], currentRoom), \
+listPlayers = [Player("Lukas", "red", [5,10], currentRoom), \
                Player("Marie", "green", [7,6], currentRoom)]
-currentPlayer = listPlayers[listPlayers[0]]
+currentPlayerId = 0
+currentPlayer = listPlayers[currentPlayerId]
 #enter a room routine
 currentRoom.OnEnter()
 while True:
@@ -633,10 +634,14 @@ while True:
             #only show description if specifically asked
             textReader(currentRoom.description)
         elif playerAction in dictConnectedRooms[currentRoom.number]:
+            #players leave current spot/room
+            for player in listPlayers:
+                player.GetPos().OnLeave()
             #player selected another room
-            if  not activeSpot.number == playerAction:
-                activeSpot.OnLeave()
             currentRoom = roomObjList[playerAction]
+            #players enter new room
+            for player in listPlayers:
+                player.SetPos(currentRoom)
             currentRoom.OnEnter()
         else:
             notReachable(currentRoom, playerAction)    
@@ -653,8 +658,7 @@ while True:
     else:
         #player selected an item, an item-item combination, or an item-spot combination
         actionHandler(playerAction)
-        #EVALUATE: Player does not have a position here. Is that problematic?
-    currentPlayer = listPlayers[nextPlayer()]
+    currentPlayer = listPlayers[nextPlayer(currentPlayerId)]
     
     # TODO: Update inventory/stat screen
     # TODO: low/no stat left : End game/delay etc.
