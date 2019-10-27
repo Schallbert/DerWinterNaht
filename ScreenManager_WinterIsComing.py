@@ -9,43 +9,21 @@ textScreenText = "Euer Smartphone. Kann so ziemlich alles und ist natürlich auc
 Kamera und Navigationssystem ausgestattet.\n\
 Hier draußen scheinen leider weder Mobilfunk noch Datenvervindung möglich zu sein.\n\
 Zudem ist der Akkustand niedrig und ihr habt keine Powerbank dabei."
-##    
-##    root = Tk()
-##    xWindowMargin = 144
-##    yWindowMargin = 108
-##    frameColor = "grey"
-##    frameBorder = 3
-##    
-##    #textScreenSize = [int(screen_w*1/2),int(screen_h*4/5)]
-##    #inventoryScreenSize = [int(screen_w),int(screen_h*1/5)]
-##    root.geometry(str(screen_w)+"x"+str(screen_h)) #window size
-##    
-##
-##    topFrame = Frame(root, bg=frameColor, bd=frameBorder)
-##    topFrame.pack(anchor=NW)
-##    bottomFrame = Frame(root, bg=frameColor, bd=frameBorder)
-##    bottomFrame.pack(anchor=SW)
-##    #leftFrame = Frame(root, bg=frameColor, bd=frameBorder)
-##    #leftFrame.pack(side = LEFT)
-##    #rightFrame = Frame(root, bg=frameColor,bd=frameBorder)
-##    #rightFrame.pack(side = RIGHT)
-##    
-##    textScreen = Text(topFrame, bg="black", fg="lightgrey", width=85, height=34, padx=12, pady=9)
-##    textScreen.insert(INSERT, textScreenText)
-##    textScreen.pack(side = LEFT)
-##    
-##    inventoryScreen = Text(bottomFrame, bg="black", fg="lightgrey", width=110, height=10, padx=12, pady=9)
-##    inventoryScreen.pack(side = LEFT)
-##    statsScreen = Text(bottomFrame, bg="black", fg="lightgrey", width=40, height=10, padx=12, pady=9)
-##    statsScreen.pack(side = LEFT)
-##    inputScreen = Text(bottomFrame, bg="black", fg="lightgrey", width=14, height=10, padx=12, pady=9)
-##    inputScreen.pack(side = LEFT)
-##    
-##    root.mainloop()
-    
-    #flags= pygame.NOFRAME
-    #textWindow = pygame.display.set_mode(textScreenSize)
-    #pygame.display.set_caption("Der Winter naht")
+
+#Color Palette used throughout the game
+dictCP = {
+    "B0" : '#000000',\
+    "B1" : '#000040',\
+    "B2" : '#003870',\
+    "B3" : '#0064C0',\
+    "B4" : '#3990C0',\
+    "Y0" : '#5F4443',\
+    "Y1" : '#9C7868',\
+    "Y2" : '#E7E39B',\
+    "Y3" : '#CEC098',\
+    "Y4" : '#FFFFBF',\
+    "Y5" : '#FFFFE6'
+    }
 
     # a subclass of Canvas for dealing with resizing of windows
 class ResizingCanvas(Canvas):
@@ -66,27 +44,31 @@ class ResizingCanvas(Canvas):
         # rescale all the objects tagged with the "all" tag
         self.scale("all",0,0,wscale,hscale)
 
+def showInputOnLabel():
+    pass
+
+
 def main():
-    #textScreenText = "Hello World"
     xWindowMargin = 200
-    yWindowMargin = 108
-    frameColor = "grey"
-    frameBorder = 3
+    yWindowMargin = 0
+    frameColor = dictCP["Y4"]
+    screenFG = dictCP["Y4"]
+    screenBG = dictCP["B1"]
+    
+    frameBorder = 2
     root = Tk()
     root.title("Der Winter Naht")
+    img = PhotoImage(file='Noise.gif') #to be replaced with game title image
+    
     screen_w = int(root.winfo_screenwidth() - xWindowMargin)
     screen_h = int(root.winfo_screenheight() - yWindowMargin)
+
+    #Canvas
     myframe = Frame(root)
     myframe.pack(fill=BOTH, expand=YES)
-    mycanvas = ResizingCanvas(myframe,width=screen_w, height=screen_h,\
-                              bg="black")
+    mycanvas = ResizingCanvas(myframe,width=screen_w, height=screen_h, bg="black")
     mycanvas.pack(fill=BOTH, expand=YES)
-
-    img = PhotoImage(file='Noise.gif')
-    
-    # add some widgets to the canvas
-    
-    #tstxt = StringVar()
+    #Frames
     mycanvas.textScrFr = Frame(mycanvas, bg=frameColor, bd=frameBorder)
     mycanvas.gameScrFr = Frame(mycanvas.textScrFr, bg="black", bd=frameBorder)
     mycanvas.invtScrFr = Frame(mycanvas, bg=frameColor, bd=frameBorder)
@@ -99,28 +81,23 @@ def main():
     mycanvas.statsScrFr.pack(anchor=S, side=LEFT, fill=X, expand=YES)
     mycanvas.inputScrFr.pack(anchor=S, side=LEFT, fill=X, expand=YES)
     
-       
-    mycanvas.textScreen = Text(mycanvas.textScrFr, bg="black", fg="lightgrey", width=85, height=20, padx=12, pady=9)
-    mycanvas.textScreen.pack(side = LEFT, fill=Y, expand=YES)
-    
-    mycanvas.gameScreen = Label(mycanvas.gameScrFr, image=img, padx=12, pady=9, width=700, height=400)
+    #Screens   
+    mycanvas.textScreen = Text(mycanvas.textScrFr, bg=screenBG, fg=screenFG, width=85, height=20, padx=12, pady=9)
+    mycanvas.textScreen.pack(side = LEFT, fill=Y, expand=YES)   
+    mycanvas.gameScreen = Label(mycanvas.gameScrFr, image=img, padx=12, pady=9, width=screen_w/2, height=screen_h/2)
     mycanvas.gameScreen.pack(anchor = CENTER, expand=YES)
-
-    mycanvas.inventoryScreen = Text(mycanvas.invtScrFr, bg="black", fg="lightgrey", width=70, height=10, padx=12, pady=9)
+    mycanvas.inventoryScreen = Text(mycanvas.invtScrFr, bg=screenBG, fg=screenFG, width=60, height=10, padx=12, pady=9)
     mycanvas.inventoryScreen.pack(side = BOTTOM, fill=X, expand=YES)
-
-    mycanvas.statsScreen = Text(mycanvas.statsScrFr, bg="black", fg="lightgrey", width=40, height=10, padx=12, pady=9)
-    mycanvas.statsScreen.pack(side = LEFT, fill=X, expand=YES)
-    
-    mycanvas.inputScreen = Text(mycanvas.inputScrFr, bg="black", fg="lightgrey", width=14, height=10, padx=12, pady=9)
+    mycanvas.statsScreen = Text(mycanvas.statsScrFr, bg=screenBG, fg=screenFG, width=40, height=10, padx=12, pady=9)
+    mycanvas.statsScreen.pack(side = LEFT, fill=X, expand=YES)  
+    mycanvas.inputScreen = Text(mycanvas.inputScrFr, font=("Helvetica", "63"), width=5, height=1, padx=24, bg=screenBG, fg=screenFG, pady=42)
     mycanvas.inputScreen.pack(side = LEFT, fill=X, expand=YES)
 
+    #Texts
     mycanvas.textScreen.insert(INSERT, textScreenText)
-    mycanvas.inputScreen.insert(INSERT, "Input:")
-    mycanvas.inventoryScreen.insert(INSERT, "Inventory:")
-    mycanvas.statsScreen.insert(INSERT, "stats")
-
-    
+    mycanvas.inputScreen.insert(INSERT, "01467")
+    mycanvas.inventoryScreen.insert(INSERT, "Inventar")
+    mycanvas.statsScreen.insert(INSERT, "Name          Motivation     Müdigkeit")
 
     # tag all of the drawn widgets
     mycanvas.addtag_all("all")
