@@ -1,5 +1,5 @@
 from tkinter import *
-
+import time
 
 # Window/helper classes
 #----------------------------------------------
@@ -10,7 +10,18 @@ Kamera und Navigationssystem ausgestattet.\n\
 Hier draußen scheinen leider weder Mobilfunk noch Datenvervindung möglich zu sein.\n\
 Zudem ist der Akkustand niedrig und ihr habt keine Powerbank dabei."
 
-
+##if len(text) > 0:
+##        widget.insert(index, text[0])
+##        if len(text) > 1:
+##            # compute index of next char
+##             index = widget.index("%s + 1 char" % index)
+##             # type next char [ms]
+##             widget.after(30, textReader, widget, index, text[1:])
+##             #add blip-like sound on output?
+##        else:
+##            widget.config(fg=GuiVars.dictCP["Y4"])
+##            widget.config(bg=GuiVars.dictCP["B1"])
+##            widget.config(state=DISABLED)
 
 # ------------------------------------
 # HELPERS
@@ -25,19 +36,12 @@ def inputCheck(resp):
             print("Bitte eine Zahl eingeben oder das Spiel mittels 'quit' beenden.")
             gui.inputScreen.Activate()
 
-def textReader(widget, index, text):
-    if len(text) > 0:
-        widget.insert(index, text[0])
-        if len(text) > 1:
-            # compute index of next char
-             index = widget.index("%s + 1 char" % index)
-             # type next char [ms]
-             widget.after(30, textReader, widget, index, text[1:])
-             #add blip-like sound on output?
-        else:
-            widget.config(fg=GuiVars.dictCP["Y4"])
-            widget.config(bg=GuiVars.dictCP["B1"])
-            widget.config(state=DISABLED)
+def textReader(widget, text):
+    for text in text:
+            widget.insert(INSERT, text)
+            time.sleep(.001) #later: 0.04
+            #add blip-like sound on output?
+
 
 def quitSave():
     print("Speichern...")
@@ -87,16 +91,6 @@ class InputText(Text):
         inpt = self.get("1.0", "end-1c")
         self.__Deactivate() 
         inputCheck(inpt)
-
-    def Update(self, text):
-        self.config(state=NORMAL)
-        self.delete('2.0', END)
-        self.insert(INSERT, text)
-        self.config(state=DISABLED)
-
-    def Write(self, text):
-        self.Activate()
-        textReader(self, '1.0', text)
         
     def Activate(self):
         self.config(state=NORMAL)
@@ -111,6 +105,52 @@ class InputText(Text):
         self.config(bg=GuiVars.dictCP["B1"])
         self.config(state=DISABLED)
 
+class OutputText(Text):
+    #replace init function by "custom" init
+    def __init__(self,parent,**kwargs):
+        Text.__init__(self,parent,**kwargs)
+        self.busy = False
+
+    def Clear(self):
+        self.__Activate()
+        self.delete('2.0', END)
+        self.__Deactivate()
+    
+    def TypeWrite(self, text):
+        self.__Activate()
+        self.__TextReader(text)
+
+    def WriteLine(self, text):
+        self.__Activate()
+        self.insert(INSERT, text)
+        self.__Deactivate
+
+    def __TextReader(self, text):
+        self.busy = True
+        if len(text) > 0:
+            self.insert(INSERT, text[0])
+            if len(text) > 1:
+                 # type next char [ms]
+                 self.after(15, self.__TextReader, text[1:])
+                 #add blip-like sound on output?
+            else:
+                self.config(fg=GuiVars.dictCP["Y4"])
+                self.config(bg=GuiVars.dictCP["B1"])
+                self.__Deactivate()
+                self.busy = False
+        
+    def __Activate(self):
+        self.config(state=NORMAL)
+        self.config(fg=GuiVars.dictCP["Y5"])
+        self.config(bg=GuiVars.dictCP["B2"])
+        self.focus_set()
+        
+    def __Deactivate(self):
+        #clear text then disable text screen
+        self.config(fg=GuiVars.dictCP["Y4"])
+        self.config(bg=GuiVars.dictCP["B1"])
+        self.config(state=DISABLED)
+    
    
 #variables needed for gui setup
 class GuiVars:
@@ -169,10 +209,11 @@ class GameGui:
         self.inputScrFr.pack(anchor=S, side=LEFT, fill=X, expand=YES)
 
         #Screens   
-        self.textScreen = InputText(self.textScrFr, insertontime=0, bg=var.scrBg, fg=var.scrFg, width=83, height=20, padx=12, pady=9)  
+        wid = self.textScrFr.winfo_id()
+        self.textScreen = OutputText(self.textScrFr, insertontime=0, bg=var.scrBg, fg=var.scrFg, width=83, height=20, padx=12, pady=9)  
         self.gameScreen = Label(self.gameScrFr, image=img, width=var.scr_w/2, height=var.scr_w*(9/32))
-        self.inventoryScreen = InputText(self.invtScrFr, bg=var.scrBg, fg=var.scrFg, width=60, height=10, padx=12, pady=9)
-        self.statsScreen = InputText(self.statsScrFr, bg=var.scrBg, fg=var.scrFg, width=40, height=10, padx=12, pady=9)
+        self.inventoryScreen = OutputText(self.invtScrFr, bg=var.scrBg, fg=var.scrFg, width=60, height=10, padx=12, pady=9)
+        self.statsScreen = OutputText(self.statsScrFr, bg=var.scrBg, fg=var.scrFg, width=40, height=10, padx=12, pady=9)
         self.inputScreen = InputText(self.inputScrFr, font=("Helvetica", "63") \
                                          ,insertbackground=var.scrFg\
                                          , insertofftime=1200\
@@ -190,23 +231,15 @@ class GameGui:
         self.inventoryScreen.pack(side = BOTTOM, fill=X, expand=YES) 
         self.statsScreen.pack(side = LEFT, fill=X, expand=YES)  
         self.inputScreen.pack(side = LEFT, fill=X, expand=YES)
-
         self.inputScreen.BindToKey('<Return>')
-        #Texts
-        self.inventoryScreen.insert(INSERT, "Inventar")
-        self.statsScreen.insert(INSERT, "Name          Motivation     Müdigkeit")
+        #Descriptions
+        self.inventoryScreen.insert('1.0', "Inventar\n")
+        #self.textScreen.insert('1.0', "Konsole\n")
+        self.statsScreen.insert('1.0', "Name          Motivation     Müdigkeit\n")
+        #root.mainloop() #without this, no images are shown...
+
 
 gui = GameGui()
-gui.textScreen.Write(textScreenText)
+gui.textScreen.TypeWrite(textScreenText)
 gui.inputScreen.Activate()
-
-# def main():
-    # root.mainloop()
-    
-    
-
-   
-    
-# if __name__ == "__main__":
-    # main()
     

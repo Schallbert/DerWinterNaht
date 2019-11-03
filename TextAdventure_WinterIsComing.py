@@ -259,7 +259,7 @@ class Room:
                    + self.name + ".\n\n")
         print("Ihr seht:")
         for element in self.__spot_list.values():
-            print(str(element.number) + ": " + element.name)
+            print(str(element.number) + ": " + element.name + "\n")
             time.sleep(.5)
         print("\nVon hier aus sind folgende Orte erreichbar:")
         for element in self.__room_list.values():
@@ -422,7 +422,6 @@ class Item:
         return self.__type             
 
 class Player:
-    maxMod = [10, 10]
     def __init__(self, name, color, mod, position):
         self.__position = position
         self.__name = name
@@ -445,6 +444,7 @@ class Player:
         return self.__color
 
     def ChangeMod(self, valueList):
+        maxMod = [10, 10]
         for i in range(0, len(self.__mod)):
             self.__mod[i] = self.__mod[i] + valueList[i]
             if self.__mod[i] > maxMod[i]:
