@@ -131,7 +131,9 @@ class OutputText(Text):
             self.insert(INSERT, text[0])
             if len(text) > 1:
                  # type next char [ms]
-                 self.after(15, self.__TextReader, text[1:])
+                 self.after(15)
+                 self.__TextReader(text[1:])
+                 self.update()
                  #add blip-like sound on output?
             else:
                 self.config(fg=GuiVars.dictCP["Y4"])
@@ -236,10 +238,12 @@ class GameGui:
         self.inventoryScreen.insert('1.0', "Inventar\n")
         #self.textScreen.insert('1.0', "Konsole\n")
         self.statsScreen.insert('1.0', "Name          Motivation     Müdigkeit\n")
-        #root.mainloop() #without this, no images are shown...
+        root.mainloop() #without this, no images are shown...
 
 
 gui = GameGui()
 gui.textScreen.TypeWrite(textScreenText)
+gui.textScreen.WriteLine("BELLO")
 gui.inputScreen.Activate()
+
     
