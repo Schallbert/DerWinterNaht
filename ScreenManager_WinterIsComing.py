@@ -34,7 +34,7 @@ def inputCheck(resp):
             quitSave()
         else:
             print("Bitte eine Zahl eingeben oder das Spiel mittels 'quit' beenden.")
-            gui.inputScreen.Activate()
+            inputScreen.Activate()
 
 def textReader(widget, text):
     for text in text:
@@ -78,8 +78,9 @@ class InputText(Text):
     #replace init function by "custom" init
     def __init__(self,parent,**kwargs):
         Text.__init__(self,parent,**kwargs)
+        self.__BindToKey('<Return>')
 
-    def BindToKey(self, key):
+    def __BindToKey(self, key):
         #bind self to event "return", calling inputCheck function
         #handing over its contents-last character (which is \n)
         self.bind(key, \
@@ -110,30 +111,30 @@ class OutputText(Text):
     def __init__(self,parent,**kwargs):
         Text.__init__(self,parent,**kwargs)
         self.busy = False
-
+        self.queue = []
+       
     def Clear(self):
         self.__Activate()
         self.delete('2.0', END)
         self.__Deactivate()
-    
-    def TypeWrite(self, text):
-        self.__Activate()
-        self.__TextReader(text)
 
-    def WriteLine(self, text):
-        self.__Activate()
+    def LineWrite(self, text):
+        self.busy = True
         self.insert(INSERT, text)
-        self.__Deactivate
+        self.after(400)
+        self.__Deactivate()
+        self.busy= False
 
-    def __TextReader(self, text):
+    def TypeWrite(self, text):
+        self.__TypeWrite(text)
+
+    def __TypeWrite(self, text):
         self.busy = True
         if len(text) > 0:
             self.insert(INSERT, text[0])
             if len(text) > 1:
                  # type next char [ms]
-                 self.after(15)
-                 self.__TextReader(text[1:])
-                 self.update()
+                 self.after(40, self.TypeWrite(text[1:]))
                  #add blip-like sound on output?
             else:
                 self.config(fg=GuiVars.dictCP["Y4"])
@@ -183,67 +184,89 @@ class GuiVars:
         self.scr_w = w-self.__xWMgn
         self.scr_h = h-self.__yWMgn
 
-class GameGui:
+root = Tk() #instantiate TKINTER (Gui package)
+img = PhotoImage(file='Noise.gif') #TEST, to be replaced with game title image
+var = GuiVars() #variable container for gui setup
+root.title("Der Winter Naht")
+var.SetScrSize(int(root.winfo_screenwidth()), int(root.winfo_screenheight()))
+
+#Canvas
+myframe = Frame(root)
+myframe.pack(fill=BOTH, expand=YES)
+canvas = ResizingCanvas(myframe,width=var.scr_w, height=var.scr_w, bg="black")
+canvas.pack(fill=BOTH, expand=YES)
+#Frames
+textScrFr = Frame(canvas, bg=var.frClr, bd=var.frBdr)
+gameScrFr = Frame(textScrFr, bg="black", bd=var.frBdr)
+invtScrFr = Frame(canvas, bg=var.frClr, bd=var.frBdr)
+statsScrFr = Frame(canvas, bg=var.frClr, bd=var.frBdr)
+inputScrFr = Frame(canvas, bg=var.frClr, bd=var.frBdr)
+
+textScrFr.pack(anchor=NW, fill=BOTH, expand=YES)
+gameScrFr.pack(side=RIGHT, fill=BOTH, expand=YES)
+invtScrFr.pack(anchor=S, side=LEFT, fill=X, expand=YES)
+statsScrFr.pack(anchor=S, side=LEFT, fill=X, expand=YES)
+inputScrFr.pack(anchor=S, side=LEFT, fill=X, expand=YES)
+
+#Screens   
+wid = textScrFr.winfo_id()
+textScreen = OutputText(textScrFr, insertontime=0, bg=var.scrBg, fg=var.scrFg, width=83, height=20, padx=12, pady=9)  
+gameScreen = Label(gameScrFr, image=img, width=var.scr_w/2, height=var.scr_w*(9/32))
+inventoryScreen = OutputText(invtScrFr, bg=var.scrBg, fg=var.scrFg, width=60, height=10, padx=12, pady=9)
+statsScreen = OutputText(statsScrFr, bg=var.scrBg, fg=var.scrFg, width=40, height=10, padx=12, pady=9)
+inputScreen = InputText(inputScrFr, font=("Helvetica", "63") \
+                                 ,insertbackground=var.scrFg\
+                                 , insertofftime=1200\
+                                 , insertontime=1200\
+                                 , insertwidth=5\
+                                 , width=5\
+                                 , height=1\
+                                 , padx=24\
+                                 , bg=var.scrBg\
+                                 , fg=var.scrFg\
+                                 , pady=42)
+
+textScreen.pack(side = LEFT, fill=Y, expand=YES)
+gameScreen.pack(anchor = CENTER, expand=YES) 
+inventoryScreen.pack(side = BOTTOM, fill=X, expand=YES) 
+statsScreen.pack(side = LEFT, fill=X, expand=YES)  
+inputScreen.pack(side = LEFT, fill=X, expand=YES)
+#Descriptions
+inventoryScreen.insert('1.0', "Inventar\n")
+#self.textScreen.insert('1.0', "Konsole\n")
+statsScreen.insert('1.0', "Name          Motivation     Müdigkeit\n")
+
+
+ #Seems like a GUI queue is needed to run this thing right (timewise).
+ #queue items: target screen, target function, data
+
+class Functor(object): 
+    def __init__(self, screenObj, fctnName, *args): 
+        self.scrObj = screenObj
+        self.fctnName = fctnName
+        self.args = args #argument list (optional)
+
+    def __call__(self):
+        if self.fctnName == "Clear":
+            self.scrObj.Clear()
+        elif self.fctnName == "LineWrite":
+            self.scrObj.LineWrite(self.args[0])
+        elif self.fctnName == "TypeWrite":
+            self.scrObj.TypeWrite(self.args[0])
+        elif self.fctnName == "Activate":
+            self.scrObj.Activate()
+
     
-    def __init__(self):
-        root = Tk() #instantiate TKINTER (Gui package)
-        img = PhotoImage(file='Noise.gif') #TEST, to be replaced with game title image
-        var = GuiVars() #variable container for gui setup
-        root.title("Der Winter Naht")
-        var.SetScrSize(int(root.winfo_screenwidth()), int(root.winfo_screenheight()))
+guiQueue = [Functor(textScreen, "TypeWrite", textScreenText), Functor(inputScreen, "Activate")]
 
-        #Canvas
-        myframe = Frame(root)
-        myframe.pack(fill=BOTH, expand=YES)
-        canvas = ResizingCanvas(myframe,width=var.scr_w, height=var.scr_w, bg="black")
-        canvas.pack(fill=BOTH, expand=YES)
-        #Frames
-        self.textScrFr = Frame(canvas, bg=var.frClr, bd=var.frBdr)
-        self.gameScrFr = Frame(self.textScrFr, bg="black", bd=var.frBdr)
-        self.invtScrFr = Frame(canvas, bg=var.frClr, bd=var.frBdr)
-        self.statsScrFr = Frame(canvas, bg=var.frClr, bd=var.frBdr)
-        self.inputScrFr = Frame(canvas, bg=var.frClr, bd=var.frBdr)
-
-        self.textScrFr.pack(anchor=NW, fill=BOTH, expand=YES)
-        self.gameScrFr.pack(side=RIGHT, fill=BOTH, expand=YES)
-        self.invtScrFr.pack(anchor=S, side=LEFT, fill=X, expand=YES)
-        self.statsScrFr.pack(anchor=S, side=LEFT, fill=X, expand=YES)
-        self.inputScrFr.pack(anchor=S, side=LEFT, fill=X, expand=YES)
-
-        #Screens   
-        wid = self.textScrFr.winfo_id()
-        self.textScreen = OutputText(self.textScrFr, insertontime=0, bg=var.scrBg, fg=var.scrFg, width=83, height=20, padx=12, pady=9)  
-        self.gameScreen = Label(self.gameScrFr, image=img, width=var.scr_w/2, height=var.scr_w*(9/32))
-        self.inventoryScreen = OutputText(self.invtScrFr, bg=var.scrBg, fg=var.scrFg, width=60, height=10, padx=12, pady=9)
-        self.statsScreen = OutputText(self.statsScrFr, bg=var.scrBg, fg=var.scrFg, width=40, height=10, padx=12, pady=9)
-        self.inputScreen = InputText(self.inputScrFr, font=("Helvetica", "63") \
-                                         ,insertbackground=var.scrFg\
-                                         , insertofftime=1200\
-                                         , insertontime=1200\
-                                         , insertwidth=5\
-                                         , width=5\
-                                         , height=1\
-                                         , padx=24\
-                                         , bg=var.scrBg\
-                                         , fg=var.scrFg\
-                                         , pady=42)
-        
-        self.textScreen.pack(side = LEFT, fill=Y, expand=YES)
-        self.gameScreen.pack(anchor = CENTER, expand=YES) 
-        self.inventoryScreen.pack(side = BOTTOM, fill=X, expand=YES) 
-        self.statsScreen.pack(side = LEFT, fill=X, expand=YES)  
-        self.inputScreen.pack(side = LEFT, fill=X, expand=YES)
-        self.inputScreen.BindToKey('<Return>')
-        #Descriptions
-        self.inventoryScreen.insert('1.0', "Inventar\n")
-        #self.textScreen.insert('1.0', "Konsole\n")
-        self.statsScreen.insert('1.0', "Name          Motivation     Müdigkeit\n")
-        root.mainloop() #without this, no images are shown...
+guiQueue[0]()
+guiQueue[1]()
 
 
-gui = GameGui()
-gui.textScreen.TypeWrite(textScreenText)
-gui.textScreen.WriteLine("BELLO")
-gui.inputScreen.Activate()
+#root.mainloop() #without this, no images are shown...
+
+#gui.textScreen.Write(textScreenText, "TypeWrite")
+#gui.textScreen.Write("BELLO", "LineWrite")
+#gui.inputScreen.Activate()
 
     
