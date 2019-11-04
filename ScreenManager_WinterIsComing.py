@@ -8,20 +8,7 @@ import time
 textScreenText = "Euer Smartphone. Kann so ziemlich alles und ist natürlich auch mit Taschenlampe,\n\
 Kamera und Navigationssystem ausgestattet.\n\
 Hier draußen scheinen leider weder Mobilfunk noch Datenvervindung möglich zu sein.\n\
-Zudem ist der Akkustand niedrig und ihr habt keine Powerbank dabei."
-
-##if len(text) > 0:
-##        widget.insert(index, text[0])
-##        if len(text) > 1:
-##            # compute index of next char
-##             index = widget.index("%s + 1 char" % index)
-##             # type next char [ms]
-##             widget.after(30, textReader, widget, index, text[1:])
-##             #add blip-like sound on output?
-##        else:
-##            widget.config(fg=GuiVars.dictCP["Y4"])
-##            widget.config(bg=GuiVars.dictCP["B1"])
-##            widget.config(state=DISABLED)
+Zudem ist der Akkustand niedrig und ihr habt keine Powerbank dabei.\n"
 
 # ------------------------------------
 # HELPERS
@@ -110,7 +97,6 @@ class OutputText(Text):
     #replace init function by "custom" init
     def __init__(self,parent,**kwargs):
         Text.__init__(self,parent,**kwargs)
-        self.busy = False
         self.queue = []
        
     def Clear(self):
@@ -119,28 +105,29 @@ class OutputText(Text):
         self.__Deactivate()
 
     def LineWrite(self, text):
-        self.busy = True
+        self.__Activate()
+        self.after(500)
         self.insert(INSERT, text)
-        self.after(400)
+        self.update()
         self.__Deactivate()
-        self.busy= False
 
     def TypeWrite(self, text):
+        self.__Activate()
         self.__TypeWrite(text)
 
     def __TypeWrite(self, text):
-        self.busy = True
         if len(text) > 0:
             self.insert(INSERT, text[0])
             if len(text) > 1:
                  # type next char [ms]
-                 self.after(40, self.TypeWrite(text[1:]))
+                 self.update()
+                 self.after(30)
+                 self.TypeWrite(text[1:])
                  #add blip-like sound on output?
             else:
                 self.config(fg=GuiVars.dictCP["Y4"])
                 self.config(bg=GuiVars.dictCP["B1"])
                 self.__Deactivate()
-                self.busy = False
         
     def __Activate(self):
         self.config(state=NORMAL)
@@ -259,14 +246,15 @@ class Functor(object):
     
 guiQueue = [Functor(textScreen, "TypeWrite", textScreenText), Functor(inputScreen, "Activate")]
 
-guiQueue[0]()
-guiQueue[1]()
+#guiQueue[0]()
+#guiQueue[1]()
 
 
 #root.mainloop() #without this, no images are shown...
 
-#gui.textScreen.Write(textScreenText, "TypeWrite")
-#gui.textScreen.Write("BELLO", "LineWrite")
-#gui.inputScreen.Activate()
+textScreen.TypeWrite(textScreenText)
+textScreen.LineWrite("BELLO\n")
+textScreen.LineWrite("WORLD\n")
+inputScreen.Activate()
 
     
