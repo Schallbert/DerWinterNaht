@@ -93,11 +93,55 @@ class InputText(Text):
         self.config(bg=GuiVars.dictCP["B1"])
         self.config(state=DISABLED)
 
+class StatusText(Text):
+    def __init__(self,parent,**kwargs):
+        Text.__init__(self,parent,**kwargs)
+        self.insert('1.0', "Name      Motivation    Müdigkeit ")
+        
+    def Update(self, playerList):
+        maxNamePlusSpaces = 13 #9 for name, 4 for whitespaces
+        lineNr = 1
+        for currPlObj in playerList:
+            lineNr = lineNr + 1
+            currMod = currPlObj.GetMod
+            motStr = "|"*currMod[0]
+            tirStr = "|"*currMod[1]
+            currName = currPlObj.GetName
+            nrSpaces = maxNamePlusSpaces - len(currName)
+            #define contents and tags of text
+            tagPlrS = str(lineNr)+'.0'
+            tagPlrE = str(lineNr)+'.'+str(maxNamePlusSpaces)
+            tagMotE = str(lineNr)+'.27'
+            tagTirE = str(lineNr)+'.37'
+            self.insert(str(lineNr)+'.0', currName \
+                        + " " * nrSpaces + modStr \
+                        + "    " + tirStr)
+            self.tag_add("plrClr", tagPlrS, tagPlrE)
+            self.tag_add("motClr", tagPlrE, tagMotE)
+            self.tag_add("tirClr", tagMotE, tagTirE)
+            #define text colors
+            self.tag_config("plrClr", fg=currPlPbj.GetColor)
+            self.tag_config("motClr", fg=self.__GetModColor(currMod[0]))
+            self.tag_config("tirClr", fg=self.__GetModColor(10-currMod[1]))
+
+    def __GetModColor(mod):
+        if mod > 5 :
+            return "green"
+        elif mod > 2:
+            return "yellow"
+        else:
+            return "red"
+
+    def Clear(self):
+        self.__Activate()
+        self.delete('2.0', END)
+        self.__Deactivate()
+        
+
 class OutputText(Text):
     #replace init function by "custom" init
     def __init__(self,parent,**kwargs):
         Text.__init__(self,parent,**kwargs)
-        self.queue = []
        
     def Clear(self):
         self.__Activate()
@@ -199,8 +243,8 @@ inputScrFr.pack(anchor=S, side=LEFT, fill=X, expand=YES)
 wid = textScrFr.winfo_id()
 textScreen = OutputText(textScrFr, insertontime=0, bg=var.scrBg, fg=var.scrFg, width=83, height=20, padx=12, pady=9)  
 gameScreen = Label(gameScrFr, image=img, width=var.scr_w/2, height=var.scr_w*(9/32))
-inventoryScreen = OutputText(invtScrFr, bg=var.scrBg, fg=var.scrFg, width=60, height=10, padx=12, pady=9)
-statsScreen = OutputText(statsScrFr, bg=var.scrBg, fg=var.scrFg, width=40, height=10, padx=12, pady=9)
+inventoryScreen = OutputText(invtScrFr, bg=var.scrBg, fg=var.scrFg, width=62, height=10, padx=12, pady=9)
+statsScreen = StatusText(statsScrFr, bg=var.scrBg, fg=var.scrFg, width=38, height=10, padx=12, pady=9)
 inputScreen = InputText(inputScrFr, font=("Helvetica", "63") \
                                  ,insertbackground=var.scrFg\
                                  , insertofftime=1200\
@@ -218,14 +262,15 @@ gameScreen.pack(anchor = CENTER, expand=YES)
 inventoryScreen.pack(side = BOTTOM, fill=X, expand=YES) 
 statsScreen.pack(side = LEFT, fill=X, expand=YES)  
 inputScreen.pack(side = LEFT, fill=X, expand=YES)
+
 #Descriptions
 inventoryScreen.insert('1.0', "Inventar\n")
 #self.textScreen.insert('1.0', "Konsole\n")
-statsScreen.insert('1.0', "Name          Motivation     Müdigkeit\n")
+#root.mainloop()
 
 textScreen.TypeWrite(textScreenText)
-textScreen.LineWrite("BELLO\n")
-textScreen.LineWrite("WORLD\n")
-inputScreen.Activate()
+#textScreen.LineWrite("BELLO\n")
+#textScreen.LineWrite("WORLD\n")
+#inputScreen.Activate()
 
     
