@@ -12,23 +12,6 @@ Zudem ist der Akkustand niedrig und ihr habt keine Powerbank dabei.\n"
 
 # ------------------------------------
 # HELPERS
-def inputCheck(resp):
-    try :
-        number = int(resp)
-        print(str(number))
-    except :
-        if resp.lower() == "quit":
-            quitSave()
-        else:
-            print("Bitte eine Zahl eingeben oder das Spiel mittels 'quit' beenden.")
-            inputScreen.Activate()
-
-def textReader(widget, text):
-    for text in text:
-            widget.insert(INSERT, text)
-            time.sleep(.001) #later: 0.04
-            #add blip-like sound on output?
-
 
 def quitSave():
     print("Speichern...")
@@ -67,6 +50,17 @@ class InputText(Text):
         Text.__init__(self,parent,**kwargs)
         self.__BindToKey('<Return>')
 
+    def __InputCheck(self, resp):
+        try :
+            number = int(resp)
+            print(str(number))
+        except :
+            if resp.lower() == "quit":
+                quitSave()
+            else:
+                print("Bitte eine Zahl eingeben oder das Spiel mittels 'quit' beenden.")
+                self.Activate()
+
     def __BindToKey(self, key):
         #bind self to event "return", calling inputCheck function
         #handing over its contents-last character (which is \n)
@@ -78,7 +72,7 @@ class InputText(Text):
         #get input, deactivate box, check input
         inpt = self.get("1.0", "end-1c")
         self.__Deactivate() 
-        inputCheck(inpt)
+        self.__InputCheck(inpt)
         
     def Activate(self):
         self.config(state=NORMAL)
@@ -96,35 +90,40 @@ class InputText(Text):
 class StatusText(Text):
     def __init__(self,parent,**kwargs):
         Text.__init__(self,parent,**kwargs)
-        self.insert('1.0', "Name      Motivation    Müdigkeit ")
         
     def Update(self, playerList):
-        maxNamePlusSpaces = 13 #9 for name, 4 for whitespaces
+        self.__Activate()
+        self.delete('1.0', END)
+        self.insert('1.0', "Name        Motivation    Müdigkeit\n")
+        maxNamePlusSpaces = 12 #9 for name, 4 for whitespaces
         lineNr = 1
-        for currPlObj in playerList:
+        for player in playerList:
             lineNr = lineNr + 1
-            currMod = currPlObj.GetMod
+            currMod = player.GetMod()
             motStr = "|"*currMod[0]
             tirStr = "|"*currMod[1]
-            currName = currPlObj.GetName
+            currName = player.GetName()
             nrSpaces = maxNamePlusSpaces - len(currName)
             #define contents and tags of text
             tagPlrS = str(lineNr)+'.0'
             tagPlrE = str(lineNr)+'.'+str(maxNamePlusSpaces)
-            tagMotE = str(lineNr)+'.27'
+            tagMotE = str(lineNr)+'.26'
             tagTirE = str(lineNr)+'.37'
-            self.insert(str(lineNr)+'.0', currName \
-                        + " " * nrSpaces + modStr \
-                        + "    " + tirStr)
-            self.tag_add("plrClr", tagPlrS, tagPlrE)
-            self.tag_add("motClr", tagPlrE, tagMotE)
-            self.tag_add("tirClr", tagMotE, tagTirE)
+            
+            self.insert(tagPlrS, currName \
+                        + " " * nrSpaces + motStr \
+                        + " " * (10-currMod[0]+4) + tirStr + "\n")
+            self.tag_add(currName+"plrClr", tagPlrS, tagPlrE)
+            self.tag_add(currName+"motClr", tagPlrE, tagMotE)
+            self.tag_add(currName+"tirClr", tagMotE, tagTirE)
             #define text colors
-            self.tag_config("plrClr", fg=currPlPbj.GetColor)
-            self.tag_config("motClr", fg=self.__GetModColor(currMod[0]))
-            self.tag_config("tirClr", fg=self.__GetModColor(10-currMod[1]))
+            self.tag_config(currName+"plrClr", foreground=player.GetColor())
+            self.tag_config(currName+"motClr", foreground=self.__GetModColor(currMod[0]))
+            self.tag_config(currName+"tirClr", foreground=self.__GetModColor(10-currMod[1]))
+            self.update()
+        self.__Deactivate()
 
-    def __GetModColor(mod):
+    def __GetModColor(self, mod):
         if mod > 5 :
             return "green"
         elif mod > 2:
@@ -132,10 +131,16 @@ class StatusText(Text):
         else:
             return "red"
 
-    def Clear(self):
-        self.__Activate()
-        self.delete('2.0', END)
-        self.__Deactivate()
+    def __Activate(self):
+        self.config(state=NORMAL)
+        self.config(fg=GuiVars.dictCP["Y4"])
+        self.config(bg=GuiVars.dictCP["B2"])
+        self.focus_set()
+        
+    def __Deactivate(self):
+        self.config(bg=GuiVars.dictCP["B1"])
+        self.config(state=DISABLED)
+        self.update()
         
 
 class OutputText(Text):
@@ -145,7 +150,7 @@ class OutputText(Text):
        
     def Clear(self):
         self.__Activate()
-        self.delete('2.0', END)
+        self.delete('1.0', END)
         self.__Deactivate()
 
     def LineWrite(self, text):
@@ -215,62 +220,67 @@ class GuiVars:
         self.scr_w = w-self.__xWMgn
         self.scr_h = h-self.__yWMgn
 
-root = Tk() #instantiate TKINTER (Gui package)
-img = PhotoImage(file='Noise.gif') #TEST, to be replaced with game title image
-var = GuiVars() #variable container for gui setup
-root.title("Der Winter Naht")
-var.SetScrSize(int(root.winfo_screenwidth()), int(root.winfo_screenheight()))
+class GameGui:
 
-#Canvas
-myframe = Frame(root)
-myframe.pack(fill=BOTH, expand=YES)
-canvas = ResizingCanvas(myframe,width=var.scr_w, height=var.scr_w, bg="black")
-canvas.pack(fill=BOTH, expand=YES)
-#Frames
-textScrFr = Frame(canvas, bg=var.frClr, bd=var.frBdr)
-gameScrFr = Frame(textScrFr, bg="black", bd=var.frBdr)
-invtScrFr = Frame(canvas, bg=var.frClr, bd=var.frBdr)
-statsScrFr = Frame(canvas, bg=var.frClr, bd=var.frBdr)
-inputScrFr = Frame(canvas, bg=var.frClr, bd=var.frBdr)
+    def __init__(self):
+        self.root = Tk() #instantiate TKINTER (Gui package)
+        img = PhotoImage(file='Noise.gif') #TEST, to be replaced with game title image
+        var = GuiVars() #variable container for gui setup
+        self.root.title("Der Winter Naht")
+        var.SetScrSize(int(self.root.winfo_screenwidth()), int(self.root.winfo_screenheight()))
 
-textScrFr.pack(anchor=NW, fill=BOTH, expand=YES)
-gameScrFr.pack(side=RIGHT, fill=BOTH, expand=YES)
-invtScrFr.pack(anchor=S, side=LEFT, fill=X, expand=YES)
-statsScrFr.pack(anchor=S, side=LEFT, fill=X, expand=YES)
-inputScrFr.pack(anchor=S, side=LEFT, fill=X, expand=YES)
+        #Canvas
+        myframe = Frame(self.root)
+        myframe.pack(fill=BOTH, expand=YES)
+        canvas = ResizingCanvas(myframe,width=var.scr_w, height=var.scr_w, bg="black")
+        canvas.pack(fill=BOTH, expand=YES)
+        #Frames
+        textScrFr = Frame(canvas, bg=var.frClr, bd=var.frBdr)
+        gameScrFr = Frame(textScrFr, bg="black", bd=var.frBdr)
+        invtScrFr = Frame(canvas, bg=var.frClr, bd=var.frBdr)
+        statsScrFr = Frame(canvas, bg=var.frClr, bd=var.frBdr)
+        inputScrFr = Frame(canvas, bg=var.frClr, bd=var.frBdr)
 
-#Screens   
-wid = textScrFr.winfo_id()
-textScreen = OutputText(textScrFr, insertontime=0, bg=var.scrBg, fg=var.scrFg, width=83, height=20, padx=12, pady=9)  
-gameScreen = Label(gameScrFr, image=img, width=var.scr_w/2, height=var.scr_w*(9/32))
-inventoryScreen = OutputText(invtScrFr, bg=var.scrBg, fg=var.scrFg, width=62, height=10, padx=12, pady=9)
-statsScreen = StatusText(statsScrFr, bg=var.scrBg, fg=var.scrFg, width=38, height=10, padx=12, pady=9)
-inputScreen = InputText(inputScrFr, font=("Helvetica", "63") \
-                                 ,insertbackground=var.scrFg\
-                                 , insertofftime=1200\
-                                 , insertontime=1200\
-                                 , insertwidth=5\
-                                 , width=5\
-                                 , height=1\
-                                 , padx=24\
-                                 , bg=var.scrBg\
-                                 , fg=var.scrFg\
-                                 , pady=42)
+        textScrFr.pack(anchor=NW, fill=BOTH, expand=YES)
+        gameScrFr.pack(side=RIGHT, fill=BOTH, expand=YES)
+        invtScrFr.pack(anchor=S, side=LEFT, fill=X, expand=YES)
+        statsScrFr.pack(anchor=S, side=LEFT, fill=X, expand=YES)
+        inputScrFr.pack(anchor=S, side=LEFT, fill=X, expand=YES)
 
-textScreen.pack(side = LEFT, fill=Y, expand=YES)
-gameScreen.pack(anchor = CENTER, expand=YES) 
-inventoryScreen.pack(side = BOTTOM, fill=X, expand=YES) 
-statsScreen.pack(side = LEFT, fill=X, expand=YES)  
-inputScreen.pack(side = LEFT, fill=X, expand=YES)
+        #Screens   
+        wid = textScrFr.winfo_id()
+        self.textScreen = OutputText(textScrFr, insertontime=0, bg=var.scrBg, fg=var.scrFg, width=83, height=20, padx=12, pady=9)  
+        self.gameScreen = Label(gameScrFr, image=img, width=var.scr_w/2, height=var.scr_w*(9/32))
+        self.inventoryScreen = OutputText(invtScrFr, bg=var.scrBg, fg=var.scrFg, width=62, height=10, padx=12, pady=9)
+        self.statsScreen = StatusText(statsScrFr, bg=var.scrBg, fg=var.scrFg, width=38, height=10, padx=12, pady=9)
+        self.inputScreen = InputText(inputScrFr, font=("Helvetica", "63") \
+                                         ,insertbackground=var.scrFg\
+                                         , insertofftime=1200\
+                                         , insertontime=1200\
+                                         , insertwidth=5\
+                                         , width=5\
+                                         , height=1\
+                                         , padx=24\
+                                         , bg=var.scrBg\
+                                         , fg=var.scrFg\
+                                         , pady=42)
+
+        self.textScreen.pack(side = LEFT, fill=Y, expand=YES)
+        self.gameScreen.pack(anchor = CENTER, expand=YES) 
+        self.inventoryScreen.pack(side = BOTTOM, fill=X, expand=YES) 
+        self.statsScreen.pack(side = LEFT, fill=X, expand=YES)  
+        self.inputScreen.pack(side = LEFT, fill=X, expand=YES)
+    
 
 #Descriptions
-inventoryScreen.insert('1.0', "Inventar\n")
+#gui = GameGui()
+#gui.inventoryScreen.insert('1.0', "Inventar\n")
 #self.textScreen.insert('1.0', "Konsole\n")
 #root.mainloop()
 
-textScreen.TypeWrite(textScreenText)
-#textScreen.LineWrite("BELLO\n")
-#textScreen.LineWrite("WORLD\n")
+#gui.textScreen.TypeWrite(textScreenText)
+#gui.textScreen.LineWrite("BELLO\n")
+#gui.textScreen.LineWrite("WORLD\n")
 #inputScreen.Activate()
 
     

@@ -6,14 +6,18 @@ currentRoom = Room(100)
 #generate start items in inventory
 Item(10)
 #listPlayers Types [int currentPlayer, Player player1, Player player2, ...]
-listPlayers = [Player("Lukas", "red", [5,10], currentRoom), \
-               Player("Marie", "green", [7,6], currentRoom)]
+listPlayers = [Player("Lukas", "blue", [10,8], currentRoom), \
+               Player("Marie", "cyan", [7,6], currentRoom)]
 currentPlayerId = 0
 currentPlayer = listPlayers[currentPlayerId]
+#get GUI up and running
+gui = GameGui()
 #enter a room routine
 currentRoom.OnEnter()
 while True:
-    textReader("\n" + currentPlayer.GetName() + " ist an der Reihe.\n")
+    gui.textScreen.Clear()
+    gui.textScreen.TypeWrite("\n" + currentPlayer.GetName() + " ist an der Reihe.\n")
+    gui.statsScreen.Update(listPlayers)
     roomObjList = currentRoom.GetRoomList()
     spotObjList = currentRoom.GetSpotList()
     activeSpot = currentPlayer.GetPos()

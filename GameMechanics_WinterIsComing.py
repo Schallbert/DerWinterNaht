@@ -7,6 +7,7 @@ from enum import IntEnum
 
 #Import data structures   
 from TextData_WinterIsComing import *
+from ScreenManager_WinterIsComing import *
 
 
 dictInventory = {}
