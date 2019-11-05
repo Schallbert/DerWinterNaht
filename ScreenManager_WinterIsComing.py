@@ -223,35 +223,6 @@ inventoryScreen.insert('1.0', "Inventar\n")
 #self.textScreen.insert('1.0', "Konsole\n")
 statsScreen.insert('1.0', "Name          Motivation     Müdigkeit\n")
 
-
- #Seems like a GUI queue is needed to run this thing right (timewise).
- #queue items: target screen, target function, data
-
-class Functor(object): 
-    def __init__(self, screenObj, fctnName, *args): 
-        self.scrObj = screenObj
-        self.fctnName = fctnName
-        self.args = args #argument list (optional)
-
-    def __call__(self):
-        if self.fctnName == "Clear":
-            self.scrObj.Clear()
-        elif self.fctnName == "LineWrite":
-            self.scrObj.LineWrite(self.args[0])
-        elif self.fctnName == "TypeWrite":
-            self.scrObj.TypeWrite(self.args[0])
-        elif self.fctnName == "Activate":
-            self.scrObj.Activate()
-
-    
-guiQueue = [Functor(textScreen, "TypeWrite", textScreenText), Functor(inputScreen, "Activate")]
-
-#guiQueue[0]()
-#guiQueue[1]()
-
-
-#root.mainloop() #without this, no images are shown...
-
 textScreen.TypeWrite(textScreenText)
 textScreen.LineWrite("BELLO\n")
 textScreen.LineWrite("WORLD\n")
