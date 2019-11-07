@@ -18,6 +18,7 @@ while True:
     gui.textScreen.Clear()
     gui.textScreen.TypeWrite("\n" + currentPlayer.GetName() + " ist an der Reihe.\n")
     gui.statsScreen.Update(listPlayers)
+    gui.inventoryScreen.Update(dictInventory)
     roomObjList = currentRoom.GetRoomList()
     spotObjList = currentRoom.GetSpotList()
     activeSpot = currentPlayer.GetPos()

@@ -26,6 +26,10 @@ def save():
 # ------------------------------------
 # CLASSES
 class ResizingCanvas(Canvas):
+    """Class that generates the main frame all widgets are placed into.
+To make it resizable, it listens to the width/height change event of the window.
+In its init, it binds to the Configure event."""
+#TODO: Enable flexible resizing of "video" window
     # a subclass of Canvas for dealing with resizing of windows
     def __init__(self,parent,**kwargs):
         Canvas.__init__(self,parent,**kwargs)
@@ -45,12 +49,16 @@ class ResizingCanvas(Canvas):
         self.scale("all",0,0,wscale,hscale)
 
 class InputText(Text):
+    """Derived class from Text, with additional methods for text input handling.
+It binds to the return key to take input"""
     #replace init function by "custom" init
     def __init__(self,parent,**kwargs):
         Text.__init__(self,parent,**kwargs)
         self.__BindToKey('<Return>')
 
     def __InputCheck(self, resp):
+        """This routine takes an input string 'resp' and tries to convert it
+        to the in-game used numbers. It also offers to quit the game if needed."""
         try :
             number = int(resp)
             print(str(number))
@@ -75,6 +83,7 @@ class InputText(Text):
         self.__InputCheck(inpt)
         
     def Activate(self):
+        #Color and config set for activated status
         self.config(state=NORMAL)
         self.delete('1.0', END)
         self.config(fg=GuiVars.dictCP["Y5"])
@@ -82,12 +91,14 @@ class InputText(Text):
         self.focus_set()
         
     def __Deactivate(self):
-        #clear text then disable text screen
+        #Color and config set for deactivated status
         self.config(fg=GuiVars.dictCP["B2"])
         self.config(bg=GuiVars.dictCP["B1"])
         self.config(state=DISABLED)
 
 class StatusText(Text):
+    """Derived from Text, optimized for player stats (table-type) colored text output
+Offers public function Update that takes the player list to output the player's stats."""
     def __init__(self,parent,**kwargs):
         Text.__init__(self,parent,**kwargs)
         
@@ -100,23 +111,26 @@ class StatusText(Text):
         for player in playerList:
             lineNr = lineNr + 1
             currMod = player.GetMod()
-            motStr = "|"*currMod[0]
-            tirStr = "|"*currMod[1]
+            modStr = "|"*10
             currName = player.GetName()
             nrSpaces = maxNamePlusSpaces - len(currName)
-            #define contents and tags of text
+            #define contents and tags of texts to get colors right
             tagPlrS = str(lineNr)+'.0'
             tagPlrE = str(lineNr)+'.'+str(maxNamePlusSpaces)
-            tagMotE = str(lineNr)+'.26'
-            tagTirE = str(lineNr)+'.37'
+            tagMotE = str(lineNr)+'.'+str(maxNamePlusSpaces + currMod[0])
+            tagTirS = str(lineNr)+'.26'
+            tagTirE = str(lineNr)+'.'+str(26 + currMod[1])
+            tagModE = str(lineNr)+'.37'
             
             self.insert(tagPlrS, currName \
-                        + " " * nrSpaces + motStr \
-                        + " " * (10-currMod[0]+4) + tirStr + "\n")
+                        + " " * nrSpaces + modStr \
+                        + " " * + 4 + modStr + "\n")
             self.tag_add(currName+"plrClr", tagPlrS, tagPlrE)
+            self.tag_add(currName+"modClr", tagPlrE, tagModE)
             self.tag_add(currName+"motClr", tagPlrE, tagMotE)
-            self.tag_add(currName+"tirClr", tagMotE, tagTirE)
+            self.tag_add(currName+"tirClr", tagTirS, tagTirE)
             #define text colors
+            self.tag_config(currName+"modClr", foreground=GuiVars.dictCP["Y1"], font=("Courier New", "12", "bold"))
             self.tag_config(currName+"plrClr", foreground=player.GetColor())
             self.tag_config(currName+"motClr", foreground=self.__GetModColor(currMod[0]))
             self.tag_config(currName+"tirClr", foreground=self.__GetModColor(10-currMod[1]))
@@ -141,8 +155,34 @@ class StatusText(Text):
         self.config(bg=GuiVars.dictCP["B1"])
         self.config(state=DISABLED)
         self.update()
-        
 
+class InventoryText(Text):
+    """Derived from Text, optimized for player inventory (table-type) text output
+Offers public function Update that takes the inventory dict to present its contents"""
+    def __init__(self,parent,**kwargs):
+        Text.__init__(self,parent,**kwargs)
+        
+    def Update(self, dictInventory):
+        self.__Activate()
+        self.delete('1.0', END)
+        self.insert('1.0', "Nr.   Gegenstand\n")
+        cnt = 1
+        for key, val in dictInventory.items():
+            cnt = cnt + 1
+            self.insert(str(cnt)+'.0', str(key) + "    " + val.name + "\n")
+        self.__Deactivate()
+
+    def __Activate(self):
+        self.config(state=NORMAL)
+        self.config(fg=GuiVars.dictCP["Y4"])
+        self.config(bg=GuiVars.dictCP["B2"])
+        self.focus_set()
+        
+    def __Deactivate(self):
+        self.config(bg=GuiVars.dictCP["B1"])
+        self.config(state=DISABLED)
+        self.update()
+        
 class OutputText(Text):
     #replace init function by "custom" init
     def __init__(self,parent,**kwargs):
@@ -249,11 +289,37 @@ class GameGui:
 
         #Screens   
         wid = textScrFr.winfo_id()
-        self.textScreen = OutputText(textScrFr, insertontime=0, bg=var.scrBg, fg=var.scrFg, width=83, height=20, padx=12, pady=9)  
-        self.gameScreen = Label(gameScrFr, image=img, width=var.scr_w/2, height=var.scr_w*(9/32))
-        self.inventoryScreen = OutputText(invtScrFr, bg=var.scrBg, fg=var.scrFg, width=62, height=10, padx=12, pady=9)
-        self.statsScreen = StatusText(statsScrFr, bg=var.scrBg, fg=var.scrFg, width=38, height=10, padx=12, pady=9)
-        self.inputScreen = InputText(inputScrFr, font=("Helvetica", "63") \
+        self.textScreen = OutputText(textScrFr\
+                                     , font=("Courier New", "12")\
+                                     , insertontime=0\
+                                     , bg=var.scrBg\
+                                     , fg=var.scrFg\
+                                     , width=82\
+                                     , height=20\
+                                     , padx=12\
+                                     , pady=9)  
+        self.gameScreen = Label(gameScrFr\
+                                , font=("Courier New", "12")\
+                                , image=img\
+                                , width=var.scr_w/2\
+                                , height=var.scr_w*(9/32))
+        self.inventoryScreen = InventoryText(invtScrFr\
+                                          , font=("Courier New", "12")\
+                                          , bg=var.scrBg\
+                                          , fg=var.scrFg\
+                                          , width=62\
+                                          , height=10\
+                                          , padx=12\
+                                          , pady=9)
+        self.statsScreen = StatusText(statsScrFr\
+                                      , font=("Courier New", "12")\
+                                      , bg=var.scrBg\
+                                      , fg=var.scrFg\
+                                      , width=38\
+                                      , height=10\
+                                      , padx=12\
+                                      , pady=9)
+        self.inputScreen = InputText(inputScrFr, font=("Courier New", "63", "bold") \
                                          ,insertbackground=var.scrFg\
                                          , insertofftime=1200\
                                          , insertontime=1200\
