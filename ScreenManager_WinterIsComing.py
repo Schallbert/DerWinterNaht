@@ -1,5 +1,5 @@
-from tkinter import *
-import time
+import tkinter as tk
+import threading
 
 # Window/helper classes
 #----------------------------------------------
@@ -23,16 +23,45 @@ def save():
     print("IMPLEMENT SAVE!")
     print("Gespeichert!")
 
+#variables needed for gui setup
+class GuiVars:
+    #Color Palette used throughout the game
+    dictCP = {
+        "B0" : '#000000',\
+        "B1" : '#000040',\
+        "B2" : '#003870',\
+        "B3" : '#0064C0',\
+        "B4" : '#3990C0',\
+        "Y0" : '#5F4443',\
+        "Y1" : '#9C7868',\
+        "Y2" : '#E7E39B',\
+        "Y3" : '#CEC098',\
+        "Y4" : '#FFFFBF',\
+        "Y5" : '#FFFFE6'
+    }
+    #game window margin to screen size [pixels] 
+    __xWMgn = 200  
+    __yWMgn = 0
+    #color selection
+    frClr = dictCP["Y4"]
+    scrFg = dictCP["Y4"]
+    scrBg = dictCP["B1"]
+    frBdr = 2 #pixels, looks nice ;)
+
+    def SetScrSize(self, w, h):
+        self.scr_w = w-self.__xWMgn
+        self.scr_h = h-self.__yWMgn
+
 # ------------------------------------
 # CLASSES
-class ResizingCanvas(Canvas):
+class ResizingCanvas(tk.Canvas):
     """Class that generates the main frame all widgets are placed into.
 To make it resizable, it listens to the width/height change event of the window.
 In its init, it binds to the Configure event."""
 #TODO: Enable flexible resizing of "video" window
     # a subclass of Canvas for dealing with resizing of windows
     def __init__(self,parent,**kwargs):
-        Canvas.__init__(self,parent,**kwargs)
+        tk.Canvas.__init__(self,parent,**kwargs)
         self.bind("<Configure>", self.on_resize)
         self.height = self.winfo_reqheight()
         self.width = self.winfo_reqwidth()
@@ -48,26 +77,23 @@ In its init, it binds to the Configure event."""
         # rescale all the objects tagged with the "all" tag
         self.scale("all",0,0,wscale,hscale)
 
-class InputText(Text):
+class InputText(tk.Text):
     """Derived class from Text, with additional methods for text input handling.
 It binds to the return key to take input"""
     #replace init function by "custom" init
     def __init__(self,parent,**kwargs):
-        Text.__init__(self,parent,**kwargs)
+        tk.Text.__init__(self,parent,**kwargs)
         self.__BindToKey('<Return>')
+        #set modifyable special variable to bind events to it
+        self.number = tk.IntVar()
 
-    def __InputCheck(self, resp):
-        """This routine takes an input string 'resp' and tries to convert it
-        to the in-game used numbers. It also offers to quit the game if needed."""
-        try :
-            number = int(resp)
-            print(str(number))
-        except :
-            if resp.lower() == "quit":
-                quitSave()
-            else:
-                print("Bitte eine Zahl eingeben oder das Spiel mittels 'quit' beenden.")
-                self.Activate()
+    def GetInput(self):
+        self.__Activate()
+        #wait for variable "number" to be changed
+        self.wait_variable(self.number)
+        self.__Deactivate()
+        #return contents of variable
+        return self.number.get()
 
     def __BindToKey(self, key):
         #bind self to event "return", calling inputCheck function
@@ -79,13 +105,21 @@ It binds to the return key to take input"""
     def __EventHandler(self):
         #get input, deactivate box, check input
         inpt = self.get("1.0", "end-1c")
-        self.__Deactivate() 
-        self.__InputCheck(inpt)
+        """This routine takes an input string 'resp' and tries to convert it
+        to the in-game used numbers. It also offers to quit the game if needed."""
+        try :
+            intPt = int(inpt)
+            self.number.set(intPt)
+        except :
+            if inpt.lower() == "quit":
+                quitSave()
+            else:
+                self.number.set(0)
         
-    def Activate(self):
+    def __Activate(self):
         #Color and config set for activated status
-        self.config(state=NORMAL)
-        self.delete('1.0', END)
+        self.config(state=tk.NORMAL)
+        self.delete('1.0', tk.END)
         self.config(fg=GuiVars.dictCP["Y5"])
         self.config(bg=GuiVars.dictCP["B2"])
         self.focus_set()
@@ -94,17 +128,17 @@ It binds to the return key to take input"""
         #Color and config set for deactivated status
         self.config(fg=GuiVars.dictCP["B2"])
         self.config(bg=GuiVars.dictCP["B1"])
-        self.config(state=DISABLED)
+        self.config(state=tk.DISABLED)
 
-class StatusText(Text):
+class StatusText(tk.Text):
     """Derived from Text, optimized for player stats (table-type) colored text output
 Offers public function Update that takes the player list to output the player's stats."""
     def __init__(self,parent,**kwargs):
-        Text.__init__(self,parent,**kwargs)
+        tk.Text.__init__(self,parent,**kwargs)
         
     def Update(self, playerList):
         self.__Activate()
-        self.delete('1.0', END)
+        self.delete('1.0', tk.END)
         self.insert('1.0', "Name        Motivation    Müdigkeit\n")
         maxNamePlusSpaces = 12 #9 for name, 4 for whitespaces
         lineNr = 1
@@ -146,25 +180,25 @@ Offers public function Update that takes the player list to output the player's 
             return "red"
 
     def __Activate(self):
-        self.config(state=NORMAL)
+        self.config(state=tk.NORMAL)
         self.config(fg=GuiVars.dictCP["Y4"])
         self.config(bg=GuiVars.dictCP["B2"])
         self.focus_set()
         
     def __Deactivate(self):
         self.config(bg=GuiVars.dictCP["B1"])
-        self.config(state=DISABLED)
+        self.config(state=tk.DISABLED)
         self.update()
 
-class InventoryText(Text):
+class InventoryText(tk.Text):
     """Derived from Text, optimized for player inventory (table-type) text output
 Offers public function Update that takes the inventory dict to present its contents"""
     def __init__(self,parent,**kwargs):
-        Text.__init__(self,parent,**kwargs)
+        tk.Text.__init__(self,parent,**kwargs)
         
     def Update(self, dictInventory):
         self.__Activate()
-        self.delete('1.0', END)
+        self.delete('1.0', tk.END)
         self.insert('1.0', "Nr.   Gegenstand\n")
         cnt = 1
         for key, val in dictInventory.items():
@@ -173,30 +207,30 @@ Offers public function Update that takes the inventory dict to present its conte
         self.__Deactivate()
 
     def __Activate(self):
-        self.config(state=NORMAL)
+        self.config(state=tk.NORMAL)
         self.config(fg=GuiVars.dictCP["Y4"])
         self.config(bg=GuiVars.dictCP["B2"])
         self.focus_set()
         
     def __Deactivate(self):
         self.config(bg=GuiVars.dictCP["B1"])
-        self.config(state=DISABLED)
+        self.config(state=tk.DISABLED)
         self.update()
         
-class OutputText(Text):
+class OutputText(tk.Text):
     #replace init function by "custom" init
     def __init__(self,parent,**kwargs):
-        Text.__init__(self,parent,**kwargs)
+        tk.Text.__init__(self,parent,**kwargs)
        
     def Clear(self):
         self.__Activate()
-        self.delete('1.0', END)
+        self.delete('1.0', tk.END)
         self.__Deactivate()
 
     def LineWrite(self, text):
         self.__Activate()
         self.after(500)
-        self.insert(INSERT, text)
+        self.insert(tk.INSERT, text)
         self.update()
         self.__Deactivate()
 
@@ -206,7 +240,7 @@ class OutputText(Text):
 
     def __TypeWrite(self, text):
         if len(text) > 0:
-            self.insert(INSERT, text[0])
+            self.insert(tk.INSERT, text[0])
             if len(text) > 1:
                  # type next char [ms]
                  self.update()
@@ -219,7 +253,7 @@ class OutputText(Text):
                 self.__Deactivate()
         
     def __Activate(self):
-        self.config(state=NORMAL)
+        self.config(state=tk.NORMAL)
         self.config(fg=GuiVars.dictCP["Y5"])
         self.config(bg=GuiVars.dictCP["B2"])
         self.focus_set()
@@ -228,64 +262,34 @@ class OutputText(Text):
         #clear text then disable text screen
         self.config(fg=GuiVars.dictCP["Y4"])
         self.config(bg=GuiVars.dictCP["B1"])
-        self.config(state=DISABLED)
-    
-   
-#variables needed for gui setup
-class GuiVars:
-    #Color Palette used throughout the game
-    dictCP = {
-        "B0" : '#000000',\
-        "B1" : '#000040',\
-        "B2" : '#003870',\
-        "B3" : '#0064C0',\
-        "B4" : '#3990C0',\
-        "Y0" : '#5F4443',\
-        "Y1" : '#9C7868',\
-        "Y2" : '#E7E39B',\
-        "Y3" : '#CEC098',\
-        "Y4" : '#FFFFBF',\
-        "Y5" : '#FFFFE6'
-    }
-    #game window margin to screen size [pixels] 
-    __xWMgn = 200  
-    __yWMgn = 0
-    #color selection
-    frClr = dictCP["Y4"]
-    scrFg = dictCP["Y4"]
-    scrBg = dictCP["B1"]
-    frBdr = 2 #pixels, looks nice ;)
-
-    def SetScrSize(self, w, h):
-        self.scr_w = w-self.__xWMgn
-        self.scr_h = h-self.__yWMgn
+        self.config(state=tk.DISABLED)
 
 class GameGui:
 
     def __init__(self):
-        self.root = Tk() #instantiate TKINTER (Gui package)
-        img = PhotoImage(file='Noise.gif') #TEST, to be replaced with game title image
+        self.root = tk.Tk() #instantiate TKINTER (Gui package)
+        img = tk.PhotoImage(file='Noise.gif') #TEST, to be replaced with game title image
         var = GuiVars() #variable container for gui setup
         self.root.title("Der Winter Naht")
         var.SetScrSize(int(self.root.winfo_screenwidth()), int(self.root.winfo_screenheight()))
 
         #Canvas
-        myframe = Frame(self.root)
-        myframe.pack(fill=BOTH, expand=YES)
+        myframe = tk.Frame(self.root)
+        myframe.pack(fill=tk.BOTH, expand=tk.YES)
         canvas = ResizingCanvas(myframe,width=var.scr_w, height=var.scr_w, bg="black")
-        canvas.pack(fill=BOTH, expand=YES)
+        canvas.pack(fill=tk.BOTH, expand=tk.YES)
         #Frames
-        textScrFr = Frame(canvas, bg=var.frClr, bd=var.frBdr)
-        gameScrFr = Frame(textScrFr, bg="black", bd=var.frBdr)
-        invtScrFr = Frame(canvas, bg=var.frClr, bd=var.frBdr)
-        statsScrFr = Frame(canvas, bg=var.frClr, bd=var.frBdr)
-        inputScrFr = Frame(canvas, bg=var.frClr, bd=var.frBdr)
-
-        textScrFr.pack(anchor=NW, fill=BOTH, expand=YES)
-        gameScrFr.pack(side=RIGHT, fill=BOTH, expand=YES)
-        invtScrFr.pack(anchor=S, side=LEFT, fill=X, expand=YES)
-        statsScrFr.pack(anchor=S, side=LEFT, fill=X, expand=YES)
-        inputScrFr.pack(anchor=S, side=LEFT, fill=X, expand=YES)
+        textScrFr = tk.Frame(canvas, bg=var.frClr, bd=var.frBdr)
+        gameScrFr = tk.Frame(textScrFr, bg="black", bd=var.frBdr)
+        invtScrFr = tk.Frame(canvas, bg=var.frClr, bd=var.frBdr)
+        statsScrFr = tk.Frame(canvas, bg=var.frClr, bd=var.frBdr)
+        inputScrFr = tk.Frame(canvas, bg=var.frClr, bd=var.frBdr)
+        #Frame Pack
+        textScrFr.pack(anchor=tk.NW, fill=tk.BOTH, expand=tk.YES)
+        gameScrFr.pack(side=tk.RIGHT, fill=tk.BOTH, expand=tk.YES)
+        invtScrFr.pack(anchor=tk.S, side=tk.LEFT, fill=tk.X, expand=tk.YES)
+        statsScrFr.pack(anchor=tk.S, side=tk.LEFT, fill=tk.X, expand=tk.YES)
+        inputScrFr.pack(anchor=tk.S, side=tk.LEFT, fill=tk.X, expand=tk.YES)
 
         #Screens   
         wid = textScrFr.winfo_id()
@@ -298,7 +302,7 @@ class GameGui:
                                      , height=20\
                                      , padx=12\
                                      , pady=9)  
-        self.gameScreen = Label(gameScrFr\
+        self.gameScreen = tk.Label(gameScrFr\
                                 , font=("Courier New", "12")\
                                 , image=img\
                                 , width=var.scr_w/2\
@@ -330,23 +334,10 @@ class GameGui:
                                          , bg=var.scrBg\
                                          , fg=var.scrFg\
                                          , pady=42)
-
-        self.textScreen.pack(side = LEFT, fill=Y, expand=YES)
-        self.gameScreen.pack(anchor = CENTER, expand=YES) 
-        self.inventoryScreen.pack(side = BOTTOM, fill=X, expand=YES) 
-        self.statsScreen.pack(side = LEFT, fill=X, expand=YES)  
-        self.inputScreen.pack(side = LEFT, fill=X, expand=YES)
-    
-
-#Descriptions
-#gui = GameGui()
-#gui.inventoryScreen.insert('1.0', "Inventar\n")
-#self.textScreen.insert('1.0', "Konsole\n")
-#root.mainloop()
-
-#gui.textScreen.TypeWrite(textScreenText)
-#gui.textScreen.LineWrite("BELLO\n")
-#gui.textScreen.LineWrite("WORLD\n")
-#inputScreen.Activate()
-
-    
+        #Screen Pack
+        self.textScreen.pack(side = tk.LEFT, fill=tk.Y, expand=tk.YES)
+        self.gameScreen.pack(anchor = tk.CENTER, expand=tk.YES) 
+        self.inventoryScreen.pack(side = tk.BOTTOM, fill=tk.X, expand=tk.YES) 
+        self.statsScreen.pack(side = tk.LEFT, fill=tk.X, expand=tk.YES)  
+        self.inputScreen.pack(side = tk.LEFT, fill=tk.X, expand=tk.YES)
+   

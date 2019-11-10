@@ -15,17 +15,21 @@ gui = GameGui()
 #enter a room routine
 currentRoom.OnEnter()
 while True:
-    gui.textScreen.Clear()
-    gui.textScreen.TypeWrite("\n" + currentPlayer.GetName() + " ist an der Reihe.\n")
-    gui.statsScreen.Update(listPlayers)
-    gui.inventoryScreen.Update(dictInventory)
+    
     roomObjList = currentRoom.GetRoomList()
     spotObjList = currentRoom.GetSpotList()
     activeSpot = currentPlayer.GetPos()
-    playerAction = inputCheck("Was wollt ihr tun?\n ")
+    gui.textScreen.Clear()
+    gui.textScreen.TypeWrite(currentPlayer.GetName() + " ist an der Reihe.\n")
+    gui.statsScreen.Update(listPlayers)
+    gui.inventoryScreen.Update(dictInventory)
+    gui.textScreen.TypeWrite("Was wollt ihr tun?\n")
+    playerAction = gui.inputScreen.GetInput()
     if playerAction in dictRooms:
         #player enters a room
-        if playerAction == currentRoom.number:
+        if playerAction == 0:
+            gui.textScreen.TypeWrite("Keine Zahl erkannt. Zum Beenden bitte 'quit' eingeben.\n")
+        elif playerAction == currentRoom.number:
             #only show description if specifically asked
             textReader(currentRoom.description)
         elif playerAction in dictConnectedRooms[currentRoom.number]:
