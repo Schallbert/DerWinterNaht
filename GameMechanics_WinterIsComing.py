@@ -3,12 +3,13 @@ import subprocess
 from tkinter import *
 #import datetime
 import time
-from enum import IntEnum
 
 #Import data structures   
 from TextData_WinterIsComing import *
+from Enums_WinterIsComing import *
 from ScreenManager_WinterIsComing import *
 
+#Data structures
 
 dictInventory = {}
 listRoomsVisited = []

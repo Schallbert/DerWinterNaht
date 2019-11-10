@@ -1,4 +1,18 @@
 from GameMechanics_WinterIsComing import *
+from Enums_WinterIsComing import cmd_inpt
+
+# ------------------------------------
+# HELPERS
+
+def quitSave():
+    print("Saving...")
+    save()
+    print("Killing game...")
+    quit()
+
+def save():
+    print("IMPLEMENT SAVE!")
+    print("Saved!")
 
 #Vorgeschichte!      
 #Room1: Train station Mendig, RB26, 1.5h from cologne
@@ -25,11 +39,14 @@ while True:
     gui.inventoryScreen.Update(dictInventory)
     gui.textScreen.TypeWrite("Was wollt ihr tun?\n")
     playerAction = gui.inputScreen.GetInput()
-    if playerAction in dictRooms:
+    if playerAction == cmd_inpt.UNKNOWN:
+            gui.textScreen.TypeWrite("Keine Zahl erkannt. Zum Speichern und Beenden bitte 'quit' eingeben.\n")
+    elif playerAction == cmd_inpt.QUIT:
+            gui.textScreen.LineWrite("Spiel wird gespeichert und beendet. Bis bald!")
+            quitSave()
+    elif playerAction in dictRooms:
         #player enters a room
-        if playerAction == 0:
-            gui.textScreen.TypeWrite("Keine Zahl erkannt. Zum Beenden bitte 'quit' eingeben.\n")
-        elif playerAction == currentRoom.number:
+        if playerAction == currentRoom.number:
             #only show description if specifically asked
             textReader(currentRoom.description)
         elif playerAction in dictConnectedRooms[currentRoom.number]:

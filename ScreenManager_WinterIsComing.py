@@ -1,5 +1,5 @@
 import tkinter as tk
-import threading
+from Enums_WinterIsComing import cmd_inpt
 
 # Window/helper classes
 #----------------------------------------------
@@ -12,16 +12,6 @@ Zudem ist der Akkustand niedrig und ihr habt keine Powerbank dabei.\n"
 
 # ------------------------------------
 # HELPERS
-
-def quitSave():
-    print("Speichern...")
-    save()
-    print("Spiel wird beendet.")
-    quit()
-
-def save():
-    print("IMPLEMENT SAVE!")
-    print("Gespeichert!")
 
 #variables needed for gui setup
 class GuiVars:
@@ -108,13 +98,16 @@ It binds to the return key to take input"""
         """This routine takes an input string 'resp' and tries to convert it
         to the in-game used numbers. It also offers to quit the game if needed."""
         try :
+            #Command valid
             intPt = int(inpt)
             self.number.set(intPt)
         except :
             if inpt.lower() == "quit":
-                quitSave()
+                #Command quit
+                self.number.set(cmd_inpt.QUIT.value)
             else:
-                self.number.set(0)
+                #Command invalid
+                self.number.set(cmd_inpt.UNKNOWN.value)
         
     def __Activate(self):
         #Color and config set for activated status
