@@ -212,5 +212,15 @@ dictModsRefused = {
 
 class GameMsg():
     NAN = "Keine Zahl erkannt. Zum Speichern und Beenden bitte 'quit' eingeben.\n"
+    NO_COMB = "Dieser Gegenstand kann nicht ohne Kombination benutzt werden."
     SVQT = "Spiel wird gespeichert und beendet. Bis bald!"
     TURN = " ist an der Reihe.\nWas wollt ihr tun?\n"
+    IN_REACH = "\nVon hier aus sind folgende Orte erreichbar:\n"
+    YOURE_AT = ["Ihr befindet euch bei ", ".\n\n Ihr seht:\n"]
+    UNKNOWN_ROOM = ": ???\n"
+    EXAMINE = "\nIhr untersucht: "
+    ACTIONQ = "Möchtet ihr "
+    ACTIONP = "Bitte eingeben: JA: '1', NEIN: '0'. "
+    ACTIONE = "Ja, manchmal ist es auch gut, Dinge NICHT zu tun.\n"
+    USED = " wurde verbraucht.\n"
+    CANT_USE = " kann nicht allein benutzt oder verbraucht werden.\n"

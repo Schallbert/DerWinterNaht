@@ -37,19 +37,18 @@ class Room:
         if self.number not in listRoomsVisited:
             gui.textScreen.Clear()
             gui.textScreen.TypeWrite(self.description)
-        gui.textScreen.TypeWrite("Ihr befindet euch bei " + str(self.number) + ": "\
-                   + self.name + ".\n\n")
-        gui.textScreen.LineWrite("Ihr seht:\n")
+        gui.textScreen.TypeWrite(GameMsg.YOURE_AT[0] + str(self.number) + ": "\
+                   + self.name + GameMsg.YOURE_AT[1])
         for element in self.__spot_list.values():
             gui.textScreen.LineWrite(str(element.number) + ": " + element.name + "\n")
-        gui.textScreen.LineWrite("\nVon hier aus sind folgende Orte erreichbar:\n")
+        gui.textScreen.LineWrite(GameMsg.IN_REACH)
         for element in self.__room_list.values():
             if element.number in listRoomsVisited:
                 #room is known
                 gui.textScreen.LineWrite(str(element.number) + ": "\
                       + element.name + "\n")
             else:
-                gui.textScreen.LineWrite(str(element.number) + ": ???\n")
+                gui.textScreen.LineWrite(str(element.number) + GameMsg.UNKNOWN_ROOM)
             time.sleep(.5)
         gui.textScreen.LineWrite("\n")
         listRoomsVisited.append(self.number)
@@ -74,7 +73,7 @@ class Room:
         return self.__room_list
 
     def OnLeave(self):
-        #not implemented (yet)
+        #TODO: not implemented (yet)
         pass
                 
 class Spot:
@@ -91,34 +90,35 @@ class Spot:
         if number in dictModType:
             self.__modType = dictModType[number]
 
-    def OnEnter(self):
+    def OnEnter(self, room):
         """Routines that are executed when a spot is entered,
         i.e. description, trigger spot exchange, trigger actions"""
         gui.textScreen.Clear()
-        gui.textScreen.TypeWrite("\nIhr untersucht: " + self.name + "\n" + self.description + "\n")
+        gui.textScreen.TypeWrite(GameMsg.EXAMINE + self.name + "\n" + self.description + "\n")
         self.__action() #perform spot action
         if self.number in dictSpotChange: 
             for element in range(0, len(dictSpotChange[self.number][0])):
                 #exchange spots in room dictionary
                 fromSpotId = dictSpotChange[self.number][0][element]
                 tgtSpotId = dictSpotChange[self.number][1][element]
-                currentRoom.SpotExchange(fromSpotId, tgtSpotId)
+                room.SpotExchange(fromSpotId, tgtSpotId)
 
-    def OnLeave(self):
+    def OnLeave(self, room):
         if self.number in dictSpotChange: #if it can be found in the keys
             for element in range(0, len(dictSpotChange[self.number][1])):
                 #exchange spots back in room dictionary
                 fromSpotId = dictSpotChange[self.number][1][element]
                 tgtSpotId = dictSpotChange[self.number][0][element]
-                currentRoom.SpotExchange(fromSpotId, tgtSpotId)
+                room.SpotExchange(fromSpotId, tgtSpotId)
         
                 
     def __action(self):
         """Interaction with the spot depending on context VIEW, GOTO, OPEN, GET or NOCHOICE
         May modify character's properties or set flags plot changes"""
         if self.__action_id < Action_id.NOC_YES:
-            gui.textScreen.TypeWrite("Möchtet ihr " + self.name + actionDict[self.__action_id] + "\n")
-            resp = inputCheck("Bitte eingeben: JA: '1', NEIN: '0'. ")
+            gui.textScreen.TypeWrite(GameMsg.ACTIONQ + self.name + actionDict[self.__action_id] + "\n")
+            gui.textScreen.LineWrite(GameMsg.ACTIONP)
+            resp = gui.inputScreen.GetInput()
             if resp == 1:
                 self.__action_id == Action_id.NOC_NO #mitigate re-enter action
                 if self.number in dictAction:
@@ -134,7 +134,7 @@ class Spot:
                 if self.number in dictActionRefused:
                     gui.textScreen.TypeWrite(dictActionRefused[self.number])
                 else:
-                    gui.textScreen.TypeWrite("Ja, manchmal ist es auch gut, Dinge NICHT zu tun.\n")
+                    gui.textScreen.TypeWrite(GameMsg.ACTIONE)
                 if self.number in dictModsRefused:
                     changeMod(dictMods[self.number])
         elif self.__action_id == Action_id.NOC_YES:
@@ -180,10 +180,11 @@ class Item:
         gui.textScreen.TypeWrite(self.description)
         if self.__type == Mod_typ.NOTUSABLE \
            or self.__type == Mod_typ.PERMANENT:
-            gui.textScreen.LineWrite("Dieser Gegenstand kann nicht ohne Kombination benutzt werden.")
+            gui.textScreen.LineWrite(GameMsg.NO_COMB)
         else:
-            gui.textScreen.TypeWrite("Möchtet ihr " + self.name + " benutzen?\n")
-            resp = inputCheck("Bitte eingeben: JA: '1', NEIN: '0'. ")
+            gui.textScreen.TypeWrite(GameMsg.ACIONQ + self.name + actionDict[3]) #use?
+            gui.textScreen.LineWrite(GameMsg.ACTIONP)
+            resp = gui.inputScreen.GetInput()
             if resp == 1:
                 gui.textScreen.TypeWrite(self.__action)
                 if self.__type == Mod_typ.EFFONE or self.__type == Mod_typ.EFFALL:
@@ -191,11 +192,11 @@ class Item:
                         invokeChangeMod(self.__mod, self.__type)
                     #item uses up and is then deleted
                     self.DelItem()
-                    gui.textScreen.TypeWrite(self.name + " wurde verbraucht.\n")
+                    gui.textScreen.TypeWrite(self.name + GameMsg.USED)
                 else:
-                    gui.textScreen.TypeWrite(self.name + " kann nicht allein benutzt oder verbraucht werden.\n")
+                    gui.textScreen.TypeWrite(self.name + GameMsg.CANT_USE)
             else:
-                gui.textScreen.TypeWrite("Ja, manchmal ist es auch gut, von Taten abzusehen.\n")
+                gui.textScreen.TypeWrite(GameMsg.ACTIONE)
 
     def GetType(self):
         return self.__type             
@@ -282,8 +283,6 @@ def actionHandler(generateFromNr):
     nrOfDigits = len(str(generateFromNr))
     if nrOfDigits == 2:
         itemUse(generateFromNr)
-    elif nrOfDigits == 3:
-        notReachable(currentRoom, playerAction)
     elif nrOfDigits == 4:
         itemItem(generateFromNr)
     elif nrOfDigits == 5:
@@ -369,11 +368,11 @@ def nextPlayer(currentPlayerId):
         currentPlayerId =  0
     return currentPlayerId
 #---------------------------------------------- 
-def playerAction_Selector(currentRoom, currentPlayer):
+def playerAction_Selector(room, currentPlayer):
     """This function checks the player's wish and, if valid,
     tries to match it to an existing object."""
-    roomObjList = currentRoom.GetRoomList()
-    spotObjList = currentRoom.GetSpotList()
+    roomObjList = room.GetRoomList()
+    spotObjList = room.GetSpotList()
     activeSpot = currentPlayer.GetPos()
     plAction = gui.inputScreen.GetInput()
     if plAction == cmd_inpt.UNKNOWN:
@@ -383,34 +382,38 @@ def playerAction_Selector(currentRoom, currentPlayer):
             quitSave()
     elif plAction in dictRooms:
         #player enters a room
-        if plAction == currentRoom.number:
+        if plAction == room.number:
             #only show description if specifically asked
-            gui.textScreen.TypeWrite(currentRoom.description)
-        elif plAction in dictConnectedRooms[currentRoom.number]:
+            gui.textScreen.TypeWrite(room.description)
+        elif plAction in dictConnectedRooms[room.number]:
             #players leave current spot/room
             for player in listPlayers:
-                player.GetPos().OnLeave()
+                player.GetPos().OnLeave(room)
             #player selected another room
-            currentRoom = roomObjList[plAction]
+            room = roomObjList[plAction]
             #players enter new room
             for player in listPlayers:
-                player.SetPos(currentRoom)
-            currentRoom.OnEnter()
+                player.SetPos(room)
+            room.OnEnter()
         else:
-            notReachable(currentRoom, plAction)    
+            notReachable(room, plAction)    
     elif plAction in dictSpots:
         #player enters a spot
         if plAction in spotObjList:
             #player selected a spot
             if not activeSpot.number == plAction:
-                activeSpot.OnLeave()
+                activeSpot.OnLeave(room)
             currentPlayer.SetPos(spotObjList[plAction])
-            currentPlayer.GetPos().OnEnter()
+            currentPlayer.GetPos().OnEnter(room)
         else:
-            notReachable(currentRoom, plAction)  
+            notReachable(room, plAction)  
     else:
         #player selected an item, an item-item combination, or an item-spot combination
-        actionHandler(plAction)
+        if len(str(plAction)) == 3: 
+            #player selected a spot/room that is not within reach
+            notReachable(room, playerAction)
+        else: 
+            actionHandler(plAction)
         
  #----------------------------------------------  
 def newRound(currentPlayer):
