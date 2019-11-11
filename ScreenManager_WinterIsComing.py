@@ -1,5 +1,7 @@
 import tkinter as tk
 from Enums_WinterIsComing import cmd_inpt
+from Enums_WinterIsComing import consts
+
 
 # Window/helper classes
 #----------------------------------------------
@@ -132,7 +134,7 @@ Offers public function Update that takes the player list to output the player's 
     def Update(self, playerList):
         self.__Activate()
         self.delete('1.0', tk.END)
-        self.insert('1.0', "Name        Motivation    Müdigkeit\n")
+        self.insert('1.0', "Name        Motivation      Müdigkeit\n")
         maxNamePlusSpaces = 12 #9 for name, 4 for whitespaces
         lineNr = 1
         for player in playerList:
@@ -157,20 +159,21 @@ Offers public function Update that takes the player list to output the player's 
             self.tag_add(currName+"motClr", tagPlrE, tagMotE)
             self.tag_add(currName+"tirClr", tagTirS, tagTirE)
             #define text colors
-            self.tag_config(currName+"modClr", foreground=GuiVars.dictCP["Y1"], font=("Courier New", "12", "bold"))
+            self.tag_config(currName+"modClr", foreground=GuiVars.dictCP["B4"], font=consts.GUI_BOLD)
             self.tag_config(currName+"plrClr", foreground=player.GetColor())
-            self.tag_config(currName+"motClr", foreground=self.__GetModColor(currMod[0]))
-            self.tag_config(currName+"tirClr", foreground=self.__GetModColor(10-currMod[1]))
+            self.tag_config(currName+"motClr", foreground=self.__GetModColor(currMod[0]), font=consts.GUI_BOLD)
+            self.tag_config(currName+"tirClr", foreground=self.__GetModColor(10-currMod[1]), font=consts.GUI_BOLD)
             self.update()
+        self.after(consts.GUI_WAIT_UPDATE)
         self.__Deactivate()
 
     def __GetModColor(self, mod):
         if mod > 5 :
-            return "green"
+            return '#00FF00' #green
         elif mod > 2:
-            return "yellow"
+            return '#FFFF00' #yellow
         else:
-            return "red"
+            return '#FF0000' #red
 
     def __Activate(self):
         self.config(state=tk.NORMAL)
@@ -197,6 +200,7 @@ Offers public function Update that takes the inventory dict to present its conte
         for key, val in dictInventory.items():
             cnt = cnt + 1
             self.insert(str(cnt)+'.0', str(key) + "    " + val.name + "\n")
+        self.after(consts.GUI_WAIT_UPDATE)
         self.__Deactivate()
 
     def __Activate(self):
@@ -222,7 +226,7 @@ class OutputText(tk.Text):
 
     def LineWrite(self, text):
         self.__Activate()
-        self.after(500)
+        self.after(consts.GUI_LINEWRITE_WAIT)
         self.insert(tk.INSERT, text)
         self.update()
         self.__Deactivate()
@@ -230,30 +234,33 @@ class OutputText(tk.Text):
     def TypeWrite(self, text):
         self.__Activate()
         self.__TypeWrite(text)
+        self.__Deactivate()
+
+    def NameWrite(self, player):
+        self.__Activate()
+        plName = player.GetName()
+        linNr = int(self.index('end').split('.')[0])-1
+        colSt = int(self.index('end').split('.')[-1])
+        tagNameS = str(linNr) + '.' + str(colSt)
+        tagNameE = str(linNr) + '.' + str(colSt+len(plName))
+        self.__TypeWrite(plName)
+        self.tag_add("plr", tagNameS, tagNameE)
+        self.tag_config("plr", foreground=player.GetColor(), font=consts.GUI_BOLD)
+        self.__Deactivate()
 
     def __TypeWrite(self, text):
-        if len(text) > 0:
-            self.insert(tk.INSERT, text[0])
-            if len(text) > 1:
-                 # type next char [ms]
-                 self.update()
-                 self.after(30)
-                 self.TypeWrite(text[1:])
-                 #add blip-like sound on output?
-            else:
-                self.config(fg=GuiVars.dictCP["Y4"])
-                self.config(bg=GuiVars.dictCP["B1"])
-                self.__Deactivate()
+        for text in text:
+            self.insert(tk.INSERT, text)
+            self.update()
+            self.after(consts.GUI_TYPEWRITE_WAIT)
         
     def __Activate(self):
         self.config(state=tk.NORMAL)
-        self.config(fg=GuiVars.dictCP["Y5"])
         self.config(bg=GuiVars.dictCP["B2"])
         self.focus_set()
         
     def __Deactivate(self):
         #clear text then disable text screen
-        self.config(fg=GuiVars.dictCP["Y4"])
         self.config(bg=GuiVars.dictCP["B1"])
         self.config(state=tk.DISABLED)
 
@@ -287,46 +294,46 @@ class GameGui:
         #Screens   
         wid = textScrFr.winfo_id()
         self.textScreen = OutputText(textScrFr\
-                                     , font=("Courier New", "12")\
+                                     , font=consts.GUI_FONT\
                                      , insertontime=0\
                                      , bg=var.scrBg\
                                      , fg=var.scrFg\
-                                     , width=82\
+                                     , width=78\
                                      , height=20\
                                      , padx=12\
                                      , pady=9)  
         self.gameScreen = tk.Label(gameScrFr\
-                                , font=("Courier New", "12")\
+                                , font=consts.GUI_FONT\
                                 , image=img\
                                 , width=var.scr_w/2\
                                 , height=var.scr_w*(9/32))
         self.inventoryScreen = InventoryText(invtScrFr\
-                                          , font=("Courier New", "12")\
+                                          , font=consts.GUI_FONT\
                                           , bg=var.scrBg\
                                           , fg=var.scrFg\
-                                          , width=62\
+                                          , width=25\
                                           , height=10\
                                           , padx=12\
                                           , pady=9)
         self.statsScreen = StatusText(statsScrFr\
-                                      , font=("Courier New", "12")\
+                                      , font=consts.GUI_FONT\
                                       , bg=var.scrBg\
                                       , fg=var.scrFg\
-                                      , width=38\
+                                      , width=40\
                                       , height=10\
                                       , padx=12\
                                       , pady=9)
-        self.inputScreen = InputText(inputScrFr, font=("Courier New", "63", "bold") \
+        self.inputScreen = InputText(inputScrFr, font=("Lucida Console", "69") \
                                          ,insertbackground=var.scrFg\
                                          , insertofftime=1200\
                                          , insertontime=1200\
                                          , insertwidth=5\
                                          , width=5\
                                          , height=1\
-                                         , padx=24\
+                                         , padx=6\
                                          , bg=var.scrBg\
                                          , fg=var.scrFg\
-                                         , pady=42)
+                                         , pady=43)
         #Screen Pack
         self.textScreen.pack(side = tk.LEFT, fill=tk.Y, expand=tk.YES)
         self.gameScreen.pack(anchor = tk.CENTER, expand=tk.YES) 

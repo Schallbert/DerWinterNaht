@@ -25,10 +25,11 @@ dictTexts = {
 "Euer Smartphone. Kann so ziemlich alles und ist natürlich auch mit Taschenlampe,\n\
 Kamera und Navigationssystem ausgestattet.\n\
 Hier draußen scheinen leider weder Mobilfunk noch Datenvervindung möglich zu sein.\n\
-Zudem ist der Akkustand niedrig und ihr habt keine Powerbank dabei.",
+Zudem ist der Akkustand niedrig und ihr habt keine Powerbank dabei.\n",
     11 : \
 "Ein kaum leserliches Foto der Umgebungskare, aufgenommen mit dem Handy.\n\
-Die Spiegelung der hellen Hauswand gegenüber links des Kastens hingegen zeigt alle Details.\n",
+Die Spiegelung der hellen Hauswand gegenüber links des Kastens hingegen\n\
+zeigt alle Details.\n",
     12 : \
 "Das Foto der Umgebungskarte.\n\
 Die Karte ist scharf und detailliert zu erkennen.\n",
@@ -42,23 +43,23 @@ in die Schublade 'Panisch und übertrieben vorsichtig' fällt...\n",
 Eure Rucksäcke platzen fast vor Zutaten für eine wahre Picknick-Orgie.\n\
 Wenn ihr das alles esst, werdet ihr wohl kaum weiterwandern wollen ;)\n",
     100 : \
-"Eine Bahnstation in der tiefsten Eifel...\n",
+"Eine Bahnstation in der tiefsten Eifel...\n\n",
     101 : \
-"Eine große, ziemlich detaillierte Karte der Umgebung in einem etwas ramponiert\n\
-aussehendem Glaskasten.\n\
+"Eine große, ziemlich detaillierte Karte der Umgebung in einem\n\
+etwas ramponiert aussehendem Glaskasten.\n\
 Die Sonne spiegelt sich so sehr darin, dass man kaum etwas erkennen kann.\n\
-Ihr Titel: 'Die V_____eifel: Mend__ ___ ____bung, 1:10000'\n",
+Ihr Titel: 'Die V_____eifel: Mend__ ___ ____bung, 1:10000'\n\n",
     102 : \
 "Der linke Pfosten des Glaskastens.\nEr trägt zwar Rostspuren,\n\
-scheint aber grundsolide und tief im Boden verankert.\n",
+scheint aber grundsolide und tief im Boden verankert.\n\n",
     103 : \
-"Die 'Adler-Apotheke' in Mendig. Kennste eine, kennste alle...\n",
+"Die 'Adler-Apotheke' in Mendig. Kennste eine, kennste alle...\n\n",
     104 : \
 "Ein REWE-Markt, ziemlich groß für diese Gegend.\n\
-Der hat bestimmt alles, was man vergessen haben könnte.\n",
+Der hat bestimmt alles, was man vergessen haben könnte.\n\n",
     105 : \
 "Die große Karte der Umgebung ist jetzt verschattet, da jemand von euch\n\
-vor dem Pfosten steht. Man kann die Karte jetzt klar und deutlich erkennen.\n",
+vor dem Pfosten steht. Man kann die Karte jetzt klar und deutlich erkennen.\n\n",
     110 : \
 "Der Fußweg zu eurem ersten Etappenziel Maria Laach.\n\
 Ihr wolltet ungern an der Landstraße entlang gehen und habt euch für diesen\n\
@@ -68,23 +69,23 @@ durch das Blätterdach, es duftet nach Heckenrosen und ab und zu erhascht ihr\n\
 einen Blick auf den Wald.\n\
 Schließlich gelangt ihr an eine Weggabelung in einer kleinen Senke.\n\
 Der Wegweiser wird den letzten Winter wohl nicht überlebt haben,\n\
-sein mit abgebrochener Stumpf ragt ein paar Zentimeter aus dem Boden.\n",
+sein abgebrochener Stumpf ragt ein paar Zentimeter aus dem Boden.\n\n",
     120: \
 "Nach ein paar hundert Metern sanft bergab verläuft sich der Weg\n\
 und endet in lockeren, aber leicht erhöhten, festen Grasbüscheln.\n\
 Die Natur hat euch hier förmlich verschluckt.\n\
-Doch - halt - was glitzert da hinten im Gras?\n",
+Doch - halt - was glitzert da hinten im Gras?\n\n",
     130: \
 "Hier geht es eindeutig bergauf. Nicht, dass ihr das am Gelände sehen könnt,\n\
 nein, dafür ist das Unterholz viel zu dicht, aber es ist irgendwie...\n\
 anstrengend und wird eher noch anstrengender. \n\
-Vorne seht ihr eine Lichtung, vielleicht gut für eine Rast?\n",
+Vorne seht ihr eine Lichtung, vielleicht gut für eine Rast?\n\n",
     10101: \
 "Ihr nehmt ein Foto der Übersichtskarte auf, um es euch später ansehen zu können.\n\
-Gute Idee!",
+Gute Idee!\n",
     10105: \
 "Ihr nehmt ein Foto der Übersichtskarte auf, um es euch später ansehen zu können.\n\
-Gute Idee!"
+Gute Idee!\n"
     }
 
 #Defines what happens on closer investigation or usage of an item
@@ -208,3 +209,8 @@ dictModType = {
 dictModsRefused = {
     #TODO: add
     }
+
+class GameMsg():
+    NAN = "Keine Zahl erkannt. Zum Speichern und Beenden bitte 'quit' eingeben.\n"
+    SVQT = "Spiel wird gespeichert und beendet. Bis bald!"
+    TURN = " ist an der Reihe.\nWas wollt ihr tun?\n"

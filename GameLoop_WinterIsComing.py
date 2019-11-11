@@ -20,60 +20,24 @@ currentRoom = Room(100)
 #generate start items in inventory
 Item(10)
 #listPlayers Types [int currentPlayer, Player player1, Player player2, ...]
-listPlayers = [Player("Lukas", "blue", [10,8], currentRoom), \
+listPlayers = [Player("Lukas", "orange", [10,8], currentRoom), \
                Player("Marie", "cyan", [7,6], currentRoom)]
 currentPlayerId = 0
 currentPlayer = listPlayers[currentPlayerId]
 #get GUI up and running
-gui = GameGui()
+#gui = GameGui()
 #enter a room routine
 currentRoom.OnEnter()
 while True:
     
-    roomObjList = currentRoom.GetRoomList()
-    spotObjList = currentRoom.GetSpotList()
-    activeSpot = currentPlayer.GetPos()
-    gui.textScreen.Clear()
-    gui.textScreen.TypeWrite(currentPlayer.GetName() + " ist an der Reihe.\n")
-    gui.statsScreen.Update(listPlayers)
-    gui.inventoryScreen.Update(dictInventory)
-    gui.textScreen.TypeWrite("Was wollt ihr tun?\n")
-    playerAction = gui.inputScreen.GetInput()
-    if playerAction == cmd_inpt.UNKNOWN:
-            gui.textScreen.TypeWrite("Keine Zahl erkannt. Zum Speichern und Beenden bitte 'quit' eingeben.\n")
-    elif playerAction == cmd_inpt.QUIT:
-            gui.textScreen.LineWrite("Spiel wird gespeichert und beendet. Bis bald!")
-            quitSave()
-    elif playerAction in dictRooms:
-        #player enters a room
-        if playerAction == currentRoom.number:
-            #only show description if specifically asked
-            textReader(currentRoom.description)
-        elif playerAction in dictConnectedRooms[currentRoom.number]:
-            #players leave current spot/room
-            for player in listPlayers:
-                player.GetPos().OnLeave()
-            #player selected another room
-            currentRoom = roomObjList[playerAction]
-            #players enter new room
-            for player in listPlayers:
-                player.SetPos(currentRoom)
-            currentRoom.OnEnter()
-        else:
-            notReachable(currentRoom, playerAction)    
-    elif playerAction in dictSpots:
-        #player enters a spot
-        if playerAction in spotObjList:
-            #player selected a spot
-            if not activeSpot.number == playerAction:
-                activeSpot.OnLeave()
-            currentPlayer.SetPos(spotObjList[playerAction])
-            currentPlayer.GetPos().OnEnter()
-        else:
-            notReachable(currentRoom, playerAction)  
-    else:
-        #player selected an item, an item-item combination, or an item-spot combination
-        actionHandler(playerAction)
+    #gui.textScreen.Clear() #new round
+    #gui.textScreen.TypeWrite(currentPlayer.GetName() + " ist an der Reihe.\n")
+    gui.statsScreen.Update(listPlayers) #only update on change?
+    gui.inventoryScreen.Update(dictInventory) #only update on change?
+    #gui.textScreen.TypeWrite("Was wollt ihr tun?\n")
+    #playerAction = gui.inputScreen.GetInput()
+    playerAction_Selector(currentRoom, currentPlayer)
+    newRound(currentPlayer)
     currentPlayer = listPlayers[nextPlayer(currentPlayerId)]
     
     # TODO: Update inventory/stat screen

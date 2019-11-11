@@ -20,3 +20,11 @@ class Mod_typ(IntEnum):
 class cmd_inpt(IntEnum):
     UNKNOWN = 0
     QUIT = 1
+
+
+class consts():
+    GUI_WAIT_UPDATE = 500
+    GUI_LINEWRITE_WAIT = 500
+    GUI_TYPEWRITE_WAIT = 30
+    GUI_FONT = ["Lucida Console", "12"]
+    GUI_BOLD = ["Lucida Console", "12", "bold"]

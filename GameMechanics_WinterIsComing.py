@@ -15,7 +15,7 @@ dictInventory = {}
 listRoomsVisited = []
 listItemsYielded = []
 listPlayers = []
-
+gui = GameGui()
     
 # Game classes
 #----------------------------------------------
@@ -34,24 +34,24 @@ class Room:
         self.__ReloadRoom()
 
     def __ReloadRoom(self):
-        print("")
         if self.number not in listRoomsVisited:
-            textReader(self.description)
-        textReader("Ihr befindet euch bei " + str(self.number) + ": "\
+            gui.textScreen.Clear()
+            gui.textScreen.TypeWrite(self.description)
+        gui.textScreen.TypeWrite("Ihr befindet euch bei " + str(self.number) + ": "\
                    + self.name + ".\n\n")
-        print("Ihr seht:")
+        gui.textScreen.LineWrite("Ihr seht:\n")
         for element in self.__spot_list.values():
-            print(str(element.number) + ": " + element.name + "\n")
-            time.sleep(.5)
-        print("\nVon hier aus sind folgende Orte erreichbar:")
+            gui.textScreen.LineWrite(str(element.number) + ": " + element.name + "\n")
+        gui.textScreen.LineWrite("\nVon hier aus sind folgende Orte erreichbar:\n")
         for element in self.__room_list.values():
             if element.number in listRoomsVisited:
                 #room is known
-                print(str(element.number) + ": "\
-                      + element.name)
+                gui.textScreen.LineWrite(str(element.number) + ": "\
+                      + element.name + "\n")
             else:
-                print(str(element.number) + ": ???")
+                gui.textScreen.LineWrite(str(element.number) + ": ???\n")
             time.sleep(.5)
+        gui.textScreen.LineWrite("\n")
         listRoomsVisited.append(self.number)
 
     def SpotExchange(self, fromSpotId, targetSpotId):
@@ -94,7 +94,8 @@ class Spot:
     def OnEnter(self):
         """Routines that are executed when a spot is entered,
         i.e. description, trigger spot exchange, trigger actions"""
-        textReader("\nIhr untersucht: " + self.name + "\n" + self.description)
+        gui.textScreen.Clear()
+        gui.textScreen.TypeWrite("\nIhr untersucht: " + self.name + "\n" + self.description + "\n")
         self.__action() #perform spot action
         if self.number in dictSpotChange: 
             for element in range(0, len(dictSpotChange[self.number][0])):
@@ -115,14 +116,13 @@ class Spot:
     def __action(self):
         """Interaction with the spot depending on context VIEW, GOTO, OPEN, GET or NOCHOICE
         May modify character's properties or set flags plot changes"""
-        print("")
         if self.__action_id < Action_id.NOC_YES:
-            textReader("Möchtet ihr " + self.name + actionDict[self.__action_id] + "\n")
+            gui.textScreen.TypeWrite("Möchtet ihr " + self.name + actionDict[self.__action_id] + "\n")
             resp = inputCheck("Bitte eingeben: JA: '1', NEIN: '0'. ")
             if resp == 1:
                 self.__action_id == Action_id.NOC_NO #mitigate re-enter action
                 if self.number in dictAction:
-                    textReader(dictAction[self.number])
+                    gui.textScreen.TypeWrite(dictAction[self.number])
                 if self.number in dictMods:
                     invokeChangeMod(self.__mod, self.__modType)
                 if self.number in dictSpotItems:
@@ -132,15 +132,15 @@ class Spot:
                         Item(itemId)
             else:
                 if self.number in dictActionRefused:
-                    textReader(dictActionRefused[self.number])
+                    gui.textScreen.TypeWrite(dictActionRefused[self.number])
                 else:
-                    textReader("Ja, manchmal ist es auch gut, Dinge NICHT zu tun.\n")
+                    gui.textScreen.TypeWrite("Ja, manchmal ist es auch gut, Dinge NICHT zu tun.\n")
                 if self.number in dictModsRefused:
                     changeMod(dictMods[self.number])
         elif self.__action_id == Action_id.NOC_YES:
             self.__action_id == Action_id.NOC_NO #mitigate re-enter action
             if self.number in dictAction:
-                textReader(dictAction[self.number])
+                gui.textScreen.TypeWrite(dictAction[self.number])
             if self.number in dictMods:
                 changeMod(dictMods[self.number])
        #else: action_id is NOC_NO and nothing happens
@@ -177,25 +177,25 @@ class Item:
         asks the player - if the item is 'usable' - whether the item shall be used.
         Items are only 'usable' if they do not need any other object for interaction
         except the player and the item itself."""
-        textReader(self.description)
+        gui.textScreen.TypeWrite(self.description)
         if self.__type == Mod_typ.NOTUSABLE \
            or self.__type == Mod_typ.PERMANENT:
-            print("Dieser Gegenstand kann nicht ohne Kombination benutzt werden.")
+            gui.textScreen.LineWrite("Dieser Gegenstand kann nicht ohne Kombination benutzt werden.")
         else:
-            textReader("Möchtet ihr " + self.name + " benutzen?\n")
+            gui.textScreen.TypeWrite("Möchtet ihr " + self.name + " benutzen?\n")
             resp = inputCheck("Bitte eingeben: JA: '1', NEIN: '0'. ")
             if resp == 1:
-                textReader(self.__action)
+                gui.textScreen.TypeWrite(self.__action)
                 if self.__type == Mod_typ.EFFONE or self.__type == Mod_typ.EFFALL:
                     if self.__mod is not None:
                         invokeChangeMod(self.__mod, self.__type)
                     #item uses up and is then deleted
                     self.DelItem()
-                    textReader(self.name + " wurde verbraucht.\n")
+                    gui.textScreen.TypeWrite(self.name + " wurde verbraucht.\n")
                 else:
-                    textReader(self.name + " kann nicht allein benutzt oder verbraucht werden.\n")
+                    gui.textScreen.TypeWrite(self.name + " kann nicht allein benutzt oder verbraucht werden.\n")
             else:
-                textReader("Ja, manchmal ist es auch gut, von Taten abzusehen.\n")
+                gui.textScreen.TypeWrite("Ja, manchmal ist es auch gut, von Taten abzusehen.\n")
 
     def GetType(self):
         return self.__type             
@@ -231,41 +231,22 @@ class Player:
             elif self.__mod[i] < 1:
                 #exchange motivation/tiredness 2:1
                 #If that is not possible, --> minigame or --> quit game for time x
-                print("TODO: GAME OVER")
+                gui.textScreen.LineWrite("TODO: GAME OVER")
 
 #----------------------------------------------
 # General Helper functions
 #----------------------------------------------
-def textReader(text):
-    for text in text:
-            print(text, end="")
-            time.sleep(.001) #later: 0.04
-            #add blip-like sound on output?
 
 def quitSave():
-    print("Speichern...")
+    gui.textScreen.LineWrite("Speichern...")
     save()
-    print("Spiel wird beendet.")
+    gui.textScreen.LineWrite("Spiel wird beendet.")
     quit()
 
 def save():
-    print("IMPLEMENT SAVE!")
-    print("Gespeichert!")
-
-def inputCheck(text):
-    number = 1000000
-    inptLoop = True
-    while inptLoop:
-        resp = input(text)
-        try :
-            number = int(resp)
-            inptLoop = False
-            return number
-        except :
-            if resp.lower() == "quit":
-                quitSave()
-            else:
-                print("Bitte eine Zahl eingeben oder das Spiel mittels 'quit' beenden.")              
+    gui.textScreen.LineWrite("IMPLEMENT SAVE!")
+    gui.textScreen.LineWrite("Gespeichert!")
+           
 #----------------------------------------------
 #----------------------------------------------
 # Object builder functions
@@ -308,7 +289,7 @@ def actionHandler(generateFromNr):
     elif nrOfDigits == 5:
         itemSpot(generateFromNr)
     else:
-        print("Kein bekanntes Kommando.")
+        gui.textScreen.LineWrite("Kein bekanntes Kommando.\n")
 #----------------------------------------------
 def itemUse(generateFromNr):
     """Generates the item connected to the spot, if any"""
@@ -316,7 +297,7 @@ def itemUse(generateFromNr):
     if generateFromNr in dictInventory:
         dictInventory[generateFromNr].UseItem()
     else:
-        print("Leider hast du diesen Gegenstand nicht im Inventar...")      
+        gui.textScreen.LineWrite("Leider hast du diesen Gegenstand nicht im Inventar...\n")      
 #----------------------------------------------        
 def itemItem(generateFromNr):
     #4-digit
@@ -329,13 +310,13 @@ def itemItem(generateFromNr):
             #original items deleted on combination
             dictInventory[item1].DelItem
             dictInventory[item2].DelItem
-            textReader("Du erhältst " + str(generateFromNr) \
-                       + ": " + dictInventory[generateFromNr].name)
+            gui.textScreen.TypeWrite("Du erhältst " + str(generateFromNr) \
+                       + ": " + dictInventory[generateFromNr].name + "\n")
         else:
-            print("Das lässt sich nicht kombinieren!")
+            gui.textScreen.LineWrite("Das lässt sich nicht kombinieren!")
     else:
-        print("Nette Idee, allerdings habt ihr die Gegenstände " + str(item1) \
-              + " und " + str(item2) + " nicht beide im Inventar...")
+        gui.textScreen.TypeWrite("Nette Idee, allerdings habt ihr die Gegenstände " + str(item1) \
+              + " und " + str(item2) + " nicht beide im Inventar...\n")
 #----------------------------------------------
 def itemSpot(generateFromNr):
     item = int(generateFromNr/1000)
@@ -348,35 +329,35 @@ def itemSpot(generateFromNr):
                 for element in range(0, len(dictSpotItems[generateFromNr])):
                     newItemNr = dictSpotItems[generateFromNr][element]
                     newItem = Item(newItemNr)
-                    textReader("Das war erfolgreich! Ihr erhaltet " + \
+                    gui.textScreen.TypeWrite("Das war erfolgreich! Ihr erhaltet " + \
                            str(newItem.number) + \
-                               ": " + newItem.name)
+                               ": " + newItem.name + "\n")
                 #delete old item
                 if not dictInventory[item].GetType == Mod_typ.PERMANENT:
                     dictInventory[item].DelItem()
             else:
                 #generate game progress only
-                textReader(dictTexts[generateFromNr])
+                gui.textScreen.TypeWrite(dictTexts[generateFromNr])
         else:      
-            print("Ihr besitzt den angegebenen Gegenstand doch gar nicht!")
+            gui.textScreen.TypeWrite("Ihr besitzt den angegebenen Gegenstand doch gar nicht!\n")
     else:
-        print("Diesen Ort gibt es hier leider nicht.")
+        gui.textScreen.TypeWrite("Diesen Ort gibt es hier leider nicht.\n")
 #----------------------------------------------
 def invokeChangeMod(mod, modType):
     if modType == Mod_typ.EFFONE:
             currentPlayer.ChangeMod(mod)
-            textReader(currentPlayer.name + ", dein Wohlbefinden ändert sich um:\n\
+            gui.textScreen.TypeWrite(currentPlayer.name + ", dein Wohlbefinden ändert sich um:\n\
 Motivation: " + str(mod[0]) + "\n"\
 "Müdigkeit: " + str(mod[1]) + "\n")
     elif modType == Mod_typ.EFFALL:
         for element in range(1, len(listPlayers)):
             listPlayers[element].ChangeMod(mod)
-            textReader(listPlayers[element].name + ", dein Wohlbefindern ändert sich um:\n\
+            gui.textScreen.TypeWrite(listPlayers[element].name + ", dein Wohlbefindern ändert sich um:\n\
 Motivation: " + str(mod[0]) + "\n"\
 "Müdigkeit: " + str(mod[1]) + "\n")
 #----------------------------------------------
 def notReachable(room, tgt):
-    textReader("Der Raum bzw. die Aktion " + str(tgt) + " ist von hier aus\n" \
+    gui.textScreen.TypeWrite("Der Raum bzw. die Aktion " + str(tgt) + " ist von hier aus\n" \
 + str(room.number) + ": " + room.name + " leider nicht erreichbar...\n")
 #----------------------------------------------
 def nextPlayer(currentPlayerId):
@@ -387,5 +368,54 @@ def nextPlayer(currentPlayerId):
         #start again with first player
         currentPlayerId =  0
     return currentPlayerId
+#---------------------------------------------- 
+def playerAction_Selector(currentRoom, currentPlayer):
+    """This function checks the player's wish and, if valid,
+    tries to match it to an existing object."""
+    roomObjList = currentRoom.GetRoomList()
+    spotObjList = currentRoom.GetSpotList()
+    activeSpot = currentPlayer.GetPos()
+    plAction = gui.inputScreen.GetInput()
+    if plAction == cmd_inpt.UNKNOWN:
+            gui.textScreen.TypeWrite(GameMsg.NAN)
+    elif plAction == cmd_inpt.QUIT:
+            gui.textScreen.LineWrite(GameMsg.SVQT)
+            quitSave()
+    elif plAction in dictRooms:
+        #player enters a room
+        if plAction == currentRoom.number:
+            #only show description if specifically asked
+            gui.textScreen.TypeWrite(currentRoom.description)
+        elif plAction in dictConnectedRooms[currentRoom.number]:
+            #players leave current spot/room
+            for player in listPlayers:
+                player.GetPos().OnLeave()
+            #player selected another room
+            currentRoom = roomObjList[plAction]
+            #players enter new room
+            for player in listPlayers:
+                player.SetPos(currentRoom)
+            currentRoom.OnEnter()
+        else:
+            notReachable(currentRoom, plAction)    
+    elif plAction in dictSpots:
+        #player enters a spot
+        if plAction in spotObjList:
+            #player selected a spot
+            if not activeSpot.number == plAction:
+                activeSpot.OnLeave()
+            currentPlayer.SetPos(spotObjList[plAction])
+            currentPlayer.GetPos().OnEnter()
+        else:
+            notReachable(currentRoom, plAction)  
+    else:
+        #player selected an item, an item-item combination, or an item-spot combination
+        actionHandler(plAction)
+        
+ #----------------------------------------------  
+def newRound(currentPlayer):
+     gui.textScreen.LineWrite("\n")
+     gui.textScreen.NameWrite(currentPlayer)
+     gui.textScreen.TypeWrite(GameMsg.TURN)
 #----------------------------------------------    
 #----------------------------------------------
