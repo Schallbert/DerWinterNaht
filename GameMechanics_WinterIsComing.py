@@ -8,14 +8,6 @@ import time
 from TextData_WinterIsComing import *
 from Enums_WinterIsComing import *
 from ScreenManager_WinterIsComing import *
-
-#Data structures
-
-dictInventory = {}
-listRoomsVisited = []
-listItemsYielded = []
-listPlayers = []
-gui = GameGui()
     
 # Game classes
 #----------------------------------------------
@@ -28,7 +20,9 @@ class Room:
         self.name = dictRooms[number]
         self.description = dictTexts[number]
 
-    def OnEnter(self):
+    def OnEnter(self, room):
+        """Set up of connected spots and adjacent rooms.
+        Then refreshes the room's attributes. Input 'room' not used."""
         self.__spot_list = spotBuilder(self.number)
         self.__room_list = roomBuilder(self.number)
         self.__ReloadRoom()
@@ -72,7 +66,8 @@ class Room:
     def GetRoomList(self):
         return self.__room_list
 
-    def OnLeave(self):
+    def OnLeave(self, room):
+        """Not needed (just yet). Input 'room' not used."""
         #TODO: not implemented (yet)
         pass
                 
@@ -180,7 +175,7 @@ class Item:
         gui.textScreen.TypeWrite(self.description)
         if self.__type == Mod_typ.NOTUSABLE \
            or self.__type == Mod_typ.PERMANENT:
-            gui.textScreen.LineWrite(GameMsg.NO_COMB)
+            gui.textScreen.LineWrite(GameMsg.MUST_COMB)
         else:
             gui.textScreen.TypeWrite(GameMsg.ACIONQ + self.name + actionDict[3]) #use?
             gui.textScreen.LineWrite(GameMsg.ACTIONP)
@@ -200,6 +195,35 @@ class Item:
 
     def GetType(self):
         return self.__type             
+
+class ListPlayers:
+    """This is a static class that does not need any instance. 
+    Saves state for playerList and current player for whole game"""
+    __listP = []
+    __currentPlayerId = 0
+    
+    @classmethod
+    def SetPlayers(cls, listPlayers):
+        """Setter for player list"""
+        cls.__listP = listPlayers
+    
+    @classmethod    
+    def NextPlayer(cls):
+        """Selects and returns the next player from the list"""
+        if cls.__currentPlayerId < (len(cls.__listP) - 1):
+            #next player 
+            cls.__currentPlayerId += 1
+        else:
+            #start again with first player
+            cls.__currentPlayerId =  0
+            
+    @classmethod    
+    def GetCurrent(cls):
+        return cls.__listP[cls.__currentPlayerId]
+        
+    @classmethod
+    def GetList(cls):
+        return cls.__listP
 
 class Player:
     def __init__(self, name, color, mod, position):
@@ -288,15 +312,16 @@ def actionHandler(generateFromNr):
     elif nrOfDigits == 5:
         itemSpot(generateFromNr)
     else:
-        gui.textScreen.LineWrite("Kein bekanntes Kommando.\n")
+        gui.textScreen.LineWrite(GameMsg.UNKNOWN_CMD)
 #----------------------------------------------
 def itemUse(generateFromNr):
     """Generates the item connected to the spot, if any"""
     #2-digit
     if generateFromNr in dictInventory:
         dictInventory[generateFromNr].UseItem()
+        gui.inventoryScreen.Update(dictInventory)
     else:
-        gui.textScreen.LineWrite("Leider hast du diesen Gegenstand nicht im Inventar...\n")      
+        gui.textScreen.LineWrite(GameMsg.NOT_INV)      
 #----------------------------------------------        
 def itemItem(generateFromNr):
     #4-digit
@@ -309,13 +334,13 @@ def itemItem(generateFromNr):
             #original items deleted on combination
             dictInventory[item1].DelItem
             dictInventory[item2].DelItem
-            gui.textScreen.TypeWrite("Du erhältst " + str(generateFromNr) \
+            gui.textScreen.TypeWrite(GameMsg.SUCCESS_GET + str(generateFromNr) \
                        + ": " + dictInventory[generateFromNr].name + "\n")
+            gui.inventoryScreen.Update(dictInventory)
         else:
-            gui.textScreen.LineWrite("Das lässt sich nicht kombinieren!")
+            gui.textScreen.LineWrite(GameMsg.CNT_CMB)
     else:
-        gui.textScreen.TypeWrite("Nette Idee, allerdings habt ihr die Gegenstände " + str(item1) \
-              + " und " + str(item2) + " nicht beide im Inventar...\n")
+        gui.textScreen.TypeWrite(GameMsg.NOT_INV)
 #----------------------------------------------
 def itemSpot(generateFromNr):
     item = int(generateFromNr/1000)
@@ -328,9 +353,10 @@ def itemSpot(generateFromNr):
                 for element in range(0, len(dictSpotItems[generateFromNr])):
                     newItemNr = dictSpotItems[generateFromNr][element]
                     newItem = Item(newItemNr)
-                    gui.textScreen.TypeWrite("Das war erfolgreich! Ihr erhaltet " + \
+                    gui.textScreen.TypeWrite(GameMsg.SUCCESS_GET + \
                            str(newItem.number) + \
                                ": " + newItem.name + "\n")
+                    gui.inventoryScreen.Update(dictInventory)
                 #delete old item
                 if not dictInventory[item].GetType == Mod_typ.PERMANENT:
                     dictInventory[item].DelItem()
@@ -338,42 +364,31 @@ def itemSpot(generateFromNr):
                 #generate game progress only
                 gui.textScreen.TypeWrite(dictTexts[generateFromNr])
         else:      
-            gui.textScreen.TypeWrite("Ihr besitzt den angegebenen Gegenstand doch gar nicht!\n")
+            gui.textScreen.TypeWrite(GameMsg.NOT_INV)
     else:
-        gui.textScreen.TypeWrite("Diesen Ort gibt es hier leider nicht.\n")
+        gui.textScreen.TypeWrite(spot.name + GameMsg.NOT_IN_REACH)
 #----------------------------------------------
 def invokeChangeMod(mod, modType):
+    listPlayers = ListPlayers.GetList()
     if modType == Mod_typ.EFFONE:
-            currentPlayer.ChangeMod(mod)
-            gui.textScreen.TypeWrite(currentPlayer.name + ", dein Wohlbefinden ändert sich um:\n\
-Motivation: " + str(mod[0]) + "\n"\
-"Müdigkeit: " + str(mod[1]) + "\n")
+            ListPlayers.GetCurrent().ChangeMod(mod)
+            gui.statsScreen.Update(ListPlayers.GetList())
     elif modType == Mod_typ.EFFALL:
+        listP = ListPlayers.GetList()
         for element in range(1, len(listPlayers)):
-            listPlayers[element].ChangeMod(mod)
-            gui.textScreen.TypeWrite(listPlayers[element].name + ", dein Wohlbefindern ändert sich um:\n\
-Motivation: " + str(mod[0]) + "\n"\
-"Müdigkeit: " + str(mod[1]) + "\n")
+            listP[element].ChangeMod(mod)
+        gui.statsScreen.Update(ListPlayers.GetList())
 #----------------------------------------------
 def notReachable(room, tgt):
-    gui.textScreen.TypeWrite("Der Raum bzw. die Aktion " + str(tgt) + " ist von hier aus\n" \
-+ str(room.number) + ": " + room.name + " leider nicht erreichbar...\n")
-#----------------------------------------------
-def nextPlayer(currentPlayerId):
-    if currentPlayerId < (len(listPlayers) - 1):
-        #next player
-        currentPlayerId += 1
-    else:
-        #start again with first player
-        currentPlayerId =  0
-    return currentPlayerId
+    gui.textScreen.TypeWrite(str(tgt) + GameMsg.NOT_IN_REACH[0] \
++ str(room.number) + ": " + room.name + GameMsg.NOT_IN_REACH[1])
 #---------------------------------------------- 
-def playerAction_Selector(room, currentPlayer):
+def playerAction_Selector(room):
     """This function checks the player's wish and, if valid,
     tries to match it to an existing object."""
     roomObjList = room.GetRoomList()
     spotObjList = room.GetSpotList()
-    activeSpot = currentPlayer.GetPos()
+    activeSpot = ListPlayers.GetCurrent().GetPos()
     plAction = gui.inputScreen.GetInput()
     if plAction == cmd_inpt.UNKNOWN:
             gui.textScreen.TypeWrite(GameMsg.NAN)
@@ -387,13 +402,13 @@ def playerAction_Selector(room, currentPlayer):
             gui.textScreen.TypeWrite(room.description)
         elif plAction in dictConnectedRooms[room.number]:
             #players leave current spot/room
-            for player in listPlayers:
-                player.GetPos().OnLeave(room)
+            for player in ListPlayers.GetList():
+                player.GetPos().OnLeave()
             #player selected another room
             room = roomObjList[plAction]
             #players enter new room
-            for player in listPlayers:
-                player.SetPos(room)
+            for player in ListPlayers.GetList():
+                player.SetPos()
             room.OnEnter()
         else:
             notReachable(room, plAction)    
@@ -403,8 +418,8 @@ def playerAction_Selector(room, currentPlayer):
             #player selected a spot
             if not activeSpot.number == plAction:
                 activeSpot.OnLeave(room)
-            currentPlayer.SetPos(spotObjList[plAction])
-            currentPlayer.GetPos().OnEnter(room)
+            ListPlayers.GetCurrent().SetPos(spotObjList[plAction])
+            ListPlayers.GetCurrent().GetPos().OnEnter(room)
         else:
             notReachable(room, plAction)  
     else:
@@ -416,9 +431,17 @@ def playerAction_Selector(room, currentPlayer):
             actionHandler(plAction)
         
  #----------------------------------------------  
-def newRound(currentPlayer):
-     gui.textScreen.LineWrite("\n")
-     gui.textScreen.NameWrite(currentPlayer)
+def newRound():
+     ListPlayers.NextPlayer()
+     gui.textScreen.NameWrite(ListPlayers.GetCurrent())
      gui.textScreen.TypeWrite(GameMsg.TURN)
-#----------------------------------------------    
+#---------------------------------------------- 
+    
 #----------------------------------------------
+#Data structures
+
+
+dictInventory = {}
+listRoomsVisited = []
+listItemsYielded = []
+gui = GameGui()

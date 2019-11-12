@@ -19,26 +19,22 @@ def save():
 currentRoom = Room(100)
 #generate start items in inventory
 Item(10)
-#listPlayers Types [int currentPlayer, Player player1, Player player2, ...]
-listPlayers = [Player("Lukas", "orange", [10,8], currentRoom), \
-               Player("Marie", "cyan", [7,6], currentRoom)]
-currentPlayerId = 0
-currentPlayer = listPlayers[currentPlayerId]
+
 #get GUI up and running
 #gui = GameGui()
 #enter a room routine
-currentRoom.OnEnter()
+
+ListPlayers.SetPlayers([Player("Lukas", "orange", [10,8], currentRoom), \
+     Player("Marie", "cyan", [7,6], currentRoom)])
+
+gui.inventoryScreen.Update(dictInventory)
+gui.statsScreen.Update(ListPlayers.GetList())
+
+currentRoom.OnEnter(None)
 while True:
+    newRound()
+    playerAction_Selector(currentRoom)
     
-    #gui.textScreen.Clear() #new round
-    #gui.textScreen.TypeWrite(currentPlayer.GetName() + " ist an der Reihe.\n")
-    gui.statsScreen.Update(listPlayers) #only update on change?
-    gui.inventoryScreen.Update(dictInventory) #only update on change?
-    #gui.textScreen.TypeWrite("Was wollt ihr tun?\n")
-    #playerAction = gui.inputScreen.GetInput()
-    playerAction_Selector(currentRoom, currentPlayer)
-    newRound(currentPlayer)
-    currentPlayer = listPlayers[nextPlayer(currentPlayerId)]
     
     # TODO: Update inventory/stat screen
     # TODO: low/no stat left : End game/delay etc.
