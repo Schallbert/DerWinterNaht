@@ -29,6 +29,8 @@ gui.statsScreen.Update(ListPlayers.GetList())
 
 currentRoom.OnEnter()
 while True:
+    gui.textScreen.TypeWrite("_________________________________________________")
+    currentRoom.ReloadRoom()
     newRound()
     #update currentRoom if necessary and call player's interaction function
     currentRoom = playerAction_Selector(currentRoom)
