@@ -81,7 +81,7 @@ class Room:
         target spot needed when a spot changes its meaning throughout
         the game"""
         if targetSpotId not in self.__spot_list:
-            tgtSpot = Spot(targetSpotId)
+            tgtSpot = Spot(targetSpotId, self)
             self.__spot_list[targetSpotId] = tgtSpot
             self.__spot_list.pop(fromSpotId)
         else:
@@ -170,7 +170,7 @@ class Spot:
                 gui.textScreen.TypeWrite(dictAction[self.number])
             if self.number in dictMods:
                 changeMod(dictMods[self.number])
-       else: 
+        else: 
             #action_id is NOC_NO and nothing happens
             pass
                     
@@ -207,8 +207,7 @@ class Item:
         Items are only 'usable' if they do not need any other object for interaction
         except the player and the item itself."""
         gui.textScreen.TypeWrite(self.description)
-        if self.__type == Mod_typ.NOTUSABLE \
-           or self.__type == Mod_typ.PERMANENT:
+        if self.__type == Mod_typ.NOTUSABLE or self.__type == Mod_typ.PERMANENT:
             gui.textScreen.TypeWrite(GameMsg.MUST_COMB)
         else:
             gui.textScreen.TypeWrite(GameMsg.ACIONQ + self.name + actionDict[3]) #use?
@@ -309,14 +308,14 @@ def save():
 #----------------------------------------------
 # Handlers
 #----------------------------------------------
-def actionHandler(generateFromNr):
+def actionHandler(generateFromNr, room):
     nrOfDigits = len(str(generateFromNr))
     if nrOfDigits == 2:
         itemUse(generateFromNr)
     elif nrOfDigits == 4:
         itemItem(generateFromNr)
     elif nrOfDigits == 5:
-        itemSpot(generateFromNr)
+        itemSpot(generateFromNr, room)
     else:
         gui.textScreen.TypeWrite(GameMsg.UNKNOWN_CMD)
 #----------------------------------------------
@@ -348,11 +347,11 @@ def itemItem(generateFromNr):
     else:
         gui.textScreen.TypeWrite(GameMsg.NOT_INV)
 #----------------------------------------------
-def itemSpot(generateFromNr):
+def itemSpot(generateFromNr, room):
     #5-digit
     item = int(generateFromNr/1000)
     spot = generateFromNr%1000
-    spotList = currentRoom.GetSpotList()
+    spotList = room.GetSpotList()
     if spot in spotList:
         if item in dictInventory:
             if generateFromNr in dictSpotItems:
@@ -369,11 +368,14 @@ def itemSpot(generateFromNr):
                     dictInventory[item].DelItem()
             else:
                 #generate game progress only
-                gui.textScreen.TypeWrite(dictTexts[generateFromNr])
+                if generateFromNr in dictTexts:
+                    gui.textScreen.TypeWrite(dictTexts[generateFromNr])
+                else:
+                    gui.textScreen.TypeWrite(GameMsg.CANT_CMB)
         else:      
             gui.textScreen.TypeWrite(GameMsg.NOT_INV)
     else:
-        gui.textScreen.TypeWrite(spot.name + GameMsg.NOT_IN_REACH)
+        gui.textScreen.TypeWrite(GameMsg.NOT_IN_REACH)
 #----------------------------------------------
 def invokeChangeMod(mod, modType):
     listPlayers = ListPlayers.GetList()
@@ -440,7 +442,7 @@ def playerAction_Selector(room):
             #player selected a spot/room that is not within reach
             notReachable(room, plAction)
         else: 
-            actionHandler(plAction)
+            actionHandler(plAction, room)
     #returns currentRooom (might be updated in case room is changed)
     return room
         
