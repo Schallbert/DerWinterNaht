@@ -20,11 +20,11 @@ class Room:
         self.name = dictRooms[number]
         self.description = dictTexts[number]
 
-    def OnEnter(self, room):
+    def OnEnter(self):
         """Set up of connected spots and adjacent rooms.
         Then refreshes the room's attributes. Input 'room' not used."""
-        self.__spot_list = spotBuilder(self.number)
-        self.__room_list = roomBuilder(self.number)
+        self.__spot_list = self.__spotBuilder()
+        self.__room_list = self.__roomBuilder()
         self.__ReloadRoom()
 
     def __ReloadRoom(self):
@@ -46,6 +46,30 @@ class Room:
             time.sleep(.5)
         gui.textScreen.LineWrite("\n")
         listRoomsVisited.append(self.number)
+        
+    def __spotBuilder(self):
+        """Generates a list of spots that the roon contains
+        based on room number, using spot dictionary."""
+        spotObjList = {}
+        #get valid spot numbers for room
+        for i in range(self.number, self.number+9):
+            hiddenObj = False
+            #only list if there's a valid spot that is not hidden
+            if i in dictSpots:
+                for x in dictSpotChange.values():
+                    if i in x[1]:
+                        hiddenObj = True
+                #generate spots
+                if hiddenObj == False:
+                    spotObjList[i] = Spot(i, self)
+        return spotObjList
+        
+    def __roomBuilder(self):
+        roomObjList = {}
+        for i in range(0, len(dictConnectedRooms[self.number])):
+            #generate adjacent rooms
+            roomObjList[dictConnectedRooms[self.number][i]] = Room(dictConnectedRooms[self.number][i])
+        return roomObjList  
 
     def SpotExchange(self, fromSpotId, targetSpotId):
         """This Method exchanges a spot within the list with another
@@ -66,7 +90,7 @@ class Room:
     def GetRoomList(self):
         return self.__room_list
 
-    def OnLeave(self, room):
+    def OnLeave(self):
         """Not needed (just yet). Input 'room' not used."""
         #TODO: not implemented (yet)
         pass
@@ -75,8 +99,9 @@ class Spot:
     """A spot within a room, referred to as a 3-Digit number.
     The first two digits stand for the room in which the spot is
     and the last digit is the spot ID"""
-    def __init__(self, number):
+    def __init__(self, number, room):
         self.number = number
+        self.__room = room
         self.description = dictTexts[number]
         self.name = dictSpots[number]
         self.__action_id = dictActionType[number]
@@ -85,7 +110,7 @@ class Spot:
         if number in dictModType:
             self.__modType = dictModType[number]
 
-    def OnEnter(self, room):
+    def OnEnter(self):
         """Routines that are executed when a spot is entered,
         i.e. description, trigger spot exchange, trigger actions"""
         gui.textScreen.Clear()
@@ -96,15 +121,15 @@ class Spot:
                 #exchange spots in room dictionary
                 fromSpotId = dictSpotChange[self.number][0][element]
                 tgtSpotId = dictSpotChange[self.number][1][element]
-                room.SpotExchange(fromSpotId, tgtSpotId)
+                self.__room.SpotExchange(fromSpotId, tgtSpotId)
 
-    def OnLeave(self, room):
+    def OnLeave(self):
         if self.number in dictSpotChange: #if it can be found in the keys
             for element in range(0, len(dictSpotChange[self.number][1])):
                 #exchange spots back in room dictionary
                 fromSpotId = dictSpotChange[self.number][1][element]
                 tgtSpotId = dictSpotChange[self.number][0][element]
-                room.SpotExchange(fromSpotId, tgtSpotId)
+                self.__room.SpotExchange(fromSpotId, tgtSpotId)
         
                 
     def __action(self):
@@ -254,7 +279,7 @@ class Player:
             if self.__mod[i] > maxMod[i]:
                 self.__mod[i] = maxMod[i]
             elif self.__mod[i] < 1:
-                #exchange motivation/tiredness 2:1
+                #TODO: exchange motivation/tiredness 2:1
                 #If that is not possible, --> minigame or --> quit game for time x
                 gui.textScreen.LineWrite("TODO: GAME OVER")
 
@@ -276,29 +301,7 @@ def save():
 #----------------------------------------------
 # Object builder functions
 #----------------------------------------------
-def spotBuilder(roomNumber):
-    """Generates a list of spots that the roon contains
-    based on room number, using spot dictionary."""
-    spotObjList = {}
-    #get valid spot numbers for room
-    for i in range(roomNumber, roomNumber+9):
-        hiddenObj = False
-        #only list if there's a valid spot that is not hidden
-        if i in dictSpots:
-            for x in dictSpotChange.values():
-                if i in x[1]:
-                    hiddenObj = True
-            #generate spots
-            if hiddenObj == False:
-                spotObjList[i] = Spot(i)
-    return spotObjList
-#----------------------------------------------
-def roomBuilder(roomNumber):
-    roomObjList = {}
-    for i in range(0, len(dictConnectedRooms[roomNumber])):
-        #generate adjacent rooms
-        roomObjList[dictConnectedRooms[roomNumber][i]] = Room(dictConnectedRooms[roomNumber][i])
-    return roomObjList  
+
 #----------------------------------------------
 #----------------------------------------------
 # Handlers
@@ -343,6 +346,7 @@ def itemItem(generateFromNr):
         gui.textScreen.TypeWrite(GameMsg.NOT_INV)
 #----------------------------------------------
 def itemSpot(generateFromNr):
+    #5-digit
     item = int(generateFromNr/1000)
     spot = generateFromNr%1000
     spotList = currentRoom.GetSpotList()
@@ -372,11 +376,15 @@ def invokeChangeMod(mod, modType):
     listPlayers = ListPlayers.GetList()
     if modType == Mod_typ.EFFONE:
             ListPlayers.GetCurrent().ChangeMod(mod)
+            gui.textScreen.NameWrite(ListPlayers.GetCurrent())
+            gui.textScreen.TypeWrite(GameMsg.CHMOD[0] + str(mod[0]) + GameMsg.CHMOD[1] + str(mod[1]) + "\n")
             gui.statsScreen.Update(ListPlayers.GetList())
     elif modType == Mod_typ.EFFALL:
         listP = ListPlayers.GetList()
         for element in range(1, len(listPlayers)):
             listP[element].ChangeMod(mod)
+            gui.textScreen.NameWrite(listP[element])
+            gui.textScreen.TypeWrite(GameMsg.CHMOD[0] + str(mod[0]) + GameMsg.CHMOD[1] + str(mod[1]) + "\n")
         gui.statsScreen.Update(ListPlayers.GetList())
 #----------------------------------------------
 def notReachable(room, tgt):
@@ -390,6 +398,7 @@ def playerAction_Selector(room):
     spotObjList = room.GetSpotList()
     activeSpot = ListPlayers.GetCurrent().GetPos()
     plAction = gui.inputScreen.GetInput()
+    gui.textScreen.TypeWrite(str(plAction) + "\n")
     if plAction == cmd_inpt.UNKNOWN:
             gui.textScreen.TypeWrite(GameMsg.NAN)
     elif plAction == cmd_inpt.QUIT:
@@ -408,7 +417,7 @@ def playerAction_Selector(room):
             room = roomObjList[plAction]
             #players enter new room
             for player in ListPlayers.GetList():
-                player.SetPos()
+                player.SetPos(room)
             room.OnEnter()
         else:
             notReachable(room, plAction)    
@@ -417,9 +426,9 @@ def playerAction_Selector(room):
         if plAction in spotObjList:
             #player selected a spot
             if not activeSpot.number == plAction:
-                activeSpot.OnLeave(room)
+                activeSpot.OnLeave()
             ListPlayers.GetCurrent().SetPos(spotObjList[plAction])
-            ListPlayers.GetCurrent().GetPos().OnEnter(room)
+            ListPlayers.GetCurrent().GetPos().OnEnter()
         else:
             notReachable(room, plAction)  
     else:
@@ -429,6 +438,8 @@ def playerAction_Selector(room):
             notReachable(room, playerAction)
         else: 
             actionHandler(plAction)
+    #returns currentRooom (might be updated in case room is changed)
+    return room
         
  #----------------------------------------------  
 def newRound():
@@ -436,12 +447,10 @@ def newRound():
      gui.textScreen.NameWrite(ListPlayers.GetCurrent())
      gui.textScreen.TypeWrite(GameMsg.TURN)
 #---------------------------------------------- 
-    
+
 #----------------------------------------------
 #Data structures
-
-
-dictInventory = {}
-listRoomsVisited = []
-listItemsYielded = []
-gui = GameGui()
+dictInventory = {} #holds inventory objects sorted by number
+listRoomsVisited = [] #holds room numbers
+listItemsYielded = [] #holds item numbers
+gui = GameGui() #constructor for GUI.
