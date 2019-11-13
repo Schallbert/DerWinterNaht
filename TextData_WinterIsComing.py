@@ -213,7 +213,7 @@ dictModsRefused = {
 class GameMsg():
     NAN = "Keine Zahl erkannt. Zum Speichern und Beenden bitte 'quit' eingeben.\n"
     SVQT = "Spiel wird gespeichert und beendet. Bis bald!"
-    TURN = " ist an der Reihe.\nWas wollt ihr tun?\n"
+    TURN = " ist an der Reihe.\nWas wollt ihr tun?  "
     IN_REACH = "\nVon hier aus sind folgende Orte erreichbar:\n"
     NOT_IN_REACH = [" ist von hier aus\n", " leider nicht erreichbar...\n"]
     YOURE_AT = ["Ihr befindet euch bei ", ".\n\nIhr seht:\n"]
@@ -229,3 +229,4 @@ class GameMsg():
     NOT_INV = "Dafür müsstet ihr das erstmal auch alles im Inventar haben...\n"
     UNKNOWN_CMD = "Kein bekanntes Kommando.\n"
     SUCCESS_GET = "Das war erfolgreich! Ihr erhaltet "
+    CHMOD = [", dein Wohlbefinden ändert sich um:\nMotivation: ", "\nMüdigkeit: "]

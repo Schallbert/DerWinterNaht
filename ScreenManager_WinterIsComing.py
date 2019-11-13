@@ -83,9 +83,11 @@ It binds to the return key to take input"""
         self.__Activate()
         #wait for variable "number" to be changed
         self.wait_variable(self.number)
+        nmbr = self.number.get()
+        self.insert(tk.INSERT, nmbr)
         self.__Deactivate()
         #return contents of variable
-        return self.number.get()
+        return nmbr
 
     def __BindToKey(self, key):
         #bind self to event "return", calling inputCheck function

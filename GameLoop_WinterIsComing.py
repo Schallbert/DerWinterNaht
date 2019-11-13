@@ -20,22 +20,18 @@ currentRoom = Room(100)
 #generate start items in inventory
 Item(10)
 
-#get GUI up and running
-#gui = GameGui()
-#enter a room routine
-
+#Setup Player list (static Class)
 ListPlayers.SetPlayers([Player("Lukas", "orange", [10,8], currentRoom), \
-     Player("Marie", "cyan", [7,6], currentRoom)])
+                        Player("Marie", "cyan", [7,6], currentRoom)])
 
 gui.inventoryScreen.Update(dictInventory)
 gui.statsScreen.Update(ListPlayers.GetList())
 
-currentRoom.OnEnter(None)
+currentRoom.OnEnter()
 while True:
     newRound()
-    playerAction_Selector(currentRoom)
+    #update currentRoom if necessary and call player's interaction function
+    currentRoom = playerAction_Selector(currentRoom)
     
-    
-    # TODO: Update inventory/stat screen
     # TODO: low/no stat left : End game/delay etc.
         
