@@ -192,9 +192,10 @@ dictItems = {
 dictMods = {
     11 : [0,1],\
     12 : [1,-1],\
-    13 : [5,-1],\
+    13 : [5,1],\
     14 : [-2,-5],\
-    104 : [0,-1]\
+    104 : [0,1],\
+    103 : [-1,0]\
     }
 
 dictModType = {
@@ -203,7 +204,9 @@ dictModType = {
     12 : Mod_typ.PERMANENT,\
     13 : Mod_typ.EFFALL,\
     14 : Mod_typ.EFFALL,\
-    104 : Mod_typ.EFFONE\
+    104 : Mod_typ.EFFONE,\
+    103: Mod_typ.EFFONE \
+    
     }
 
 dictModsRefused = {
@@ -213,7 +216,7 @@ dictModsRefused = {
 class GameMsg():
     NAN = "Keine Zahl erkannt. Zum Speichern und Beenden bitte 'quit' eingeben.\n"
     SVQT = "Spiel wird gespeichert und beendet. Bis bald!"
-    TURN = " ist an der Reihe.\nWas wollt ihr tun?  "
+    TURN = [" bei [", "] ist an der Reihe.\nWas wollt ihr tun?  "]
     IN_REACH = "\nVon hier aus sind folgende Orte erreichbar:\n"
     NOT_IN_REACH = [" ist von hier aus\n", " leider nicht erreichbar...\n"]
     YOURE_AT = ["Ihr befindet euch bei ", ".\n\nIhr seht:\n"]

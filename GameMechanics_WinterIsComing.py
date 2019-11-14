@@ -197,9 +197,11 @@ class Item:
             listItemsYielded.append(number)
             #add to inventory
             dictInventory[number] = self
+            gui.inventoryScreen.Update(dictInventory)
 
     def DelItem(self):
         del dictInventory[self.number]
+        gui.inventoryScreen.Update(dictInventory)
 
     def UseItem(self):
         """This method offers the item's description and then
@@ -211,7 +213,7 @@ class Item:
             gui.textScreen.TypeWrite(GameMsg.MUST_COMB)
         else:
             gui.textScreen.TypeWrite(GameMsg.ACIONQ + self.name + actionDict[3]) #use?
-            gui.textScreen.TypeWriteWrite(GameMsg.ACTIONP)
+            gui.textScreen.TypeWrite(GameMsg.ACTIONP) #y/n?
             resp = gui.inputScreen.GetInput()
             if resp == 1:
                 gui.textScreen.TypeWrite(self.__action)
@@ -324,7 +326,6 @@ def itemUse(generateFromNr):
     #2-digit
     if generateFromNr in dictInventory:
         dictInventory[generateFromNr].UseItem()
-        gui.inventoryScreen.Update(dictInventory)
     else:
         gui.textScreen.TypeWrite(GameMsg.NOT_INV)      
 #----------------------------------------------        
@@ -340,8 +341,7 @@ def itemItem(generateFromNr):
             dictInventory[item1].DelItem
             dictInventory[item2].DelItem
             gui.textScreen.TypeWrite(GameMsg.SUCCESS_GET + str(generateFromNr) \
-                       + ": " + dictInventory[generateFromNr].name + "\n")
-            gui.inventoryScreen.Update(dictInventory)
+                       + ": " + dictInventory[generateFromNr].name + "\n")     
         else:
             gui.textScreen.TypeWrite(GameMsg.CNT_CMB)
     else:
@@ -361,10 +361,10 @@ def itemSpot(generateFromNr, room):
                     newItem = Item(newItemNr)
                     gui.textScreen.TypeWrite(GameMsg.SUCCESS_GET + \
                            str(newItem.number) + \
-                               ": " + newItem.name + "\n")
-                    gui.inventoryScreen.Update(dictInventory)
+                               ": " + newItem.name + "\n")             
                 #delete old item
-                if not dictInventory[item].GetType == Mod_typ.PERMANENT:
+                if not dictInventory[item].GetType() == Mod_typ.PERMANENT:
+                    print(dictInventory[item].GetType())
                     dictInventory[item].DelItem()
             else:
                 #generate game progress only
@@ -432,8 +432,17 @@ def playerAction_Selector(room):
             #player selected a spot
             if not activeSpot.number == plAction:
                 activeSpot.OnLeave()
-            ListPlayers.GetCurrent().SetPos(spotObjList[plAction])
-            ListPlayers.GetCurrent().GetPos().OnEnter()
+            if plAction in spotObjList: #possibilty that player leaves a trigger spot, thus hiding target
+                ListPlayers.GetCurrent().SetPos(spotObjList[plAction])
+                ListPlayers.GetCurrent().GetPos().OnEnter()
+            else:
+                #fallback to room
+                gui.textScreen.TypeWrite(str(plAction) \
+                                         + GameMsg.NOT_IN_REACH[0] \
+                                         + ListPlayers.GetCurrent().GetPos().name \
+                                         + GameMsg.NOT_IN_REACH[1])
+                ListPlayers.GetCurrent().SetPos(room)
+                ListPlayers.GetCurrent().GetPos().OnEnter()
         else:
             notReachable(room, plAction)
     else:
@@ -450,9 +459,9 @@ def playerAction_Selector(room):
 def newRound():
      ListPlayers.NextPlayer()
      gui.textScreen.NameWrite(ListPlayers.GetCurrent())
-     gui.textScreen.TypeWrite(GameMsg.TURN)
-
-
+     gui.textScreen.TypeWrite(GameMsg.TURN[0] \
+                              + str(ListPlayers.GetCurrent().GetPos().number) \
+                              + GameMsg.TURN[1])
 #----------------------------------------------
 #Data structures
 #---------------------------------------------- 

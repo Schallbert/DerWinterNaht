@@ -29,11 +29,11 @@ gui.statsScreen.Update(ListPlayers.GetList())
 
 currentRoom.OnEnter()
 while True:
-    gui.textScreen.TypeWrite("______________________________________________________________________")
     currentRoom.ReloadRoom()
     newRound()
     #update currentRoom if necessary and call player's interaction function
     currentRoom = playerAction_Selector(currentRoom)
+    gui.textScreen.TypeWrite("______________________________________________________________________")
     
     # TODO: low/no stat left : End game/delay etc.
         
