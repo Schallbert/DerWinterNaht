@@ -150,7 +150,7 @@ Offers public function Update that takes the player list to output the player's 
             tagPlrE = str(lineNr)+'.'+str(maxNamePlusSpaces)
             tagMotE = str(lineNr)+'.'+str(maxNamePlusSpaces + currMod[0])
             tagTirS = str(lineNr)+'.26'
-            tagTirE = str(lineNr)+'.'+str(26 + currMod[1])
+            tagTirE = str(lineNr)+'.'+str(26 + 10 - currMod[1]) #tiredness is calculated inversely
             tagModE = str(lineNr)+'.37'
             
             self.insert(tagPlrS, currName \
@@ -164,7 +164,7 @@ Offers public function Update that takes the player list to output the player's 
             self.tag_config(currName+"modClr", foreground=GuiVars.dictCP["B4"], font=consts.GUI_BOLD)
             self.tag_config(currName+"plrClr", foreground=player.GetColor())
             self.tag_config(currName+"motClr", foreground=self.__GetModColor(currMod[0]), font=consts.GUI_BOLD)
-            self.tag_config(currName+"tirClr", foreground=self.__GetModColor(10-currMod[1]), font=consts.GUI_BOLD)
+            self.tag_config(currName+"tirClr", foreground=self.__GetModColor(currMod[1]), font=consts.GUI_BOLD)
             self.update()
         self.after(consts.GUI_WAIT_UPDATE)
         self.__Deactivate()
@@ -174,6 +174,8 @@ Offers public function Update that takes the player list to output the player's 
             return '#00FF00' #green
         elif mod > 2:
             return '#FFFF00' #yellow
+        elif mod > 1:
+            return '#FF8000' #orange
         else:
             return '#FF0000' #red
 

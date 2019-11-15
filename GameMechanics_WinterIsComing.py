@@ -257,6 +257,16 @@ class ListPlayers:
         return cls.__listP[cls.__currentPlayerId]
         
     @classmethod
+    def GetNext(cls):
+        cPlayer = cls.GetCurrent()
+        cls.NextPlayer()
+        retPl = cls.GetCurrent()
+        while not cPlayer == cls.GetCurrent():
+            #skip players to go back to currentPlayer
+            cls.NextPlayer()
+        return  retPl
+        
+    @classmethod
     def GetList(cls):
         return cls.__listP
 
@@ -266,6 +276,7 @@ class Player:
         self.__name = name
         self.__color = color
         self.__mod = mod
+        self.__gameOverWarn = False
 
     def GetName(self):
         return self.__name
@@ -288,10 +299,20 @@ class Player:
             self.__mod[i] = self.__mod[i] + valueList[i]
             if self.__mod[i] > maxMod[i]:
                 self.__mod[i] = maxMod[i]
-            elif self.__mod[i] < 1:
-                #TODO: exchange motivation/tiredness 2:1
-                #If that is not possible, --> minigame or --> quit game for time x
-                gui.textScreen.LineWrite("TODO: GAME OVER")
+            elif self.__mod[i] <= 1:
+                self.__mod[i] = 1
+                if self.__gameOverWarn == True:
+                    #player has been warned and is still unmotivated: end game!
+                    gui.textScreen.TypeWrite(GameMsg.UNMOT_END)
+                    quitSave()
+                self.__gameOverWarn = True
+            else:
+                self.__gameOverWarn = False
+        #show mod update
+        gui.statsScreen.Update(ListPlayers.GetList())
+        gui.textScreen.NameWrite(self)
+        gui.textScreen.TypeWrite(GameMsg.CHMOD[0] + str(self.__mod[0]) \
+                                 + GameMsg.CHMOD[1] + str(self.__mod[1]) + "\n")
 
 #----------------------------------------------
 # General Helper functions
@@ -381,16 +402,10 @@ def invokeChangeMod(mod, modType):
     listPlayers = ListPlayers.GetList()
     if modType == Mod_typ.EFFONE:
             ListPlayers.GetCurrent().ChangeMod(mod)
-            gui.textScreen.NameWrite(ListPlayers.GetCurrent())
-            gui.textScreen.TypeWrite(GameMsg.CHMOD[0] + str(mod[0]) + GameMsg.CHMOD[1] + str(mod[1]) + "\n")
-            gui.statsScreen.Update(ListPlayers.GetList())
     elif modType == Mod_typ.EFFALL:
         listP = ListPlayers.GetList()
         for element in range(1, len(listPlayers)):
             listP[element].ChangeMod(mod)
-            gui.textScreen.NameWrite(listP[element])
-            gui.textScreen.TypeWrite(GameMsg.CHMOD[0] + str(mod[0]) + GameMsg.CHMOD[1] + str(mod[1]) + "\n")
-        gui.statsScreen.Update(ListPlayers.GetList())
 #----------------------------------------------
 def notReachable(room, tgt):
     gui.textScreen.TypeWrite(str(tgt) + GameMsg.NOT_IN_REACH[0] \

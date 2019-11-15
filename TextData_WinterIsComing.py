@@ -190,11 +190,11 @@ dictItems = {
 #Defines item modifiers
 # [0] = motivation, [1] = tiredness
 dictMods = {
-    11 : [0,1],\
-    12 : [1,-1],\
-    13 : [5,1],\
-    14 : [-2,-5],\
-    104 : [0,1],\
+    11 : [0,-1],\
+    12 : [1,1],\
+    13 : [5,-1],\
+    14 : [-2,5],\
+    104 : [0,-1],\
     103 : [-1,0]\
     }
 
@@ -233,3 +233,15 @@ class GameMsg():
     UNKNOWN_CMD = "Kein bekanntes Kommando.\n"
     SUCCESS_GET = "Das war erfolgreich! Ihr erhaltet "
     CHMOD = [", dein Wohlbefinden ändert sich um:\nMotivation: ", "\nMüdigkeit: "]
+    LOADING = "______________________________________________________________________\n"
+    TIRED = ", du bist müde. Hundemüde. Sieh' zu, dass Du Dich schnleunigst ausruhst!\n\
+In so einem Zustand verlierst Du langsam Deine Motivation............................\n"
+    UNMOT = ["Du hast im Moment echt gar keinen Bock mehr auf diesen Ausflug,\n\
+Dir geht alles einfach nur auf den Keks.\n\
+Ihr solltet an dieser Stelle einfach mal eine Pause machen.\n",
+", möchtest Du ", " mit einem 'Och komm' schon' oder einer anderen\n\
+Form der flammenden Motivationsansprache helfen und ", "\n\
+die Hälfte Deiner Motivation abgeben?\n"]
+    UNMOT_END = "Puh, es hilft alles nichts. Ihr macht jetzt erstmal schön eine Pause.\n\
+Später - sagen wir ab in einer halben Stunde - könnt ihr dann mit frischer Motivation\n\
+weitermachen.........................................................................\n"
