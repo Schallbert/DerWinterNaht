@@ -234,6 +234,8 @@ class GameMsg():
     SUCCESS_GET = "Das war erfolgreich! Ihr erhaltet "
     CHMOD = [", dein Wohlbefinden ändert sich um:\nMotivation: ", "\nMüdigkeit: "]
     LOADING = "______________________________________________________________________\n"
+    NO_SVGAME = "Fehler: Keinen Spielstand zum Laden gefunden.\n\
+Beginne neues Spiel.\n"
     TIRED = ", du bist müde. Hundemüde. Sieh' zu, dass Du Dich schnleunigst ausruhst!\n\
 In so einem Zustand verlierst Du langsam Deine Motivation............................\n"
     UNMOT = [", du hast im Moment echt gar keinen Bock mehr auf diesen Ausflug,\n\

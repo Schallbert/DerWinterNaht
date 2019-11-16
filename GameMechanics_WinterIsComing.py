@@ -1,6 +1,6 @@
 #import pygame
-import subprocess
 from tkinter import *
+import pickle
 #import datetime
 import time
 
@@ -314,6 +314,40 @@ class Player:
         gui.textScreen.TypeWrite(GameMsg.CHMOD[0] + str(valueList[0]) \
                                  + GameMsg.CHMOD[1] + str(valueList[1]) + "\n")
 
+class GameStats:
+    currentRoom = None #holds the current room
+    dictInventory = {} #holds inventory objects sorted by number
+    listRoomsVisited = [] #holds room numbers
+    listItemsYielded = [] #holds item numbers
+    def Save():
+        with open('savegame.dat', 'wb') as svGame:
+             pickle.dump([ListPlayers \
+                         , dictInventory \
+                         , listRoomsVisited \
+                         , listItemsYielded \
+                         , currentRoom], svGame, protocol=2)
+        gui.textScreen.LineWrite("IMPLEMENT SAVE!")
+        gui.textScreen.LineWrite("Gespeichert!")
+       
+    def Load():
+        with open('savegame.dat', 'rb') as svGame:
+            ListPlayers \
+            , dictInventory \
+            , listRoomsVisited \
+            , listItemsYielded \
+            , currentRoom \
+            = pickle.load(svGame)
+       
+    def NewGame():
+        """This method initializes the game with predefined values."""
+        currentRoom = Room(100)
+        #generate start items in inventory
+        Item(10)
+        #Setup Player list (static Class)
+        ListPlayers.SetPlayers([Player("Lukas", "orange", [2,2], currentRoom), \
+                                Player("Marie", "cyan", [7,4], currentRoom)])   
+               
+    
 #----------------------------------------------
 # General Helper functions
 #----------------------------------------------
@@ -324,10 +358,7 @@ def quitSave():
     gui.textScreen.LineWrite("Spiel wird beendet.")
     quit()
 
-def save():
-    gui.textScreen.LineWrite("IMPLEMENT SAVE!")
-    gui.textScreen.LineWrite("Gespeichert!")
-           
+
 #----------------------------------------------
 # Handlers
 #----------------------------------------------
@@ -411,11 +442,11 @@ def notReachable(room, tgt):
     gui.textScreen.TypeWrite(str(tgt) + GameMsg.NOT_IN_REACH[0] \
 + str(room.number) + ": " + room.name + GameMsg.NOT_IN_REACH[1])
 #---------------------------------------------- 
-def playerAction_Selector(room):
+def playerAction_Selector():
     """This function checks the player's wish and, if valid,
     tries to match it to an existing object."""
-    roomObjList = room.GetRoomList()
-    spotObjList = room.GetSpotList()
+    roomObjList = currentRoom.GetRoomList()
+    spotObjList = currentRoom.GetSpotList()
     activeSpot = ListPlayers.GetCurrent().GetPos()
     plAction = gui.inputScreen.GetInput()
     gui.textScreen.TypeWrite(str(plAction) + "\n")
@@ -425,22 +456,22 @@ def playerAction_Selector(room):
             gui.textScreen.TypeWrite(GameMsg.SVQT)
             quitSave()
     elif plAction in dictRooms:
-        #player enters a room
-        if plAction == room.number:
+        #player enters a currentRoom
+        if plAction == currentRoom.number:
             #only show description if specifically asked
-            gui.textScreen.TypeWrite(room.description)
-        elif plAction in dictConnectedRooms[room.number]:
-            #players leave current spot/room
+            gui.textScreen.TypeWrite(currentRoom.description)
+        elif plAction in dictConnectedRooms[currentRoom.number]:
+            #players leave current spot/currentRoom
             for player in ListPlayers.GetList():
                 player.GetPos().OnLeave()
-            #player selected another room
-            room = roomObjList[plAction]
-            #players enter new room
+            #player selected another currentRoom
+            currentRoom = roomObjList[plAction]
+            #players enter new currentRoom
             for player in ListPlayers.GetList():
-                player.SetPos(room)
-            room.OnEnter()
+                player.SetPos(currentRoom)
+            currentRoom.OnEnter()
         else:
-            notReachable(room, plAction)    
+            notReachable(currentRoom, plAction)    
     elif plAction in dictSpots:
         #player enters a spot
         if plAction in spotObjList:
@@ -451,24 +482,22 @@ def playerAction_Selector(room):
                 ListPlayers.GetCurrent().SetPos(spotObjList[plAction])
                 ListPlayers.GetCurrent().GetPos().OnEnter()
             else:
-                #fallback to room
+                #fallback to currentRoom
                 gui.textScreen.TypeWrite(str(plAction) \
                                          + GameMsg.NOT_IN_REACH[0] \
                                          + ListPlayers.GetCurrent().GetPos().name \
                                          + GameMsg.NOT_IN_REACH[1])
-                ListPlayers.GetCurrent().SetPos(room)
+                ListPlayers.GetCurrent().SetPos(currentRoom)
                 ListPlayers.GetCurrent().GetPos().OnEnter()
         else:
-            notReachable(room, plAction)
+            notReachable(currentRoom, plAction)
     else:
         #player selected an item, an item-item combination, or an item-spot combination
         if len(str(plAction)) == 3: 
-            #player selected a spot/room that is not within reach
-            notReachable(room, plAction)
+            #player selected a spot/currentRoom that is not within reach
+            notReachable(currentRoom, plAction)
         else: 
-            actionHandler(plAction, room)
-    #returns currentRooom (might be updated in case room is changed)
-    return room
+            actionHandler(plAction, currentRoom)
         
  #----------------------------------------------  
 def newRound():
@@ -480,7 +509,5 @@ def newRound():
 #----------------------------------------------
 #Data structures
 #---------------------------------------------- 
-dictInventory = {} #holds inventory objects sorted by number
-listRoomsVisited = [] #holds room numbers
-listItemsYielded = [] #holds item numbers
+
 gui = GameGui() #constructor for GUI.

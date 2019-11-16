@@ -4,31 +4,11 @@ from Enums_WinterIsComing import cmd_inpt
 # ------------------------------------
 # HELPERS
 
-def quitSave():
-    print("Saving...")
-    save()
-    print("Killing game...")
-    quit()
-
-def save():
-    print("IMPLEMENT SAVE!")
-    print("Saved!")
-
-#Vorgeschichte!      
-#Room1: Train station Mendig, RB26, 1.5h from cologne
-currentRoom = Room(100)
-#generate start items in inventory
-Item(10)
-
-#Setup Player list (static Class)
-ListPlayers.SetPlayers([Player("Lukas", "orange", [2,2], currentRoom), \
-                        Player("Marie", "cyan", [7,4], currentRoom)])
-
-gui.inventoryScreen.Update(dictInventory)
-gui.statsScreen.Update(ListPlayers.GetList())
-
-currentRoom.OnEnter()
-while True:
+def checkStats():
+    """Checks tiredness and motivation of current player. If the player is
+    very tired, this will affect his/her motivation. When the player's motivation
+    is extremely low, the game offers to share motivation between players, while 1
+    point is going to be lost. Should this not be successful, game will quit."""
     currPl = ListPlayers.GetCurrent()
     currMod = currPl.GetMod()
     if currMod[0] == 1:#low mod is motivation
@@ -59,11 +39,34 @@ while True:
         currPl.ChangeMod([-1, 0]) #reduce motivation by 1 each round
     else:
         pass
+
+#Vorgeschichte!
+#Room1: Train station Mendig, RB26, 1.5h from cologne
+    
+gui.textScreen.TypeWrite("Möchtet Ihr euer aktuelles Spiel fortsetzen?\n")
+gui.textScreen.TypeWrite(GameMsg.ACTIONP)
+resp = gui.inputScreen.GetInput()
+if resp == 1:
+    try:
+        load()
+    except:
+        gui.textScreen.TypeWrite(GameMsg.NO_SVGAME)
+        newGame()
+else:
+    newGame()
+
+gui.inventoryScreen.Update(dictInventory)
+gui.statsScreen.Update(ListPlayers.GetList())
+
+currentRoom.OnEnter()
+while True:
+    checkStats()
     currentRoom.ReloadRoom()
     newRound()
     #update currentRoom if necessary and call player's interaction function
-    currentRoom = playerAction_Selector(currentRoom)
+    playerAction_Selector()
     gui.textScreen.TypeWrite(GameMsg.LOADING)
+    save()
     
     # TODO: low/no stat left : End game/delay etc.
         
