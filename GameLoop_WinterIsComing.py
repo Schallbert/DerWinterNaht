@@ -31,27 +31,34 @@ currentRoom.OnEnter()
 while True:
     currPl = ListPlayers.GetCurrent()
     currMod = currPl.GetMod()
-    if currMod[0] == 1: #low mod is motivation
-        nextPl = ListPlayers.GetNext()
-        gui.textScreen.TypeWrite(GameMsg.UNMOT[0]) #Pause?
-        gui.textScreen.NameWrite(nextPl)
-        gui.textScreen.TypeWrite(GameMsg.UNMOT[1])
-        gui.textScreen.NameWrite(currPl)
-        gui.textScreen.TypeWrite(GameMsg.UNMOT[2])
-        gui.textScreen.NameWrite(currPl)
-        gui.textScreen.TypeWrite(GameMsg.UNMOT[3] + GameMsg.ACTIONP) #Share Mot?
-        resp = gui.inputScreen.GetInput()
-        if resp == 1:
-            # shares motivation with UNMOT player.
-            nextPlMot = int(nextPl.GetMod()[0]/2)
-            nextPl.ChangeMod([-nextPlMot, 0])
-            currPl.ChangeMod([nextPlMot-1, 0])
+    if currMod[0] == 1:#low mod is motivation
+        if len(ListPlayers.GetList()) == 1:
+            #just one player, sharing not possible
+            gui.textScreen.TypeWrite(GameMsg.UNMOT[0]) #Pause?
         else:
-            pass
+            nextPl = ListPlayers.GetNext()
+            gui.textScreen.NameWrite(currPl)
+            gui.textScreen.TypeWrite(GameMsg.UNMOT[0]) #Pause?
+            gui.textScreen.NameWrite(nextPl)
+            gui.textScreen.TypeWrite(GameMsg.UNMOT[1])
+            gui.textScreen.NameWrite(currPl)
+            gui.textScreen.TypeWrite(GameMsg.UNMOT[2])
+            gui.textScreen.NameWrite(currPl)
+            gui.textScreen.TypeWrite(GameMsg.UNMOT[3] + GameMsg.ACTIONP) #Share Mot?
+            resp = gui.inputScreen.GetInput()
+            if resp == 1:
+                # shares motivation with UNMOT player.
+                nextPlMot = int(nextPl.GetMod()[0]/2)
+                nextPl.ChangeMod([-nextPlMot, 0])
+                currPl.ChangeMod([nextPlMot-1, 0])
+            else:
+                pass
     elif currMod[1] == 1: #low mod is tiredness
         gui.textScreen.NameWrite(currPl)
         gui.textScreen.TypeWrite(GameMsg.TIRED)
         currPl.ChangeMod([-1, 0]) #reduce motivation by 1 each round
+    else:
+        pass
     currentRoom.ReloadRoom()
     newRound()
     #update currentRoom if necessary and call player's interaction function

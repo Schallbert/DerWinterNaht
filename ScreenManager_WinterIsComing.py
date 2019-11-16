@@ -222,10 +222,12 @@ class OutputText(tk.Text):
     #replace init function by "custom" init
     def __init__(self,parent,**kwargs):
         tk.Text.__init__(self,parent,**kwargs)
+        self.__nrOfTags = 0
        
     def Clear(self):
         self.__Activate()
         self.delete('1.0', tk.END)
+        self.__nrOfTags = 0
         self.__Deactivate()
 
     def LineWrite(self, text):
@@ -242,14 +244,17 @@ class OutputText(tk.Text):
 
     def NameWrite(self, player):
         self.__Activate()
+        self.update()
+        self.__nrOfTags += 1
         plName = player.GetName()
-        linNr = int(self.index('end').split('.')[0])-1
-        colSt = int(self.index('end').split('.')[-1])
+        endIndx = self.index('end-1c').split('.') #-1character added as tkinter adds an invisible newline char :/
+        linNr = int(endIndx[0])
+        colSt = int(endIndx[-1])
         tagNameS = str(linNr) + '.' + str(colSt)
         tagNameE = str(linNr) + '.' + str(colSt+len(plName))
         self.__TypeWrite(plName)
-        self.tag_add("plr", tagNameS, tagNameE)
-        self.tag_config("plr", foreground=player.GetColor(), font=consts.GUI_BOLD)
+        self.tag_add(self.__nrOfTags, tagNameS, tagNameE)
+        self.tag_config(self.__nrOfTags, foreground=player.GetColor(), font=consts.GUI_BOLD)
         self.__Deactivate()
 
     def __TypeWrite(self, text):

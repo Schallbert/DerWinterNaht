@@ -311,8 +311,8 @@ class Player:
         #show mod update
         gui.statsScreen.Update(ListPlayers.GetList())
         gui.textScreen.NameWrite(self)
-        gui.textScreen.TypeWrite(GameMsg.CHMOD[0] + str(self.__mod[0]) \
-                                 + GameMsg.CHMOD[1] + str(self.__mod[1]) + "\n")
+        gui.textScreen.TypeWrite(GameMsg.CHMOD[0] + str(valueList[0]) \
+                                 + GameMsg.CHMOD[1] + str(valueList[1]) + "\n")
 
 #----------------------------------------------
 # General Helper functions

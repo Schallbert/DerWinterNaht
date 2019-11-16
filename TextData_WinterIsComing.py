@@ -221,7 +221,7 @@ class GameMsg():
     NOT_IN_REACH = [" ist von hier aus\n", " leider nicht erreichbar...\n"]
     YOURE_AT = ["Ihr befindet euch bei ", ".\n\nIhr seht:\n"]
     UNKNOWN_ROOM = ": ???\n"
-    EXAMINE = "\nIhr untersucht: "
+    EXAMINE = "Ihr untersucht: "
     ACTIONQ = "Möchtet ihr "
     ACTIONP = "Bitte eingeben: JA: '1', NEIN: '0'.\n"
     ACTIONE = "Ja, manchmal ist es auch gut, Dinge NICHT zu tun.\n"
@@ -236,7 +236,7 @@ class GameMsg():
     LOADING = "______________________________________________________________________\n"
     TIRED = ", du bist müde. Hundemüde. Sieh' zu, dass Du Dich schnleunigst ausruhst!\n\
 In so einem Zustand verlierst Du langsam Deine Motivation............................\n"
-    UNMOT = ["Du hast im Moment echt gar keinen Bock mehr auf diesen Ausflug,\n\
+    UNMOT = [", du hast im Moment echt gar keinen Bock mehr auf diesen Ausflug,\n\
 Dir geht alles einfach nur auf den Keks.\n\
 Ihr solltet an dieser Stelle einfach mal eine Pause machen.\n",
 ", möchtest Du ", " mit einem 'Och komm' schon' oder einer anderen\n\
