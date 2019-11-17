@@ -12,11 +12,11 @@ from Enums_WinterIsComing import *
 
 
 actionDict = {
-    0 : " genauer untersuchen?",
-    1 : " betreten?",
-    2 : " öffnen?",
-    3 : " benutzen?",
-    4 : " nehmen?"
+    0 : " genauer untersuchen?\n",
+    1 : " betreten?\n",
+    2 : " öffnen?\n",
+    3 : " benutzen?\n",
+    4 : " nehmen?\n"
     }
 
 #Text Dictionary by IDs:
@@ -70,6 +70,8 @@ einen Blick auf den Wald.\n\
 Schließlich gelangt ihr an eine Weggabelung in einer kleinen Senke.\n\
 Der Wegweiser wird den letzten Winter wohl nicht überlebt haben,\n\
 sein abgebrochener Stumpf ragt ein paar Zentimeter aus dem Boden.\n\n",
+    111 : \
+"Blablablaaaaaa\n",
     120: \
 "Nach ein paar hundert Metern sanft bergab verläuft sich der Weg\n\
 und endet in lockeren, aber leicht erhöhten, festen Grasbüscheln.\n\
@@ -133,7 +135,8 @@ dictActionType = {
     102 : Action_id.NOC_YES,\
     103 : Action_id.GOTO,\
     104 : Action_id.GOTO,\
-    105 : Action_id.VIEW\
+    105 : Action_id.VIEW,\
+    111 : Action_id.VIEW\
     }
     
 #Defines room number and names
@@ -160,7 +163,8 @@ dictSpots = {
     102 : "der Pfosten eines Kartenkastens",\
     103 : "die Apotheke am Bahnhof",\
     104 : "der REWE-Markt",\
-    105 : "die Übersichtskarte, verschattet"\
+    105 : "die Übersichtskarte, verschattet",\
+    111 : "BlaBlaBla"\
     }
 
 #Defines how spots are connected to items   
@@ -215,7 +219,7 @@ dictModsRefused = {
 
 class GameMsg():
     NAN = "Keine Zahl erkannt. Zum Speichern und Beenden bitte 'quit' eingeben.\n"
-    SVQT = "Spiel wird gespeichert und beendet. Bis bald!"
+    SVQT = "Spiel wird gespeichert und beendet. Bis bald!\n"
     TURN = [" bei [", "] ist an der Reihe.\nWas wollt ihr tun?  "]
     IN_REACH = "\nVon hier aus sind folgende Orte erreichbar:\n"
     NOT_IN_REACH = [" ist von hier aus\n", " leider nicht erreichbar...\n"]

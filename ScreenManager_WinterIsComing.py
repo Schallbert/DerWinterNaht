@@ -108,10 +108,10 @@ It binds to the return key to take input"""
         except :
             if inpt.lower() == "quit":
                 #Command quit
-                self.number = cmd_inpt.QUIT
+                self.number.set(cmd_inpt.QUIT)
             else:
                 #Command invalid
-                self.number = cmd_inpt.UNKNOWN
+                self.number.set(cmd_inpt.UNKNOWN)
         
     def __Activate(self):
         #Color and config set for activated status

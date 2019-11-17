@@ -10,3 +10,7 @@
 # Folders
 ###################
 __pycache__/
+
+# Files
+###################
+savegame.dat

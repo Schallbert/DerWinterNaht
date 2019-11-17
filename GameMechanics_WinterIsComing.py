@@ -31,6 +31,7 @@ class Room:
         and connected rooms. It additionally prints the room's description if
         players enter the room the first time."""
         gui.textScreen.Clear()
+        listRoomsVisited = GameStats.GetRoomsVisited()
         if self.number not in listRoomsVisited:
             gui.textScreen.TypeWrite(self.description)
         #location info
@@ -50,7 +51,6 @@ class Room:
                 gui.textScreen.LineWrite(str(element.number) + GameMsg.UNKNOWN_ROOM)
             time.sleep(.5)
         gui.textScreen.LineWrite("\n")
-        listRoomsVisited.append(self.number)
         
     def __spotBuilder(self):
         """Generates a list of spots that the roon contains
@@ -192,16 +192,11 @@ class Item:
             self.__mod = dictMods[number]
         else:
             self.__mod = None
-            #add to yielded items
-        if number not in listItemsYielded:
-            listItemsYielded.append(number)
-            #add to inventory
-            dictInventory[number] = self
-            gui.inventoryScreen.Update(dictInventory)
+        #add to yielded items
+        gui.inventoryScreen.Update(GameStats.AddToInventory(self))
 
     def DelItem(self):
-        del dictInventory[self.number]
-        gui.inventoryScreen.Update(dictInventory)
+        gui.inventoryScreen.Update(GameStats.DelFromInventory(self.number))
 
     def UseItem(self):
         """This method offers the item's description and then
@@ -212,7 +207,7 @@ class Item:
         if self.__type == Mod_typ.NOTUSABLE or self.__type == Mod_typ.PERMANENT:
             gui.textScreen.TypeWrite(GameMsg.MUST_COMB)
         else:
-            gui.textScreen.TypeWrite(GameMsg.ACIONQ + self.name + actionDict[3]) #use?
+            gui.textScreen.TypeWrite(GameMsg.ACTIONQ + self.name + actionDict[3]) #use?
             gui.textScreen.TypeWrite(GameMsg.ACTIONP) #y/n?
             resp = gui.inputScreen.GetInput()
             if resp == 1:
@@ -230,45 +225,6 @@ class Item:
 
     def GetType(self):
         return self.__type             
-
-class ListPlayers:
-    """This is a static class that does not need any instance. 
-    Saves state for playerList and current player for whole game"""
-    __listP = []
-    __currentPlayerId = 0
-    
-    @classmethod
-    def SetPlayers(cls, listPlayers):
-        """Setter for player list"""
-        cls.__listP = listPlayers
-    
-    @classmethod    
-    def NextPlayer(cls):
-        """Selects and returns the next player from the list"""
-        if cls.__currentPlayerId < (len(cls.__listP) - 1):
-            #next player 
-            cls.__currentPlayerId += 1
-        else:
-            #start again with first player
-            cls.__currentPlayerId =  0
-            
-    @classmethod    
-    def GetCurrent(cls):
-        return cls.__listP[cls.__currentPlayerId]
-        
-    @classmethod
-    def GetNext(cls):
-        cPlayer = cls.GetCurrent()
-        cls.NextPlayer()
-        retPl = cls.GetCurrent()
-        while not cPlayer == cls.GetCurrent():
-            #skip players to go back to currentPlayer
-            cls.NextPlayer()
-        return  retPl
-        
-    @classmethod
-    def GetList(cls):
-        return cls.__listP
 
 class Player:
     def __init__(self, name, color, mod, position):
@@ -301,63 +257,147 @@ class Player:
                 self.__mod[i] = maxMod[i]
             elif self.__mod[i] <= 1:
                 self.__mod[i] = 1
-                if self.__gameOverWarn == True:
-                    #player has been warned and is still unmotivated: end game!
-                    gui.textScreen.TypeWrite(GameMsg.UNMOT_END)
-                    quitSave()
-                self.__gameOverWarn = True
-            else:
-                self.__gameOverWarn = False
         #show mod update
-        gui.statsScreen.Update(ListPlayers.GetList())
         gui.textScreen.NameWrite(self)
         gui.textScreen.TypeWrite(GameMsg.CHMOD[0] + str(valueList[0]) \
-                                 + GameMsg.CHMOD[1] + str(valueList[1]) + "\n")
+                                     + GameMsg.CHMOD[1] + str(-1*valueList[1]) + "\n")
+        gui.statsScreen.Update(GameStats.GetListPlayers())
+        #check for "gameover" criterium Motivation
+        if self.__mod[0] <= 1: #motivation is very low
+            if self.__gameOverWarn == True:
+                #player has been warned and is still unmotivated: end game!
+                gui.textScreen.TypeWrite(GameMsg.UNMOT_END)
+                GameStats.QuitSave()
+            self.__gameOverWarn = True
+        else:
+            self.__gameOverWarn = False
+        
 
 class GameStats:
-    currentRoom = None #holds the current room
-    dictInventory = {} #holds inventory objects sorted by number
-    listRoomsVisited = [] #holds room numbers
-    listItemsYielded = [] #holds item numbers
-    def Save():
+    """This is a static class that does not need any instance. 
+    Saves state for players, inventory, rooms, items player for the whole game"""
+    __listP = []
+    __currentPlayerId = 0
+    __currentRoom = None #holds the current room
+    __dictInventory = {} #holds inventory objects sorted by number
+    __listRoomsVisited = [] #holds room numbers
+    __listItemsYielded = [] #holds item numbers
+    #----------------------------------------------
+    # Gameplay related methods
+    #----------------------------------------------
+    @classmethod
+    def QuitSave(cls):
+        gui.textScreen.LineWrite("Speichern...\n")
+        cls.Save()
+        gui.textScreen.LineWrite("Gespeichert!\n")
+        gui.textScreen.LineWrite("Spiel wird beendet.")
+        #tk.destroy() to destroy the gui
+        gui.root.destroy()
+        quit()
+        
+    @classmethod
+    def Save(cls):
         with open('savegame.dat', 'wb') as svGame:
-             pickle.dump([ListPlayers \
-                         , dictInventory \
-                         , listRoomsVisited \
-                         , listItemsYielded \
-                         , currentRoom], svGame, protocol=2)
-        gui.textScreen.LineWrite("IMPLEMENT SAVE!")
-        gui.textScreen.LineWrite("Gespeichert!")
-       
-    def Load():
+             pickle.dump([cls.__listP \
+                         , cls.__dictInventory \
+                         , cls.__listRoomsVisited \
+                         , cls.__listItemsYielded \
+                         , cls.__currentRoom], svGame, protocol=2)
+    
+    @classmethod
+    def Load(cls):
         with open('savegame.dat', 'rb') as svGame:
-            ListPlayers \
-            , dictInventory \
-            , listRoomsVisited \
-            , listItemsYielded \
-            , currentRoom \
+            cls.__listP \
+            , cls.__dictInventory \
+            , cls.__listRoomsVisited \
+            , cls.__listItemsYielded \
+            , cls.__currentRoom \
             = pickle.load(svGame)
        
-    def NewGame():
-        """This method initializes the game with predefined values."""
-        currentRoom = Room(100)
+    @classmethod
+    def NewGame(cls):
+        """This method initializes the game with predefined values.
+        Acts like a setter for the player list."""
+        cls.SetCurrentRoom(Room(100))
         #generate start items in inventory
         Item(10)
         #Setup Player list (static Class)
-        ListPlayers.SetPlayers([Player("Lukas", "orange", [2,2], currentRoom), \
-                                Player("Marie", "cyan", [7,4], currentRoom)])   
+        cls.__listP = [Player("Lukas", "orange", [2,2], cls.__currentRoom), \
+                       Player("Marie", "cyan", [7,4], cls.__currentRoom)] 
+   
+    #----------------------------------------------
+    # Player related methods
+    #----------------------------------------------    
+    @classmethod    
+    def NextPlayer(cls):
+        """Selects and returns the next player from the list"""
+        if cls.__currentPlayerId < (len(cls.__listP) - 1):
+            #next player 
+            cls.__currentPlayerId += 1
+        else:
+            #start again with first player
+            cls.__currentPlayerId =  0
+            
+    @classmethod    
+    def GetCurrentPlayer(cls):
+        return cls.__listP[cls.__currentPlayerId]
+        
+    @classmethod
+    def GetNextPlayer(cls):
+        cPlayer = cls.GetCurrentPlayer()
+        cls.NextPlayer()
+        retPl = cls.GetCurrentPlayer()
+        while not cPlayer == cls.GetCurrentPlayer():
+            #skip players to go back to currentPlayer
+            cls.NextPlayer()
+        return  retPl
+        
+    @classmethod
+    def GetListPlayers(cls):
+        return cls.__listP
+    #----------------------------------------------
+    # Room and place related methods
+    #----------------------------------------------
+    @classmethod
+    def GetCurrentRoom(cls):
+        if cls.__currentRoom == None:
+            print("Error: No current room!")
+            return Room(100)
+        else:
+            return cls.__currentRoom
                
+    @classmethod
+    def SetCurrentRoom(cls, room):
+        cls.__currentRoom = room
+        if room not in cls.__listRoomsVisited:
+            cls.__listRoomsVisited.append(room.number)
+            
+    @classmethod 
+    def GetRoomsVisited(cls):
+        return cls.__listRoomsVisited
+    #----------------------------------------------
+    # Item and inventory related methods
+    #----------------------------------------------
+    @classmethod
+    def AddToInventory(cls, item):
+        if item.number not in cls.__listItemsYielded:
+            cls.__listItemsYielded.append(item.number)
+            #add to inventory
+            cls.__dictInventory[item.number] = item
+        return cls.__dictInventory
+        
+    @classmethod
+    def GetInventory(cls):
+        return cls.__dictInventory
+            
+    @classmethod
+    def GetItemsYielded(cls):
+        return cls.__listItemsYielded
     
-#----------------------------------------------
-# General Helper functions
-#----------------------------------------------
-
-def quitSave():
-    gui.textScreen.LineWrite("Speichern...")
-    save()
-    gui.textScreen.LineWrite("Spiel wird beendet.")
-    quit()
-
+    @classmethod
+    def DelFromInventory(cls, itemNumber):
+        del cls.__dictInventory[itemNumber]
+        return cls.__dictInventory
 
 #----------------------------------------------
 # Handlers
@@ -376,6 +416,7 @@ def actionHandler(generateFromNr, room):
 def itemUse(generateFromNr):
     """Generates the item connected to the spot, if any"""
     #2-digit
+    dictInventory = GameStats.GetInventory()
     if generateFromNr in dictInventory:
         dictInventory[generateFromNr].UseItem()
     else:
@@ -383,6 +424,7 @@ def itemUse(generateFromNr):
 #----------------------------------------------        
 def itemItem(generateFromNr):
     #4-digit
+    dictInventory = GameStats.GetInventory()
     item1 = int(generateFromNr/100)
     item2 = generateFromNr%100
     if (item1 in dictInventory) & (item2 in dictInventory):
@@ -401,6 +443,7 @@ def itemItem(generateFromNr):
 #----------------------------------------------
 def itemSpot(generateFromNr, room):
     #5-digit
+    dictInventory = GameStats.GetInventory()
     item = int(generateFromNr/1000)
     spot = generateFromNr%1000
     spotList = room.GetSpotList()
@@ -430,31 +473,37 @@ def itemSpot(generateFromNr, room):
         gui.textScreen.TypeWrite(GameMsg.NOT_IN_REACH)
 #----------------------------------------------
 def invokeChangeMod(mod, modType):
-    listPlayers = ListPlayers.GetList()
+    listPlayers = GameStats.GetListPlayers()
     if modType == Mod_typ.EFFONE:
-            ListPlayers.GetCurrent().ChangeMod(mod)
+            GameStats.GetCurrentPlayer().ChangeMod(mod)
     elif modType == Mod_typ.EFFALL:
-        listP = ListPlayers.GetList()
-        for element in range(1, len(listPlayers)):
-            listP[element].ChangeMod(mod)
+        for element in range(0, len(listPlayers)):
+            listPlayers[element].ChangeMod(mod)
 #----------------------------------------------
 def notReachable(room, tgt):
     gui.textScreen.TypeWrite(str(tgt) + GameMsg.NOT_IN_REACH[0] \
 + str(room.number) + ": " + room.name + GameMsg.NOT_IN_REACH[1])
+
+
 #---------------------------------------------- 
 def playerAction_Selector():
     """This function checks the player's wish and, if valid,
     tries to match it to an existing object."""
+    currentRoom = GameStats.GetCurrentRoom()
+    currentPlayer = GameStats.GetCurrentPlayer()
+    listPlayers = GameStats.GetListPlayers()
     roomObjList = currentRoom.GetRoomList()
     spotObjList = currentRoom.GetSpotList()
-    activeSpot = ListPlayers.GetCurrent().GetPos()
+    activeSpot = currentPlayer.GetPos()
     plAction = gui.inputScreen.GetInput()
     gui.textScreen.TypeWrite(str(plAction) + "\n")
     if plAction == cmd_inpt.UNKNOWN:
-            gui.textScreen.TypeWrite(GameMsg.NAN)
+        #unknown command
+        gui.textScreen.TypeWrite(GameMsg.NAN)
     elif plAction == cmd_inpt.QUIT:
-            gui.textScreen.TypeWrite(GameMsg.SVQT)
-            quitSave()
+        #player wants to quit
+        gui.textScreen.TypeWrite(GameMsg.SVQT)
+        GameStats.QuitSave()
     elif plAction in dictRooms:
         #player enters a currentRoom
         if plAction == currentRoom.number:
@@ -462,12 +511,13 @@ def playerAction_Selector():
             gui.textScreen.TypeWrite(currentRoom.description)
         elif plAction in dictConnectedRooms[currentRoom.number]:
             #players leave current spot/currentRoom
-            for player in ListPlayers.GetList():
+            for player in listPlayers:
                 player.GetPos().OnLeave()
-            #player selected another currentRoom
-            currentRoom = roomObjList[plAction]
+            #player selected another room, set and update
+            GameStats.SetCurrentRoom(roomObjList[plAction])
+            currentRoom = GameStats.GetCurrentRoom()
             #players enter new currentRoom
-            for player in ListPlayers.GetList():
+            for player in listPlayers:
                 player.SetPos(currentRoom)
             currentRoom.OnEnter()
         else:
@@ -479,16 +529,16 @@ def playerAction_Selector():
             if not activeSpot.number == plAction:
                 activeSpot.OnLeave()
             if plAction in spotObjList: #possibilty that player leaves a trigger spot, thus hiding target
-                ListPlayers.GetCurrent().SetPos(spotObjList[plAction])
-                ListPlayers.GetCurrent().GetPos().OnEnter()
+                currentPlayer.SetPos(spotObjList[plAction])
+                currentPlayer.GetPos().OnEnter()
             else:
                 #fallback to currentRoom
                 gui.textScreen.TypeWrite(str(plAction) \
                                          + GameMsg.NOT_IN_REACH[0] \
-                                         + ListPlayers.GetCurrent().GetPos().name \
+                                         + currentPlayer.GetPos().name \
                                          + GameMsg.NOT_IN_REACH[1])
-                ListPlayers.GetCurrent().SetPos(currentRoom)
-                ListPlayers.GetCurrent().GetPos().OnEnter()
+                currentPlayer.SetPos(currentRoom)
+                currentPlayer.GetPos().OnEnter()
         else:
             notReachable(currentRoom, plAction)
     else:
@@ -498,16 +548,52 @@ def playerAction_Selector():
             notReachable(currentRoom, plAction)
         else: 
             actionHandler(plAction, currentRoom)
-        
+
+def CheckPlayerStats():
+    """Checks tiredness and motivation of current player. If the player is
+    very tired, this will affect his/her motivation. When the player's motivation
+    is extremely low, the game offers to share motivation between players, while 1
+    point is going to be lost. Should this not be successful, game will quit."""
+    currPl = GameStats.GetCurrentPlayer()
+    currMod = currPl.GetMod()
+    if currMod[0] == 1:#low mod is motivation
+        if len(GameStats.GetListPlayers()) == 1:
+            #just one player, sharing not possible
+            gui.textScreen.TypeWrite(GameMsg.UNMOT[0]) #Pause?
+        else:
+            nextPl = GameStats.GetNextPlayer()
+            gui.textScreen.NameWrite(currPl)
+            gui.textScreen.TypeWrite(GameMsg.UNMOT[0]) #Pause?
+            gui.textScreen.NameWrite(nextPl)
+            gui.textScreen.TypeWrite(GameMsg.UNMOT[1])
+            gui.textScreen.NameWrite(currPl)
+            gui.textScreen.TypeWrite(GameMsg.UNMOT[2])
+            gui.textScreen.NameWrite(currPl)
+            gui.textScreen.TypeWrite(GameMsg.UNMOT[3] + GameMsg.ACTIONP) #Share Mot?
+            resp = gui.inputScreen.GetInput()
+            if resp == 1:
+                # shares motivation with UNMOT player.
+                nextPlMot = int(nextPl.GetMod()[0]/2)
+                nextPl.ChangeMod([-nextPlMot, 0])
+                currPl.ChangeMod([nextPlMot-1, 0])
+            else:
+                pass
+    elif currMod[1] == 1: #low mod is tiredness
+        gui.textScreen.NameWrite(currPl)
+        gui.textScreen.TypeWrite(GameMsg.TIRED)
+        currPl.ChangeMod([-1, 0]) #reduce motivation by 1 each round
+    else:
+        pass
+
  #----------------------------------------------  
 def newRound():
-     ListPlayers.NextPlayer()
-     gui.textScreen.NameWrite(ListPlayers.GetCurrent())
-     gui.textScreen.TypeWrite(GameMsg.TURN[0] \
-                              + str(ListPlayers.GetCurrent().GetPos().number) \
+    GameStats.GetCurrentRoom().ReloadRoom()
+    GameStats.GetNextPlayer()
+    currentPlayer = GameStats.GetCurrentPlayer()
+    gui.textScreen.NameWrite(currentPlayer)
+    gui.textScreen.TypeWrite(GameMsg.TURN[0] \
+                              + str(currentPlayer.GetPos().number) \
                               + GameMsg.TURN[1])
-#----------------------------------------------
-#Data structures
-#---------------------------------------------- 
+#-------------------------------------------- 
 
 gui = GameGui() #constructor for GUI.
