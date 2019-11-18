@@ -1,13 +1,14 @@
 #import pygame
 from tkinter import *
-import pickle
 #import datetime
 import time
+
 
 #Import data structures   
 from TextData_WinterIsComing import *
 from Enums_WinterIsComing import *
 from ScreenManager_WinterIsComing import *
+from GameStatClass_WinterIsComing import GameStats
     
 # Game classes
 #----------------------------------------------
@@ -267,137 +268,13 @@ class Player:
             if self.__gameOverWarn == True:
                 #player has been warned and is still unmotivated: end game!
                 gui.textScreen.TypeWrite(GameMsg.UNMOT_END)
-                GameStats.QuitSave()
+                gui.textScreen.TypeWrite(GameMsg.SVQT)
+                GameStats.Quit(gui.root)
             self.__gameOverWarn = True
         else:
             self.__gameOverWarn = False
         
 
-class GameStats:
-    """This is a static class that does not need any instance. 
-    Saves state for players, inventory, rooms, items player for the whole game"""
-    __listP = []
-    __currentPlayerId = 0
-    __currentRoom = None #holds the current room
-    __dictInventory = {} #holds inventory objects sorted by number
-    __listRoomsVisited = [] #holds room numbers
-    __listItemsYielded = [] #holds item numbers
-    #----------------------------------------------
-    # Gameplay related methods
-    #----------------------------------------------
-    @classmethod
-    def QuitSave(cls):
-        gui.textScreen.LineWrite("Speichern...\n")
-        cls.Save()
-        gui.textScreen.LineWrite("Gespeichert!\n")
-        gui.textScreen.LineWrite("Spiel wird beendet.")
-        #tk.destroy() to destroy the gui
-        gui.root.destroy()
-        quit()
-        
-    @classmethod
-    def Save(cls):
-        with open('savegame.dat', 'wb') as svGame:
-             pickle.dump([cls.__listP \
-                         , cls.__dictInventory \
-                         , cls.__listRoomsVisited \
-                         , cls.__listItemsYielded \
-                         , cls.__currentRoom], svGame, protocol=2)
-    
-    @classmethod
-    def Load(cls):
-        with open('savegame.dat', 'rb') as svGame:
-            cls.__listP \
-            , cls.__dictInventory \
-            , cls.__listRoomsVisited \
-            , cls.__listItemsYielded \
-            , cls.__currentRoom \
-            = pickle.load(svGame)
-       
-    @classmethod
-    def NewGame(cls):
-        """This method initializes the game with predefined values.
-        Acts like a setter for the player list."""
-        cls.SetCurrentRoom(Room(100))
-        #generate start items in inventory
-        Item(10)
-        #Setup Player list (static Class)
-        cls.__listP = [Player("Lukas", "orange", [2,2], cls.__currentRoom), \
-                       Player("Marie", "cyan", [7,4], cls.__currentRoom)] 
-   
-    #----------------------------------------------
-    # Player related methods
-    #----------------------------------------------    
-    @classmethod    
-    def NextPlayer(cls):
-        """Selects and returns the next player from the list"""
-        if cls.__currentPlayerId < (len(cls.__listP) - 1):
-            #next player 
-            cls.__currentPlayerId += 1
-        else:
-            #start again with first player
-            cls.__currentPlayerId =  0
-            
-    @classmethod    
-    def GetCurrentPlayer(cls):
-        return cls.__listP[cls.__currentPlayerId]
-        
-    @classmethod
-    def GetNextPlayer(cls):
-        cPlayer = cls.GetCurrentPlayer()
-        cls.NextPlayer()
-        retPl = cls.GetCurrentPlayer()
-        while not cPlayer == cls.GetCurrentPlayer():
-            #skip players to go back to currentPlayer
-            cls.NextPlayer()
-        return  retPl
-        
-    @classmethod
-    def GetListPlayers(cls):
-        return cls.__listP
-    #----------------------------------------------
-    # Room and place related methods
-    #----------------------------------------------
-    @classmethod
-    def GetCurrentRoom(cls):
-        if cls.__currentRoom == None:
-            print("Error: No current room!")
-            return Room(100)
-        else:
-            return cls.__currentRoom
-               
-    @classmethod
-    def SetCurrentRoom(cls, room):
-        cls.__currentRoom = room
-        if room not in cls.__listRoomsVisited:
-            cls.__listRoomsVisited.append(room.number)
-            
-    @classmethod 
-    def GetRoomsVisited(cls):
-        return cls.__listRoomsVisited
-    #----------------------------------------------
-    # Item and inventory related methods
-    #----------------------------------------------
-    @classmethod
-    def AddToInventory(cls, item):
-        if item.number not in cls.__listItemsYielded:
-            cls.__listItemsYielded.append(item.number)
-            #add to inventory
-            cls.__dictInventory[item.number] = item
-        return cls.__dictInventory
-        
-    @classmethod
-    def GetInventory(cls):
-        return cls.__dictInventory
-            
-    @classmethod
-    def GetItemsYielded(cls):
-        return cls.__listItemsYielded
-    
-    @classmethod
-    def DelFromInventory(cls, itemNumber):
-        del cls.__dictInventory[itemNumber]
-        return cls.__dictInventory
 
 #----------------------------------------------
 # Handlers
@@ -503,7 +380,7 @@ def playerAction_Selector():
     elif plAction == cmd_inpt.QUIT:
         #player wants to quit
         gui.textScreen.TypeWrite(GameMsg.SVQT)
-        GameStats.QuitSave()
+        GameStats.Quit(gui.root)
     elif plAction in dictRooms:
         #player enters a currentRoom
         if plAction == currentRoom.number:
@@ -596,4 +473,16 @@ def newRound():
                               + GameMsg.TURN[1])
 #-------------------------------------------- 
 
+def NewGame():
+        """This method initializes the game with predefined values.
+        Acts like a setter for the player list."""
+        GameStats.SetCurrentRoom(Room(100))
+        #generate start items in inventory
+        Item(10)
+        #Setup Player list (static Class)
+        GameStats.SetListPlayers([Player("Lukas", "orange", [2,2], GameStats.GetCurrentRoom()), \
+                                  Player("Marie", "cyan", [7,4], GameStats.GetCurrentRoom())]) 
+
 gui = GameGui() #constructor for GUI.
+
+#gui.root.wm_protocol('WM_DELETE_WINDOW', GameStats.Quit()) #override Tkinter's standard close window behavior with self-written quit routine

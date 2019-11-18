@@ -218,6 +218,10 @@ dictModsRefused = {
     }
 
 class GameMsg():
+    ASKCONT = "Möchtet Ihr Euer aktuelles Spiel (falls vorhanden) fortsetzen?\n"
+    SUCCESS = "...erfolgreich!\n"
+    LOAD = "Lade Spielstand..."
+    ASKOVWR = "Möchtet Ihr Euren alten Spielstand (falls vorhanden) überschreiben?\n"
     NAN = "Keine Zahl erkannt. Zum Speichern und Beenden bitte 'quit' eingeben.\n"
     SVQT = "Spiel wird gespeichert und beendet. Bis bald!\n"
     TURN = [" bei [", "] ist an der Reihe.\nWas wollt ihr tun?  "]
