@@ -131,11 +131,21 @@ class Spot:
     def OnLeave(self):
         """Checks dict if there's an action to be performed on exit of a spot"""
         if self.number in dictSpotChange: #if it can be found in the keys
-            for element in range(0, len(dictSpotChange[self.number][1])):
-                #exchange spots back in room dictionary
-                fromSpotId = dictSpotChange[self.number][1][element]
-                tgtSpotId = dictSpotChange[self.number][0][element]
-                self.__room.SpotExchange(fromSpotId, tgtSpotId)
+            listPlayers = GameStats.GetListPlayers()
+            playersOnSpot = 0
+            for element in listPlayers:
+                if element.GetPos().number == self.number:
+                    playersOnSpot += 1
+            if playersOnSpot <= 1:
+                for element in range(0, len(dictSpotChange[self.number][1])):
+                    #exchange spots back in room dictionary
+                    fromSpotId = dictSpotChange[self.number][1][element]
+                    tgtSpotId = dictSpotChange[self.number][0][element]
+                    self.__room.SpotExchange(fromSpotId, tgtSpotId)
+            else:
+                #as at least 1 player still is on the spot, 
+                #it cannot be changed back yet.
+                pass
         
                 
     def __action(self):
@@ -405,17 +415,17 @@ def playerAction_Selector():
             #player selected a spot
             if not activeSpot.number == plAction:
                 activeSpot.OnLeave()
-            if plAction in spotObjList: #possibilty that player leaves a trigger spot, thus hiding target
-                currentPlayer.SetPos(spotObjList[plAction])
-                currentPlayer.GetPos().OnEnter()
-            else:
-                #fallback to currentRoom
-                gui.textScreen.TypeWrite(str(plAction) \
-                                         + GameMsg.NOT_IN_REACH[0] \
-                                         + currentPlayer.GetPos().name \
-                                         + GameMsg.NOT_IN_REACH[1])
-                currentPlayer.SetPos(currentRoom)
-                currentPlayer.GetPos().OnEnter()
+                #check again whether targeted spot is still in list
+                if plAction in spotObjList: #possibilty that player leaves a trigger spot, thus hiding target
+                    currentPlayer.SetPos(spotObjList[plAction])
+                    currentPlayer.GetPos().OnEnter()
+                else:
+                    #fallback to currentRoom
+                    gui.textScreen.TypeWrite(str(plAction) \
+                                             + GameMsg.NOT_IN_REACH[0] \
+                                             + currentPlayer.GetPos().name \
+                                             + GameMsg.NOT_IN_REACH[1])
+                    activeSpot.OnEnter()
         else:
             notReachable(currentRoom, plAction)
     else:
@@ -465,7 +475,7 @@ def CheckPlayerStats():
  #----------------------------------------------  
 def newRound():
     GameStats.GetCurrentRoom().ReloadRoom()
-    GameStats.GetNextPlayer()
+    GameStats.NextPlayer()
     currentPlayer = GameStats.GetCurrentPlayer()
     gui.textScreen.NameWrite(currentPlayer)
     gui.textScreen.TypeWrite(GameMsg.TURN[0] \

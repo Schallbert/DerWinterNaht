@@ -44,7 +44,7 @@ class GameStats:
     @classmethod    
     def NextPlayer(cls):
         """Selects and returns the next player from the list"""
-        if cls.__currentPlayerId < (len(cls.__listP) - 1):
+        if cls.__currentPlayerId < (len(cls.__listP)-1):
             #next player 
             cls.__currentPlayerId += 1
         else:

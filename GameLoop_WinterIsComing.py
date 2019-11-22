@@ -26,6 +26,8 @@ else:
     else:
         GameStats.Quit()
 
+#gui preparation
+gui.inventoryScreen.Update(GameStats.GetInventory())
 gui.statsScreen.Update(GameStats.GetListPlayers())
 GameStats.GetCurrentRoom().OnEnter()
 while True:

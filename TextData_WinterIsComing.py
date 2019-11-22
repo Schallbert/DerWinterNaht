@@ -164,8 +164,9 @@ dictSpots = {
     103 : "die Apotheke am Bahnhof",\
     104 : "der REWE-Markt",\
     105 : "die Übersichtskarte, verschattet",\
-    111 : "BlaBlaBla"\
+    111 : "Wühlspuren",\
     }
+    
 
 #Defines how spots are connected to items   
 dictSpotItems = {
