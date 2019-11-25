@@ -173,14 +173,14 @@ class Spot:
                 else:
                     gui.textScreen.TypeWrite(GameMsg.ACTIONE)
                 if self.number in dictModsRefused:
-                    changeMod(dictMods[self.number])
+                    invokeChangeMod(self.__mod, self.__modType)
         elif self.__action_id == Action_id.NOC_YES:
             #player has no choice whether to further investigate :D
             self.__action_id = Action_id.NOC_NO #reset to mitigate re-enter action
             if self.number in dictAction:
                 gui.textScreen.TypeWrite(dictAction[self.number])
             if self.number in dictMods:
-                changeMod(dictMods[self.number])
+                invokeChangeMod(self.__mod, self.__modType)
         else: 
             #action_id is NOC_NO and nothing happens
             pass
@@ -196,13 +196,15 @@ class Item:
         self.number = number
         self.description = dictTexts[number]
         self.name = dictItems[number]
-        self.__type = dictModType[number]
+        self.__type = None
+        self.__mod = None
+        if number in dictModType:
+            self.__type = dictModType[number]
         if number in dictAction:
             self.__action = dictAction[number]
         if number in dictMods:
             self.__mod = dictMods[number]
-        else:
-            self.__mod = None
+            
         #add to yielded items
         gui.inventoryScreen.Update(GameStats.AddToInventory(self))
 
@@ -215,7 +217,9 @@ class Item:
         Items are only 'usable' if they do not need any other object for interaction
         except the player and the item itself."""
         gui.textScreen.TypeWrite(self.description)
-        if self.__type == Mod_typ.NOTUSABLE or self.__type == Mod_typ.PERMANENT:
+        if self.__type == None;
+            pass # no mod defined for this item
+        elif self.__type == Mod_typ.NOTUSABLE or self.__type == Mod_typ.PERMANENT:
             gui.textScreen.TypeWrite(GameMsg.MUST_COMB)
         else:
             gui.textScreen.TypeWrite(GameMsg.ACTIONQ + self.name + actionDict[3]) #use?

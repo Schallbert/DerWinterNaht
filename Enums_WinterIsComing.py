@@ -11,10 +11,11 @@ class Action_id():
     NOC_NO = 6 #NO Choice, answer is NO
 
 class Mod_typ():
-    EFFONE = 0 #Once usable, effect on calling player
-    EFFALL = 1 #Once usable, effect on all players
-    NOTUSABLE = 2 #Item that cannot be used without a combination
-    PERMANENT = 3 #Item cannot be consumed, it is permanently available
+    #None = no mod
+    EFFONE = 1 #Once usable, effect on calling player
+    EFFALL = 2 #Once usable, effect on all players
+    NOTUSABLE = 3 #Item that cannot be used without a combination
+    PERMANENT = 4 #Item cannot be consumed, it is permanently available
     
 class cmd_inpt():
     UNKNOWN = 0
