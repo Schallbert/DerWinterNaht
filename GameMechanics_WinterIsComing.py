@@ -20,12 +20,16 @@ class Room:
         self.number = number
         self.name = dictRooms[number]
         self.description = dictTexts[number]
+        self.__spot_list = None
+        self.__room_list = None
 
     def OnEnter(self):
-        """Set up of connected spots and adjacent rooms.
-        Then refreshes the room's attributes. Input 'room' not used."""
-        self.__spot_list = self.__spotBuilder()
-        self.__room_list = self.__roomBuilder()
+        """Set up of connected spots and adjacent rooms if not already defined.
+        Then refreshes the room's attributes.""" 
+        if self.__spot_list == None:
+            self.__spot_list = self.__spotBuilder()
+        if self.__room_list == None:
+            self.__room_list = self.__roomBuilder()
         checkLooseItem(self.number)
         
     def ReloadRoom(self):
@@ -421,7 +425,7 @@ def itemSpot(generateFromNr):
             elif generateFromNr in dictAction:
                 gui.textScreen.TypeWrite(dictAction[generateFromNr])
                 if generateFromNr in dictSpotChange:
-                    room.SpotExchange(dictSpotChange[generateFromNr], Exchange_dir.FORWARD)
+                    currentRoom.SpotExchange(dictSpotChange[generateFromNr], Exchange_dir.FORWARD)
                     dictInventory[item].DelItem()
             else:
                 #generate game progress only

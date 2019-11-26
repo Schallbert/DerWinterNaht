@@ -25,12 +25,12 @@ else:
     resp = gui.inputScreen.GetInput()
     if resp == 1: 
         NewGame()
+        gui.inventoryScreen.Update(GameStats.GetInventory())
+        gui.statsScreen.Update(GameStats.GetListPlayers())
     else:
         GameStats.Quit(gui.root)
 
 #gui preparation
-gui.inventoryScreen.Update(GameStats.GetInventory())
-gui.statsScreen.Update(GameStats.GetListPlayers())
 GameStats.GetCurrentRoom().OnEnter()
 while True:
     CheckPlayerStats()

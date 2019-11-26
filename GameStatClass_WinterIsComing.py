@@ -15,9 +15,9 @@ class GameStats:
     #----------------------------------------------
     @classmethod
     def Quit(cls, guiRoot):
-        #tk.destroy() to destroy the gui
-        guiRoot.destroy()
-        sys.exit
+        guiRoot.quit() #First end the gui's bindings
+        guiRoot.destroy() #Then close gui
+        sys.exit() #finally, exit program.
         
     @classmethod
     def Save(cls):
@@ -78,8 +78,7 @@ class GameStats:
     @classmethod
     def GetCurrentRoom(cls):
         if cls.__currentRoom == None:
-            print("Error: No current room!")
-            cls.Quit()
+            raise Exception("No room object available. Ending game.")
         else:
             return cls.__currentRoom
                

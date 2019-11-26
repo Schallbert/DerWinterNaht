@@ -166,7 +166,7 @@ eine Nebelbank, sodass Ihr dort nicht mehr erkennen könnt.\n",
     132 : \
 "Ein See glitzert ruhig in der Sonne, umsäumt von einer sanft\n\
 ansteigenden Hügelkette. Ihr seht einen kleinen Anleger mit\n\
-daran festgemachten Böötchen. Ein schönes, ruhiges Bild und\n\
+daran festgemachten Bötchen. Ein schönes, ruhiges Bild und\n\
 Ihr bekommt direkt Lust, eine Runde auf dem See zu drehen.\n",
     133 : \
 "Mendig aus der Ferne.",
@@ -178,6 +178,13 @@ am Feldesrand, ist sie sicher einen Besuch wert.\n",
 Ein herrlicher Tag für so einen Auslug.\n",
     136 : \
 "Eine einfache Parkbank. Sie lädt euch zum Entspannen und Energie tanken ein.\n",
+    140 : \
+"Das Seeufer. Der See liegt tiefblau und träge da, winzige Wellen plätschern\n\
+am schmalen Steinstrand und ein Steg ragt ein paar Meter in den See hinein.\n\
+An ihm sind ein paar weiße Tretboote vertäut.\n\
+Merkwürdigerweise ist hier kein Tier zu sehen, weder Schwäne noch Enten könnt\n\
+ihr ausmachen. Dass auch weit und breit keine Menschenseele auszumachen ist,\n\
+stört euch allerdings nicht weiter.\n",
     10101: \
 "Ihr nehmt ein Foto der Übersichtskarte auf, um es Euch später ansehen zu können.\n\
 Gute Idee!\n",
@@ -286,7 +293,7 @@ mit der Aufschrift: 'Mem Overflow!'. Darunter leuchtet ein gelbes Lämpchen\n\
 "Unter dem großen Fenster des Leitstandes befindet sich eine Konsole\n\
 mit kleinem Display und nur zwei Knöpfen sowie einem Lämpchen\n\
 und einem Schlüsselschalter.\n\
-Die Beschriftungen sind zum Teil abgefallen, dennoch könnt Ihr die Worte 'Fan'\n\
+Die Beschriftungen sind zum Teil verrottet, dennoch könnt Ihr die Worte 'Fan'\n\
 und 'Stack health' entziffern. Das Display darüber zeigt blass '08%' an.\n\
 Auf dem Boden seht ihr eine Flasche Fensterreiniger, deren Inhalt größtenteils\n\
 ausgelaufen sein muss. Ihr nehmt sie mit, um sie im nächsten Mülleimer\n\
@@ -411,7 +418,7 @@ dictActionType = {
     132 : Action_id.VIEW,\
     133 : Action_id.VIEW,\
     134 : Action_id.VIEW,\
-    135 : Action_id.VIEW,\
+    135 : Action_id.NOC_NO,\
     136 : Action_id.USE\
     }    
 
@@ -480,7 +487,8 @@ dictMods = {
     111 : [0,1],\
     115 : [0, -2],\
     121 : [-1,0],\
-    122 : [-2,0]\
+    122 : [-2,0],\
+    136 : [1,3]\
     }
 
 dictModType = {
