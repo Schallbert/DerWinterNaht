@@ -26,7 +26,8 @@ class Room:
         Then refreshes the room's attributes. Input 'room' not used."""
         self.__spot_list = self.__spotBuilder()
         self.__room_list = self.__roomBuilder()
-
+        checkLooseItem(self.number)
+        
     def ReloadRoom(self):
         """This function re-writes the GUI with current room info, available spots
         and connected rooms. It additionally prints the room's description if
@@ -35,6 +36,7 @@ class Room:
         listRoomsVisited = GameStats.GetRoomsVisited()
         if self.number not in listRoomsVisited:
             gui.textScreen.TypeWrite(self.description)
+            GameStats.AddRoomsVisited()
         #location info
         gui.textScreen.TypeWrite(GameMsg.YOURE_AT[0] + str(self.number) + ": "\
                    + self.name + GameMsg.YOURE_AT[1])
@@ -77,17 +79,29 @@ class Room:
             roomObjList[dictConnectedRooms[self.number][i]] = Room(dictConnectedRooms[self.number][i])
         return roomObjList  
 
-    def SpotExchange(self, fromSpotId, targetSpotId):
+    def SpotExchange(self, spotList, exchangeDir):
         """This Method exchanges a spot within the list with another
         target spot needed when a spot changes its meaning throughout
         the game"""
-        if targetSpotId not in self.__spot_list:
-            tgtSpot = Spot(targetSpotId, self)
-            self.__spot_list[targetSpotId] = tgtSpot
-            self.__spot_list.pop(fromSpotId)
+        if exchangeDir == Exchange_dir.FORWARD:
+            frm = 0
+            tgt = 1
+        elif exchangeDir == Exchange_dir.REVERT:
+            frm = 1
+            tgt = 0
         else:
-            #don't switch als switch has already happened
-            pass
+            undefined
+        for element in range(0, len(spotList[frm])):
+            #exchange spots in room dictionary
+            fromSpotId = spotList[frm][element]
+            targetSpotId = spotList[tgt][element]
+            if targetSpotId not in self.__spot_list:
+                tgtSpot = Spot(targetSpotId, self)
+                self.__spot_list[targetSpotId] = tgtSpot
+                self.__spot_list.pop(fromSpotId)
+            else:
+                #don't switch als switch has already happened
+                pass
 
     def GetSpotList(self):
         return self.__spot_list
@@ -121,12 +135,9 @@ class Spot:
         gui.textScreen.Clear()
         gui.textScreen.TypeWrite(GameMsg.EXAMINE + self.name + "\n" + self.description + "\n")
         self.__action() #perform spot action
+        checkLooseItem(self.number)
         if self.number in dictSpotChange: 
-            for element in range(0, len(dictSpotChange[self.number][0])):
-                #exchange spots in room dictionary
-                fromSpotId = dictSpotChange[self.number][0][element]
-                tgtSpotId = dictSpotChange[self.number][1][element]
-                self.__room.SpotExchange(fromSpotId, tgtSpotId)
+            self.__room.SpotExchange(dictSpotChange[self.number], Exchange_dir.FORWARD)
 
     def OnLeave(self):
         """Checks dict if there's an action to be performed on exit of a spot"""
@@ -137,11 +148,7 @@ class Spot:
                 if element.GetPos().number == self.number:
                     playersOnSpot += 1
             if playersOnSpot <= 1:
-                for element in range(0, len(dictSpotChange[self.number][1])):
-                    #exchange spots back in room dictionary
-                    fromSpotId = dictSpotChange[self.number][1][element]
-                    tgtSpotId = dictSpotChange[self.number][0][element]
-                    self.__room.SpotExchange(fromSpotId, tgtSpotId)
+                self.__room.SpotExchange(dictSpotChange[self.number], Exchange_dir.REVERT)
             else:
                 #as at least 1 player still is on the spot, 
                 #it cannot be changed back yet.
@@ -209,7 +216,11 @@ class Item:
         gui.inventoryScreen.Update(GameStats.AddToInventory(self))
 
     def DelItem(self):
-        gui.inventoryScreen.Update(GameStats.DelFromInventory(self.number))
+        """"Deletes an item by removing it from the inventory dict."""
+        if self.__type == Mod_typ.PERMANENT:
+            pass #item is permanent
+        else:
+            gui.inventoryScreen.Update(GameStats.DelFromInventory(self.number))
 
     def UseItem(self):
         """This method offers the item's description and then
@@ -217,7 +228,7 @@ class Item:
         Items are only 'usable' if they do not need any other object for interaction
         except the player and the item itself."""
         gui.textScreen.TypeWrite(self.description)
-        if self.__type == None;
+        if self.__type == None:
             pass # no mod defined for this item
         elif self.__type == Mod_typ.NOTUSABLE or self.__type == Mod_typ.PERMANENT:
             gui.textScreen.TypeWrite(GameMsg.MUST_COMB)
@@ -293,14 +304,17 @@ class Player:
 #----------------------------------------------
 # Handlers
 #----------------------------------------------
-def actionHandler(generateFromNr, room):
+def actionHandler(generateFromNr):
+    """Arbitrator, deciding which handling function to be called."""
     nrOfDigits = len(str(generateFromNr))
     if nrOfDigits == 2:
         itemUse(generateFromNr)
+    if nrOfDigits == 3:
+        spotRoom(generateFromNr)
     elif nrOfDigits == 4:
         itemItem(generateFromNr)
     elif nrOfDigits == 5:
-        itemSpot(generateFromNr, room)
+        itemSpot(generateFromNr)
     else:
         gui.textScreen.TypeWrite(GameMsg.UNKNOWN_CMD)
 #----------------------------------------------
@@ -312,32 +326,87 @@ def itemUse(generateFromNr):
         dictInventory[generateFromNr].UseItem()
     else:
         gui.textScreen.TypeWrite(GameMsg.NOT_INV)      
-#----------------------------------------------        
+#----------------------------------------------    
+def spotRoom(plAction):
+    """Player has entered a 3-digit number which could be a spot/room.
+    function checks for rooms, whether reachable, and if so transfers 
+    players to this room, executing its OnEnter() method.
+    Same goes for spots."""
+    #init variables
+    currentRoom = GameStats.GetCurrentRoom()
+    currentPlayer = GameStats.GetCurrentPlayer()
+    listPlayers = GameStats.GetListPlayers()
+    roomObjList = currentRoom.GetRoomList()
+    spotObjList = currentRoom.GetSpotList()
+    activeSpot = currentPlayer.GetPos()
+    #Logic
+    if plAction in dictRooms:
+        if plAction == currentRoom.number:
+            gui.textScreen.TypeWrite(currentRoom.description) #only show description if specifically asked
+        elif plAction in dictConnectedRooms[currentRoom.number]: 
+            for player in listPlayers: #players leave current spot/currentRoom
+                player.GetPos().OnLeave()
+            GameStats.SetCurrentRoom(roomObjList[plAction]) #player selected another room, set and update
+            currentRoom = GameStats.GetCurrentRoom()
+            for player in listPlayers: #players enter new currentRoom
+                player.SetPos(currentRoom)
+            currentRoom.OnEnter()
+        else:
+            notReachable(currentRoom, plAction)   
+    elif plAction in dictSpots:     
+        if plAction in spotObjList: #player enters a spot
+            if not activeSpot.number == plAction:
+                activeSpot.OnLeave()
+                #check again whether targeted spot is still in list
+                if plAction in spotObjList: #possibilty that player leaves a trigger spot, thus hiding target
+                    currentPlayer.SetPos(spotObjList[plAction])
+                    currentPlayer.GetPos().OnEnter()
+                else:
+                    notReachable(activeSpot, plAction)
+                    activeSpot.OnEnter() #fallback to currentRoom
+        else:
+            notReachable(currentRoom, plAction)
+    else:
+        #player selected a spot/currentRoom that is not within reach
+        notReachable(currentRoom, plAction)
+#----------------------------------------------                
 def itemItem(generateFromNr):
+    """Combine two items to one. The original items are
+    deleted when complete."""
     #4-digit
+    #init variables
     dictInventory = GameStats.GetInventory()
     item1 = int(generateFromNr/100)
     item2 = generateFromNr%100
+    #Logic
     if (item1 in dictInventory) & (item2 in dictInventory):
         #only add items if both are available in inventory
-        if generateFromNr in dictItems:
-            Item(generateFromNr) 
+        if generateFromNr in dictSpotItems:
+            newItemNr = dictSpotItems[generateFromNr]
+            Item(newItemNr) 
             #original items deleted on combination
-            dictInventory[item1].DelItem
-            dictInventory[item2].DelItem
-            gui.textScreen.TypeWrite(GameMsg.SUCCESS_GET + str(generateFromNr) \
-                       + ": " + dictInventory[generateFromNr].name + "\n")     
+            dictInventory[item1].DelItem()
+            dictInventory[item2].DelItem()
+            gui.textScreen.TypeWrite(GameMsg.SUCCESS_GET + str(newItemNr) \
+                       + ": " + dictInventory[newItemNr].name + "\n")     
         else:
-            gui.textScreen.TypeWrite(GameMsg.CNT_CMB)
+            gui.textScreen.TypeWrite(GameMsg.CANT_CMB)
     else:
         gui.textScreen.TypeWrite(GameMsg.NOT_INV)
 #----------------------------------------------
-def itemSpot(generateFromNr, room):
+def itemSpot(generateFromNr):
+    """Item has been combined with a spot. Function checks if
+    any item yield or action can be found in the corresponding dicts
+    and performs the actions therein. The cases are mostly to catch
+    undefined behavior."""
     #5-digit
+    #init variables
     dictInventory = GameStats.GetInventory()
+    currentRoom = GameStats.GetCurrentRoom()
+    spotList = currentRoom.GetSpotList()
     item = int(generateFromNr/1000)
     spot = generateFromNr%1000
-    spotList = room.GetSpotList()
+    #Logic
     if spot in spotList:
         if item in dictInventory:
             if generateFromNr in dictSpotItems:
@@ -348,14 +417,17 @@ def itemSpot(generateFromNr, room):
                     gui.textScreen.TypeWrite(GameMsg.SUCCESS_GET + \
                            str(newItem.number) + \
                                ": " + newItem.name + "\n")             
-                #delete old item
-                if not dictInventory[item].GetType() == Mod_typ.PERMANENT:
-                    print(dictInventory[item].GetType())
+                    dictInventory[item].DelItem() #delete old item
+            elif generateFromNr in dictAction:
+                gui.textScreen.TypeWrite(dictAction[generateFromNr])
+                if generateFromNr in dictSpotChange:
+                    room.SpotExchange(dictSpotChange[generateFromNr], Exchange_dir.FORWARD)
                     dictInventory[item].DelItem()
             else:
                 #generate game progress only
                 if generateFromNr in dictTexts:
                     gui.textScreen.TypeWrite(dictTexts[generateFromNr])
+                    dictInventory[item].DelItem() #delete old item
                 else:
                     gui.textScreen.TypeWrite(GameMsg.CANT_CMB)
         else:      
@@ -372,20 +444,28 @@ def invokeChangeMod(mod, modType):
             listPlayers[element].ChangeMod(mod)
 #----------------------------------------------
 def notReachable(room, tgt):
+    """Just prints to players that current room or spot is not in reach."""
     gui.textScreen.TypeWrite(str(tgt) + GameMsg.NOT_IN_REACH[0] \
 + str(room.number) + ": " + room.name + GameMsg.NOT_IN_REACH[1])
-
-
+#----------------------------------------------
+def checkLooseItem(triggerNumber):
+    """Checks whether a spot, room or other trigger that has an
+    'OnEnter()' method makes players loose items from their inventory.
+    Takes the trigger's number, checks the corresponding dict and then
+    deletes items listed"""
+    if triggerNumber in dictItemDelete:
+            listDeleteItems = dictItemDelete[triggerNumber]
+            dictInventory = GameStats.GetInventory()
+            for item in listDeleteItems:
+                if item in dictInventory:
+                    itemToDel = dictInventory[item]
+                    gui.textScreen.TypeWrite(GameMsg.LOOSE + str(itemToDel.number) \
+                                             + ": " + itemToDel.name + "\n")
+                    itemToDel.DelItem()         
 #---------------------------------------------- 
 def playerAction_Selector():
     """This function checks the player's wish and, if valid,
     tries to match it to an existing object."""
-    currentRoom = GameStats.GetCurrentRoom()
-    currentPlayer = GameStats.GetCurrentPlayer()
-    listPlayers = GameStats.GetListPlayers()
-    roomObjList = currentRoom.GetRoomList()
-    spotObjList = currentRoom.GetSpotList()
-    activeSpot = currentPlayer.GetPos()
     plAction = gui.inputScreen.GetInput()
     gui.textScreen.TypeWrite(str(plAction) + "\n")
     if plAction == cmd_inpt.UNKNOWN:
@@ -395,50 +475,8 @@ def playerAction_Selector():
         #player wants to quit
         gui.textScreen.TypeWrite(GameMsg.SVQT)
         GameStats.Quit(gui.root)
-    elif plAction in dictRooms:
-        #player enters a currentRoom
-        if plAction == currentRoom.number:
-            #only show description if specifically asked
-            gui.textScreen.TypeWrite(currentRoom.description)
-        elif plAction in dictConnectedRooms[currentRoom.number]:
-            #players leave current spot/currentRoom
-            for player in listPlayers:
-                player.GetPos().OnLeave()
-            #player selected another room, set and update
-            GameStats.SetCurrentRoom(roomObjList[plAction])
-            currentRoom = GameStats.GetCurrentRoom()
-            #players enter new currentRoom
-            for player in listPlayers:
-                player.SetPos(currentRoom)
-            currentRoom.OnEnter()
-        else:
-            notReachable(currentRoom, plAction)    
-    elif plAction in dictSpots:
-        #player enters a spot
-        if plAction in spotObjList:
-            #player selected a spot
-            if not activeSpot.number == plAction:
-                activeSpot.OnLeave()
-                #check again whether targeted spot is still in list
-                if plAction in spotObjList: #possibilty that player leaves a trigger spot, thus hiding target
-                    currentPlayer.SetPos(spotObjList[plAction])
-                    currentPlayer.GetPos().OnEnter()
-                else:
-                    #fallback to currentRoom
-                    gui.textScreen.TypeWrite(str(plAction) \
-                                             + GameMsg.NOT_IN_REACH[0] \
-                                             + currentPlayer.GetPos().name \
-                                             + GameMsg.NOT_IN_REACH[1])
-                    activeSpot.OnEnter()
-        else:
-            notReachable(currentRoom, plAction)
-    else:
-        #player selected an item, an item-item combination, or an item-spot combination
-        if len(str(plAction)) == 3: 
-            #player selected a spot/currentRoom that is not within reach
-            notReachable(currentRoom, plAction)
-        else: 
-            actionHandler(plAction, currentRoom)
+    else: 
+        actionHandler(plAction)
 
 def CheckPlayerStats():
     """Checks tiredness and motivation of current player. If the player is
@@ -494,8 +532,8 @@ def NewGame():
         #generate start items in inventory
         Item(10)
         #Setup Player list (static Class)
-        GameStats.SetListPlayers([Player("Lukas", "orange", [2,2], GameStats.GetCurrentRoom()), \
-                                  Player("Marie", "cyan", [7,4], GameStats.GetCurrentRoom())]) 
+        GameStats.SetListPlayers([Player("Lukas", "orange", [8,7], GameStats.GetCurrentRoom()), \
+                                  Player("Marie", "cyan", [6,9], GameStats.GetCurrentRoom())]) 
 
 gui = GameGui() #constructor for GUI.
 

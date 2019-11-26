@@ -12,6 +12,8 @@ if resp == 1:
     try:
         gui.textScreen.TypeWrite(GameMsg.LOAD)
         GameStats.Load()
+        gui.inventoryScreen.Update(GameStats.GetInventory())
+        gui.statsScreen.Update(GameStats.GetListPlayers())
         gui.textScreen.TypeWrite(GameMsg.SUCCESS)
     except:
         gui.textScreen.TypeWrite(GameMsg.NO_SVGAME)
@@ -24,7 +26,7 @@ else:
     if resp == 1: 
         NewGame()
     else:
-        GameStats.Quit()
+        GameStats.Quit(gui.root)
 
 #gui preparation
 gui.inventoryScreen.Update(GameStats.GetInventory())

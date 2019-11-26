@@ -86,12 +86,14 @@ class GameStats:
     @classmethod
     def SetCurrentRoom(cls, room):
         cls.__currentRoom = room
-        if room not in cls.__listRoomsVisited:
-            cls.__listRoomsVisited.append(room.number)
             
     @classmethod 
     def GetRoomsVisited(cls):
         return cls.__listRoomsVisited
+        
+    @classmethod
+    def AddRoomsVisited(cls):
+        cls.__listRoomsVisited.append(cls.__currentRoom.number)
     #----------------------------------------------
     # Item and inventory related methods
     #----------------------------------------------

@@ -9,6 +9,12 @@ class Action_id():
     GET = 4
     NOC_YES = 5 #NO Choice, answer is YES
     NOC_NO = 6 #NO Choice, answer is NO
+    
+class Exchange_dir():
+    """Spot exchange direction. FORWARD takes the first set of elements as 'from'
+    and the second set of elemtent as 'to', and vice verca."""
+    FORWARD = 1
+    REVERT = 0
 
 class Mod_typ():
     #None = no mod

@@ -25,7 +25,7 @@ dictTexts = {
 "Euer Smartphone. Kann so ziemlich alles und ist natürlich auch mit Taschenlampe,\n\
 Kamera und Navigationssystem ausgestattet.\n\
 Hier draußen scheinen leider weder Mobilfunk noch Datenvervindung möglich zu sein.\n\
-Zudem ist der Akkustand niedrig und ihr habt keine Powerbank dabei.\n",
+Zudem ist der Akkustand niedrig und Ihr habt keine Powerbank dabei.\n",
     11 : \
 "Ein kaum leserliches Foto der Umgebungskare, aufgenommen mit dem Handy.\n\
 Die Spiegelung der hellen Hauswand gegenüber links des Kastens hingegen\n\
@@ -41,7 +41,28 @@ in die Schublade 'Panisch und übertrieben vorsichtig' fällt...\n",
     14 : \
 "Wahnsinn, was Hunger im Einkaufsladen anrichten kann!\n\
 Eure Rucksäcke platzen fast vor Zutaten für eine wahre Picknick-Orgie.\n\
-Wenn ihr das alles esst, werdet ihr wohl kaum weiterwandern wollen ;)\n",
+Wenn Ihr das alles esst, werdet Ihr wohl kaum weiterwandern wollen ;)\n",
+    15 : \
+"Ein kleines Fläschchen Mückenspray, das Ihr von zu Hause mitgenommen habt,\n\
+um Ruhe vor diesen Plagegeistern zu haben.\n", #bonus item, only available if no leafs
+    # 16 : Start bonus 2
+    17 : \
+"Blütenblätter der Heckenrose. Einige Insektenarten hassen ihren Duft.\n",
+    18 : \
+"Waldbrombeeren. Lecker. Keine Angst, sie werden euch schon nicht krank machen\n\
+oder einem Fuchsbandwurm als Heimat dienen\n",
+    19 : \
+"Eine Sprühflasche mit Fensterreiniger, die vergessen worden sein muss.\n\
+Die Fenster sind jedenfalls sauber!\n",
+    20 : \
+"Eine Sprühflasche mit einem Rest Fensterreiniger, gefüllt mit Blüten.\n\
+Der Alkohol des Reinigers scheint den Blütenblättern den Duft\n\
+zu entziehen, denn die leicht undichte Flasche riecht jetzt sehr stark\n\
+nach Heckenrose.",
+    21 : \
+"Ein silberner Schlüssel mit Anhänger aus Metall. Nach gründlicher Reinigung\n\
+im trüben Wasser des Sumpfes könnt ihr lesen,\n\
+was darauf eingraviert ist: 'S.M. JGU MZ 09'\n",
     100 : \
 "Eine Bahnstation in der tiefsten Eifel...\n\n",
     101 : \
@@ -58,35 +79,110 @@ scheint aber grundsolide und tief im Boden verankert.\n\n",
 "Ein REWE-Markt, ziemlich groß für diese Gegend.\n\
 Der hat bestimmt alles, was man vergessen haben könnte.\n\n",
     105 : \
-"Die große Karte der Umgebung ist jetzt verschattet, da jemand von euch\n\
+"Die große Karte der Umgebung ist jetzt verschattet, da jemand von Euch\n\
 vor dem Pfosten steht. Man kann die Karte jetzt klar und deutlich erkennen.\n\n",
     110 : \
 "Der Fußweg zu eurem ersten Etappenziel Maria Laach.\n\
-Ihr wolltet ungern an der Landstraße entlang gehen und habt euch für diesen\n\
+Ihr wolltet ungern an der Landstraße entlang gehen und habt Euch für diesen\n\
 zugewachsenen, schmalen Pfad entschieden,\n\
 den das Wild sicher auch als Weg benutzt. Die Sonne blinzelt immer wieder\n\
-durch das Blätterdach, es duftet nach Heckenrosen und ab und zu erhascht ihr\n\
+durch das Blätterdach, es duftet nach Heckenrosen und ab und zu erhascht Ihr\n\
 einen Blick auf den Wald.\n\
-Schließlich gelangt ihr an eine Weggabelung in einer kleinen Senke.\n\
+Schließlich gelangt Ihr an eine Weggabelung in einer kleinen Senke.\n\
 Der Wegweiser wird den letzten Winter wohl nicht überlebt haben,\n\
 sein abgebrochener Stumpf ragt ein paar Zentimeter aus dem Boden.\n\n",
     111 : \
-"Blablablaaaaaa\n",
+"Tiefe Wühlspuren im Gras links und rechts des Weges deuten darauf hin,\n\
+dass hier desöfteren Wildschweine auf der Suche nach Nahrung unterwegs sind.\n\
+Ihr hofft, dass Ihr keinem Keiler in die Quere kommt und setzt euren Weg\n\
+etwas wachsamer fort als vorher.\n",
+    112 : \
+"Zwischen all dem Gestrüpp seht Ihr zwei Sträucher mit Heckenrosen,\n\
+die gerade mit zart pink leuchtenden, duftenden Blüten lockt.\n",    
+    113 : \
+"Ein Vogelnest mit ein paar Eierschalen drin. Entweder ist\n\
+der Nachwuchs bereits aus dem Haus, oder wurde Opfer eines\n\
+Räubers.\n",
+    114 : \
+"Brommbeeren. Dorniges, sehr verwachsenes und undurchdringliches Gestrüpp.\n\
+Ein paar fast schwarze, reife Beeren sind für Euch einigermaßen erreichbar\n\
+und sehen echt lecker aus.\n",
+    115 : \
+"Zwischen den Sträuchern öffnet sich plötzlich eine kleine Lücke und gibt\n\
+einen noch engeren Pfad frei, der fast im rechten Winkel abzweigt\n",
     120: \
 "Nach ein paar hundert Metern sanft bergab verläuft sich der Weg\n\
 und endet in lockeren, aber leicht erhöhten, festen Grasbüscheln.\n\
-Die Natur hat euch hier förmlich verschluckt.\n\
+Die Natur hat Euch hier förmlich verschluckt.\n\
 Doch - halt - was glitzert da hinten im Gras?\n\n",
+    121 : \
+"Hier ist es ziemlich nass überall. Obwohl alles mit Gras und Heide\n\
+bewachsen ist, steht fast alles ein paar Zentimeter unter Wasser\n\
+bis auf ein paar Grasbüschel, die sich wie Inseln über dem\n\
+Wasserspiegel befinden und etwa in Schrittweite zueinander wachsen.\n",
+    122 : \
+"Das typisch-braune, saure Wasser eines Sumpfes. Da der Boden nur aus Pflanzen\n\
+und Wasser besteht, gibt er recht stark nach und Ihr sinkt mit jedem Schritt\n\
+etwas ein.\n",
+    123 : \
+"Waargh, Mücken! Dort hinten seht Ihr einen richtigen Schwarm davon.\n",
+    124 : \
+"Ihr steht zwischen verrosteten Gleisen, die sich mit Weichen in der Ferne\n\
+verästeln und im Nebel verschwrinden. Vereinzelt stehen noch Loren herun,\n\
+Eine Lok entdeckt Ihr nirgendwo.\n",
+    125 : \
+"Ihr nähert Euch dem Gegenstand auf dem Boden, doch plötzlich ist\n\
+das Glitzern verschwunden.\n\
+Nach längerer Suche ein paar Schritte vor und zurück ist das Glitzern\n\
+plötzlich wieder da. Doch nähert Ihr Euch, verschwindet es wieder.\n",
+    126 : \
+"Nebel. Keine hundert Meter von Euch entfernt, wirkt die Nebelbank\n\
+durchdringlich wie eine Wand.\n",
+    127 : \
+"Ihr betretet eine große Betonplatte. In ihrer Mitte steht, mit dem Boden\n\
+fest verschraubt, ein Zylinderförmiges Metallding auf drei Beinchen.\n\
+Es ist nicht sehr hoch, und sein Durchmesser ist etwa so groß wie ein\n\
+Suppenteller. Auf einer Seite seht Ihr ein Bedienpanel, an dem eine rote\n\
+Leuchtdiode hektisch blinkt. Hinter dem Gerät steht eine große, schwarze Kiste.\n\
+Aus einem Loch an ihrer Seite steigt ein weißes Dampffähnchen empor.\n\
+Sie ist mit dem Metallding durch eine Leitung verbunden.\n\
+Eine weitere, viel dickere Leitung führt von der Kiste zum Leitstand.\n",
+    128 : \
+"Eine alte Leitwarte für technische Geräte oder so etwas.\n\
+Könnte früher mal zur Bahnanlage gehört haben, allerdings steht in der Ecke\n\
+vor einem großen Fenster ein Bedienpult neuerer Bauart, als das Alter\n\
+der Bahnanlage vermuten lässt.",  #[hidden]
+    129 : "Ein ziemlich großes Gerät aus Metall, fast mannshoch und ebebnso\n\
+breit. Von hier aus führen einige dicke Leitungen direkt in den Nebel.\n",
     130: \
-"Hier geht es eindeutig bergauf. Nicht, dass ihr das am Gelände sehen könnt,\n\
+"Hier geht es eindeutig bergauf. Nicht, dass Ihr das am Gelände sehen könnt,\n\
 nein, dafür ist das Unterholz viel zu dicht, aber es ist irgendwie...\n\
 anstrengend und wird eher noch anstrengender. \n\
-Vorne seht ihr eine Lichtung, vielleicht gut für eine Rast?\n\n",
+Vorne seht Ihr eine Lichtung, vielleicht gut für eine Rast?\n\n",
+    131 : \
+"Unten erstreckt sich ein kleiner Sumpf mit vielen alten, toten Bäumen\n\
+und mehreren brackigen Wasserflächen. Gen Horizont erstreckt sich\n\
+eine Nebelbank, sodass Ihr dort nicht mehr erkennen könnt.\n",
+    132 : \
+"Ein See glitzert ruhig in der Sonne, umsäumt von einer sanft\n\
+ansteigenden Hügelkette. Ihr seht einen kleinen Anleger mit\n\
+daran festgemachten Böötchen. Ein schönes, ruhiges Bild und\n\
+Ihr bekommt direkt Lust, eine Runde auf dem See zu drehen.\n",
+    133 : \
+"Mendig aus der Ferne.",
+    134 : \
+"Die Abtei 'Maria Laach'. Nicht weit von hier, schön gelegen\n\
+am Feldesrand, ist sie sicher einen Besuch wert.\n",
+    135 : \
+"Heiter mit einzelnen Schäfchenwolken. Kein Lüftchen regt sich.\n\
+Ein herrlicher Tag für so einen Auslug.\n",
+    136 : \
+"Eine einfache Parkbank. Sie lädt euch zum Entspannen und Energie tanken ein.\n",
     10101: \
-"Ihr nehmt ein Foto der Übersichtskarte auf, um es euch später ansehen zu können.\n\
+"Ihr nehmt ein Foto der Übersichtskarte auf, um es Euch später ansehen zu können.\n\
 Gute Idee!\n",
     10105: \
-"Ihr nehmt ein Foto der Übersichtskarte auf, um es euch später ansehen zu können.\n\
+"Ihr nehmt ein Foto der Übersichtskarte auf, um es Euch später ansehen zu können.\n\
 Gute Idee!\n"
     }
 
@@ -96,56 +192,145 @@ dictAction = {
 "Ihr beschließt, den Verbandkasten zu benutzen, um eure Wunden\n\
 und die eurer möglichen Begleiter zu versorgen. Das funktioniert prima!\n\
 (Euch ist natürlich klar, dass das jetzt nur einen Effekt hatte,\n\
-wenn ihr auch wirklich verletzt wart. Sonst sieht es einfach nur albern aus,\n\
+wenn Ihr auch wirklich verletzt wart. Sonst sieht es einfach nur albern aus,\n\
 in Rettungsdecke und mit Verbänden und Pflastern übersät herumzulaufen)\n",
     14: \
-"Jetzt ein Picknick! Ihr lasst euch auf der mitgebrachten Decke nieder und genießt\n\
-ein fürstliches Mahl in der Natur. Auch wenn ihr jetzt wieder motivierter seid,\n\
-euren Ausflug fortzusetzen, so hat euch das viele Essen doch ein Kantinenkoma beschert.\n",
+"Jetzt ein Picknick! Ihr lasst Euch auf der mitgebrachten Decke nieder und genießt\n\
+ein fürstliches Mahl in der Natur. Auch wenn Ihr jetzt wieder motivierter seid,\n\
+euren Ausflug fortzusetzen, so hat Euch das viele Essen doch ein Kantinenkoma beschert.\n",
+    18: \
+"Süß-sauer sind die Brombeeren. Sie schmecken viel besser als die, die man ohne\n\
+dafür gekämpft zu haben im Supermarkt kaufen kann.\n",
     101 : \
 "Der Kartenausschnitt scheint perfekt zu eurer geplanten Tour zu passen,\n\
-nur leider könnt ihr wegen der Spiegelung im Glas nichts Genaues erkennen.\n",
+nur leider könnt Ihr wegen der Spiegelung im Glas nichts Genaues erkennen.\n",
     102 : \
 "Du stehst am Pfosten des Kartenkastens.\n\
 An dieser Position schattest du den Kartenkasten ab,\n\
 sodass die Karte einwandfrei lesbar ist.\n",
     103 : \
-"Ihr betretet die Apotheke. Warum, das ist euch selbst noch nicht ganz\n\
-klar geworden, als euch schon ein freundlicher Herr hohen Alters mit Haarkranz,\n\
+"Ihr betretet die Apotheke. Warum, das ist Euch selbst noch nicht ganz\n\
+klar geworden, als Euch schon ein freundlicher Herr hohen Alters mit Haarkranz,\n\
 goldener Brille und weißem Kittel - ganz nach dem Klischee - anspricht.\n\
-Aus Verlegenheit kauft ihr einen Verbandkasten.\n\
+Aus Verlegenheit kauft Ihr einen Verbandkasten.\n\
 Tja, dieses sperrige Stück muss nun den ganzen Weg mitgeschleppt werden.\n",
     104 : \
 "Hach, ganz wie zu Hause! So eine Zugfahrt macht echt hungrig, und so\n\
-kauft ihr, obwohl ihr euch natürlich ein paar Brote geschmiert habt, einen\n\
+kauft Ihr, obwohl Ihr Euch natürlich ein paar Brote geschmiert habt, einen\n\
 ganzen Haufen Lebensmittel zusammen. Wohl bekomm's!\n\
 Nur leider ist so ein Einkauf auch immer etwas anstrengend...\n",
     105 : \
-"Die Übersichtskarte ist jetzt perfekt lesbar.\n"
+"Die Übersichtskarte ist jetzt perfekt lesbar.\n",
+    112 : \
+"Hmmm, wie die Heckenrosen duften!\n\
+Das werden allerdings nicht alle Insektenarten so sehen...\n\
+Schnell pflückt Ihr ein paar der duftenden Blütenblätter und steckt sie ein.\n",
+    114 : \
+"Wilde Brombeeren. Immer eine Tortur, sie zu pflücken,\n\
+denn nicht nur einmal bleibt Ihr an Dornen hängen und reißt Euch die Haut auf.\n\
+Dafür sehen sie aber so gut aus, dass Euch das Wasser im Mund zusammenläuft.\n", 
+    115 : \
+"Der Pfad schlängelt sich, immer enger werdend, noch eine Weile geradeaus\n\
+und biegt dann scharf nach links ab. Hier gibt es immer mehr Dornengestrüpp\n\
+und durch das dichte Blätterdach dringt kaum mehr ein Sonnenstrahl.\n\
+Vergeblich sucht Ihr nach Wegmarkierungen und Zeichen, bis Ihr schließlich\n\
+vor einer hohen Steinwand steht, wo der Weg abrupt zu enden scheint.\n\
+Hier kommt wohl nur Wild durch, was sich gut im Gebirge bewegen kann.\n\
+Ihr beschließt, lieber umzukehren und einen besser zu wandernden Weg\n\
+zu wählen.\n",
+    121 : \
+"Schon ist es passiert. Da bewundert man die Natur und konzentriert\n\
+sich einmal nicht genau darauf, die Grassoden auch genau zu treffen,\n\
+und schon hängt ein Fuß im Morast. Sehr zur (Schaden)Freude anderer,\n\
+ruderst Du ein paar Sekunden lang hilflos mit den Armen,\n\
+bevor Dir geholfen wird und Du Deinen Fuß dem Sumpf mit einem lauten \n\
+Schmatzgeräusch entreißen kannst.\n",
+    122 : \
+"'Das ist ja eine Brühe', denkst Du, und schon\n\
+steckst Du bis zur Kniekehle drin. Klasse!\n\
+Dummerweise wird Dein Rucksack nass, sodass Ihr befürchten müsst,\n\
+dass Gegenstände unbrauchbar geworden sind.\n",
+    123 : \
+"Mücken, viele Mücken, das wisst Ihr ja schon. Ihr wagt nicht,\n\
+Euch dem Schwarm weiter zu nähern - Er würde Euch schier aussaugen.\n\
+Direkt hinter dem Mückenschwarm seht Ihr eine kleine Baracke.\n\
+Sie scheint noch vor Kurzem benutzt worden zu sein, denn anders\n\
+als die Gleisanlage sieht sie recht gut in Schuss und sauber aus.\n",
+    124 : \
+"Die alte Gleisanlage deutet darauf hin, dass in dieser Gegend früher\n\
+Torf gestochen wurde. Sie muss seit langer Zeit außer Betrieb sein, denn\n\
+einige Gleise sind im weichen Boden versackt und die Loren sehen so verrostet\n\
+aus, als würden sie jeden Moment auseinanderfallen.\n\
+Ihr entscheidet Euch, diesen Ort bald zu verlassen.\n",
+    125 : \
+"Genau prägt Ihr Euch den Ort des Gegenstandes ein und fixiert ihn.\n\
+Euch langsam annähernd, konzentriert Ihr Euch besonders, als das Ding\n\
+erneut unter der Wasserobefläche verschwindet, da der Boden unter Eurem\n\
+Gewicht nachzugeben scheint. Um den Gegenstand nicht in der Tiefe zu verlieren,\n\
+tastet Ihr sehr vorsichtig im kalten, murkigen\n\
+Wasser herum, und schließlich habt Ihr ihn in der Hand - \n\
+Es ist tatsächlich ein silberner Schlüssel!\n\
+Daran fällt ein schlammiger Schlüsselanhänger auf.\n",
+    126 : \
+"Eine Nebelbank. Hier im Sumpf nichts Besonderes. Euer gesunder\n\
+Menschenverstand sagt Euch, dass es ziemlich dumm wäre, da so einfach\n\
+ohne Hilfsmittel und ohne konkretes Ziel hinein zu marschieren, denn wenn\n\
+man dort schon die Hand vor Augen nicht sehen kann, wie soll man dann\n\
+erst erkennen, wo man hintritt?\n",
+    127 : \
+"Ihr öffnet die Klappe des Bedienpanels. Es hat die Aufschrift 'STS-3'.\n\
+Neben einem Speicherkartenschlitz blinkt eine rote Leuchtdiode\n\
+mit der Aufschrift: 'Mem Overflow!'. Darunter leuchtet ein gelbes Lämpchen\n\
+'No Cellular'. Kurzerhand entschließt Ihr Euch, die Speicherkarte mitzunehmen.\n",
+    128 : \
+"Unter dem großen Fenster des Leitstandes befindet sich eine Konsole\n\
+mit kleinem Display und nur zwei Knöpfen sowie einem Lämpchen\n\
+und einem Schlüsselschalter.\n\
+Die Beschriftungen sind zum Teil abgefallen, dennoch könnt Ihr die Worte 'Fan'\n\
+und 'Stack health' entziffern. Das Display darüber zeigt blass '08%' an.\n\
+Auf dem Boden seht ihr eine Flasche Fensterreiniger, deren Inhalt größtenteils\n\
+ausgelaufen sein muss. Ihr nehmt sie mit, um sie im nächsten Mülleimer\n\
+zu entsorgen.\n",
+    129 : \
+"Das Gerät besitzt hinten zwei geschlitzte Öffnungen,\n\
+ähnlich wie Lüftungsöffnungen an Gebäuden. Vorne befindet sich ein Gitter.\n\
+Im Halbdunkel dahinter steckt eine Rolle mit Lamellen drauf, so breit wie\n\
+der Kasten selbst. Durch das Maschinenetikett 'Main Blower' kommt Ihr\n\
+zu dem Schluss, dass es sich bei dem Gerät um ein Gebläse handeln muss.\n",
+    136 : \
+"Aaaaah, eine Pause. Tut echt gut, wenn man ein wenig müde ist.\n\
+Lümmelt nur nicht zu viel hier herum, sonst habt Ihr bald keine\n\
+Lust mehr, überhaupt noch weiter zu gehen.\n",
+    15123 : \
+"Whow, ihr seid aber gut vorbereitet! Zack, Mückenspray auf Mücken angewendet -\n\
+gut, es mag unkonventionell sein, sich nicht selbst damit einzureiben -\n\
+und schon sind sie weg und Euer Weg ist frei!\n", #TODO implement feature ItemSpotAction in GameMech!
+    20123 : \
+"Na dann mal sehen, was euer Parfum bei den Mücken ausrichten kann!\n\
+Ein paar Sprühstöße hier, da - und - weg sind die Mücken!\n\
+Ganz klar ist Euch allerdings nicht, ob das jetzt an den Heckenrosen lag\n\
+oder doch an der Chemie des Fensterreinigers. Sei's drum. Euer Weg ist frei.\n",
+    21128 : \
+"Der Schlüssel passt! Beherzt dreht ihr den jetzt freigegebenen Schalter.\n\
+Das Bedienpanel erwacht zum Leben und ein Lämpchen über einem grünen Knopf\m\
+beginnt weiß zu blinken.\n\
+Ihr drückt den Knopf.\n\
+Ihr drückt den Knopf erneut, fester.\n\
+Mit einem gewaltigen Heulen läuft die Maschine gegenüber des Leitstandes an\n\
+und nach ein paar Sekunden rauscht sie monoton vor sich hin.\n\
+Sie scheint die Nebelbank allmählich aufzulösen.\n\
+Noch bevor sie komplett verschwindet, fällt die Maschine plötzlich aus.\n\
+Das Display zeigt die 'Stack health' jetzt mit '00%' an.\n"
     }
 
-#Defines what happens if a closer investigation of spot is refused
-dictActionRefused = {
-    # TODO
-    }
-
-#Action type of the spot when visited
-dictActionType = {
-    101 : Action_id.VIEW,\
-    102 : Action_id.NOC_YES,\
-    103 : Action_id.GOTO,\
-    104 : Action_id.GOTO,\
-    105 : Action_id.VIEW,\
-    111 : Action_id.VIEW\
-    }
     
 #Defines room number and names
 dictRooms = {
     100 : "Bahnhof Mendig",\
     110 : "Fußweg Maria Laach",\
     120 : "Sumpf im Wald",\
-    130 : "Fuß des Hügels vor dem Bergkamm",\
-    140 : "Wiese auf dem Bergkamm"\
+    130 : "Der Hügel vor dem Bergkamm",\
+    140 : "Seeufer"\
     }
 
 #Defines which rooms are in what way connected to which rooms
@@ -158,6 +343,10 @@ dictConnectedRooms = {
     }
 
 #Defines spot number and names
+#hidden:
+#105 at 102,
+#125 at 123,
+#127 at 126
 dictSpots = {
     101 : "die Übersichtskarte",\
     102 : "der Pfosten eines Kartenkastens",\
@@ -165,31 +354,116 @@ dictSpots = {
     104 : "der REWE-Markt",\
     105 : "die Übersichtskarte, verschattet",\
     111 : "Wühlspuren",\
+    112 : "Heckenrosen",\
+    113 : "Vogelnest",\
+    114 : "Brommelbeeren",\
+    115 : "Weiter den Pfad entlang...",\
+    121 : "Grassoden",\
+    122 : "Bräunliches Wasser",\
+    123 : "Mücken...",\
+    124 : "Gleisanlage mit Loren",\
+    125 : "Das glitzernde Ding...",\
+    126 : "Nebelbank",\
+    127 : "Seismograph",\
+    128 : "Gerätestand",\
+    129 : "Großes, schweres Metallding",\
+    131 : "Sümpfe im Nebel",\
+    132 : "See hinterm Berg",\
+    133 : "Die Stadt",\
+    134 : "Die Abtei",\
+    135 : "Wetter...",\
+    136 : "Pause?"\
     }
-    
+
+#Defines what happens if a closer investigation of spot is refused
+dictActionRefused = {
+    # TODO
+    }
+
+#Action type of the spot when visited
+#yields:
+#101 11
+#105 12
+#112 17
+#114 18
+#125 19
+dictActionType = {
+    101 : Action_id.VIEW,\
+    102 : Action_id.NOC_YES,\
+    103 : Action_id.GOTO,\
+    104 : Action_id.GOTO,\
+    105 : Action_id.VIEW,\
+    111 : Action_id.NOC_YES,\
+    112 : Action_id.VIEW,\
+    113 : Action_id.NOC_NO,\
+    114 : Action_id.GET,\
+    115 : Action_id.GOTO,
+    121 : Action_id.NOC_YES,\
+    122 : Action_id.NOC_YES,\
+    123 : Action_id.VIEW,\
+    124 : Action_id.VIEW,\
+    125 : Action_id.VIEW,\
+    126 : Action_id.VIEW,\
+    127 : Action_id.GET,\
+    128 : Action_id.USE,\
+    129 : Action_id.GOTO,\
+    131 : Action_id.VIEW,\
+    132 : Action_id.VIEW,\
+    133 : Action_id.VIEW,\
+    134 : Action_id.VIEW,\
+    135 : Action_id.VIEW,\
+    136 : Action_id.USE\
+    }    
 
 #Defines how spots are connected to items   
 dictSpotItems = {
     10101 : [11],\
     103 : [13],\
     104 : [14],\
-    10105 : [12]\
+    10105 : [12],\
+    112 : [17],\
+    114 : [18],\
+    128 : [19],\
+    125 : [21],\
+    1719 : 20\
     }
+    
+#Special items
+#dictSpecialItems = {
+#123 : [20,15,"Tja, scheinbar habt ihr ] \
+#}
 
 #Defines which spots can change through interaction
 #with spot or item combination
 # Trigger : [[Exchange targets], [Exchange spots]]
 dictSpotChange = {
-    102: [[101], [105]]
+    102: [[101], [105]],\
+    15123: [[123], [125]],\
+    20123: [[123], [125]],\
+    21128: [[126], [127]]\
     }
 
 #Defines item number and names
+#bonus items (ask player) TODO IMPLEMENT
+#15
 dictItems = {
     10 : "Ein Smartphone",\
     11 : "Ein Foto der Umgebungskarte",\
     12 : "Ein Foto der Umgebungskarte",\
     13 : "Ein Verbandkasten",\
-    14 : "Eine ordentliche Mahlzeit für mehrere Personen"\
+    14 : "Eine ordentliche Mahlzeit",\
+    15 : "Mückenzeugs",\
+    17 : "Duftende Blütenblätter",\
+    18 : "Eine Handvoll Brombeeren",\
+    19 : "Sprühflasche",\
+    20 : "Heckenrosen-Parfum",\
+    21 : "Schlüssel mit Anhänger"\
+    }
+
+#Items that are deleted when player triggers action.  
+#TODO: IMPLEMENT FEATURE!  
+dictItemDelete = {
+    122 : [18] \
     }
 
 #Defines item modifiers
@@ -199,8 +473,14 @@ dictMods = {
     12 : [1,1],\
     13 : [5,-1],\
     14 : [-2,5],\
+    18 : [2,0],\
     104 : [0,-1],\
-    103 : [-1,0]\
+    103 : [-1,0],\
+    108 : [-1,0],\
+    111 : [0,1],\
+    115 : [0, -2],\
+    121 : [-1,0],\
+    122 : [-2,0]\
     }
 
 dictModType = {
@@ -209,9 +489,15 @@ dictModType = {
     12 : Mod_typ.PERMANENT,\
     13 : Mod_typ.EFFALL,\
     14 : Mod_typ.EFFALL,\
+    16 : Mod_typ.NOTUSABLE,\
+    18 : Mod_typ.EFFONE,\
     104 : Mod_typ.EFFONE,\
-    103: Mod_typ.EFFONE \
-    
+    103 : Mod_typ.EFFONE,\
+    108 : Mod_typ.EFFONE,\
+    111 : Mod_typ.EFFALL,\
+    115 : Mod_typ.EFFONE,\
+    121 : Mod_typ.EFFONE,\
+    122 : Mod_typ.EFFALL,\
     }
 
 dictModsRefused = {
@@ -225,24 +511,25 @@ class GameMsg():
     ASKOVWR = "Möchtet Ihr Euren alten Spielstand (falls vorhanden) überschreiben?\n"
     NAN = "Keine Zahl erkannt. Zum Speichern und Beenden bitte 'quit' eingeben.\n"
     SVQT = "Spiel wird gespeichert und beendet. Bis bald!\n"
-    TURN = [" bei [", "] ist an der Reihe.\nWas wollt ihr tun?  "]
+    TURN = [" bei [", "] ist an der Reihe.\nWas wollt Ihr tun?  "]
     IN_REACH = "\nVon hier aus sind folgende Orte erreichbar:\n"
     NOT_IN_REACH = [" ist von hier aus\n", " leider nicht erreichbar...\n"]
-    YOURE_AT = ["Ihr befindet euch bei ", ".\n\nIhr seht:\n"]
+    YOURE_AT = ["Ihr befindet Euch bei ", ".\n\nIhr seht:\n"]
     UNKNOWN_ROOM = ": ???\n"
     EXAMINE = "Ihr untersucht: "
-    ACTIONQ = "Möchtet ihr "
+    ACTIONQ = "Möchtet Ihr "
     ACTIONP = "Bitte eingeben: JA: '1', NEIN: '0'.\n"
     ACTIONE = "Ja, manchmal ist es auch gut, Dinge NICHT zu tun.\n"
     USED = " wurde verbraucht.\n"
     CANT_USE = " kann nicht allein benutzt oder verbraucht werden.\n"
     MUST_COMB = "Dieser Gegenstand kann nicht ohne Kombination benutzt werden.\n"
     CANT_CMB = "Das lässt sich nicht kombinieren!\n"
-    NOT_INV = "Dafür müsstet ihr das erstmal auch alles im Inventar haben...\n"
+    NOT_INV = "Dafür müsstet Ihr das erstmal auch alles im Inventar haben...\n"
     UNKNOWN_CMD = "Kein bekanntes Kommando.\n"
     SUCCESS_GET = "Das war erfolgreich! Ihr erhaltet "
     CHMOD = [", dein Wohlbefinden ändert sich um:\nMotivation: ", "\nMüdigkeit: "]
     LOADING = "______________________________________________________________________\n"
+    LOOSE = "Ihr verliert "
     NO_SVGAME = "Fehler: Keinen Spielstand zum Laden gefunden.\n\
 Beginne neues Spiel.\n"
     TIRED = ", du bist müde. Hundemüde. Sieh' zu, dass Du Dich schnleunigst ausruhst!\n\
@@ -254,5 +541,5 @@ Ihr solltet an dieser Stelle einfach mal eine Pause machen.\n",
 Form der flammenden Motivationsansprache helfen und ", "\n\
 die Hälfte Deiner Motivation abgeben?\n"]
     UNMOT_END = "Puh, es hilft alles nichts. Ihr macht jetzt erstmal schön eine Pause.\n\
-Später - sagen wir ab in einer halben Stunde - könnt ihr dann mit frischer Motivation\n\
-weitermachen.........................................................................\n"
+Später - sagen wir ab in einer halben Stunde - könnt Ihr dann mit frischer\n\
+Motivation weitermachen........................................................\n"
