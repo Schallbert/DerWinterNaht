@@ -43,8 +43,8 @@ in die Schublade 'Panisch und übertrieben vorsichtig' fällt...\n",
 Eure Rucksäcke platzen fast vor Zutaten für eine wahre Picknick-Orgie.\n\
 Wenn Ihr das alles esst, werdet Ihr wohl kaum weiterwandern wollen ;)\n",
     15 : \
-"Ein kleines Fläschchen Mückenspray, das Ihr von zu Hause mitgenommen habt,\n\
-um Ruhe vor diesen Plagegeistern zu haben.\n", #bonus item, only available if no leafs
+"Ein kleines Fläschchen Sonnencreme, das Ihr von zu Hause mitgenommen habt,\n\
+um in der Sonne nicht auszudörren wie Rosinen.\n", #bonus item
     # 16 : Start bonus 2
     17 : \
 "Blütenblätter der Heckenrose. Einige Insektenarten hassen ihren Duft.\n",
@@ -63,6 +63,16 @@ nach Heckenrose.",
 "Ein silberner Schlüssel mit Anhänger aus Metall. Nach gründlicher Reinigung\n\
 im trüben Wasser des Sumpfes könnt ihr lesen,\n\
 was darauf eingraviert ist: 'S.M. JGU MZ 09'\n",
+    22 : \
+"Eine SD-Karte, die Ihr dem Seismographen entnommen habt.\n\
+Vielleicht solltet Ihr die jemandem bringen, der etwas damit anfangen kann?\n",
+    23 : \
+"Eine SD-Karte. Darauf steht 'Laacher See, LAS-4'.\n\
+Kein Zweifel, diese Karte muss aus der Boje stammen!\n",
+    24 : \
+"Ein alter, kaputter Schraubendreher. Sein Griff ist gesplittert und\n\
+seine Schlitz-Klinge ist so abgenutzt, dass er wohl keine Schraube mehr richtig\n\
+greifen kann.\n",
     100 : \
 "Eine Bahnstation in der tiefsten Eifel...\n\n",
     101 : \
@@ -183,8 +193,81 @@ Ein herrlicher Tag für so einen Auslug.\n",
 am schmalen Steinstrand und ein Steg ragt ein paar Meter in den See hinein.\n\
 An ihm sind ein paar weiße Tretboote vertäut.\n\
 Merkwürdigerweise ist hier kein Tier zu sehen, weder Schwäne noch Enten könnt\n\
-ihr ausmachen. Dass auch weit und breit keine Menschenseele auszumachen ist,\n\
+ihr ausmachen. Dass hier auch weit und breit keine Menschenseele ist,\n\
 stört euch allerdings nicht weiter.\n",
+    141 : \
+"Ein schmaler Streifen Steinstrand am Rande des Sees. Hier liegt alles herum,\n\
+von Kieselsteinen bis hin zu Findlingen. Ihr werft ein paar Steinchen\n\
+und seht zu, wie sich die Wasseroberfläche kräuselt.\n",
+    142: \
+"Am Steg sind ein paar kleine, weiße Tretboote angebunden.\n\
+Es ist niemand zu entdecken, der sie euch ausleihen könnte, aber\n\
+an einem Poller des Stegs hängt eine kleine Metalldose mit Vorhängeschloss\n\
+und der Aufforderung, für die Nutzung eines Bootes doch bitte 5€ zu spenden.\n",
+    143 : \
+"Eine Metalldose mit einem Schlitz an der Seite und einem Vorhängeschloss.\n\
+Jemand hat sie auf der Unterseite mit einem Dosenöffner geöffnet und ausgeleert.\n\
+Was für ein trauriges Bild.\n",
+    150 : \
+"Ihr befindet Euch jetzt mit dem Boot mitten auf dem See.\n\
+Das Wetter ist herrlich und die Sonne knallt. Was wollt ihr mehr?\n",
+    151 : \
+"Das Ufer des Sees ist von Bäumen gesäumt. Ringsherum geht das Terrain bergauf,\n\
+sodass ihr den Eindruck bekommt, in einem Suppenteller unterwegs zu sein.\n\
+Es ist wirklich sehr still hier und kein Windhauch regt sich. Die Sonne hat\n\
+trotz der fortgeschrittenen Jahreszeit noch ordentlich Kraft und bald ist Euch\n\
+ziemlich warm, sodass Ihr Euch Eurer Jacken und Pullover entledigt.\n",
+    152 : \
+"Frisch tretet Ihr in die Pedale und fahrt raus auf den See.\n\
+Das Wasser gluckert und schmatzt am Schaufelrad und nach ein paar Manövern\n\
+mit dem Ruder habt Ihr das Boot gut unter Kontrolle. Ihr gleitet auf dem Wasser\n\
+hin zur Mitte des Sees und spürt den leichten Fahrtwind angenehm im Gesicht.\n",
+    153 : \
+"Euch fallen ein paar größere Blasen auf, die um Euer Boot herum aufsteigen.\n\
+Ein Fisch oder ein Taucher? Schnell fahrt ihr weiter, als ihr bemerkt,\n\
+dass die Luft hier plötzlich faulig riecht.\n",
+    154 : \
+"In der Ferne seht ihr eine silbrige, recht unförmige Boje\n\
+aus dem Wasser ragen. Sie ist mit gelb-schwarzen Aufklebern versehen,\n\
+die Ihr aus der Entfernung aber nicht entziffern könnt.\n",
+    155 : \
+"Na ja, die Sonne, die brennt Euch ganz schön auf den Pelz. Habt Ihr bei solchen\n\
+Ausflügen normalerweise Sonnencreme dabei?\n",
+    160 : \
+"Ihr seid bei der Boje angekommen. Aus der Nähe wirkt sie sogar noch komischer.\n\
+Sie ist aus silbernem Stahl und mit Solarzellen bestückt.\n\
+Von Nahem erinnert ihre Form nicht mehr so sehr an ein Ei, denn sie scheint\n\
+komplett aus dreieckigen Stahlteilen gefertigt und sieht sehr futuristisch aus.\n\
+Sie hat einen Poller, wo man Boote festmachen kann und sieht so aus, als wäre sie\n\
+in letzter Zeit oft besucht worden.\n\
+Ihr macht Euer Boot fest und beschließt, hier eine kurze Pause einzulegen.\n",
+    161 : \
+"Die Sonne brennt gnadenlos auf Euch nieder.\n",
+    162 : \
+"Euer Boot ist sicher an diesem Poller verzurrt. Ein an der Boje angebrachter\n\
+Gummipuffer quietscht, wenn ihr Euch auf Eurem Boot bewegt.",\
+    163 : \
+"Die Wartungsklappe der Boje. Normalerweise wäre sie per Schlüssel\n\
+zu öffnen, doch die Schrauben, die das Schloss halten sind so locker,\n\
+dass das Schloss auf der Innenseite der Klappe verrutscht sein muss.\n\
+Jemand hat offensichtlich bereits versucht, die Klappe mit Gewalt zu öffnen,\n\
+denn überall sind Kratz- und Hebelspuren zu sehen.",
+    164 : \
+"Das Display der Boje. An der Ecke, die der Wartungsklappe am nächsten liegt,\n\
+ist es gerissen, sodass ein Großteil nicht mehr ablesbar ist.\n\
+Zu erkennen sind folgende Meldungen:\n\
+'No Cell'\n\
+'___Card Error'\n\
+'Implausible ______ from Sens___ H2SO__1'\n\
+'Power ______ OK'\n",
+    165 : \
+"Ein leerer SD-Kartenschlitz.",
+    170  : \
+"Der Pfad am See führt Euch erneut in den Wald. Bald schon geht ihr auf\n\
+weichem Laub und trockenen Ästen, und wo der Wald dunkler wird, gibt es auch\n\
+immer weniger Buschwerk und Unterholz.\n\
+Völlig unvermutet taucht am Wegesrand eine Parkbank auf.\n\
+Warum hier wohl jemand so etwas hinstellt?\n",
     10101: \
 "Ihr nehmt ein Foto der Übersichtskarte auf, um es Euch später ansehen zu können.\n\
 Gute Idee!\n",
@@ -205,6 +288,8 @@ in Rettungsdecke und mit Verbänden und Pflastern übersät herumzulaufen)\n",
 "Jetzt ein Picknick! Ihr lasst Euch auf der mitgebrachten Decke nieder und genießt\n\
 ein fürstliches Mahl in der Natur. Auch wenn Ihr jetzt wieder motivierter seid,\n\
 euren Ausflug fortzusetzen, so hat Euch das viele Essen doch ein Kantinenkoma beschert.\n",
+    15 : \
+"Ihr cremt Euch gut ein. Der Duft erinnert Euch an Euren letzten Sommerurlaub.\n",
     18: \
 "Süß-sauer sind die Brombeeren. Sie schmecken viel besser als die, die man ohne\n\
 dafür gekämpft zu haben im Supermarkt kaufen kann.\n",
@@ -295,9 +380,10 @@ mit kleinem Display und nur zwei Knöpfen sowie einem Lämpchen\n\
 und einem Schlüsselschalter.\n\
 Die Beschriftungen sind zum Teil verrottet, dennoch könnt Ihr die Worte 'Fan'\n\
 und 'Stack health' entziffern. Das Display darüber zeigt blass '08%' an.\n\
-Auf dem Boden seht ihr eine Flasche Fensterreiniger, deren Inhalt größtenteils\n\
-ausgelaufen sein muss. Ihr nehmt sie mit, um sie im nächsten Mülleimer\n\
-zu entsorgen.\n",
+Auf dem Boden liegen ein offensichtlich kaputter, rostiger Schraubendreher und\n\
+eine Flasche Fensterreiniger, deren Inhalt größtenteils\n\
+ausgelaufen sein muss. Ihr nehmt beide Gegenstände mit, um sie im nächsten\n\
+Mülleimer zu entsorgen.\n",
     129 : \
 "Das Gerät besitzt hinten zwei geschlitzte Öffnungen,\n\
 ähnlich wie Lüftungsöffnungen an Gebäuden. Vorne befindet sich ein Gitter.\n\
@@ -308,6 +394,34 @@ zu dem Schluss, dass es sich bei dem Gerät um ein Gebläse handeln muss.\n",
 "Aaaaah, eine Pause. Tut echt gut, wenn man ein wenig müde ist.\n\
 Lümmelt nur nicht zu viel hier herum, sonst habt Ihr bald keine\n\
 Lust mehr, überhaupt noch weiter zu gehen.\n",
+    142 : \
+"Ihr beschließt, eine Runde auf dem See zu drehen.\n\
+Das kleine Bötchen schwankt stark, als ihr es betretet.\n\
+Es gibt hier zwei Sitzplätze zum Treten und zwei weitere erhöht achtern,\n\
+von denen aus man einen tollen Rundumblick hat.\n\
+Zwischen den Vordersitzen befindet sich eine runde Erhöhung, in der sich\n\
+das Schaufelrad befinden muss. Links und rechts an der Seite befestigt ist\n\
+das Rudergestänge für die Steuerung.\n\
+Vorsichtig fahrt ihr los, mitten auf den See hinaus. Das klappt echt prima!\n",
+    153 : \
+"Ihr wollt die Blasen genauer untersuchen, aber viel sieht man auch bei direktem\n\
+Blick nach unten nicht. Ins Wasser gehen möchte jetzt auch keiner so wirklich.\n\
+Allmählich bekommt Ihr Kopfschmerzen und der Geruch wird unerträglich,\n\
+sodass Ihr beschließt, abzudrehen.\n",
+    154 : \
+"Die Boje sieht ziemlich plump aus. Sie ist fast eiförmig und am oberen Ende\n\
+steckt eine Kugel an einer Stange. Auf ihrer Außenhaut sind mehrere dunkle\n\
+Rechtecke zu sehen.\n",
+    155 : \
+"Klasse, zum Glück habt Ihr Sonnencreme eingepackt. Als hättet Ihr es geahnt!\n\
+Die könnt Ihr ja dann direkt mal benutzen ;)\n",
+    161 : \
+"Wenn ihr bis jetzt keine Sonnencreme auftragen konntet, ist es zu spät\n\
+und Ihr bekommt einen fetten Sonnenbrand.\n",
+    163 : \
+"Die bekommt ihr so niemals auf. Wahrscheinlich ist sie nicht nur verschlossen,\n\
+sondern durch den Aufbruchversuch auch total verklemmt.\n\
+Warum wollt ihr die Klappe überhaupt öffnen?\n",
     15123 : \
 "Whow, ihr seid aber gut vorbereitet! Zack, Mückenspray auf Mücken angewendet -\n\
 gut, es mag unkonventionell sein, sich nicht selbst damit einzureiben -\n\
@@ -319,7 +433,7 @@ Ganz klar ist Euch allerdings nicht, ob das jetzt an den Heckenrosen lag\n\
 oder doch an der Chemie des Fensterreinigers. Sei's drum. Euer Weg ist frei.\n",
     21128 : \
 "Der Schlüssel passt! Beherzt dreht ihr den jetzt freigegebenen Schalter.\n\
-Das Bedienpanel erwacht zum Leben und ein Lämpchen über einem grünen Knopf\m\
+Das Bedienpanel erwacht zum Leben und ein Lämpchen über einem grünen Knopf\n\
 beginnt weiß zu blinken.\n\
 Ihr drückt den Knopf.\n\
 Ihr drückt den Knopf erneut, fester.\n\
@@ -327,7 +441,15 @@ Mit einem gewaltigen Heulen läuft die Maschine gegenüber des Leitstandes an\n\
 und nach ein paar Sekunden rauscht sie monoton vor sich hin.\n\
 Sie scheint die Nebelbank allmählich aufzulösen.\n\
 Noch bevor sie komplett verschwindet, fällt die Maschine plötzlich aus.\n\
-Das Display zeigt die 'Stack health' jetzt mit '00%' an.\n"
+Das Display zeigt die 'Stack health' jetzt mit '00%' an.\n",
+    22163 : \
+"Anstatt die Klappe aufzuhebeln, versucht Ihr zuerst, das Schloss wieder\n\
+ordentlich festzumachen. Als ihr fast fertig seid,\n\
+rutscht Euch der Schraubenzieher ab und fällt ins Wasser, aber nicht, bevor\n\
+sich ein Splitter vom Griff löst und sich in Eure Hand bohrt.\n\
+Wütend schlagt ihr auf die Wartungsklappe, die mit einem leichten Quietschen\n\
+prompt aufspringt.\n"
+
     }
 
     
@@ -337,7 +459,14 @@ dictRooms = {
     110 : "Fußweg Maria Laach",\
     120 : "Sumpf im Wald",\
     130 : "Der Hügel vor dem Bergkamm",\
-    140 : "Seeufer"\
+    140 : "Seeufer",\
+    150 : "Auf dem See",\
+    160 : "An der Boje",\
+    170 : "Parkbank im Wald",\
+    180 : "Abtei Maria Laach",\
+    190 : "Teufelskanzel",\
+    200 : "Krufter Waldsee",\
+    210 : "vor dem Lager"\
     }
 
 #Defines which rooms are in what way connected to which rooms
@@ -346,7 +475,13 @@ dictConnectedRooms = {
     110 : [100, 120, 130],\
     120 : [110],\
     130 : [110, 140],\
-    #...
+    140 : [130, 150, 170],\
+    150 : [140, 160],\
+    160 : [140, 150],\
+    170 : [140, 180],\
+    180 : [170, 190],\
+    190 : [180, 200],\
+    200 : [210]\
     }
 
 #Defines spot number and names
@@ -379,7 +514,21 @@ dictSpots = {
     133 : "Die Stadt",\
     134 : "Die Abtei",\
     135 : "Wetter...",\
-    136 : "Pause?"\
+    136 : "Pause?",\
+    141 : "Strand",\
+    142 : "Tretboote am Steg",\
+    143 : "Kleine Spardose aus Metall",\
+    151 : "Ufer und Bäume",\
+    152 : "Raus auf den See",\
+    153 : "Blubberblasen",\
+    154 : "Merkwürdige Boje",\
+    155 : "Euer Rucksack",\
+    161 : "Das Wetter...",\
+    162 : "Poller zum Festmachen",\
+    163 : "Wartungsklappe",\
+    164 : "Display",\
+    165 : "SD-Kartenschlitz"\
+    
     }
 
 #Defines what happens if a closer investigation of spot is refused
@@ -393,7 +542,9 @@ dictActionRefused = {
 #105 12
 #112 17
 #114 18
-#125 19
+#125 21
+#128 19, 22
+#Spots that are not mentioned here, don't have an "advanced" action
 dictActionType = {
     101 : Action_id.VIEW,\
     102 : Action_id.NOC_YES,\
@@ -402,7 +553,6 @@ dictActionType = {
     105 : Action_id.VIEW,\
     111 : Action_id.NOC_YES,\
     112 : Action_id.VIEW,\
-    113 : Action_id.NOC_NO,\
     114 : Action_id.GET,\
     115 : Action_id.GOTO,
     121 : Action_id.NOC_YES,\
@@ -414,12 +564,13 @@ dictActionType = {
     127 : Action_id.GET,\
     128 : Action_id.USE,\
     129 : Action_id.GOTO,\
-    131 : Action_id.VIEW,\
-    132 : Action_id.VIEW,\
-    133 : Action_id.VIEW,\
-    134 : Action_id.VIEW,\
-    135 : Action_id.NOC_NO,\
-    136 : Action_id.USE\
+    136 : Action_id.USE,\
+    142 : Action_id.USE,\
+    153 : Action_id.VIEW,\
+    154 : Action_id.VIEW,\
+    155 : Action_id.OPEN,\
+    161 : Action_id.NOC_YES,\
+    163 : Action_id.OPEN\
     }    
 
 #Defines how spots are connected to items   
@@ -430,9 +581,10 @@ dictSpotItems = {
     10105 : [12],\
     112 : [17],\
     114 : [18],\
-    128 : [19],\
+    128 : [19,22],\
     125 : [21],\
-    1719 : 20\
+    155 : [15],\
+    1719 : [20]\
     }
     
 #Special items
@@ -447,7 +599,8 @@ dictSpotChange = {
     102: [[101], [105]],\
     15123: [[123], [125]],\
     20123: [[123], [125]],\
-    21128: [[126], [127]]\
+    21128: [[126], [127]],\
+    22163: [[163], [164, 165]]\
     }
 
 #Defines item number and names
@@ -459,18 +612,22 @@ dictItems = {
     12 : "Ein Foto der Umgebungskarte",\
     13 : "Ein Verbandkasten",\
     14 : "Eine ordentliche Mahlzeit",\
-    15 : "Mückenzeugs",\
+    15 : "Sonnencreme",\
     17 : "Duftende Blütenblätter",\
     18 : "Eine Handvoll Brombeeren",\
     19 : "Sprühflasche",\
     20 : "Heckenrosen-Parfum",\
-    21 : "Schlüssel mit Anhänger"\
+    21 : "Schlüssel mit Anhänger",\
+    22 : "SD-Karte aus dem Seismographen",\
+    23 : "SD-Karte aus der Boje",\
+    24 : "Defekter Schraubendreher",\
+    
     }
 
 #Items that are deleted when player triggers action.  
-#TODO: IMPLEMENT FEATURE!  
 dictItemDelete = {
-    122 : [18] \
+    122 : [18, 22],\
+    161 : [15],\
     }
 
 #Defines item modifiers
@@ -478,8 +635,9 @@ dictItemDelete = {
 dictMods = {
     11 : [0,-1],\
     12 : [1,1],\
-    13 : [5,-1],\
-    14 : [-2,5],\
+    13 : [3,-1],\
+    14 : [5,-2],\
+    15 : [2,0],\
     18 : [2,0],\
     104 : [0,-1],\
     103 : [-1,0],\
@@ -488,7 +646,10 @@ dictMods = {
     115 : [0, -2],\
     121 : [-1,0],\
     122 : [-2,0],\
-    136 : [1,3]\
+    136 : [1,3],\
+    153 : [0,-2],\
+    161 : [-2,0],\
+    22163 : [-2,0],\
     }
 
 dictModType = {
@@ -497,8 +658,10 @@ dictModType = {
     12 : Mod_typ.PERMANENT,\
     13 : Mod_typ.EFFALL,\
     14 : Mod_typ.EFFALL,\
+    15 : Mod_typ.EFFALL,\
     16 : Mod_typ.NOTUSABLE,\
     18 : Mod_typ.EFFONE,\
+    21 : Mod_typ.NOTUSABLE,\
     104 : Mod_typ.EFFONE,\
     103 : Mod_typ.EFFONE,\
     108 : Mod_typ.EFFONE,\
@@ -506,6 +669,9 @@ dictModType = {
     115 : Mod_typ.EFFONE,\
     121 : Mod_typ.EFFONE,\
     122 : Mod_typ.EFFALL,\
+    136 : Mod_typ.EFFALL,\
+    153 : Mod_typ.EFFALL,\
+    22163 : Mod_typ.EFFALL\
     }
 
 dictModsRefused = {

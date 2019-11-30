@@ -1,8 +1,6 @@
-#import pygame
 from tkinter import *
 #import datetime
 import time
-
 
 #Import data structures   
 from TextData_WinterIsComing import *
@@ -127,7 +125,11 @@ class Spot:
         self.__room = room
         self.description = dictTexts[number]
         self.name = dictSpots[number]
-        self.__action_id = dictActionType[number]
+        self.__action_id = Action_id.NOC_NO #standard action ID
+        self.__mod = [0,0]
+        self.__modType = Mod_typ.NOTUSABLE
+        if number in dictActionType:
+            self.__action_id = dictActionType[number]
         if number in dictMods:
             self.__mod = dictMods[number]
         if number in dictModType:
@@ -138,7 +140,8 @@ class Spot:
         i.e. description, trigger spot exchange, trigger actions"""
         gui.textScreen.Clear()
         gui.textScreen.TypeWrite(GameMsg.EXAMINE + self.name + "\n" + self.description + "\n")
-        self.__action() #perform spot action
+        if self.number in dictAction:
+            self.__action() #perform spot action
         checkLooseItem(self.number)
         if self.number in dictSpotChange: 
             self.__room.SpotExchange(dictSpotChange[self.number], Exchange_dir.FORWARD)
@@ -168,7 +171,7 @@ class Spot:
             #Ask user for 0/1 whether to further investigate
             resp = gui.inputScreen.GetInput()
             if resp == 1:
-                self.__action_id == Action_id.NOC_NO #mitigate re-enter action
+                self.__action_id = Action_id.NOC_NO #mitigate re-enter action
                 if self.number in dictAction:
                     gui.textScreen.TypeWrite(dictAction[self.number])
                 if self.number in dictMods:
@@ -207,7 +210,7 @@ class Item:
         self.number = number
         self.description = dictTexts[number]
         self.name = dictItems[number]
-        self.__type = None
+        self.__type = Mod_typ.NOTUSABLE
         self.__mod = None
         if number in dictModType:
             self.__type = dictModType[number]
@@ -215,7 +218,6 @@ class Item:
             self.__action = dictAction[number]
         if number in dictMods:
             self.__mod = dictMods[number]
-            
         #add to yielded items
         gui.inventoryScreen.Update(GameStats.AddToInventory(self))
 
@@ -232,9 +234,7 @@ class Item:
         Items are only 'usable' if they do not need any other object for interaction
         except the player and the item itself."""
         gui.textScreen.TypeWrite(self.description)
-        if self.__type == None:
-            pass # no mod defined for this item
-        elif self.__type == Mod_typ.NOTUSABLE or self.__type == Mod_typ.PERMANENT:
+        if self.__type == Mod_typ.NOTUSABLE or self.__type == Mod_typ.PERMANENT:
             gui.textScreen.TypeWrite(GameMsg.MUST_COMB)
         else:
             gui.textScreen.TypeWrite(GameMsg.ACTIONQ + self.name + actionDict[3]) #use?
@@ -313,12 +313,18 @@ def actionHandler(generateFromNr):
     nrOfDigits = len(str(generateFromNr))
     if nrOfDigits == 2:
         itemUse(generateFromNr)
-    if nrOfDigits == 3:
+    elif nrOfDigits == 3:
         spotRoom(generateFromNr)
     elif nrOfDigits == 4:
         itemItem(generateFromNr)
     elif nrOfDigits == 5:
-        itemSpot(generateFromNr)
+        if generateFromNr == 32167: #Dev cheat to get all items in game
+            for element in dictItems:
+                inv = GameStats.GetInventory()
+                if element not in inv:
+                    Item(element)
+        else:
+            itemSpot(generateFromNr)
     else:
         gui.textScreen.TypeWrite(GameMsg.UNKNOWN_CMD)
 #----------------------------------------------
@@ -386,13 +392,13 @@ def itemItem(generateFromNr):
     if (item1 in dictInventory) & (item2 in dictInventory):
         #only add items if both are available in inventory
         if generateFromNr in dictSpotItems:
-            newItemNr = dictSpotItems[generateFromNr]
-            Item(newItemNr) 
+            for element in dictSpotItems[generateFromNr]:
+                Item(element)
+                gui.textScreen.TypeWrite(GameMsg.SUCCESS_GET + str(element) \
+                       + ": " + dictInventory[element].name + "\n")   
             #original items deleted on combination
             dictInventory[item1].DelItem()
-            dictInventory[item2].DelItem()
-            gui.textScreen.TypeWrite(GameMsg.SUCCESS_GET + str(newItemNr) \
-                       + ": " + dictInventory[newItemNr].name + "\n")     
+            dictInventory[item2].DelItem()  
         else:
             gui.textScreen.TypeWrite(GameMsg.CANT_CMB)
     else:
@@ -427,6 +433,8 @@ def itemSpot(generateFromNr):
                 if generateFromNr in dictSpotChange:
                     currentRoom.SpotExchange(dictSpotChange[generateFromNr], Exchange_dir.FORWARD)
                     dictInventory[item].DelItem()
+                if generateFromNr in dictMods:
+                    GameStats.GetCurrentPlayer().ChangeMod(dictMods[generateFromNr])
             else:
                 #generate game progress only
                 if generateFromNr in dictTexts:
@@ -517,7 +525,6 @@ def CheckPlayerStats():
         currPl.ChangeMod([-1, 0]) #reduce motivation by 1 each round
     else:
         pass
-
  #----------------------------------------------  
 def newRound():
     GameStats.GetCurrentRoom().ReloadRoom()
@@ -528,7 +535,6 @@ def newRound():
                               + str(currentPlayer.GetPos().number) \
                               + GameMsg.TURN[1])
 #-------------------------------------------- 
-
 def NewGame():
         """This method initializes the game with predefined values.
         Acts like a setter for the player list."""
@@ -540,5 +546,3 @@ def NewGame():
                                   Player("Marie", "cyan", [6,9], GameStats.GetCurrentRoom())]) 
 
 gui = GameGui() #constructor for GUI.
-
-#gui.root.wm_protocol('WM_DELETE_WINDOW', GameStats.Quit()) #override Tkinter's standard close window behavior with self-written quit routine
