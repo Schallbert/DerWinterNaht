@@ -94,13 +94,19 @@ class Room:
         else:
             undefined
         for element in range(0, len(spotList[frm])):
-            #exchange spots in room dictionary
+            #pop existing spot[s] from spotList
             fromSpotId = spotList[frm][element]
+            if fromSpotId in self.__spot_list:
+                self.__spot_list.pop(fromSpotId)
+            else:
+                #cannot pop as element is not in list
+                pass
+        for element in range(0, len(spotList[tgt])):
+            #add target spot[s] to spotList
             targetSpotId = spotList[tgt][element]
             if targetSpotId not in self.__spot_list:
                 tgtSpot = Spot(targetSpotId, self)
                 self.__spot_list[targetSpotId] = tgtSpot
-                self.__spot_list.pop(fromSpotId)
             else:
                 #don't switch als switch has already happened
                 pass

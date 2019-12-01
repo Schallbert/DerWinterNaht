@@ -235,7 +235,7 @@ die Ihr aus der Entfernung aber nicht entziffern könnt.\n",
 Ausflügen normalerweise Sonnencreme dabei?\n",
     160 : \
 "Ihr seid bei der Boje angekommen. Aus der Nähe wirkt sie sogar noch komischer.\n\
-Sie ist aus silbernem Stahl und mit Solarzellen bestückt.\n\
+Sie besteht aus silbernem Stahl und ist mit Solarzellen übersät.\n\
 Von Nahem erinnert ihre Form nicht mehr so sehr an ein Ei, denn sie scheint\n\
 komplett aus dreieckigen Stahlteilen gefertigt und sieht sehr futuristisch aus.\n\
 Sie hat einen Poller, wo man Boote festmachen kann und sieht so aus, als wäre sie\n\
@@ -253,8 +253,8 @@ dass das Schloss auf der Innenseite der Klappe verrutscht sein muss.\n\
 Jemand hat offensichtlich bereits versucht, die Klappe mit Gewalt zu öffnen,\n\
 denn überall sind Kratz- und Hebelspuren zu sehen.",
     164 : \
-"Das Display der Boje. An der Ecke, die der Wartungsklappe am nächsten liegt,\n\
-ist es gerissen, sodass ein Großteil nicht mehr ablesbar ist.\n\
+"Das Display der Boje. Oben links ist das Schutzglas gesplittert,\n\
+sodass ein Großteil des Displays nicht mehr ablesbar ist.\n\
 Zu erkennen sind folgende Meldungen:\n\
 'No Cell'\n\
 '___Card Error'\n\
@@ -442,7 +442,7 @@ und nach ein paar Sekunden rauscht sie monoton vor sich hin.\n\
 Sie scheint die Nebelbank allmählich aufzulösen.\n\
 Noch bevor sie komplett verschwindet, fällt die Maschine plötzlich aus.\n\
 Das Display zeigt die 'Stack health' jetzt mit '00%' an.\n",
-    22163 : \
+    24163 : \
 "Anstatt die Klappe aufzuhebeln, versucht Ihr zuerst, das Schloss wieder\n\
 ordentlich festzumachen. Als ihr fast fertig seid,\n\
 rutscht Euch der Schraubenzieher ab und fällt ins Wasser, aber nicht, bevor\n\
@@ -464,9 +464,10 @@ dictRooms = {
     160 : "An der Boje",\
     170 : "Parkbank im Wald",\
     180 : "Abtei Maria Laach",\
-    190 : "Teufelskanzel",\
-    200 : "Krufter Waldsee",\
-    210 : "vor dem Lager"\
+    190 : "Seehotel Maria Laach",\
+    200 : "Teufelskanzel",\
+    210 : "Krufter Waldsee",\
+    220 : "Vor dem Lager"\
     }
 
 #Defines which rooms are in what way connected to which rooms
@@ -600,7 +601,7 @@ dictSpotChange = {
     15123: [[123], [125]],\
     20123: [[123], [125]],\
     21128: [[126], [127]],\
-    22163: [[163], [164, 165]]\
+    24163: [[163], [164, 165]]\
     }
 
 #Defines item number and names
@@ -649,7 +650,7 @@ dictMods = {
     136 : [1,3],\
     153 : [0,-2],\
     161 : [-2,0],\
-    22163 : [-2,0],\
+    24163 : [-2,0],\
     }
 
 dictModType = {
@@ -671,7 +672,7 @@ dictModType = {
     122 : Mod_typ.EFFALL,\
     136 : Mod_typ.EFFALL,\
     153 : Mod_typ.EFFALL,\
-    22163 : Mod_typ.EFFALL\
+    24163 : Mod_typ.EFFALL\
     }
 
 dictModsRefused = {
