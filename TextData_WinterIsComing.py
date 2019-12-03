@@ -73,6 +73,11 @@ Kein Zweifel, diese Karte muss aus der Boje stammen!\n",
 "Ein alter, kaputter Schraubendreher. Sein Griff ist gesplittert und\n\
 seine Schlitz-Klinge ist so abgenutzt, dass er wohl keine Schraube mehr richtig\n\
 greifen kann.\n",
+    25 : \
+"Ein abgebrochener Wegweiser. Weit könnt Ihr den nicht schleppen.\n",
+    26 : \
+"Etwas Kleingeld. Da Ihr selber keine Münzen mitgenommen hattet, könnten diese\n\
+hier Euch noch nützlich sein.\n",
     100 : \
 "Eine Bahnstation in der tiefsten Eifel...\n\n",
     101 : \
@@ -97,10 +102,7 @@ Ihr wolltet ungern an der Landstraße entlang gehen und habt Euch für diesen\n\
 zugewachsenen, schmalen Pfad entschieden,\n\
 den das Wild sicher auch als Weg benutzt. Die Sonne blinzelt immer wieder\n\
 durch das Blätterdach, es duftet nach Heckenrosen und ab und zu erhascht Ihr\n\
-einen Blick auf den Wald.\n\
-Schließlich gelangt Ihr an eine Weggabelung in einer kleinen Senke.\n\
-Der Wegweiser wird den letzten Winter wohl nicht überlebt haben,\n\
-sein abgebrochener Stumpf ragt ein paar Zentimeter aus dem Boden.\n\n",
+einen Blick auf den Wald.\n",
     111 : \
 "Tiefe Wühlspuren im Gras links und rechts des Weges deuten darauf hin,\n\
 dass hier desöfteren Wildschweine auf der Suche nach Nahrung unterwegs sind.\n\
@@ -261,17 +263,55 @@ Zu erkennen sind folgende Meldungen:\n\
 'Implausible ______ from Sens___ H2SO__1'\n\
 'Power ______ OK'\n",
     165 : \
-"Ein leerer SD-Kartenschlitz.",
+"Ein leerer SD-Kartenschlitz. Sollte da nicht eigentlich eine Karte drinstecken?\n",
     170  : \
 "Der Pfad am See führt Euch erneut in den Wald. Bald schon geht ihr auf\n\
 weichem Laub und trockenen Ästen, und wo der Wald dunkler wird, gibt es auch\n\
 immer weniger Buschwerk und Unterholz.\n\
 Völlig unvermutet taucht am Wegesrand eine Parkbank auf.\n\
-Warum hier wohl jemand so etwas hinstellt?\n",
-    10101: \
+Warum hier wohl jemand so etwas hinstellt?\n\
+Kurz darauf gelangt Ihr an eine Weggabelung in einer kleinen Senke.\n\
+Der Wegweiser wird den letzten Winter wohl nicht überlebt haben,\n\
+sein abgebrochener Stumpf ragt ein paar Zentimeter aus dem Boden.\n",
+    171  : \
+"Seid ihr hungrig? Immerhin wart ihr jetzt schon eine ganze Weile auf den Beinen.\n",
+    172 : \
+"Bwah, dieser Mülleimer wurde schon viel zu lange nicht mehr geleert.\n\
+Er quillt über vor Unrat und um ihn herum liegen auch schon überall\n\
+Getränkepackungen und Brotpapier herum. Versucht bloß nicht, auch noch\n\
+Euren Müll dort hineinzustopfen!\n",
+    173 : \
+"Der Stumpf eines Wegweisers, eine Handbreit über dem Boden abgebrochen.\n\
+Vielleicht liegt der Wegweiser ja noch hier irgendwo herum, sodass Ihr\n\
+herausfinden könnt, wo es lang geht?\n",
+    174 : \
+"Ein paar Meter abseits der Weggabelung bedeckt eine dicke Schicht Laub\n\
+den Boden. Hier ist schon länger niemand mehr entlang gelaufen.\n",
+    175 : \
+"Ein etwas schlammiger Pfad in Richtung Süden, der noch in Sichtweite\n\
+nach Rechts abknickt.",
+    176 : 
+"Ein Weg in Richtung Norden, der ziemlich geradeaus verläuft und hinter\n\
+einer Kuppe verschwindet.\n",
+    177 : 
+"Ein Weg in Richtung Westen. Er ist gewölbt und hier und da sind noch alte\n\
+Pflastersteine zu sehen, aus denen der Weg vor Langer Zeit mal bestand.\n",
+    180 : 
+"Die Abtei. Schon vor fast 900 Jahren siedelten sich an diesem Ort Mönche an,\n\
+inzwischen ist der Ort allerdings touristisch voll erschlossen. Ihr besucht\n\
+Kreuzgang und Kapelle, der Klostergarten selber und die Gemächer des Ordens\n\
+können allerdings nicht betreten werden.\n\
+Der Abend legt sich über das Land; allmählich ist es Zeit, eine Bleibe für die\n\
+Nacht zu finden.\n",
+    190 : 
+"Das Seehotel Maria Laach. Ein ziemlich schicker Bau aus Sandstein, sieht recht\n\
+kostspielig aus. Alternativen seht Ihr auf den ersten Blick nicht, wenn Ihr\n\
+nicht unbedingt Lust habt, bei den Mönchen der Abtei um eine Kammer\n\
+für eine Nacht zu bitten.\n",
+    10101 : \
 "Ihr nehmt ein Foto der Übersichtskarte auf, um es Euch später ansehen zu können.\n\
 Gute Idee!\n",
-    10105: \
+    10105 : \
 "Ihr nehmt ein Foto der Übersichtskarte auf, um es Euch später ansehen zu können.\n\
 Gute Idee!\n"
     }
@@ -422,10 +462,47 @@ und Ihr bekommt einen fetten Sonnenbrand.\n",
 "Die bekommt ihr so niemals auf. Wahrscheinlich ist sie nicht nur verschlossen,\n\
 sondern durch den Aufbruchversuch auch total verklemmt.\n\
 Warum wollt ihr die Klappe überhaupt öffnen?\n",
+     171  : \
+"Ihr setzt Euch auf die Parkbank, die sich unter Eurem Gewicht ganz schön\n\
+durchbiegt. Ihr packt Eure Brotmahlzeit aus und esst euch richtig satt,\n\
+dazu ein großer Schluck Wasser und etwas Tee aus der Thermoskanne.\n\
+So sollte ein Kurzurlaub sein!\n",
+    172 : \
+"Ihr nehmt ein wenig Laub vom Boden auf und staucht damit den Inhalt\n\
+des Mülleimers zusammen, was echt gut klappt. Anschließend\n\
+hebt Ihr den umliegenden Müll vorsichtig auf und tragt ihn in den Mülleimer.\n\
+Direkt sieht es hier viel besser aus! Beim Aufsammeln des Mülls unter der\n\
+Parkbank findet Ihr etwas Kleingeld, das Touristen vor Euch aus der Tasche\n\
+gefallen sein muss. Prima!\n",
+    174 : \
+"Bei näherer Betrachtung erkennt ihr, dass eine Art Pfeilspitze aus dem\n\
+Laubhaufen ragt. Neugierig geworden, zieht Ihr daran und fördert den defekten\n\
+Wegweiser zutage. Zwei seiner drei Arme sind abgebrochen, sodass er euch nur\n\
+noch zur 'Abtei Maria Laach' leiten kann.\n",
+    175 : \
+"Ihr betretet den schlammigen Pfad. Schon bald versinkt Ihr\n\
+so sehr im Matsch, dass Eure Schuhe kaum noch als solche zu erkenen sind.\n\
+Etwas frustriert kehrt Ihr um.\n",
+    176 : 
+"Frohen Mutes geht ihr in Richtung Norden. Der Pfad ist schön breit und wurde\n\
+vor Kurzem erst von schwerem Gerät befahren. Eine ganze Weile lauft Ihr durch\n\
+den Wald, bis dieser plötzlich endet und den Blick freigibt auf eine weitläufige,\n\
+flache Wiesenlandschaft mit ein paar Bauernhöfen in größerer Entfernung.\n\
+Da es langsam spät wird und Ihr hier niemals eine Übernachtungsmöglichkeit\n\
+finden werdet, kehrt Ihr enttäuscht um und macht Euch auf den langen Rückweg.\n",
+    177 : 
+"Dieses mal schaltet Ihr das Navigationssystem Eures Handys ein, um nicht erneut\n\
+in die falsche Richtung zu laufen. In der Senke findet es leider keine\n\
+Satelliten, sodass sich an Eurer Situation bis auf ein jetzt noch schwächerer\n\
+Handyakku nichts verändert hat. Vielleicht könnt Ihr ja den Wegweiser nutzen,\n\
+um einen passenden Weg zu finden?\n",
+    178 : \
+"Der Wegweiser liegt einige Meter von seinem eigentlichen Standort entfernt\n\
+auf dem Boden.\n",
     15123 : \
 "Whow, ihr seid aber gut vorbereitet! Zack, Mückenspray auf Mücken angewendet -\n\
 gut, es mag unkonventionell sein, sich nicht selbst damit einzureiben -\n\
-und schon sind sie weg und Euer Weg ist frei!\n", #TODO implement feature ItemSpotAction in GameMech!
+und schon sind sie weg und Euer Weg ist frei!\n",
     20123 : \
 "Na dann mal sehen, was euer Parfum bei den Mücken ausrichten kann!\n\
 Ein paar Sprühstöße hier, da - und - weg sind die Mücken!\n\
@@ -448,10 +525,36 @@ ordentlich festzumachen. Als ihr fast fertig seid,\n\
 rutscht Euch der Schraubenzieher ab und fällt ins Wasser, aber nicht, bevor\n\
 sich ein Splitter vom Griff löst und sich in Eure Hand bohrt.\n\
 Wütend schlagt ihr auf die Wartungsklappe, die mit einem leichten Quietschen\n\
-prompt aufspringt.\n"
-
+prompt aufspringt.\n",
+    11175 : \
+"Nur mit Mühe findet Ihr auf dem Foto der Karte den Punkt,\n\
+wo Ihr Euch gerade befindet. Durch die Spiegelung ist ein so großer Teil\n\
+der Karte unlesbar, dass Ihr das Bild verärgert löscht.\n",
+    12175 : \
+"Ihr öffnet das Foto der Karte auf Eurem Smartphone. Ohne GPS-Empfang macht\n\
+sie sich jetzt bezahlt! Nach kurzer Beratung entscheidet Ihr Euch für den Weg\n\
+zur Abtei Maria Laach.\n",
+    11176 : \
+"Nur mit Mühe findet Ihr auf dem Foto der Karte den Punkt,\n\
+wo Ihr Euch gerade befindet. Durch die Spiegelung ist ein so großer Teil\n\
+der Karte unlesbar, dass Ihr das Bild verärgert löscht.\n",
+    12176 : \
+"Ihr öffnet das Foto der Karte auf Eurem Smartphone. Ohne GPS-Empfang macht\n\
+sie sich jetzt bezahlt! Nach kurzer Beratung entscheidet Ihr Euch für den Weg\n\
+zur Abtei Maria Laach.\n",
+    11177 : \
+"Nur mit Mühe findet Ihr auf dem Foto der Karte den Punkt,\n\
+wo Ihr Euch gerade befindet. Durch die Spiegelung ist ein so großer Teil\n\
+der Karte unlesbar, dass Ihr das Bild verärgert löscht.\n",
+    12177 : \
+"Ihr öffnet das Foto der Karte auf Eurem Smartphone. Ohne GPS-Empfang macht\n\
+sie sich jetzt bezahlt! Nach kurzer Beratung entscheidet Ihr Euch für den Weg\n\
+zur Abtei Maria Laach.\n",
+    25173 : \
+"Ihr stellt den Wegweiser aufrecht und versucht, die Bruchmuster in Deckung\n\
+zu bringen. Nach einigen vergeblichen, kräftezehrenden Versuchen schafft Ihr es.\n\
+Der Wegweiser zeigt Euch nun den Weg zur Abtei Maria Laach."
     }
-
     
 #Defines room number and names
 dictRooms = {
@@ -479,8 +582,8 @@ dictConnectedRooms = {
     140 : [130, 150, 170],\
     150 : [140, 160],\
     160 : [140, 150],\
-    170 : [140, 180],\
-    180 : [170, 190],\
+    170 : [140],\
+    180 : [190],\
     190 : [180, 200],\
     200 : [210]\
     }
@@ -528,8 +631,14 @@ dictSpots = {
     162 : "Poller zum Festmachen",\
     163 : "Wartungsklappe",\
     164 : "Display",\
-    165 : "SD-Kartenschlitz"\
-    
+    165 : "SD-Kartenschlitz",\
+    171 : "Pause?",\
+    172 : "Ein völlig überfüllter Mülleimer",\
+    173 : "Stumpf eines Wegweisers",\
+    174 : "Sehr viel Laub auf dem Boden",\
+    175 : "Weg Richtung Süden",\
+    176 : "Weg Richtung Norden",\
+    177 : "Weg Richtung Westen",\ 
     }
 
 #Defines what happens if a closer investigation of spot is refused
@@ -571,7 +680,13 @@ dictActionType = {
     154 : Action_id.VIEW,\
     155 : Action_id.OPEN,\
     161 : Action_id.NOC_YES,\
-    163 : Action_id.OPEN\
+    163 : Action_id.OPEN,\
+    171 : Action_id.USE,\
+    172 : Action_id.USE,\
+    174 : Action_id.VIEW,\
+    175 : Action_id.GOTO,\
+    176 : Action_id.GOTO,\
+    177 : Action_id.GOTO\
     }    
 
 #Defines how spots are connected to items   
@@ -585,13 +700,10 @@ dictSpotItems = {
     128 : [19,22],\
     125 : [21],\
     155 : [15],\
-    1719 : [20]\
+    1719 : [20],\
+    174 : [25],\
+    172 : [26]\
     }
-    
-#Special items
-#dictSpecialItems = {
-#123 : [20,15,"Tja, scheinbar habt ihr ] \
-#}
 
 #Defines which spots can change through interaction
 #with spot or item combination
@@ -601,7 +713,11 @@ dictSpotChange = {
     15123: [[123], [125]],\
     20123: [[123], [125]],\
     21128: [[126], [127]],\
-    24163: [[163], [164, 165]]\
+    24163: [[163], [164,165]],\
+    25173: [[174,175,176,177],[]],\
+    12175: [[174,175,176,177],[]],\
+    12176: [[174,175,176,177],[]],\
+    12177: [[174,175,176,177],[]]\
     }
 
 #Defines item number and names
@@ -609,8 +725,8 @@ dictSpotChange = {
 #15
 dictItems = {
     10 : "Ein Smartphone",\
-    11 : "Ein Foto der Umgebungskarte",\
-    12 : "Ein Foto der Umgebungskarte",\
+    11 : "Unleserliches Foto der Umgebungskarte",\
+    12 : "Leserliches Foto der Umgebungskarte",\
     13 : "Ein Verbandkasten",\
     14 : "Eine ordentliche Mahlzeit",\
     15 : "Sonnencreme",\
@@ -622,13 +738,15 @@ dictItems = {
     22 : "SD-Karte aus dem Seismographen",\
     23 : "SD-Karte aus der Boje",\
     24 : "Defekter Schraubendreher",\
-    
+    25 : "Abgebrochener Wegweiser",\
+    26 : "Etwas Kleingeld",\
     }
 
 #Items that are deleted when player triggers action.  
 dictItemDelete = {
     122 : [18, 22],\
     161 : [15],\
+    180 : [25],\
     }
 
 #Defines item modifiers
@@ -651,18 +769,18 @@ dictMods = {
     153 : [0,-2],\
     161 : [-2,0],\
     24163 : [-2,0],\
+    171 : [1,2],\
+    175 : [-1,0],\
+    176 : [-1,-2]\
     }
 
 dictModType = {
     10 : Mod_typ.PERMANENT,\
-    11 : Mod_typ.NOTUSABLE,\
     12 : Mod_typ.PERMANENT,\
     13 : Mod_typ.EFFALL,\
     14 : Mod_typ.EFFALL,\
     15 : Mod_typ.EFFALL,\
-    16 : Mod_typ.NOTUSABLE,\
     18 : Mod_typ.EFFONE,\
-    21 : Mod_typ.NOTUSABLE,\
     104 : Mod_typ.EFFONE,\
     103 : Mod_typ.EFFONE,\
     108 : Mod_typ.EFFONE,\
@@ -672,6 +790,9 @@ dictModType = {
     122 : Mod_typ.EFFALL,\
     136 : Mod_typ.EFFALL,\
     153 : Mod_typ.EFFALL,\
+    171 : Mod_typ.EFFALL,\
+    175 : Mod_typ.EFFALL,\
+    176 : Mod_typ.EFFALL,\
     24163 : Mod_typ.EFFALL\
     }
 

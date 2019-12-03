@@ -324,11 +324,24 @@ def actionHandler(generateFromNr):
     elif nrOfDigits == 4:
         itemItem(generateFromNr)
     elif nrOfDigits == 5:
+        # CHEAT    CHEAT    CHEAT    CHEAT    CHEAT
         if generateFromNr == 32167: #Dev cheat to get all items in game
+            print("Cheat active: Get All Items")
+            inv = GameStats.GetInventory()
             for element in dictItems:
-                inv = GameStats.GetInventory()
                 if element not in inv:
                     Item(element)
+        elif generateFromNr // 1000 == 28: #Dev cheat to get to any room in game
+            print("Cheat active: Go To Any Room")
+            listPlayers = GameStats.GetListPlayers()
+            for player in listPlayers: #players leave current spot/currentRoom
+                player.GetPos().OnLeave()
+            GameStats.SetCurrentRoom(Room(generateFromNr%1000)) #player selected another room, set and update
+            currentRoom = GameStats.GetCurrentRoom()
+            for player in listPlayers: #players enter new currentRoom
+                player.SetPos(currentRoom)
+            currentRoom.OnEnter()
+        # CHEAT    CHEAT    CHEAT    CHEAT    CHEAT
         else:
             itemSpot(generateFromNr)
     else:
@@ -433,14 +446,14 @@ def itemSpot(generateFromNr):
                     gui.textScreen.TypeWrite(GameMsg.SUCCESS_GET + \
                            str(newItem.number) + \
                                ": " + newItem.name + "\n")             
-                    dictInventory[item].DelItem() #delete old item
+                dictInventory[item].DelItem() #delete old item
             elif generateFromNr in dictAction:
                 gui.textScreen.TypeWrite(dictAction[generateFromNr])
                 if generateFromNr in dictSpotChange:
                     currentRoom.SpotExchange(dictSpotChange[generateFromNr], Exchange_dir.FORWARD)
-                    dictInventory[item].DelItem()
                 if generateFromNr in dictMods:
                     GameStats.GetCurrentPlayer().ChangeMod(dictMods[generateFromNr])
+                dictInventory[item].DelItem()
             else:
                 #generate game progress only
                 if generateFromNr in dictTexts:
