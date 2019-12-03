@@ -293,21 +293,68 @@ nach Rechts abknickt.",
     176 : 
 "Ein Weg in Richtung Norden, der ziemlich geradeaus verläuft und hinter\n\
 einer Kuppe verschwindet.\n",
-    177 : 
-"Ein Weg in Richtung Westen. Er ist gewölbt und hier und da sind noch alte\n\
-Pflastersteine zu sehen, aus denen der Weg vor Langer Zeit mal bestand.\n",
     180 : 
-"Die Abtei. Schon vor fast 900 Jahren siedelten sich an diesem Ort Mönche an,\n\
+"Ein Weg in Richtung Westen. Er ist gewölbt und hier und da sind noch alte\n\
+Pflastersteine zu sehen, aus denen der Weg vor Langer Zeit mal bestand.\n\
+Große, alte Bäume stehen links und rechts des Weges wie Wachen und lassen\n\
+ihn so noch dunkler erscheinen als den Rest des Waldes.\n",
+    181 : 
+"Die Abtei. Schon vor über 900 Jahren siedelten sich an diesem Ort Mönche an,\n\
 inzwischen ist der Ort allerdings touristisch voll erschlossen. Ihr besucht\n\
 Kreuzgang und Kapelle, der Klostergarten selber und die Gemächer des Ordens\n\
 können allerdings nicht betreten werden.\n\
 Der Abend legt sich über das Land; allmählich ist es Zeit, eine Bleibe für die\n\
 Nacht zu finden.\n",
-    190 : 
+    182 : \
+"...sagt Euch, dass es schon viel zu spät ist, den eigentlich angepeilten\n\
+Campingplatz am anderen Ende des Sees noch bei Tageslicht zu erreichen.\n\
+Im Dunkeln wollt Ihr das Wagnis nicht eingehen, auf schmalen und unbeleuchteten\n\
+Pfaden zu wandeln. Ihr entschließt Euch, vor Ort zu übernachten.\n",
+    183 : \
+"Versunken starrt Ihr auf das plätschernde Wasser des Löwenbrunnens im kleinen\n\
+Innenhof des Kreuzganges. Vier wasserspeiende Löwen tragen eine flache Schüssel,\n\
+grob in Stein gehauen, aus der ein kleiner Springbrunnen schießt.\n\
+Euch fällt auf, dass Ihr eine Toilette jetzt ganz gut\n\
+gebrauchen könntet. Und etwas zu Essen. Und ein Bett!",
+    184 : 
+"Der Waldfriedhof der Abtei. Gesäumt von alten Bäumen und durchzogen von\n\
+Sandwegen wirkt der Friedhof sehr gepflegt. Hie und da stehen Kreuze aus\n\
+Sandstein in Reih und Glied. Im Halbdunkel ist die Kapelle an der Fernseite\n\
+des Friedhofs nur schemenhaft zu erkennen.\n", 
+    185 : \
+"Euer Wunsch, jetzt endlich eine Bleibe für die Nacht zu beziehen, wird langsam\n\
+übermächtig. Ihr habt noch nie in einem Kloster übernachtet. Wie wär's?\n",
+    186 : \
+"Eine schmucklose Kammer in der Nähe zum Kreuzgang, abgeschottet vom Inneren des\n\
+Klosters. Der Ausgang ist mit einer schweren Holztür versehen,\n\
+deren schmiedeeisernerRiegel nur von außen zu öffnen ist. Zwei kleine, bunte\n\
+Fenster lassen fahles Licht auf die Pritschen fallen, die hier für Euch\n\
+aufgestellt wurden. Zugig ist es auch, dafür aber trocken und es riecht\n\
+unaufdringlich nach altem Holz. Eine einzelne Lampe spendet ein wenig Licht,\n\
+und in einer Ecke des Raumes steht ein kleiner Sekretär mit einer Kopie der\n\
+Bibel auf der offenen Schreibtischklappe.\n",
+    187 : \
+"Sehr früh, es ist noch stockdunkel, werdet Ihr durch das Scharren des Riegels \n\
+geweckt. Wortlos werdet Ihr aufgefordert, die Abtei zu verlassen.\n\
+Immerhin war das jetzt eine kostenlose Übernachtung.\n",
+    190 : \
 "Das Seehotel Maria Laach. Ein ziemlich schicker Bau aus Sandstein, sieht recht\n\
-kostspielig aus. Alternativen seht Ihr auf den ersten Blick nicht, wenn Ihr\n\
-nicht unbedingt Lust habt, bei den Mönchen der Abtei um eine Kammer\n\
+kostspielig aus. Alternativen tun sich für Euch auf den ersten Blick keine auf,\n\
+wenn Ihr nicht unbedingt Lust habt, bei den Mönchen der Abtei um ein Zimmer\n\
 für eine Nacht zu bitten.\n",
+    191 : "Die Lobby",\
+    192 : "Rezeption",\
+    193 : "Ein aufdringlicher Gast",\
+    194 : "Eine auffällige Limousine",\
+    195 : "Die Lobby",\
+    196 : "Euer Zimmer",\
+    197 : "Frühstück!",\
+    200 : \
+"Die Teufelskanzel ist eine mehrere Meter hohe Felsklippe mitten im Wald.\n\
+Auf den Klippen wachsen mehrere Bäume (außerdem liegt ein umgefallener toter\n\
+Baum quer über dem Zugangsweg auf den Klippen).\n\
+Viele der Felsen sind mit Moos bewachsen. Hier war schon lange niemand mehr,\n\
+alles ist überwuchert. Der Anblick beeindruckt Euch sehr.\n",
     10101 : \
 "Ihr nehmt ein Foto der Übersichtskarte auf, um es Euch später ansehen zu können.\n\
 Gute Idee!\n",
@@ -462,7 +509,7 @@ und Ihr bekommt einen fetten Sonnenbrand.\n",
 "Die bekommt ihr so niemals auf. Wahrscheinlich ist sie nicht nur verschlossen,\n\
 sondern durch den Aufbruchversuch auch total verklemmt.\n\
 Warum wollt ihr die Klappe überhaupt öffnen?\n",
-     171  : \
+    171  : \
 "Ihr setzt Euch auf die Parkbank, die sich unter Eurem Gewicht ganz schön\n\
 durchbiegt. Ihr packt Eure Brotmahlzeit aus und esst euch richtig satt,\n\
 dazu ein großer Schluck Wasser und etwas Tee aus der Thermoskanne.\n\
@@ -490,12 +537,24 @@ den Wald, bis dieser plötzlich endet und den Blick freigibt auf eine weitläufi
 flache Wiesenlandschaft mit ein paar Bauernhöfen in größerer Entfernung.\n\
 Da es langsam spät wird und Ihr hier niemals eine Übernachtungsmöglichkeit\n\
 finden werdet, kehrt Ihr enttäuscht um und macht Euch auf den langen Rückweg.\n",
-    177 : 
+    180 : \
 "Dieses mal schaltet Ihr das Navigationssystem Eures Handys ein, um nicht erneut\n\
 in die falsche Richtung zu laufen. In der Senke findet es leider keine\n\
 Satelliten, sodass sich an Eurer Situation bis auf ein jetzt noch schwächerer\n\
 Handyakku nichts verändert hat. Vielleicht könnt Ihr ja den Wegweiser nutzen,\n\
-um einen passenden Weg zu finden?\n",
+um zu sehen, welcher dieser Wege nun zur Abtei führt?\n",
+    184 : \
+"Der Abend dämmert bereits und Ihr besucht den Waldfriedhof. Ihr hört einen\n\
+ersten Kauz sein sanftes 'Schuhuuu' singen und wollt gerade die Grabsteine\n\
+auf der Suche nach interessanten Namen Verblichener abschreiten, als Ihr\n\
+ein Quietschen aus Richtung des Friedhofstores vernehmt.\n\
+Als Ihr zum Tor hastet,     \n\
+      erkennt Ihr einen Mönch,\n\
+              der Euch wortlos anstarrt.                            \n\
+Nun hält er das Tor mit der Hand einen Spaltbreit offen, sodass Ihr Euch, eine\n\
+Entschuldigung murmelnd, gerade so hindurchquetschen könnt.\n\
+Vielleicht solltet Ihr nicht versuchen, hier in der Abtei ein Lager für die\n\
+Nacht zu finden...\n",
     178 : \
 "Der Wegweiser liegt einige Meter von seinem eigentlichen Standort entfernt\n\
 auf dem Boden.\n",
@@ -532,28 +591,28 @@ wo Ihr Euch gerade befindet. Durch die Spiegelung ist ein so großer Teil\n\
 der Karte unlesbar, dass Ihr das Bild verärgert löscht.\n",
     12175 : \
 "Ihr öffnet das Foto der Karte auf Eurem Smartphone. Ohne GPS-Empfang macht\n\
-sie sich jetzt bezahlt! Nach kurzer Beratung entscheidet Ihr Euch für den Weg\n\
-zur Abtei Maria Laach.\n",
+sie sich jetzt bezahlt! Schnell findet Ihr heraus, welcher der Wege\n\
+zur Abtei Maria Laach führt.\n",
     11176 : \
 "Nur mit Mühe findet Ihr auf dem Foto der Karte den Punkt,\n\
 wo Ihr Euch gerade befindet. Durch die Spiegelung ist ein so großer Teil\n\
 der Karte unlesbar, dass Ihr das Bild verärgert löscht.\n",
     12176 : \
 "Ihr öffnet das Foto der Karte auf Eurem Smartphone. Ohne GPS-Empfang macht\n\
-sie sich jetzt bezahlt! Nach kurzer Beratung entscheidet Ihr Euch für den Weg\n\
-zur Abtei Maria Laach.\n",
-    11177 : \
+sie sich jetzt bezahlt! Schnell findet Ihr heraus, welcher der Wege\n\
+zur Abtei Maria Laach führt.\n",
+    11180 : \
 "Nur mit Mühe findet Ihr auf dem Foto der Karte den Punkt,\n\
 wo Ihr Euch gerade befindet. Durch die Spiegelung ist ein so großer Teil\n\
 der Karte unlesbar, dass Ihr das Bild verärgert löscht.\n",
-    12177 : \
+    12180 : \
 "Ihr öffnet das Foto der Karte auf Eurem Smartphone. Ohne GPS-Empfang macht\n\
-sie sich jetzt bezahlt! Nach kurzer Beratung entscheidet Ihr Euch für den Weg\n\
-zur Abtei Maria Laach.\n",
+sie sich jetzt bezahlt! Der Weg zur Abtei Maria Laach ist jetzt klar.\n",
     25173 : \
-"Ihr stellt den Wegweiser aufrecht und versucht, die Bruchmuster in Deckung\n\
-zu bringen. Nach einigen vergeblichen, kräftezehrenden Versuchen schafft Ihr es.\n\
-Der Wegweiser zeigt Euch nun den Weg zur Abtei Maria Laach."
+"Ihr stellt den Wegweiser aufrecht und versucht, die Bruchmuster von Stumpf und\n\
+Pfahl des Wegweisers in Deckung zu bringen. Nach einigen vergeblichen,\n\
+kräftezehrenden Versuchen klappt es endlich und der Wegweiser ist provisorisch\n\
+wieder zusammengesetzt. Er zeigt Euch nun den richtigen Weg zur Abtei Maria Laach."
     }
     
 #Defines room number and names
@@ -582,17 +641,13 @@ dictConnectedRooms = {
     140 : [130, 150, 170],\
     150 : [140, 160],\
     160 : [140, 150],\
-    170 : [140],\
+    170 : [140, 180],\
     180 : [190],\
     190 : [180, 200],\
-    200 : [210]\
+    200 : []\
     }
 
 #Defines spot number and names
-#hidden:
-#105 at 102,
-#125 at 123,
-#127 at 126
 dictSpots = {
     101 : "die Übersichtskarte",\
     102 : "der Pfosten eines Kartenkastens",\
@@ -638,7 +693,21 @@ dictSpots = {
     174 : "Sehr viel Laub auf dem Boden",\
     175 : "Weg Richtung Süden",\
     176 : "Weg Richtung Norden",\
-    177 : "Weg Richtung Westen",\ 
+    180 : "Weg zur Abtei Maria Laach?",\
+    181 : "Die Abtei",\
+    182 : "Ein Blick auf die Uhr...",\
+    183 : "Der Löwenbrunnen",\
+    184 : "Der Waldfriedhof",\
+    185 : "Das Haupttor der Basilika",\
+    186 : "Eure Kammer",\
+    187 : "Frühstück!",\
+    191 : "Die Lobby",\
+    192 : "Rezeption",\
+    193 : "Ein aufdringlicher Gast",\
+    194 : "Eine auffällige Limousine",\
+    195 : "Die Lobby",\
+    196 : "Euer Zimmer",\
+    197 : "Frühstück!",\
     }
 
 #Defines what happens if a closer investigation of spot is refused
@@ -686,7 +755,8 @@ dictActionType = {
     174 : Action_id.VIEW,\
     175 : Action_id.GOTO,\
     176 : Action_id.GOTO,\
-    177 : Action_id.GOTO\
+    180 : Action_id.GOTO,\
+    184 : Action_id.GOTO,\
     }    
 
 #Defines how spots are connected to items   
@@ -714,10 +784,10 @@ dictSpotChange = {
     20123: [[123], [125]],\
     21128: [[126], [127]],\
     24163: [[163], [164,165]],\
-    25173: [[174,175,176,177],[]],\
-    12175: [[174,175,176,177],[]],\
-    12176: [[174,175,176,177],[]],\
-    12177: [[174,175,176,177],[]]\
+    25173: [[174,175,176,180],[]],\
+    12175: [[174,175,176,180],[]],\
+    12176: [[174,175,176,180],[]],\
+    12180: [[174,175,176,180],[]]\
     }
 
 #Defines item number and names
@@ -749,7 +819,7 @@ dictItemDelete = {
     180 : [25],\
     }
 
-#Defines item modifiers
+\#Defines item modifiers
 # [0] = motivation, [1] = tiredness
 dictMods = {
     11 : [0,-1],\
@@ -771,7 +841,8 @@ dictMods = {
     24163 : [-2,0],\
     171 : [1,2],\
     175 : [-1,0],\
-    176 : [-1,-2]\
+    176 : [-1,-2],\
+    184 : [-2,0]\
     }
 
 dictModType = {
@@ -793,6 +864,7 @@ dictModType = {
     171 : Mod_typ.EFFALL,\
     175 : Mod_typ.EFFALL,\
     176 : Mod_typ.EFFALL,\
+    184 : Mod_typ.EFFALL,\
     24163 : Mod_typ.EFFALL\
     }
 

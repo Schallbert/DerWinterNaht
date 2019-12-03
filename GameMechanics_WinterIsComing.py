@@ -35,6 +35,7 @@ class Room:
         and connected rooms. It additionally prints the room's description if
         players enter the room the first time."""
         gui.textScreen.Clear()
+        spotNumbers = []
         listRoomsVisited = GameStats.GetRoomsVisited()
         if self.number not in listRoomsVisited:
             gui.textScreen.TypeWrite(self.description)
@@ -43,17 +44,22 @@ class Room:
         gui.textScreen.TypeWrite(GameMsg.YOURE_AT[0] + str(self.number) + ": "\
                    + self.name + GameMsg.YOURE_AT[1])
         #list spots
-        for element in self.__spot_list.values():
-            gui.textScreen.LineWrite(str(element.number) + ": " + element.name + "\n")
+        for spot in self.__spot_list.values():
+            spotNumbers.append(spot.number)
+            gui.textScreen.LineWrite(str(spot.number) + ": " + spot.name + "\n")
         #list connected rooms
         gui.textScreen.LineWrite(GameMsg.IN_REACH)
-        for element in self.__room_list.values():
-            if element.number in listRoomsVisited:
+        for room in self.__room_list.values():
+            if room.number in listRoomsVisited:
                 #room is known
-                gui.textScreen.LineWrite(str(element.number) + ": "\
-                      + element.name + "\n")
+                gui.textScreen.LineWrite(str(room.number) + ": "\
+                      + room.name + "\n")
             else:
-                gui.textScreen.LineWrite(str(element.number) + GameMsg.UNKNOWN_ROOM)
+                if room.number in spotNumbers:
+                    #room is currently hidden
+                    pass
+                else:
+                    gui.textScreen.LineWrite(str(room.number) + GameMsg.UNKNOWN_ROOM)
             time.sleep(.5)
         gui.textScreen.LineWrite("\n")
         
@@ -62,12 +68,12 @@ class Room:
         based on room number, using spot dictionary."""
         spotObjList = {}
         #get valid spot numbers for room
-        for i in range(self.number, self.number+9):
+        for i in range(self.number+1, self.number+11): #+1/11 to check if next room is hidden as well
             hiddenObj = False
             #only list if there's a valid spot that is not hidden
             if i in dictSpots:
                 for x in dictSpotChange.values():
-                    if i in x[1]:
+                    if i in x[1]: #spot is hidden
                         hiddenObj = True
                 #generate spots
                 if hiddenObj == False:
@@ -92,7 +98,8 @@ class Room:
             frm = 1
             tgt = 0
         else:
-            undefined
+            raise Exception("Exchange_dir undefined.\n\
+            Shall be Echange_dir.FORWARD or Exchange_dir.REVERT!")
         for element in range(0, len(spotList[frm])):
             #pop existing spot[s] from spotList
             fromSpotId = spotList[frm][element]
@@ -368,33 +375,35 @@ def spotRoom(plAction):
     roomObjList = currentRoom.GetRoomList()
     spotObjList = currentRoom.GetSpotList()
     activeSpot = currentPlayer.GetPos()
-    #Logic
-    if plAction in dictRooms:
-        if plAction == currentRoom.number:
-            gui.textScreen.TypeWrite(currentRoom.description) #only show description if specifically asked
-        elif plAction in dictConnectedRooms[currentRoom.number]: 
-            for player in listPlayers: #players leave current spot/currentRoom
-                player.GetPos().OnLeave()
-            GameStats.SetCurrentRoom(roomObjList[plAction]) #player selected another room, set and update
-            currentRoom = GameStats.GetCurrentRoom()
-            for player in listPlayers: #players enter new currentRoom
-                player.SetPos(currentRoom)
-            currentRoom.OnEnter()
-        else:
-            notReachable(currentRoom, plAction)   
-    elif plAction in dictSpots:     
-        if plAction in spotObjList: #player enters a spot
-            if not activeSpot.number == plAction:
-                activeSpot.OnLeave()
-                #check again whether targeted spot is still in list
-                if plAction in spotObjList: #possibilty that player leaves a trigger spot, thus hiding target
-                    currentPlayer.SetPos(spotObjList[plAction])
-                    currentPlayer.GetPos().OnEnter()
-                else:
-                    notReachable(activeSpot, plAction)
-                    activeSpot.OnEnter() #fallback to currentRoom
-        else:
-            notReachable(currentRoom, plAction)
+    #Logic  
+    #sequence of if/elif/else MATTERS! due to same numbers for hidden rooms and spots,
+    #it has to be made sure that first, the spots are evalutaed. Reference: Room.OnEnter()
+   # if plAction in dictSpots:     
+    if plAction in spotObjList: #player enters a spot
+        if not activeSpot.number == plAction:
+            activeSpot.OnLeave()
+            #check again whether targeted spot is still in list
+            if plAction in spotObjList: #possibilty that player leaves a trigger spot, thus hiding target
+                currentPlayer.SetPos(spotObjList[plAction])
+                currentPlayer.GetPos().OnEnter()
+            else:
+                notReachable(activeSpot, plAction)
+                activeSpot.OnEnter() #fallback to currentRoom
+       # else:
+       #     notReachable(currentRoom, plAction)
+   # elif plAction in dictRooms:
+    elif plAction == currentRoom.number:
+        gui.textScreen.TypeWrite(currentRoom.description) #only show description if specifically asked
+    elif plAction in dictConnectedRooms[currentRoom.number]: 
+        for player in listPlayers: #players leave current spot/currentRoom
+            player.GetPos().OnLeave()
+        GameStats.SetCurrentRoom(roomObjList[plAction]) #player selected another room, set and update
+        currentRoom = GameStats.GetCurrentRoom()
+        for player in listPlayers: #players enter new currentRoom
+            player.SetPos(currentRoom)
+        currentRoom.OnEnter()
+        #else:
+       #     notReachable(currentRoom, plAction) 
     else:
         #player selected a spot/currentRoom that is not within reach
         notReachable(currentRoom, plAction)
