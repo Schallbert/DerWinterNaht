@@ -340,27 +340,35 @@ unaufdringlich nach altem Holz. Eine einzelne Lampe spendet ein wenig Licht,\n\
 und in einer Ecke des Raumes steht ein kleiner Sekretär mit einer Kopie der\n\
 Bibel auf der offenen Schreibtischklappe.\n",
     187 : \
-"Sehr früh, es ist noch stockdunkel, werdet Ihr durch das Scharren des Riegels \n\
-geweckt. Wortlos werdet Ihr aufgefordert, die Abtei zu verlassen.\n\
-Immerhin war das jetzt eine kostenlose Übernachtung. Für Frühstück müsst Ihr\n\
-dann wohl selber sorgen.\n",
+"Ihr seid wirklich müde und möchtet einfach nur schlafen. Morgen könnt Ihr Euch\n\
+immer noch Gedanken machen, wie Ihr hier rauskommt, oder nicht?\n\
+Ihr legt Euch auf die Pritschen und seid trotz Allem in kurzer Zeit\n\
+eingeschlafen.\n",
     188 : \
 "Ein schmaler Spalt in der Tür Eurer Kammer. Durchsehen könnt Ihr nicht, doch\n\
-malt das hindurchfallende Licht einen Strich in den Raum.\n"
+malt das hindurchfallende Licht einen Strich in den Raum.\n",
     190 : \
 "Der Weg zum Seehotel Maria Laach. In der Ferne steht der ziemlich schicke Bau\n\
-aus Sandstein. Eine Übernachtung könnte Euch teuer kommen.\n\
+aus Sandstein, schwarz vor dem Nachthimmel mit ein paar erleuchteten Fenstern\n\
+im Erdgeschoss.\n",
+    191 : "Die Lobby",\
+    192 : \
+"Die Rezeption des Hotels. Ein langer Marmortisch, goldene Glocke,\n\
+rote Teppiche, unter einer großen Uhr an der Wand ein Schlüsselbrett mit nur\n\
+noch einem goldenen Schlüssel.\n\
+Eine Übernachtung hier könnte Euch teuer kommen.\n\
 Alternativen tun sich für Euch auf den ersten Blick keine auf,\n\
 wenn Ihr nicht unbedingt Lust habt, bei den Mönchen der Abtei um ein Zimmer\n\
-für eine Nacht zu bitten.\n",
-    191 : "Die Lobby",\
-    192 : "Rezeption",\
+für eine Nacht zu bitten.\n\
+Eine verunsichert wirkende junge Dame steht hinter der Rezeption.\n",
     193 : "Ein aufdringlicher Gast",\
     194 : "Eine auffällige Limousine",\
     195 : "Die Lobby",\
     196 : "Euer Zimmer",\
     197 : "Frühstück!",\
     200 : \
+"Es ist Sonntag Morgen und Euer langes Wanderwochenende kann weitergehen!\n",
+    210 : \
 "Die Teufelskanzel ist eine mehrere Meter hohe Felsklippe mitten im Wald.\n\
 Auf den Klippen wachsen mehrere Bäume (außerdem liegt ein umgefallener toter\n\
 Baum quer über dem Zugangsweg auf den Klippen).\n\
@@ -570,7 +578,7 @@ Entschuldigung murmelnd, gerade so hindurchquetschen könnt.\n\
 Vielleicht solltet Ihr nicht versuchen, hier in der Abtei ein Lager für die\n\
 Nacht zu finden...\n",
     185 : \
-"Ihr klopft mehrfach an das Tor. Es ist aus so dickem Holz, dass Immer nur ein\n\
+"Ihr klopft mehrfach an das Tor. Es ist aus so dickem Holz, dass immer nur ein\n\
 leises 'plopp' zu hören ist, wenn Eure Knöchel die grob gezimmerten Dielen\n\
 berühren.                              \n\
 Als Ihr Euch schon enttäuscht abwenden wollt, wird die Tür von einem Mönch\n\
@@ -582,7 +590,12 @@ Raus kommt Ihr hier ohne Hilfe eh nicht. Es ist besser, Ihr richtet Euch\n\
 hier für die Nacht ein.\n",
     186 : \
 "Der einzige lose Gegenstand in diesem Raum ist die Kopie der Bibel.\n\
-Lustlos blättert Ihr darin herum, als ein vollgekritzelter Zetter herausfällt.\n",
+Lustlos blättert Ihr darin herum, als ein vollgekritzelter Zettel herausfällt.\n",
+    187 : \
+"Sehr früh, es ist noch stockdunkel, werdet Ihr durch das Scharren des Riegels\n\
+geweckt. Wortlos werdet Ihr aufgefordert, die Abtei zu verlassen.\n\
+Immerhin war das jetzt eine kostenlose Übernachtung. Für Frühstück müsst Ihr\n\
+dann wohl selber sorgen.\n",
     190 : \
 "Ihr findet das hier nicht mehr lustig. Raus wollt Ihr, raus!\n\
 In Eurer Verzweiflung sucht Ihr den Raum genau ab.\n\
@@ -643,7 +656,14 @@ sie sich jetzt bezahlt! Der Weg zur Abtei Maria Laach ist jetzt klar.\n",
 "Ihr stellt den Wegweiser aufrecht und versucht, die Bruchmuster von Stumpf und\n\
 Pfahl des Wegweisers in Deckung zu bringen. Nach einigen vergeblichen,\n\
 kräftezehrenden Versuchen klappt es endlich und der Wegweiser ist provisorisch\n\
-wieder zusammengesetzt. Er zeigt Euch nun den richtigen Weg zur Abtei Maria Laach.\n",
+wieder zusammengesetzt.\n\
+Er zeigt Euch nun den richtigen Weg zur Abtei Maria Laach.\n",
+    10175 : \
+"Clever, das GPS-System des Smartphones zu nutzen um zu prüfen, wo Ihr Euch\n\
+gerade befindet. Nur leider findet es hier im Wald nicht genügend Satelliten,\n\
+um euch den Standort anzuzeigen. Da Ihr zudem keinen Onboard-Kartendienst\n\
+installiert habt und sowieso kein Netz da ist, könnt Ihr das Handy als\n\
+Informationsquelle vorerst vergessen.\n",
     27188 : \
 "Ihr steckt den Zettel durch den Schlitz. Er passt. Nun ist er fort.\n\
 Niemand hat das im Dunkeln bemerkt.\n",
@@ -674,9 +694,10 @@ dictRooms = {
     170 : "Parkbank im Wald",\
     180 : "Abtei Maria Laach",\
     190 : "Seehotel Maria Laach",\
-    200 : "Teufelskanzel",\
-    210 : "Krufter Waldsee",\
-    220 : "Vor dem Lager"\
+    200 : "Ein neuer Tag.",\
+    210 : "Teufelskanzel",\
+    220 : "Krufter Waldsee",\
+    230 : "Vor dem Lager"\
     }
 
 #Defines which rooms are in what way connected to which rooms
@@ -689,9 +710,9 @@ dictConnectedRooms = {
     150 : [140, 160],\
     160 : [140, 150],\
     170 : [140, 180],\
-    180 : [190],\
+    180 : [190,200],\
     190 : [180, 200],\
-    200 : []\
+    200 : [210, 220],\
     }
 
 #Defines spot number and names
@@ -747,9 +768,10 @@ dictSpots = {
     184 : "Der Waldfriedhof",\
     185 : "Das Haupttor der Basilika",\
     186 : "Eure Kammer",\
-    187 : "Frühstück!",\
-    188 : "Schmaler Spalt in der Tür"\,
-    190 : "Bloß raus hier!",\
+    187 : "Schlafen, endlich Ruhe!",\
+    188 : "Schmaler Spalt in der Tür",\
+    190 : "Eingesperrt?",\
+    200 : "Bloß raus hier!",\
     191 : "Die Lobby",\
     192 : "Rezeption",\
     193 : "Ein aufdringlicher Gast",\
@@ -806,6 +828,10 @@ dictActionType = {
     176 : Action_id.GOTO,\
     180 : Action_id.GOTO,\
     184 : Action_id.GOTO,\
+    185 : Action_id.OPEN,\
+    186 : Action_id.VIEW,\
+    187 : Action_id.NOC_YES,\
+    190 : Action_id.VIEW,\
     }    
 
 #Defines how spots are connected to items   
@@ -821,7 +847,8 @@ dictSpotItems = {
     155 : [15],\
     1719 : [20],\
     174 : [25],\
-    172 : [26]\
+    172 : [26],\
+    186 : [27]\
     }
 
 #Defines which spots can change through interaction
@@ -837,8 +864,11 @@ dictSpotChange = {
     12175: [[174,175,176,180],[]],\
     12176: [[174,175,176,180],[]],\
     12180: [[174,175,176,180],[]],\
-    185 : [[181,182,183,184,185],[186,187,190]],\
-    187 : [[186,190],[]]\
+    185 : [[181,182,183,184,185],[186,187,190,200]],\
+    190 : [[],[188]],\
+    187 : [[186,200],[]],\
+    188 : [[190],[]],\
+    
     }
 
 #Defines item number and names
@@ -861,6 +891,7 @@ dictItems = {
     24 : "Defekter Schraubendreher",\
     25 : "Abgebrochener Wegweiser",\
     26 : "Etwas Kleingeld",\
+    27 : "Ein Notizzettel",\
     }
 
 #Items that are deleted when player triggers action.  
@@ -894,7 +925,8 @@ dictMods = {
     175 : [-1,0],\
     176 : [-1,-2],\
     184 : [-2,0],\
-    185 : [-2,-1]\
+    185 : [-2,-1],\
+    187 : [1,6],\
     }
 
 dictModType = {
