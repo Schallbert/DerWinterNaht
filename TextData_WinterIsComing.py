@@ -78,6 +78,13 @@ greifen kann.\n",
     26 : \
 "Etwas Kleingeld. Da Ihr selber keine Münzen mitgenommen hattet, könnten diese\n\
 hier Euch noch nützlich sein.\n",
+    27 : \
+"Auf dem Zettel sind Notizen eines früheren Besuchers der Kammer\n\
+niedergeschrieben. Zwar könnt ihr die Sauklaue nicht lückenfrei\n\
+entziffern, doch wird Euch klar, dass alle Mönche ein Schweigegelübde abgelegt\n\
+haben und zudem ein Großteil von ihnen taubstumm sei. Sie lebten zurückgezogen\n\
+und seien sehr bedacht darauf, ihre Kultur der Enthaltsamkeit zu pflegen sowie\n\
+die Gemäuer, Anwesen und Gärten der Abtei zu pflegen.\n",
     100 : \
 "Eine Bahnstation in der tiefsten Eifel...\n\n",
     101 : \
@@ -282,8 +289,7 @@ Getränkepackungen und Brotpapier herum. Versucht bloß nicht, auch noch\n\
 Euren Müll dort hineinzustopfen!\n",
     173 : \
 "Der Stumpf eines Wegweisers, eine Handbreit über dem Boden abgebrochen.\n\
-Vielleicht liegt der Wegweiser ja noch hier irgendwo herum, sodass Ihr\n\
-herausfinden könnt, wo es lang geht?\n",
+Vielleicht liegt der Rest des Wegweisers ja noch irgendwo hier herum?\n",
     174 : \
 "Ein paar Meter abseits der Weggabelung bedeckt eine dicke Schicht Laub\n\
 den Boden. Hier ist schon länger niemand mehr entlang gelaufen.\n",
@@ -327,7 +333,7 @@ des Friedhofs nur schemenhaft zu erkennen.\n",
     186 : \
 "Eine schmucklose Kammer in der Nähe zum Kreuzgang, abgeschottet vom Inneren des\n\
 Klosters. Der Ausgang ist mit einer schweren Holztür versehen,\n\
-deren schmiedeeisernerRiegel nur von außen zu öffnen ist. Zwei kleine, bunte\n\
+deren schmiedeeiserner Riegel nur von außen zu öffnen ist. Zwei kleine, bunte\n\
 Fenster lassen fahles Licht auf die Pritschen fallen, die hier für Euch\n\
 aufgestellt wurden. Zugig ist es auch, dafür aber trocken und es riecht\n\
 unaufdringlich nach altem Holz. Eine einzelne Lampe spendet ein wenig Licht,\n\
@@ -336,10 +342,15 @@ Bibel auf der offenen Schreibtischklappe.\n",
     187 : \
 "Sehr früh, es ist noch stockdunkel, werdet Ihr durch das Scharren des Riegels \n\
 geweckt. Wortlos werdet Ihr aufgefordert, die Abtei zu verlassen.\n\
-Immerhin war das jetzt eine kostenlose Übernachtung.\n",
+Immerhin war das jetzt eine kostenlose Übernachtung. Für Frühstück müsst Ihr\n\
+dann wohl selber sorgen.\n",
+    188 : \
+"Ein schmaler Spalt in der Tür Eurer Kammer. Durchsehen könnt Ihr nicht, doch\n\
+malt das hindurchfallende Licht einen Strich in den Raum.\n"
     190 : \
-"Das Seehotel Maria Laach. Ein ziemlich schicker Bau aus Sandstein, sieht recht\n\
-kostspielig aus. Alternativen tun sich für Euch auf den ersten Blick keine auf,\n\
+"Der Weg zum Seehotel Maria Laach. In der Ferne steht der ziemlich schicke Bau\n\
+aus Sandstein. Eine Übernachtung könnte Euch teuer kommen.\n\
+Alternativen tun sich für Euch auf den ersten Blick keine auf,\n\
 wenn Ihr nicht unbedingt Lust habt, bei den Mönchen der Abtei um ein Zimmer\n\
 für eine Nacht zu bitten.\n",
     191 : "Die Lobby",\
@@ -537,6 +548,9 @@ den Wald, bis dieser plötzlich endet und den Blick freigibt auf eine weitläufi
 flache Wiesenlandschaft mit ein paar Bauernhöfen in größerer Entfernung.\n\
 Da es langsam spät wird und Ihr hier niemals eine Übernachtungsmöglichkeit\n\
 finden werdet, kehrt Ihr enttäuscht um und macht Euch auf den langen Rückweg.\n",
+    178 : \
+"Der Wegweiser liegt einige Meter von seinem eigentlichen Standort entfernt\n\
+auf dem Boden.\n",
     180 : \
 "Dieses mal schaltet Ihr das Navigationssystem Eures Handys ein, um nicht erneut\n\
 in die falsche Richtung zu laufen. In der Senke findet es leider keine\n\
@@ -548,16 +562,33 @@ um zu sehen, welcher dieser Wege nun zur Abtei führt?\n",
 ersten Kauz sein sanftes 'Schuhuuu' singen und wollt gerade die Grabsteine\n\
 auf der Suche nach interessanten Namen Verblichener abschreiten, als Ihr\n\
 ein Quietschen aus Richtung des Friedhofstores vernehmt.\n\
-Als Ihr zum Tor hastet,     \n\
-      erkennt Ihr einen Mönch,\n\
-              der Euch wortlos anstarrt.                            \n\
+Als Ihr zum Tor hastet,                       \n\
+      erkennt Ihr einen Mönch,                            \n\
+              der Euch wortlos anstarrt.                                     \n\
 Nun hält er das Tor mit der Hand einen Spaltbreit offen, sodass Ihr Euch, eine\n\
 Entschuldigung murmelnd, gerade so hindurchquetschen könnt.\n\
 Vielleicht solltet Ihr nicht versuchen, hier in der Abtei ein Lager für die\n\
 Nacht zu finden...\n",
-    178 : \
-"Der Wegweiser liegt einige Meter von seinem eigentlichen Standort entfernt\n\
-auf dem Boden.\n",
+    185 : \
+"Ihr klopft mehrfach an das Tor. Es ist aus so dickem Holz, dass Immer nur ein\n\
+leises 'plopp' zu hören ist, wenn Eure Knöchel die grob gezimmerten Dielen\n\
+berühren.                              \n\
+Als Ihr Euch schon enttäuscht abwenden wollt, wird die Tür von einem Mönch\n\
+geöffnet, der seine Kapuze so tief ins Gesicht gezogen hat, dass Ihr nicht\n\
+sicher seid, ob Euch überhaupt ein Mensch gegenüber steht.\n\
+Wortlos weist er auf eine Tür am anderen Ende des Ganges, und Ihr tretet ein.\n\
+Ihr hört, wie ein Riegel vor die Tür geschoben wird. Dann ist es still.\n\
+Raus kommt Ihr hier ohne Hilfe eh nicht. Es ist besser, Ihr richtet Euch\n\
+hier für die Nacht ein.\n",
+    186 : \
+"Der einzige lose Gegenstand in diesem Raum ist die Kopie der Bibel.\n\
+Lustlos blättert Ihr darin herum, als ein vollgekritzelter Zetter herausfällt.\n",
+    190 : \
+"Ihr findet das hier nicht mehr lustig. Raus wollt Ihr, raus!\n\
+In Eurer Verzweiflung sucht Ihr den Raum genau ab.\n\
+Wie könnt Ihr Euch bemerkbar machen?\n\
+Als Ihr Euch die Tür nochmal genau anschaut, bemerkt Ihr, dass zwischen zwei\n\
+Dielen ein Spalt ist, durch den man durchsehen kann.\n",
     15123 : \
 "Whow, ihr seid aber gut vorbereitet! Zack, Mückenspray auf Mücken angewendet -\n\
 gut, es mag unkonventionell sein, sich nicht selbst damit einzureiben -\n\
@@ -612,7 +643,23 @@ sie sich jetzt bezahlt! Der Weg zur Abtei Maria Laach ist jetzt klar.\n",
 "Ihr stellt den Wegweiser aufrecht und versucht, die Bruchmuster von Stumpf und\n\
 Pfahl des Wegweisers in Deckung zu bringen. Nach einigen vergeblichen,\n\
 kräftezehrenden Versuchen klappt es endlich und der Wegweiser ist provisorisch\n\
-wieder zusammengesetzt. Er zeigt Euch nun den richtigen Weg zur Abtei Maria Laach."
+wieder zusammengesetzt. Er zeigt Euch nun den richtigen Weg zur Abtei Maria Laach.\n",
+    27188 : \
+"Ihr steckt den Zettel durch den Schlitz. Er passt. Nun ist er fort.\n\
+Niemand hat das im Dunkeln bemerkt.\n",
+    26188 : \
+"In der Hoffnung, dass jemand das Klimpern der Münzen hört, steckt Ihr Euer\n\
+Kleingeld durch den Schlitz.\n\
+Leider passiert nichts. Und Euer Kleingeld ist fort.\n",
+    10188 : \
+"Ihr schaltet die Taschenlampe vom Smartphone ein und leuchtet durch den\n\
+Schlitz.                   \n\
+Plötzlich tut sich auf der anderen Seite etwas. Der Riegel wird zurückgeschoben\n\
+und die Tür einen Spalt breit geöffnet. Schnell drückt Ihr die Tür weiter auf\n\
+und schaut in das freundliche Gesicht eines alten Herren. Er bleibt stumm, als\n\
+Ihr ihn ansprecht. Mit seinen Händen bedeutet er Euch,\n\
+dass er Euch nicht hören kann, und dass Ihr herzlich eingeladen seid,\n\
+zu bleiben - aber auch gehen könnt, wenn Ihr mögt.\n"
     }
     
 #Defines room number and names
@@ -701,6 +748,8 @@ dictSpots = {
     185 : "Das Haupttor der Basilika",\
     186 : "Eure Kammer",\
     187 : "Frühstück!",\
+    188 : "Schmaler Spalt in der Tür"\,
+    190 : "Bloß raus hier!",\
     191 : "Die Lobby",\
     192 : "Rezeption",\
     193 : "Ein aufdringlicher Gast",\
@@ -787,7 +836,9 @@ dictSpotChange = {
     25173: [[174,175,176,180],[]],\
     12175: [[174,175,176,180],[]],\
     12176: [[174,175,176,180],[]],\
-    12180: [[174,175,176,180],[]]\
+    12180: [[174,175,176,180],[]],\
+    185 : [[181,182,183,184,185],[186,187,190]],\
+    187 : [[186,190],[]]\
     }
 
 #Defines item number and names
@@ -819,7 +870,7 @@ dictItemDelete = {
     180 : [25],\
     }
 
-\#Defines item modifiers
+#Defines item modifiers
 # [0] = motivation, [1] = tiredness
 dictMods = {
     11 : [0,-1],\
@@ -842,7 +893,8 @@ dictMods = {
     171 : [1,2],\
     175 : [-1,0],\
     176 : [-1,-2],\
-    184 : [-2,0]\
+    184 : [-2,0],\
+    185 : [-2,-1]\
     }
 
 dictModType = {
@@ -865,6 +917,7 @@ dictModType = {
     175 : Mod_typ.EFFALL,\
     176 : Mod_typ.EFFALL,\
     184 : Mod_typ.EFFALL,\
+    185 : Mod_typ.EFFALL,\
     24163 : Mod_typ.EFFALL\
     }
 
