@@ -15,10 +15,12 @@ class Room:
     It has a 3-digit number, of which the first two refer to the room
     and the last digit will be 0 as it is the spot ID."""
     def __init__(self, number):
-        self.number = number
-        self.name = dictRooms[number]
-        self.description = dictTexts[number]
-        self.visited = False
+        if number < 0:
+            self.number = -1*number
+        else:
+            self.number = number
+        self.name = dictRooms[self.number]
+        self.description = dictTexts[self.number]
         self.__spotList = []
         self.__roomList = []
         self.__spotObjects = {}
@@ -27,14 +29,9 @@ class Room:
     def OnEnter(self):
         """Set up of connected spots and adjacent rooms if not already defined.
         Then refreshes the room's attributes.""" 
-        self.visited = True
-        if not self.__spotObjects #no spots generated for this room
-            #get valid spot numbers for room
-            for spotId in range(self.number+1, self.number+11): #+1/11 to check if next room is hidden as well
-                if spotId in dictSpots: #positive (non-hidden spots)
-                        self.__spotList.append(spotId)
+        if not self.__spotObjects: #no spots generated for this room
             self.__spotBuilder()
-        if not self.__roomList #list is empty
+        if not self.__roomList: #list is empty
             self.__roomBuilder()
         checkLooseItem(self.number)
         
@@ -43,7 +40,6 @@ class Room:
         and connected rooms. It additionally prints the room's description if
         players enter the room the first time."""
         gui.textScreen.Clear()
-        spotNumbers = []
         listRoomsVisited = GameStats.GetRoomsVisited()
         if self.number not in listRoomsVisited:
             gui.textScreen.TypeWrite(self.description)
@@ -52,23 +48,17 @@ class Room:
         gui.textScreen.TypeWrite(GameMsg.YOURE_AT[0] + str(self.number) + ": "\
                    + self.name + GameMsg.YOURE_AT[1])
         #list spots
-        for spot in self.__spotObjects.values():
-            spotNumbers.append(spot.number)
-            gui.textScreen.LineWrite(str(spot.number) + ": " + spot.name + "\n")
+        for spotNr in self.__spotList:
+            gui.textScreen.LineWrite(str(spotNr) + ": " + self.__spotObjects[spotNr].name + "\n")
         #list connected rooms
         gui.textScreen.LineWrite(GameMsg.IN_REACH)
-        for room in self.__roomObjects.values():
-            if room.number in listRoomsVisited:
+        for roomNr in self.__roomList:
+            if roomNr in listRoomsVisited:
                 #room is known
-                gui.textScreen.LineWrite(str(room.number) + ": "\
-                      + room.name + "\n")
+                gui.textScreen.LineWrite(str(roomNr) + ": "\
+                      + self.__roomObjects[roomNr].name + "\n")
             else:
-                if room.number in spotNumbers:
-                    #room is currently hidden
-                    pass
-                else:
-                    gui.textScreen.LineWrite(str(room.number) + GameMsg.UNKNOWN_ROOM)
-            time.sleep(.5)
+                gui.textScreen.LineWrite(str(room.number) + GameMsg.UNKNOWN_ROOM)
         gui.textScreen.LineWrite("\n")
         
     def ModifyRooms(self, triggerNumber):
@@ -84,57 +74,52 @@ class Room:
                 else:
                     #room to be deleted
                     roomNr = -1*roomNr
-                    if if roomNr in self.__roomList:
+                    if roomNr in self.__roomList:
                         self.__roomList.pop(roomNr)
         else:
             pass #roomNr not in connected rooms list.
             
-    def ModifySpots(self, cmdId, exchangeDir)
+    def ModifySpots(self, cmdId, exchangeDir):
         """This Method exchanges a spot within the list with another
         target spot needed when a spot changes its meaning throughout
         the game"""
-        if cmdId in dictSpotChange: 
+        if cmdId in dictSpotChange.keys(): 
             for value in dictSpotChange[cmdId]:
-                value = exchangeDir*value
-                if value < 0: #add hidden spot
+                if exchangeDir*value < 0: #execute hide commands
                     value = -1*value
-                    if value not in self.__spotList:
-                        showSpot = Spot(value, self)
-                        self.__spotObjects[value] = showSpot
-                    else:
-                        pass #don't add as already added
-            for value in dictSpotChange[cmdId]:
-                if exchangeDir*value > 0: #hide added spot
                     if value in self.__spotList:
-                        self.__spotList.pop(value)    
-                    else:
-                        pass #cannot pop as element is not in list
+                        self.__spotList.remove(value)
+                else: #hide added spot
+                    if value not in self.__spotList:
+                        self.__spotList.append(value)    
+            self.__spotList.sort() #sort list by number            
     
     def __spotBuilder(self):
         """Generates a list of spots that the roon contains
         based on room number, using spot dictionary."""
-        self.__spotObjects = {} #delete old object list
-        self.__spotList.sort() #sort by value, ascending
-        for spotId in self.__spotList:
-            #generate spots
-            if spotId not in self.__spotObjects.keys()
-                #generate room objects if not already added
-                self.__spotObjects[spotId] = Spot(spotId)
-        
+        #get valid spot numbers for room
+        for spotId in range(self.number+1, self.number+11): #+1/11 to check if next room is hidden as well
+            if spotId in dictSpots: #positive (non-hidden spots)
+                    self.__spotList.append(spotId)
+                    self.__spotObjects[spotId] = Spot(spotId, self)
+            elif -1*spotId in dictSpots: #negativw (hidden spots)
+                self.__spotObjects[spotId] = Spot(-1*spotId, self)
+            else:
+                pass #spotId not in dict.
+                
     def __roomBuilder(self):
-        self.__roomObjects = {} #delete old list
         self.__roomList.sort() #sort by value, ascending
         for roomId in self.__roomList:
             #generate adjacent rooms
-            if roomId not in self.__roomObjects.keys()
+            if roomId not in self.__roomObjects.keys():
                 #generate room objects if not already added
                 self.__roomObjects[roomId] = Room(roomId)
  
     def GetSpotList(self):
-        return self.__spotObjects
+        return self.__spotList
 
     def GetRoomList(self):
-        return self.__roomObjects
+        return self.__roomList
 
     def OnLeave(self):
         """Not needed (just yet). Input 'room' not used."""
@@ -146,19 +131,22 @@ class Spot:
     The first two digits stand for the room in which the spot is
     and the last digit is the spot ID"""
     def __init__(self, number, room):
-        self.number = number
+        if number < 0:
+            self.number = -1*number
+        else:
+            self.number = number
         self.__room = room
-        self.description = dictTexts[number]
+        self.description = dictTexts[self.number]
         self.name = dictSpots[number]
         self.__action_id = Action_id.NOC_NO #standard action ID
         self.__mod = [0,0]
         self.__modType = Mod_typ.NOTUSABLE
         if number in dictActionType:
-            self.__action_id = dictActionType[number]
+            self.__action_id = dictActionType[self.number]
         if number in dictMods:
-            self.__mod = dictMods[number]
+            self.__mod = dictMods[self.number]
         if number in dictModType:
-            self.__modType = dictModType[number]
+            self.__modType = dictModType[self.number]
 
     def OnEnter(self):
         """Routines that are executed when a spot is entered,
@@ -169,7 +157,7 @@ class Spot:
             self.__action() #perform spot action
         checkLooseItem(self.number)
         if self.number in dictSpotChange: 
-            self.__room.ModifySpots(dictSpotChange[self.number], Exchange_dir.FORWARD)
+            self.__room.ModifySpots(self.number, Exchange_dir.FORWARD)
 
     def OnLeave(self):
         """Checks dict if there's an action to be performed on exit of a spot"""
@@ -180,7 +168,7 @@ class Spot:
                 if element.GetPos().number == self.number:
                     playersOnSpot += 1
             if playersOnSpot <= 1:
-                self.__room.ModifySpots(dictSpotChange[self.number], Exchange_dir.REVERT)
+                self.__room.ModifySpots(self.number, Exchange_dir.REVERT)
             else:
                 #as at least 1 player still is on the spot, 
                 #it cannot be changed back yet.
@@ -471,7 +459,7 @@ def itemSpot(generateFromNr):
             elif generateFromNr in dictAction:
                 gui.textScreen.TypeWrite(dictAction[generateFromNr])
                 if generateFromNr in dictSpotChange:
-                    currentRoom.ModifySpots(dictSpotChange[generateFromNr], Exchange_dir.FORWARD)
+                    currentRoom.ModifySpots(generateFromNr, Exchange_dir.FORWARD)
                 if generateFromNr in dictMods:
                     GameStats.GetCurrentPlayer().ChangeMod(dictMods[generateFromNr])
                 dictInventory[item].DelItem()
