@@ -104,6 +104,7 @@ It binds to the return key to take input"""
         try :
             #Command valid
             intPt = int(inpt)
+            intPt = abs(intPt) #make absolute to not allow entering hidden IDs
             self.number.set(intPt)
         except :
             if inpt.lower() == "quit":

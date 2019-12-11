@@ -14,7 +14,11 @@ class Exchange_dir():
     """Spot exchange direction. FORWARD takes the first set of elements as 'from'
     and the second set of elemtent as 'to', and vice verca."""
     FORWARD = 1
-    REVERT = 0
+    REVERT = -1
+    
+class Reach():
+    ROOM = 1
+    SPOT = 2
 
 class Mod_typ():
     #None = no mod
@@ -29,8 +33,8 @@ class cmd_inpt():
 
 
 class consts():
-    GUI_WAIT_UPDATE = 500
-    GUI_LINEWRITE_WAIT = 500
-    GUI_TYPEWRITE_WAIT = 30
+    GUI_WAIT_UPDATE = 100 #500
+    GUI_LINEWRITE_WAIT = 100 #500
+    GUI_TYPEWRITE_WAIT = 10 #40
     GUI_FONT = ["Lucida Console", "12"]
     GUI_BOLD = ["Lucida Console", "12", "bold"]
