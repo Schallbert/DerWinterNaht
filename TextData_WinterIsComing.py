@@ -299,11 +299,15 @@ nach Rechts abknickt.",
     176 : 
 "Ein Weg in Richtung Norden, der ziemlich geradeaus verläuft und hinter\n\
 einer Kuppe verschwindet.\n",
-    180 : 
+    177 : 
 "Ein Weg in Richtung Westen. Er ist gewölbt und hier und da sind noch alte\n\
 Pflastersteine zu sehen, aus denen der Weg vor Langer Zeit mal bestand.\n\
 Große, alte Bäume stehen links und rechts des Weges wie Wachen und lassen\n\
 ihn so noch dunkler erscheinen als den Rest des Waldes.\n",
+    180 : 
+"Das Gelände der Abtei Maria Laach. Kirche, Kloster, ein kleiner Park\n\
+und eine Gärtnerei - alles auf engem Raum verschachtelt.\n\
+Besonders die Kirche der Abtei zieht Euren Blick auf sich...\n",
     181 : 
 "Die Abtei. Schon vor über 900 Jahren siedelten sich an diesem Ort Mönche an,\n\
 inzwischen ist der Ort allerdings touristisch voll erschlossen. Ihr besucht\n\
@@ -347,11 +351,20 @@ eingeschlafen.\n",
     188 : \
 "Ein schmaler Spalt in der Tür Eurer Kammer. Durchsehen könnt Ihr nicht, doch\n\
 malt das hindurchfallende Licht einen Strich in den Raum.\n",
+    189 : \
+"Da sich auf der Innenseite kein Riegel für die Tür befindet, kommt ihr hier nicht\n\
+durch. Auch die Fenster sind so klein, Ihr da niemals durch kommt. Auf dem Boden\n\
+scheint eine Fliese locker zu sein.\n\
+                                   \n\
+Aah, doch nicht. Die steht nur etwas höher als die anderen.\n\
+Kurzum, ihr sitzt hier fest. Warum haben die Mönche eigentlich nicht mal ein Wort\n\
+gesagt? Und wie geht es jetzt weiter?\n",
     190 : \
 "Der Weg zum Seehotel Maria Laach. In der Ferne steht der ziemlich schicke Bau\n\
 aus Sandstein, schwarz vor dem Nachthimmel mit ein paar erleuchteten Fenstern\n\
 im Erdgeschoss.\n",
-    191 : "Die Lobby",\
+    191 : \
+"Die Lobby",
     192 : \
 "Die Rezeption des Hotels. Ein langer Marmortisch, goldene Glocke,\n\
 rote Teppiche, unter einer großen Uhr an der Wand ein Schlüsselbrett mit nur\n\
@@ -361,11 +374,16 @@ Alternativen tun sich für Euch auf den ersten Blick keine auf,\n\
 wenn Ihr nicht unbedingt Lust habt, bei den Mönchen der Abtei um ein Zimmer\n\
 für eine Nacht zu bitten.\n\
 Eine verunsichert wirkende junge Dame steht hinter der Rezeption.\n",
-    193 : "Ein aufdringlicher Gast",\
-    194 : "Eine auffällige Limousine",\
-    195 : "Die Lobby",\
-    196 : "Euer Zimmer",\
-    197 : "Frühstück!",\
+    193 : \
+"Ein aufdringlicher Gast",
+    194 : \
+"Eine auffällige Limousine",
+    195 : \
+"Ein Faxgerät",
+    196 : \
+"Euer Zimmer",
+    197 : \
+"Frühstück!",
     200 : \
 "Es ist Sonntag Morgen und Euer langes Wanderwochenende kann weitergehen!\n",
     210 : \
@@ -579,8 +597,9 @@ Vielleicht solltet Ihr nicht versuchen, hier in der Abtei ein Lager für die\n\
 Nacht zu finden...\n",
     185 : \
 "Ihr klopft mehrfach an das Tor. Es ist aus so dickem Holz, dass immer nur ein\n\
-leises 'plopp' zu hören ist, wenn Eure Knöchel die grob gezimmerten Dielen\n\
-berühren.                              \n\
+leises 'plopp' zu hören ist, wenn Eure Knöchel schmerzhaft an die grob\n\
+gezimmerten Dielen schlagen.                              \n\
+       \n\
 Als Ihr Euch schon enttäuscht abwenden wollt, wird die Tür von einem Mönch\n\
 geöffnet, der seine Kapuze so tief ins Gesicht gezogen hat, dass Ihr nicht\n\
 sicher seid, ob Euch überhaupt ein Mensch gegenüber steht.\n\
@@ -596,7 +615,7 @@ Lustlos blättert Ihr darin herum, als ein vollgekritzelter Zettel herausfällt.
 geweckt. Wortlos werdet Ihr aufgefordert, die Abtei zu verlassen.\n\
 Immerhin war das jetzt eine kostenlose Übernachtung. Für Frühstück müsst Ihr\n\
 dann wohl selber sorgen.\n",
-    190 : \
+    189 : \
 "Ihr findet das hier nicht mehr lustig. Raus wollt Ihr, raus!\n\
 In Eurer Verzweiflung sucht Ihr den Raum genau ab.\n\
 Wie könnt Ihr Euch bemerkbar machen?\n\
@@ -701,6 +720,7 @@ dictRooms = {
     }
 
 #Defines which rooms are in what way connected to which rooms
+# Trigger : [-hide cmd, +show cmd]
 dictConnectedRooms = {
     100 : [110],\
     110 : [100, 120, 130],\
@@ -709,19 +729,26 @@ dictConnectedRooms = {
     140 : [130, 150, 170],\
     150 : [140, 160],\
     160 : [140, 150],\
-    170 : [140, 180],\
-    180 : [190,200],\
+    170 : [140],\
+    25173: [180],\
+    12175: [180],\
+    12176: [180],\
+    12180: [180],\
+    180 : [190, 200],\
+    185 : [-190, -200],\
+    187 : [200],\
+    188 : [190],\
     190 : [180, 200],\
     200 : [210, 220],\
     }
 
-#Defines spot number and names
+#Defines spot number and names. Negative numbers are hidden spots
 dictSpots = {
     101 : "die Übersichtskarte",\
     102 : "der Pfosten eines Kartenkastens",\
     103 : "die Apotheke am Bahnhof",\
     104 : "der REWE-Markt",\
-    105 : "die Übersichtskarte, verschattet",\
+    -105 : "die Übersichtskarte, verschattet",\
     111 : "Wühlspuren",\
     112 : "Heckenrosen",\
     113 : "Vogelnest",\
@@ -731,11 +758,11 @@ dictSpots = {
     122 : "Bräunliches Wasser",\
     123 : "Mücken...",\
     124 : "Gleisanlage mit Loren",\
-    125 : "Das glitzernde Ding...",\
+    -125 : "Das glitzernde Ding...",\
     126 : "Nebelbank",\
-    127 : "Seismograph",\
+    -127 : "Seismograph",\
     128 : "Gerätestand",\
-    129 : "Großes, schweres Metallding",\
+    -129 : "Großes, schweres Metallding",\
     131 : "Sümpfe im Nebel",\
     132 : "See hinterm Berg",\
     133 : "Die Stadt",\
@@ -753,32 +780,31 @@ dictSpots = {
     161 : "Das Wetter...",\
     162 : "Poller zum Festmachen",\
     163 : "Wartungsklappe",\
-    164 : "Display",\
-    165 : "SD-Kartenschlitz",\
+    -164 : "Display",\
+    -165 : "SD-Kartenschlitz",\
     171 : "Pause?",\
     172 : "Ein völlig überfüllter Mülleimer",\
     173 : "Stumpf eines Wegweisers",\
     174 : "Sehr viel Laub auf dem Boden",\
     175 : "Weg Richtung Süden",\
     176 : "Weg Richtung Norden",\
-    180 : "Weg zur Abtei Maria Laach?",\
+    177 : "Weg Richtung Westen",\
     181 : "Die Abtei",\
     182 : "Ein Blick auf die Uhr...",\
     183 : "Der Löwenbrunnen",\
     184 : "Der Waldfriedhof",\
     185 : "Das Haupttor der Basilika",\
-    186 : "Eure Kammer",\
-    187 : "Schlafen, endlich Ruhe!",\
-    188 : "Schmaler Spalt in der Tür",\
-    190 : "Eingesperrt?",\
-    200 : "Bloß raus hier!",\
+    -186 : "Eure Kammer",\
+    -187 : "Schlafen, endlich Ruhe!",\
+    -188 : "Schmaler Spalt in der Tür",\
+    -189 : "Eingesperrt?",\
     191 : "Die Lobby",\
     192 : "Rezeption",\
     193 : "Ein aufdringlicher Gast",\
     194 : "Eine auffällige Limousine",\
-    195 : "Die Lobby",\
-    196 : "Euer Zimmer",\
-    197 : "Frühstück!",\
+    195 : "Ein Faxgerät",\
+    -196 : "Euer Zimmer",\
+    -197 : "Frühstück!",\
     }
 
 #Defines what happens if a closer investigation of spot is refused
@@ -853,22 +879,20 @@ dictSpotItems = {
 
 #Defines which spots can change through interaction
 #with spot or item combination
-# Trigger : [[Exchange targets], [Exchange spots]]
+# Trigger : [-hide cmd, +show cmd]
 dictSpotChange = {
-    102: [[101], [105]],\
-    15123: [[123], [125]],\
-    20123: [[123], [125]],\
-    21128: [[126], [127]],\
-    24163: [[163], [164,165]],\
-    25173: [[174,175,176,180],[]],\
-    12175: [[174,175,176,180],[]],\
-    12176: [[174,175,176,180],[]],\
-    12180: [[174,175,176,180],[]],\
-    185 : [[181,182,183,184,185],[186,187,190,200]],\
-    190 : [[],[188]],\
-    187 : [[186,200],[]],\
-    188 : [[190],[]],\
-    
+    102: [-101, 105],\
+    15123: [-123, 125],\
+    20123: [-123, 125],\
+    21128: [-126, 127],\
+    24163: [-163, 164, 165],\
+    25173: [-174, -175, -176],\
+    12175: [-174, -175, -176],\
+    12176: [-174, -175, -176],\
+    12180: [-174, -175, -176],\
+    185 : [-181, -182, -183, -184, -185, 186, 187, 189],\
+    189 : [188],\
+    187 : [-186]\
     }
 
 #Defines item number and names
@@ -914,7 +938,7 @@ dictMods = {
     103 : [-1,0],\
     108 : [-1,0],\
     111 : [0,1],\
-    115 : [0, -2],\
+    115 : [0,-2],\
     121 : [-1,0],\
     122 : [-2,0],\
     136 : [1,3],\

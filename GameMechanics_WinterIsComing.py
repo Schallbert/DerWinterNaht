@@ -62,12 +62,8 @@ class Room:
         
     def ModifyRooms(self, connectedRoomKey):
         """Wrapper function to call internal room builder.
-        Takes a key, matches with dictConnectedRooms and then 
-        calls room builder if needed."""
-        if connectedRoomKey in dictConnectedRooms.keys():
-            __roomBuilder(connectedRoomKey)
-        else:
-            pass #roomNr not in connected rooms list.
+        Takes a key, and calls room builder."""
+        self.__roomBuilder(connectedRoomKey)
             
     def ModifySpots(self, cmdId, exchangeDir):
         """This Method exchanges a spot within the list with another
@@ -75,17 +71,21 @@ class Room:
         the game"""
         if cmdId in dictSpotChange.keys(): 
             for value in dictSpotChange[cmdId]:
-                if exchangeDir*value < 0: #execute hide commands
-                    posVal = -1*value
-                    if posVal in self.__spotList: #element is reachable (positive)
-                        indx = self.__spotList.index(posVal)
-                        self.__spotList[indx] = value #hide element
-                else: #hide added spot
-                    negVal = -1*value
-                    if negVal in self.__spotList:
-                        indx = self.__spotList.index(negVal)
-                        self.__spotList[indx] = value #show existing element
-            self.__spotList.sort() #sort list by number            
+                self.__spotList = self.__listUpdate(value, exchangeDir, self.__spotList)  
+
+    def __listUpdate(self, value, exchangeDir, list):
+        if exchangeDir*value < 0: #execute hide commands
+            posVal = -1*value
+            if posVal in list: #element is reachable (positive)
+                indx = list.index(posVal)
+                list[indx] = value #hide element
+        else: #hide added spot
+            negVal = -1*value
+            if negVal in list:
+                indx = list.index(negVal)
+                list[indx] = value #show existing element
+        list.sort() #sort list by number 
+        return list
     
     def __spotBuilder(self):
         """Generates all spots of the room both as objects and as lists.
@@ -105,14 +105,14 @@ class Room:
     def __roomBuilder(self, connectedRoomKey):
         """Gemerates adjacent rooms both as objects and as a list.
         List contains information on whether the rooms are currently reachable."""
-        if connectedRoomKey in dictConnectedRooms:
+        if connectedRoomKey in dictConnectedRooms.keys():
             for roomId in dictConnectedRooms[connectedRoomKey]:
-                if abs(roomId) not in self.__roomObjects.keys():
+                posVal = abs(roomId)
+                if posVal not in self.__roomObjects.keys():
                     self.__roomList.append(roomId)
-                    self.__roomObjects[abs(roomId)] = Room(roomId)
-        else:
-            print("Warning: key " + str(connectedRoomKey) \
-                  + " not found. Could not create 'connected room' list!")
+                    self.__roomObjects[posVal] = Room(roomId)
+                else: #already created but update list to reflect hidden rooms
+                    self.__roomList = self.__listUpdate(roomId, Exchange_dir.FORWARD, self.__roomList)
         
     def CheckInReach(self, plAction, spotRoom):
         """Checks if player requested spot input is reachable.
@@ -142,11 +142,11 @@ class Spot:
         self.__action_id = Action_id.NOC_NO #standard action ID
         self.__mod = [0,0]
         self.__modType = Mod_typ.NOTUSABLE
-        if number in dictActionType:
+        if self.number in dictActionType:
             self.__action_id = dictActionType[self.number]
-        if number in dictMods:
+        if self.number in dictMods:
             self.__mod = dictMods[self.number]
-        if number in dictModType:
+        if self.number in dictModType:
             self.__modType = dictModType[self.number]
 
     def OnEnter(self):
@@ -383,6 +383,7 @@ def spotRoom(plAction):
         if not activeSpot.number == plAction:
             activeSpot.OnLeave()   
             if currentRoom.CheckInReach(plAction, Reach.SPOT): #check again whether targeted spot is still in list
+                currentRoom.ModifyRooms(plAction) #Check if a connected room gets modified
                 currentPlayer.SetPos(spotObj)
                 currentPlayer.GetPos().OnEnter()
             else:
@@ -448,11 +449,11 @@ def itemSpot(generateFromNr):
                 dictInventory[item].DelItem() #delete old item
             elif generateFromNr in dictAction:
                 gui.textScreen.TypeWrite(dictAction[generateFromNr])
-                if generateFromNr in dictSpotChange:
-                    currentRoom.ModifySpots(generateFromNr, Exchange_dir.FORWARD)
+                currentRoom.ModifySpots(generateFromNr, Exchange_dir.FORWARD)
                 if generateFromNr in dictMods:
                     GameStats.GetCurrentPlayer().ChangeMod(dictMods[generateFromNr])
                 dictInventory[item].DelItem()
+                currentRoom.ModifyRooms(generateFromNr) #Check if a connected room gets modified
             else:
                 #generate game progress only
                 if generateFromNr in dictTexts:
