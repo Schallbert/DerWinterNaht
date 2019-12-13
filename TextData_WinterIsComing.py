@@ -984,8 +984,6 @@ dictSpotChange = {
     }
 
 #Defines item number and names
-#bonus items (ask player) TODO IMPLEMENT
-#15
 dictItems = {
     10 : "Ein Smartphone, fast leer",\
     11 : "Unleserliches Foto der Umgebungskarte",\
@@ -1092,6 +1090,7 @@ class GameMsg():
     LOAD = "Lade Spielstand..."
     ASKOVWR = "Möchtet Ihr Euren alten Spielstand (falls vorhanden) überschreiben?\n"
     NAN = "Keine Zahl erkannt. Zum Speichern und Beenden bitte 'quit' eingeben.\n"
+    QUIT = "Keine Aktion gewählt. Das Spiel wird jetzt beendet.\n"
     SVQT = "Spiel wird gespeichert und beendet. Bis bald!\n"
     TURN = [" bei [", "] ist an der Reihe.\nWas wollt Ihr tun?  "]
     IN_REACH = "\nVon hier aus sind folgende Orte erreichbar:\n"
@@ -1125,3 +1124,94 @@ die Hälfte Deiner Motivation abgeben?\n"]
     UNMOT_END = "Puh, es hilft alles nichts. Ihr macht jetzt erstmal schön eine Pause.\n\
 Später - sagen wir ab in einer halben Stunde - könnt Ihr dann mit frischer\n\
 Motivation weitermachen........................................................\n"
+    INTRO = "Willkommen im Spiel 'Der Winter Naht'!\n\
+In diesem kooperativen Spiel macht Ihr einen gemeinsamen Wanderausflug\n\
+in die Eifel und kommt dort merkwürdigen Vorgängen auf die Spur.\n\
+Das Spiel enthält mehrere Kapitel, deren Verlauf Ihr selbst mitestaltet.\n\
+             \n\
+Es ist im Genre des sogenannten Text Adventure beheimatet,\n\
+die komplette Interaktion mit dem Spiel findet also per Text statt.\n\
+Grafiken oder gar Videos gibt es hier keine, es ist Spaß am Lesen gefragt ;)\n\
+                            \n\
+Das Spiel speichert Euren Fortschritt automatisch am Ende einer jeden Runde.\n\
+Ihr könnt das Spiel also jederzeit beenden und später dort weitermachen, wo\n\
+Ihr aufgehört habt.\n\
+Der Spielbildschirm ist aufgeteilt in vier Teile. Der jeweils aktive Teil des\n\
+Bildschirms ist farbig hervorgehoben - dies ist auch bei dem Hauptbildschirm,\n\
+auf dem dieser Text gerade erscheint, der Fall. Sein Hintergrund ist heller\n\
+als der der inaktiven, kleineren Anzeigen.\n\
+                                               \n\
+Auf dieser Anzeige hier findet die eigentliche Handlung des Spiels statt.\n\
+Das Spiel ist so aufgebaut, dass Ihr Euch in Räumen aufhaltet, die bestimmte\n\
+Eigenschaften haben und die wiederum Orte besitzen, mit denen Ihr\n\
+interagieren könnt. Des Weiteren gibt es Gegenstände im Spiel, die Ihr sammeln,\n\
+benutzen oder mit Orten kombinieren könnt, um das Spiel voranzubringen.\n\
+Selten habt Ihr nur eine Möglichkeit der Interaktion, deswegen wird sich die\n\
+Handlung bei jedem Durchlauf basierend auf Euren Entscheidungen unterscheiden.\n"
+    NUMBERS = "Der lange Strich '__-___' eben war ein Ladebalken, der Euch anzeigen soll,\n\
+dass der Bildschirminhalt bald gelöscht wird und eine neue Runde beginnt.\n\
+        \n\
+Diser Bildschirm zeigt Euch alle wichtigen Informationen zu Räumen, Orten\n\
+und Gegenständen an. Er informiert Euch darüber, wo Ihr Euch gerade\n\
+befindet, welche Orte und Räume gerade in Reichweite sind und erzählt\n\
+die Handlung des Spiels.\n\
+Beachtet, dass nicht immer alle Orte eines Raumes oder alle angeschlossenen\n\
+Räume eines Raumes erreichbar sein müssen.\n\
+Besonders in späteren Teilen des Spiels ist es üblich, dass Ihr nur durch\n\
+das Lösen von Rätseln und Entdecken versteckte Räume, Gegenstände oder Orte\n\
+weiterkommen werdet.                                                   \n\
+\n\
+Zu den Objekten des Spiels:\n\
+Räume haben dreistellige Nummern in den 'Zehnern', z.B. 100, 110, 120 usw.\n\
+Orte sind mit dreistelligen Nummern, aber in den 'einern', z.B. 101, 102 usw.\n\
+gekennzeichnet.\n\
+Gegenstände haben zweistellige Nummern , z.B. 10, 11, 12 usw.\n\
+                                                             \n\
+Das Spiel erwartet von Euch Zahlen als Eingaben.\n\
+- Ausnahme ist das Kommando 'quit', mit dem Ihr das Spiel beenden könnt -\n\
+Um also z.B. den Raum '110: Wohnzimmer' zu betreten, der Euch 'in Reichweite'\n\
+angezeigt wird, gebt Ihr im Eingabefeld unten Rechts die Zahl des Raumes,\n\
+also 110 ein und drückt die <Enter>-Taste.\n\
+Wollt Ihr Orte untersuchen, so ist das Verfahren dasselbe wie bei Räumen\n\
+mit dem Unterschied, dass Ihr auf Orten Aktionen durchführt, die den Spielverlauf\n\
+dauerhaft beeinflussen können. Bei den meisten Aktionen werdet Ihr vorher\n\
+gefragt, ob Ihr die auch wirklich durchführen wollt, bei einigen aber nicht;\n\
+das macht das Spiel spannender für die Entwickler ;)\n\
+                                                            \n"
+    COMBINATIONS = "Manche Gegenstände aus Eurem Inventar können miteinander kombiniert werden,\n\
+um einen neuen Gegenstand zu erhalten. Dabei muss die niedrigere der beiden\n\
+Zahlen an erster Stelle stehen. Beispiel:\n\
+Ihr möchtet '23: Eine leere Taschenlampe'\n\
+mit '27: Batterien'\n\
+kombinieren. Dann gebt Ihr 2327 in das Eingabefeld\n\
+ein und drückt die <Enter>-Taste.\n\
+Wenn diese Kombination gültig ist, erhaltet Ihr in diesem Falle:\n\
+'28: Eine Taschenlampe mit frischen Batterien',\n\
+die sich zu mehr eignet, als sie einfach nur jemandem über den Kopf zu ziehen.\n\
+                                                                            \n\
+Ihr könnt auch Gegenstände mit Orten kombinieren, sodass dann eine fünfstellige\n\
+Zahl entsteht, die Ihr dann eingeben könnt. Auch hier kommt die kleinere Zahl\n\
+immer zuerst dran:\n\
+'12: Ein Schlüssel', kombiniert mit '117: Schwere Eisentür', eingegeben als\n\
+12117 in das Eingabefeld, kann beispielsweise dazu führen, dass sich ein neuer\n\
+Ort oder sogar ein Raum zeigt, den Ihr vorher noch nicht als 'in Reichweite'\n\
+auf dem Hauptbildschirm sehen konntet.                                     \n\
+\n\
+So, genug geschwafelt. Fangt einfach mal an!\n"
+    INVSCR = "Auf diesem Bildschirm wird Euer\n\
+gemeinsames Inventar angezeigt.\n\
+Ihr könnt die Gegenstände benutzen\n\
+oder untersuchen, indem Ihr ihre\n\
+Nummern im Eingabefeld angebt und mit\n\
+<Enter> bestätigt. Ansonsten eignen\n\
+sich viele Gegenstände für\n\
+Kombinationen mit Orten. Ganz einfach!"
+    STATSCR = "Hier wird Euer Spielerstatus\n\
+angezeigt. Attribute in diesem Spiel:\n\
+Müdigkeit und Motivation.\n\
+Sollte Euer Motivationsniveau\n\
+zu weit sinken oder Eure Müdigkeit\n\
+zu groß werden, so werdet Ihr in diesem\n\
+Spiel eine Zwangspause einlegen müssen\n\
+- Wie genau findet Ihr sicher\n\
+noch selbst heraus."

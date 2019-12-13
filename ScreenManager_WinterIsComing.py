@@ -33,7 +33,7 @@ class GuiVars:
     }
     #game window margin to screen size [pixels] 
     __xWMgn = 200  
-    __yWMgn = 0
+    __yWMgn = 200
     #color selection
     frClr = dictCP["Y4"]
     scrFg = dictCP["Y4"]
@@ -68,6 +68,7 @@ In its init, it binds to the Configure event."""
         self.config(width=self.width, height=self.height)
         # rescale all the objects tagged with the "all" tag
         self.scale("all",0,0,wscale,hscale)
+        #invokeTextScreenFontResize()
 
 class InputText(tk.Text):
     """Derived class from Text, with additional methods for text input handling.
@@ -278,7 +279,7 @@ class GameGui:
 
     def __init__(self):
         self.root = tk.Tk() #instantiate TKINTER (Gui package)
-        img = tk.PhotoImage(file='Noise.gif') #TEST, to be replaced with game title image
+        #img = tk.PhotoImage(file='Noise.gif') #TEST, to be replaced with game title image
         var = GuiVars() #variable container for gui setup
         self.root.title("Der Winter Naht")
         var.SetScrSize(int(self.root.winfo_screenwidth()), int(self.root.winfo_screenheight()))
@@ -290,16 +291,17 @@ class GameGui:
         canvas.pack(fill=tk.BOTH, expand=tk.YES)
         #Frames
         textScrFr = tk.Frame(canvas, bg=var.frClr, bd=var.frBdr)
-        gameScrFr = tk.Frame(textScrFr, bg="black", bd=var.frBdr)
+        #gameScrFr = tk.Frame(textScrFr, bg="black", bd=var.frBdr)
         invtScrFr = tk.Frame(canvas, bg=var.frClr, bd=var.frBdr)
         statsScrFr = tk.Frame(canvas, bg=var.frClr, bd=var.frBdr)
         inputScrFr = tk.Frame(canvas, bg=var.frClr, bd=var.frBdr)
         #Frame Pack
-        textScrFr.pack(anchor=tk.NW, fill=tk.BOTH, expand=tk.YES)
-        gameScrFr.pack(side=tk.RIGHT, fill=tk.BOTH, expand=tk.YES)
-        invtScrFr.pack(anchor=tk.S, side=tk.LEFT, fill=tk.X, expand=tk.YES)
-        statsScrFr.pack(anchor=tk.S, side=tk.LEFT, fill=tk.X, expand=tk.YES)
-        inputScrFr.pack(anchor=tk.S, side=tk.LEFT, fill=tk.X, expand=tk.YES)
+        textScrFr.pack(anchor=tk.W, side=tk.LEFT, fill=tk.BOTH, expand=tk.YES)
+        #gameScrFr.pack(side=tk.RIGHT, fill=tk.BOTH, expand=tk.YES)
+        invtScrFr.pack(anchor=tk.SW,side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
+        statsScrFr.pack(anchor=tk.SW,side=tk.TOP, fill=tk.X, expand=tk.NO)
+        inputScrFr.pack(anchor=tk.SW, side=tk.TOP, fill=tk.X, expand=tk.NO)
+
 
         #Screens   
         wid = textScrFr.winfo_id()
@@ -308,20 +310,20 @@ class GameGui:
                                      , insertontime=0\
                                      , bg=var.scrBg\
                                      , fg=var.scrFg\
-                                     , width=78\
-                                     , height=20\
+                                     , width=82\
+                                     , height=35\
                                      , padx=12\
                                      , pady=9)  
-        self.gameScreen = tk.Label(gameScrFr\
-                                , font=consts.GUI_FONT\
-                                , image=img\
-                                , width=var.scr_w/2\
-                                , height=var.scr_w*(9/32))
+        # self.gameScreen = tk.Label(gameScrFr\
+                                # , font=consts.GUI_FONT\
+                                # , image=img\
+                                # , width=var.scr_w/2\
+                                # , height=var.scr_w*(9/32))
         self.inventoryScreen = InventoryText(invtScrFr\
                                           , font=consts.GUI_FONT\
                                           , bg=var.scrBg\
                                           , fg=var.scrFg\
-                                          , width=25\
+                                          , width=4\
                                           , height=10\
                                           , padx=12\
                                           , pady=9)
@@ -345,9 +347,11 @@ class GameGui:
                                          , fg=var.scrFg\
                                          , pady=43)
         #Screen Pack
-        self.textScreen.pack(side = tk.LEFT, fill=tk.Y, expand=tk.YES)
-        self.gameScreen.pack(anchor = tk.CENTER, expand=tk.YES) 
-        self.inventoryScreen.pack(side = tk.BOTTOM, fill=tk.X, expand=tk.YES) 
-        self.statsScreen.pack(side = tk.LEFT, fill=tk.X, expand=tk.YES)  
-        self.inputScreen.pack(side = tk.LEFT, fill=tk.X, expand=tk.YES)
+        self.textScreen.pack(side = tk.LEFT, fill=tk.BOTH, expand=tk.YES)
+        #self.gameScreen.pack(anchor = tk.CENTER, expand=tk.YES) 
+        self.inventoryScreen.pack(side = tk.LEFT, fill=tk.BOTH, expand=tk.YES) 
+        self.statsScreen.pack(side = tk.LEFT, fill=tk.BOTH, expand=tk.YES)  
+        self.inputScreen.pack(side = tk.LEFT, fill=tk.BOTH, expand=tk.YES)
    
+    def invokeTextScreenFontResize(self):
+        print(self.textScrFr.width)
