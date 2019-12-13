@@ -268,7 +268,10 @@ class Item:
                 gui.textScreen.TypeWrite(GameMsg.ACTIONE)
 
     def GetType(self):
-        return self.__type             
+        return self.__type        
+    
+    def SetType(self, newType):
+        self.__type = newType
 
 class Player:
     def __init__(self, name, color, mod, position):
@@ -490,6 +493,7 @@ def checkLooseItem(triggerNumber):
             for item in listDeleteItems:
                 if item in dictInventory:
                     itemToDel = dictInventory[item]
+                    itemToDel.SetType(Mod_typ.NOTUSABLE)
                     gui.textScreen.TypeWrite(GameMsg.LOOSE + str(itemToDel.number) \
                                              + ": " + itemToDel.name + "\n")
                     itemToDel.DelItem()         

@@ -34,10 +34,9 @@ zeigt alle Details.\n",
 "Das Foto der Umgebungskarte.\n\
 Die Karte ist scharf und detailliert zu erkennen.\n",
     13 : \
-"Ein Standard Auto-Verbandkasten.\n\
-Nicht ganz klar, ob das jetzt bei einem Tagesausflug zu Fuß noch dem Credo\n\
-'Vorsicht ist die Mutter der Porzellankiste' entspricht oder glattweg\n\
-in die Schublade 'Panisch und übertrieben vorsichtig' fällt...\n",
+"Ein Fläschchen Entspannungsbad.\n\
+Es enthält eine grüne, ölige Flüssigkeit, die stark nach Nadelwald duftet.\n\
+Sehr angenehm.\n",
     14 : \
 "Wahnsinn, was Hunger im Einkaufsladen anrichten kann!\n\
 Eure Rucksäcke platzen fast vor Zutaten für eine wahre Picknick-Orgie.\n\
@@ -45,7 +44,8 @@ Wenn Ihr das alles esst, werdet Ihr wohl kaum weiterwandern wollen ;)\n",
     15 : \
 "Ein kleines Fläschchen Sonnencreme, das Ihr von zu Hause mitgenommen habt,\n\
 um in der Sonne nicht auszudörren wie Rosinen.\n", #bonus item
-    # 16 : Start bonus 2
+    16 : \
+"Euer Smartphone. Es hat noch genug Saft, um über den Tag zu kommen.\n",
     17 : \
 "Blütenblätter der Heckenrose. Einige Insektenarten hassen ihren Duft.\n",
     18 : \
@@ -85,6 +85,10 @@ entziffern, doch wird Euch klar, dass alle Mönche ein Schweigegelübde abgelegt
 haben und zudem ein Großteil von ihnen taubstumm sei. Sie lebten zurückgezogen\n\
 und seien sehr bedacht darauf, ihre Kultur der Enthaltsamkeit zu pflegen sowie\n\
 die Gemäuer, Anwesen und Gärten der Abtei zu pflegen.\n",
+    29 : \
+"Ein goldenes Smartphone, schon ziemlich mitgenommen. Sieht vielbenutzt aus.\n\
+Es ist eingeschaltet, aber per Gesichtserkennung gesichert.\n\
+Ihr gebt es am Besten bei einer öffentlichen Stelle ab.\n",
     100 : \
 "Eine Bahnstation in der tiefsten Eifel...\n\n",
     101 : \
@@ -364,28 +368,56 @@ gesagt? Und wie geht es jetzt weiter?\n",
 aus Sandstein, schwarz vor dem Nachthimmel mit ein paar erleuchteten Fenstern\n\
 im Erdgeschoss.\n",
     191 : \
-"Die Lobby",
+"Ihr betretet das Hotel und erkennt sofort, dass der Komplex viel größer ist,\n\
+als Euch die Gebäudefront glauben gemacht hatte. An der Rezeption geht es hoch\n\
+her, ein Gast scheint sich lautstark zu beschweren.\n",
     192 : \
-"Die Rezeption des Hotels. Ein langer Marmortisch, goldene Glocke,\n\
+"Die Rezeption des Hotels. Ein langer Marmortresen, goldene Glocke,\n\
 rote Teppiche, unter einer großen Uhr an der Wand ein Schlüsselbrett mit nur\n\
 noch einem goldenen Schlüssel.\n\
-Eine Übernachtung hier könnte Euch teuer kommen.\n\
+Auf einem Schild auf dem Tresen steht 'Heute ausgebucht'.\n\
 Alternativen tun sich für Euch auf den ersten Blick keine auf,\n\
 wenn Ihr nicht unbedingt Lust habt, bei den Mönchen der Abtei um ein Zimmer\n\
 für eine Nacht zu bitten.\n\
 Eine verunsichert wirkende junge Dame steht hinter der Rezeption.\n",
     193 : \
-"Ein aufdringlicher Gast",
+"Ein aufgebrachter Gast steht an der Rezeption. Er spricht so laut, dass Ihr\n\
+einen Teil der Konversation verstehen könnt. Es geht wohl um sein Handy, dass\n\
+ihm aus dem Zimmertresor gestohlen worden sein sei, dass er die Polizei rufen\n\
+wolle, wie das sein könne, dass das Hotelpersonal nichts bemerkt habe, und so\n\
+weiter...",
     194 : \
-"Eine auffällige Limousine",
+"Eine schwarze Limousine mit goldener Aufschrift 'Ophirias'. Darunter befindet\n\
+sich eine Telefonnummer. Das Fahrzeug steht direkt\n\
+vor dem Eingang des Hotels, wo eigentlich nicht geparkt werden darf.\n",
     195 : \
-"Ein Faxgerät",
+"Die Rezeptionistin blickt Euch etwas müde an. 'Ein Zimmer kann Ihnen jetzt\n\
+ja wieder anbieten', sagt sie mit düsterem Blick auf den Eingang des Hotels.\n\
+'Spa und Restaurant haben um diese Zeit schon geschlossen, aber ich kann Ihnen\n\
+eine kalte Platte hochbringen lassen.' Ihr willigt ein, der Preis ist Euch\n\
+inzwischen egal, Ihr wollt raus aus Euren Schuhen und bald ins Bett.\n",
     196 : \
-"Euer Zimmer",
+"Ein typisches Zimmer eines 4-Sterne-Hotels.\n\
+Auf einem kleinen Beistelltisch steht eine silberne Platte mit Häppchen.\n\
+Möchtet Ihr jetzt zu Abend essen und dann den Tag beenden?\n",
     197 : \
-"Frühstück!",
+"Das Bad ist mit einer großen Wanne ausgestattet.\n",
+    198 : \
+"Im großen Raum, angrenzend dem Empfangsraum gegenüber dem Aufzug befindet sich\n\
+der Speisesaal, aus dem es verführerisch duftet. Obwohl das Hotel ausgebucht\n\
+sein soll, seid ihr hier fast ungestört. Das Buffet ist reichhaltig und Ihr\n\
+schlagt Euch die Mägen genüsslich voll - so voll, dass Ihr Euch am liebsten\n\
+den Rest des Tages nicht mehr bewegen würdet.\n",
     200 : \
-"Es ist Sonntag Morgen und Euer langes Wanderwochenende kann weitergehen!\n",
+"Das erste Kapitel der Geschichte 'Der Winter Naht' endet hier.\n\
+Für weitere Kapitel gibt es bereits ein Konzept, aber das Ausarbeiten ist\n\
+verdammt viel Arbeit...\n\
+Bis eine spätere Version zur Verfügung steht, besucht das Projekt doch unter\n\
+https://github.com/Schallbert\n\
+Die Spielmechanik und das Kapitel1 von 'Der Winter Naht' sind unter\n\
+GPL als Open Source lizensiert und ich freue mich über engagierte Menschen,\n\
+die das Framework mit mir weiterentwickeln oder darauf basierend\n\
+eigene Stories schreiben.\n",
     210 : \
 "Die Teufelskanzel ist eine mehrere Meter hohe Felsklippe mitten im Wald.\n\
 Auf den Klippen wachsen mehrere Bäume (außerdem liegt ein umgefallener toter\n\
@@ -403,11 +435,8 @@ Gute Idee!\n"
 #Defines what happens on closer investigation or usage of an item
 dictAction = {
     13: \
-"Ihr beschließt, den Verbandkasten zu benutzen, um eure Wunden\n\
-und die eurer möglichen Begleiter zu versorgen. Das funktioniert prima!\n\
-(Euch ist natürlich klar, dass das jetzt nur einen Effekt hatte,\n\
-wenn Ihr auch wirklich verletzt wart. Sonst sieht es einfach nur albern aus,\n\
-in Rettungsdecke und mit Verbänden und Pflastern übersät herumzulaufen)\n",
+"Das Entspannungsbad einfach so auszukippen war jetzt aber kein so besonders\n\
+kluger Einfall von Euch.\n",
     14: \
 "Jetzt ein Picknick! Ihr lasst Euch auf der mitgebrachten Decke nieder und genießt\n\
 ein fürstliches Mahl in der Natur. Auch wenn Ihr jetzt wieder motivierter seid,\n\
@@ -583,6 +612,13 @@ in die falsche Richtung zu laufen. In der Senke findet es leider keine\n\
 Satelliten, sodass sich an Eurer Situation bis auf ein jetzt noch schwächerer\n\
 Handyakku nichts verändert hat. Vielleicht könnt Ihr ja den Wegweiser nutzen,\n\
 um zu sehen, welcher dieser Wege nun zur Abtei führt?\n",
+    183 : \
+"Ihr setzt Euch auf das Geländer des Kreuzganges, um Euch den Brunnen\n\
+aus der Nähe anzusehen. Der Innenhof ist mit kurzem, unnatürlich grün\n\
+wirkendem Gras bewachsen. Als Ihr Euren Blick schweifen lässt, entdeckt Ihr\n\
+auf der gegenüberliegenden Seite einen kleinen, rechteckigen Gegenstand,\n\
+der sich in diesem Licht kaum von ihm umgebenen Sandstein abhebt.\n\
+Ihr hebt den Gegenstand auf, um ihn genauer zu begutachten.\n",
     184 : \
 "Der Abend dämmert bereits und Ihr besucht den Waldfriedhof. Ihr hört einen\n\
 ersten Kauz sein sanftes 'Schuhuuu' singen und wollt gerade die Grabsteine\n\
@@ -621,6 +657,41 @@ In Eurer Verzweiflung sucht Ihr den Raum genau ab.\n\
 Wie könnt Ihr Euch bemerkbar machen?\n\
 Als Ihr Euch die Tür nochmal genau anschaut, bemerkt Ihr, dass zwischen zwei\n\
 Dielen ein Spalt ist, durch den man durchsehen kann.\n",
+    193 : \
+"Ihr geht auf die Rezeption zu. Der Mann steht noch immer davor und schimpft\n\
+mit der Rezeptionistin, die, den Tränen nahe, gerade zum Telefon greift, um\n\
+den Hoteldirektor aus dem Bett zu klingeln. Der Mann hat inzwischen sein Sakko\n\
+geöffnet, denn seine Tirade scheint ihn ins Schwitzen zu bringen.\n\
+Das Futter des Sakkos ist golden, genau wie die Nadelstreifen außen.\n\
+In der Innentasche steckt ein Zettel mit Aufschrift 'Edelmetalle O....'\n",
+    196 : \
+"Ihr macht euch Bettfertig und wollt Euch schon hinlegen, als Ihr Euch erinnert,\n\
+dass das Smartphone leer ist. Ihr stopft es an sein Ladegerät.\n\
+Noch bevor ihr den Tag habt Revue passieren lassen,\n\
+schlaft Ihr bereits tief und fest.\n",
+    29193 : \
+"Ihr unterbrecht den Mann in seiner Wut mit einem vorsichtigen 'Entschuldigung'.\n\
+Sichtlich verwirrt dreht er sich um und seine Mine verfinstert sich bei Eurem\n\
+Anblick. 'Ich bin hier noch nicht...', sagt er, unterbricht sich aber, als Ihr\n\
+Ihm das Handy unter die Nase haltet. Es entsperrt sich sofort von selber und\n\
+auf dem Bildschirm könnt Ihr lesen: 'Edelmetalle Ophirias'.\n\
+Euer gegenüber scheint mit Wut, Erleichterung und Verlegenheit zu ringen, als\n\
+er das Handy entgegennimmt. Die Rezeptionistin wirft kühl ein:\n\
+'Also doch verloren gegangen, das Handy. Ihr Zimmer have ich\n\
+jetzt aber schon storniert.\n\
+Ohne ein Wort schreitet der Mann durch die Lobby und verlässt das Hotel.\n", 
+    197 : \
+"Du lässt Dir ein heißes Bad ein. Tut das gut!.\n\
+Nun bist Du aber endgültig reif für's Bett ;)\n",
+    13197: \
+"Aah, ein Entspannungsbad am späten Abend! Du Lässt Dir ein Bad ein und fügst\n\
+die grüne Flüssigkeit hinzu. Es schäumt. Sehr. Wundervoll!\n\
+Jetzt kannst Du sicher gut schlafen.\n",
+#    13xxx: \
+#"Ihr öffnet das Fläschchen und verteilt den Inhalt auf Eurer Haut - als wäre es\n\
+#Sonnencreme. Ihr duftet jetzt so stark nach Tanne, dass nichts und Niemand\\
+#Euren Körpergeruch wahrnehmen kann. Auch dieser Hund nicht.\n\
+#Sichtlich irritiert wendet er sich von Euch ab und geht zurück in seine Hütte.\n",
     15123 : \
 "Whow, ihr seid aber gut vorbereitet! Zack, Mückenspray auf Mücken angewendet -\n\
 gut, es mag unkonventionell sein, sich nicht selbst damit einzureiben -\n\
@@ -698,7 +769,19 @@ und die Tür einen Spalt breit geöffnet. Schnell drückt Ihr die Tür weiter au
 und schaut in das freundliche Gesicht eines alten Herren. Er bleibt stumm, als\n\
 Ihr ihn ansprecht. Mit seinen Händen bedeutet er Euch,\n\
 dass er Euch nicht hören kann, und dass Ihr herzlich eingeladen seid,\n\
-zu bleiben - aber auch gehen könnt, wenn Ihr mögt.\n"
+zu bleiben - aber auch gehen könnt, wenn Ihr mögt.\n",
+    10194 : \
+"Mit letzter Kraft des Handyakkus ruft Ihr die auf dem Fahrzeug angebrachte\n\
+Telefonnummer an. Eine elektronische Stimme meldet sich mit '24h-Service der\n\
+Firma Ophirias Edelmetalle' und fragt, mit welcher Abteilung Ihr verbunden\n\
+werden möchtet. Ihr entscheidet Euch für den Menüpunkt\n\
+'Lieferung nicht erhalten' und gebt falsche Kundendaten an.\n\
+                                                  \n\
+Kurz darauf erscheint ein offensichtlich verärgerter Mann in auffälligem Sakko\n\
+mit einem Zettel in der Hand im Hoteleingang, steigt in die Limousine und\n\
+braust davon.\n\
+Keine besonders nette Art, jemanden aus dem Weg zu räumen. Aber der Zweckt\n\
+heiligt manchmal die Mittel, nech?\n",
     }
     
 #Defines room number and names
@@ -734,12 +817,14 @@ dictConnectedRooms = {
     12175: [180],\
     12176: [180],\
     12180: [180],\
-    180 : [190, 200],\
-    185 : [-190, -200],\
+    180 : [190, -200],\
+    185 : [-190],\
     187 : [200],\
     188 : [190],\
-    190 : [180, 200],\
-    200 : [210, 220],\
+    195 : [-180],\
+    196 : [200],\
+    190 : [180, -200],\
+    200 : [],\
     }
 
 #Defines spot number and names. Negative numbers are hidden spots
@@ -802,25 +887,17 @@ dictSpots = {
     192 : "Rezeption",\
     193 : "Ein aufdringlicher Gast",\
     194 : "Eine auffällige Limousine",\
-    195 : "Ein Faxgerät",\
+    -195 : "Die Rezeptionistin",\
     -196 : "Euer Zimmer",\
-    -197 : "Frühstück!",\
+    -197 : "Die Badewanne",\
+    -198 : "Frühstück!",\
     }
 
 #Defines what happens if a closer investigation of spot is refused
 dictActionRefused = {
     # TODO
     }
-
-#Action type of the spot when visited
-#yields:
-#101 11
-#105 12
-#112 17
-#114 18
-#125 21
-#128 19, 22
-#Spots that are not mentioned here, don't have an "advanced" action
+    
 dictActionType = {
     101 : Action_id.VIEW,\
     102 : Action_id.NOC_YES,\
@@ -853,11 +930,16 @@ dictActionType = {
     175 : Action_id.GOTO,\
     176 : Action_id.GOTO,\
     180 : Action_id.GOTO,\
+    183 : Action_id.VIEW,\
     184 : Action_id.GOTO,\
     185 : Action_id.OPEN,\
     186 : Action_id.VIEW,\
     187 : Action_id.NOC_YES,\
     190 : Action_id.VIEW,\
+    193 : Action_id.VIEW,\
+    196 : Action_id.USE,\
+    197 : Action_id.USE,\
+    198 : Action_id.NOC_YES,\
     }    
 
 #Defines how spots are connected to items   
@@ -874,7 +956,9 @@ dictSpotItems = {
     1719 : [20],\
     174 : [25],\
     172 : [26],\
-    186 : [27]\
+    183 : [29],\
+    186 : [27],\
+    196 : [16],\
     }
 
 #Defines which spots can change through interaction
@@ -892,19 +976,24 @@ dictSpotChange = {
     12180: [-174, -175, -176],\
     185 : [-181, -182, -183, -184, -185, 186, 187, 189],\
     189 : [188],\
-    187 : [-186]\
+    187 : [-186],\
+    29193 : [-193, -194, 195],\
+    10194 : [-193, -194, 195],\
+    195 : [196, 197],\
+    196 : [198],\
     }
 
 #Defines item number and names
 #bonus items (ask player) TODO IMPLEMENT
 #15
 dictItems = {
-    10 : "Ein Smartphone",\
+    10 : "Ein Smartphone, fast leer",\
     11 : "Unleserliches Foto der Umgebungskarte",\
     12 : "Leserliches Foto der Umgebungskarte",\
-    13 : "Ein Verbandkasten",\
+    13 : "Ein Fläschchen Entspannungsbad",\
     14 : "Eine ordentliche Mahlzeit",\
     15 : "Sonnencreme",\
+    16 : "Ein Smartphone",\
     17 : "Duftende Blütenblätter",\
     18 : "Eine Handvoll Brombeeren",\
     19 : "Sprühflasche",\
@@ -916,6 +1005,7 @@ dictItems = {
     25 : "Abgebrochener Wegweiser",\
     26 : "Etwas Kleingeld",\
     27 : "Ein Notizzettel",\
+    29 : "Ein goldenes Smartphone",\
     }
 
 #Items that are deleted when player triggers action.  
@@ -923,6 +1013,8 @@ dictItemDelete = {
     122 : [18, 22],\
     161 : [15],\
     180 : [25],\
+    187 : [10,17,18,19,20,27],\
+    196 : [10,17,18,19,20,27,29],\
     }
 
 #Defines item modifiers
@@ -930,8 +1022,8 @@ dictItemDelete = {
 dictMods = {
     11 : [0,-1],\
     12 : [1,1],\
-    13 : [3,-1],\
-    14 : [5,-2],\
+    13 : [-1,0],\
+    14 : [3,-1],\
     15 : [2,0],\
     18 : [2,0],\
     104 : [0,-1],\
@@ -950,7 +1042,13 @@ dictMods = {
     176 : [-1,-2],\
     184 : [-2,0],\
     185 : [-2,-1],\
-    187 : [1,6],\
+    187 : [1,4],\
+    197 : [1,-1],\
+    196 : [1,6],\
+    13197 : [5,-2],\
+    198 : [5,-1],\
+    29193 : [1,0],\
+    10194 : [-2,0],\
     }
 
 dictModType = {
@@ -959,6 +1057,7 @@ dictModType = {
     13 : Mod_typ.EFFALL,\
     14 : Mod_typ.EFFALL,\
     15 : Mod_typ.EFFALL,\
+    16 : Mod_typ.PERMANENT,\
     18 : Mod_typ.EFFONE,\
     104 : Mod_typ.EFFONE,\
     103 : Mod_typ.EFFONE,\
@@ -974,7 +1073,13 @@ dictModType = {
     176 : Mod_typ.EFFALL,\
     184 : Mod_typ.EFFALL,\
     185 : Mod_typ.EFFALL,\
-    24163 : Mod_typ.EFFALL\
+    13197 : Mod_typ.EFFONE,\
+    196 : Mod_typ.EFFALL,\
+    197 : Mod_typ.EFFONE,\
+    198 : Mod_typ.EFFALL,\
+    24163 : Mod_typ.EFFALL,\
+    29193 : Mod_typ.EFFALL,\
+    10194 : Mod_typ.EFFALL,\
     }
 
 dictModsRefused = {
