@@ -89,6 +89,11 @@ die Gemäuer, Anwesen und Gärten der Abtei zu pflegen.\n",
 "Ein goldenes Smartphone, schon ziemlich mitgenommen. Sieht vielbenutzt aus.\n\
 Es ist eingeschaltet, aber per Gesichtserkennung gesichert.\n\
 Ihr gebt es am Besten bei einer öffentlichen Stelle ab.\n",
+    98 : \
+"Eine Scheibe Graubrot, dick mit Butter bestrichen und reichlich belegt mit\n\
+schwarzwälder Schinken.\n",
+    99 : \
+"Eine Scheibe Graubrot. Belegt mit Remoulade und Ei, gesalzen und gepfeffert.\n",
     100 : \
 "Eine Bahnstation in der tiefsten Eifel...\n\n",
     101 : \
@@ -1004,6 +1009,8 @@ dictItems = {
     26 : "Etwas Kleingeld",\
     27 : "Ein Notizzettel",\
     29 : "Ein goldenes Smartphone",\
+    98 : "Ein belegtes Brot mit Schinken",\
+    99 : "Ein belegtes Brot mit Ei",\
     }
 
 #Items that are deleted when player triggers action.  
@@ -1148,7 +1155,7 @@ interagieren könnt. Des Weiteren gibt es Gegenstände im Spiel, die Ihr sammeln
 benutzen oder mit Orten kombinieren könnt, um das Spiel voranzubringen.\n\
 Selten habt Ihr nur eine Möglichkeit der Interaktion, deswegen wird sich die\n\
 Handlung bei jedem Durchlauf basierend auf Euren Entscheidungen unterscheiden.\n"
-    NUMBERS = "Der lange Strich '__-___' eben war ein Ladebalken, der Euch anzeigen soll,\n\
+    NUMBERS = "Der lange Strich '______' eben war ein Ladebalken, der Euch anzeigen soll,\n\
 dass der Bildschirminhalt bald gelöscht wird und eine neue Runde beginnt.\n\
         \n\
 Diser Bildschirm zeigt Euch alle wichtigen Informationen zu Räumen, Orten\n\
@@ -1198,20 +1205,12 @@ Ort oder sogar ein Raum zeigt, den Ihr vorher noch nicht als 'in Reichweite'\n\
 auf dem Hauptbildschirm sehen konntet.                                     \n\
 \n\
 So, genug geschwafelt. Fangt einfach mal an!\n"
-    INVSCR = "Auf diesem Bildschirm wird Euer\n\
+    INVSCR = "\nAuf diesem Bildschirm wird Euer\n\
 gemeinsames Inventar angezeigt.\n\
 Ihr könnt die Gegenstände benutzen\n\
 oder untersuchen, indem Ihr ihre\n\
 Nummern im Eingabefeld angebt und mit\n\
-<Enter> bestätigt. Ansonsten eignen\n\
-sich viele Gegenstände für\n\
-Kombinationen mit Orten. Ganz einfach!"
-    STATSCR = "Hier wird Euer Spielerstatus\n\
+<Enter> bestätigt.\n"
+    STATSCR = "\nHier wird Euer Spielerstatus\n\
 angezeigt. Attribute in diesem Spiel:\n\
-Müdigkeit und Motivation.\n\
-Sollte Euer Motivationsniveau\n\
-zu weit sinken oder Eure Müdigkeit\n\
-zu groß werden, so werdet Ihr in diesem\n\
-Spiel eine Zwangspause einlegen müssen\n\
-- Wie genau findet Ihr sicher\n\
-noch selbst heraus."
+Müdigkeit und Motivation. \n"

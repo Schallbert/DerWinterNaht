@@ -170,6 +170,17 @@ Offers public function Update that takes the player list to output the player's 
             self.update()
         self.after(consts.GUI_WAIT_UPDATE)
         self.__Deactivate()
+    
+    def TypeWrite(self, text):
+        self.__Activate()
+        self.__TypeWrite(text)
+        self.__Deactivate()
+
+    def __TypeWrite(self, text):
+        for text in text:
+            self.insert(tk.INSERT, text)
+            self.update()
+            self.after(consts.GUI_TYPEWRITE_WAIT)
 
     def __GetModColor(self, mod):
         if mod > 5 :
@@ -208,6 +219,17 @@ Offers public function Update that takes the inventory dict to present its conte
             self.insert(str(cnt)+'.0', str(key) + "    " + val.name + "\n")
         self.after(consts.GUI_WAIT_UPDATE)
         self.__Deactivate()
+        
+    def TypeWrite(self, text):
+        self.__Activate()
+        self.__TypeWrite(text)
+        self.__Deactivate()
+
+    def __TypeWrite(self, text):
+        for text in text:
+            self.insert(tk.INSERT, text)
+            self.update()
+            self.after(consts.GUI_TYPEWRITE_WAIT)
 
     def __Activate(self):
         self.config(state=tk.NORMAL)
@@ -239,11 +261,6 @@ class OutputText(tk.Text):
         self.update()
         self.__Deactivate()
 
-    def TypeWrite(self, text):
-        self.__Activate()
-        self.__TypeWrite(text)
-        self.__Deactivate()
-
     def NameWrite(self, player):
         self.__Activate()
         self.update()
@@ -257,6 +274,11 @@ class OutputText(tk.Text):
         self.__TypeWrite(plName)
         self.tag_add(self.__nrOfTags, tagNameS, tagNameE)
         self.tag_config(self.__nrOfTags, foreground=player.GetColor(), font=consts.GUI_BOLD)
+        self.__Deactivate()
+    
+    def TypeWrite(self, text):
+        self.__Activate()
+        self.__TypeWrite(text)
         self.__Deactivate()
 
     def __TypeWrite(self, text):
