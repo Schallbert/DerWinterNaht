@@ -1,4 +1,7 @@
 import tkinter as tk
+import threading
+import imageio
+from PIL import Image, ImageTk
 from Enums_WinterIsComing import cmd_inpt
 from Enums_WinterIsComing import consts
 
@@ -297,50 +300,49 @@ class OutputText(tk.Text):
         self.config(bg=GuiVars.dictCP["B1"])
         self.config(state=tk.DISABLED)
 
-class GameGui:
+class GameGui(tk.Tk):
 
     def __init__(self):
-        self.root = tk.Tk() #instantiate TKINTER (Gui package)
-        #img = tk.PhotoImage(file='Noise.gif') #TEST, to be replaced with game title image
-        var = GuiVars() #variable container for gui setup
-        self.root.title("Der Winter Naht")
-        var.SetScrSize(int(self.root.winfo_screenwidth()), int(self.root.winfo_screenheight()))
+        tk.Tk.__init__(self)
+        self.withdraw()
+        splash = Splash(self)
+        
+        #Display splash video
+        splash = Splash(self) #call splash "loading" image
+        splash.overrideredirect(True)
+        splash.PlayVideo()
 
+        # Setup main window and widgets     
+        var = GuiVars() #variable container for gui setup
+        self.title("Der Winter Naht")
+        var.SetScrSize(int(self.winfo_screenwidth()), int(self.winfo_screenheight()))
+        
         #Canvas
-        myframe = tk.Frame(self.root)
+        myframe = tk.Frame(self)
         myframe.pack(fill=tk.BOTH, expand=tk.YES)
         canvas = ResizingCanvas(myframe,width=var.scr_w, height=var.scr_w, bg="black")
         canvas.pack(fill=tk.BOTH, expand=tk.YES)
         #Frames
         textScrFr = tk.Frame(canvas, bg=var.frClr, bd=var.frBdr)
-        #gameScrFr = tk.Frame(textScrFr, bg="black", bd=var.frBdr)
         invtScrFr = tk.Frame(canvas, bg=var.frClr, bd=var.frBdr)
         statsScrFr = tk.Frame(canvas, bg=var.frClr, bd=var.frBdr)
         inputScrFr = tk.Frame(canvas, bg=var.frClr, bd=var.frBdr)
         #Frame Pack
         textScrFr.pack(anchor=tk.W, side=tk.LEFT, fill=tk.BOTH, expand=tk.YES)
-        #gameScrFr.pack(side=tk.RIGHT, fill=tk.BOTH, expand=tk.YES)
         invtScrFr.pack(anchor=tk.SW,side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
         statsScrFr.pack(anchor=tk.SW,side=tk.TOP, fill=tk.X, expand=tk.NO)
         inputScrFr.pack(anchor=tk.SW, side=tk.TOP, fill=tk.X, expand=tk.NO)
-
-
+        
         #Screens   
         wid = textScrFr.winfo_id()
         self.textScreen = OutputText(textScrFr\
                                      , font=consts.GUI_FONT\
-                                     , insertontime=0\
-                                     , bg=var.scrBg\
                                      , fg=var.scrFg\
-                                     , width=82\
+                                     , bg=var.scrBg\
+                                     , width=85\
                                      , height=35\
                                      , padx=12\
                                      , pady=9)  
-        # self.gameScreen = tk.Label(gameScrFr\
-                                # , font=consts.GUI_FONT\
-                                # , image=img\
-                                # , width=var.scr_w/2\
-                                # , height=var.scr_w*(9/32))
         self.inventoryScreen = InventoryText(invtScrFr\
                                           , font=consts.GUI_FONT\
                                           , bg=var.scrBg\
@@ -370,10 +372,47 @@ class GameGui:
                                          , pady=43)
         #Screen Pack
         self.textScreen.pack(side = tk.LEFT, fill=tk.BOTH, expand=tk.YES)
-        #self.gameScreen.pack(anchor = tk.CENTER, expand=tk.YES) 
         self.inventoryScreen.pack(side = tk.LEFT, fill=tk.BOTH, expand=tk.YES) 
         self.statsScreen.pack(side = tk.LEFT, fill=tk.BOTH, expand=tk.YES)  
         self.inputScreen.pack(side = tk.LEFT, fill=tk.BOTH, expand=tk.YES)
+        
+        #finished loading so destroy splash
+        splash.destroy()
+        #Show main window
+        self.deiconify()
+    
+            
+class Splash(tk.Toplevel):
+    def __init__(self, parent):
+        tk.Toplevel.__init__(self, parent)
+        self.myFrame = tk.Frame(self)
+        self.myFrame.pack(anchor=tk.CENTER, fill=tk.BOTH, expand=tk.YES)
+        self.videoScreen = tk.Label(self.myFrame\
+                                    ,width=600\
+                                    ,height=400)
+        self.videoScreen.pack(anchor=tk.CENTER, expand=tk.NO) 
+      
+        
+    def PlayVideo(self):
+        video_name = "SplashTitle.mp4" #This is your video file path
+        self.video = imageio.get_reader(video_name)
+        #thread = threading.Thread(target=self.stream)
+        #thread.daemon = 1
+        #thread.start()
+        self.stream()
+        
+    def stream(self):
+        for image in self.video.iter_data():
+                frame_image = ImageTk.PhotoImage(Image.fromarray(image))
+                self.videoScreen.config(image=frame_image)
+                self.videoScreen.image = frame_image
+                self.videoScreen.update()
+
    
-    def invokeTextScreenFontResize(self):
-        print(self.textScrFr.width)
+def invokeTextScreenFontResize(self):
+    print(self.textScrFr.width)
+        
+
+#if __name__ == "__main__":
+#    gui = GameGui()
+#    gui.mainloop()
