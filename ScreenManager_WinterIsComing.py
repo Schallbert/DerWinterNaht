@@ -43,9 +43,9 @@ class GuiVars:
     scrBg = dictCP["B1"]
     frBdr = 2 #pixels, looks nice ;)
 
-    def SetScrSize(self, w, h):
-        self.scr_w = w-self.__xWMgn
-        self.scr_h = h-self.__yWMgn
+    def setGameGuiSize(self, varWidHeight):
+        self.scr_w = varWidHeight[0]-self.__xWMgn
+        self.scr_h = varWidHeight[1]-self.__yWMgn
 
 # ------------------------------------
 # CLASSES
@@ -305,17 +305,16 @@ class GameGui(tk.Tk):
     def __init__(self):
         tk.Tk.__init__(self)
         self.withdraw()
-        splash = Splash(self)
         
-        #Display splash video
-        splash = Splash(self) #call splash "loading" image
-        splash.overrideredirect(True)
-        splash.PlayVideo()
-
-        # Setup main window and widgets     
         var = GuiVars() #variable container for gui setup
+        screenSize= [int(self.winfo_screenwidth()), int(self.winfo_screenheight())]
+        var.setGameGuiSize(screenSize)
+        #Display splash video
+        splash = Splash(screenSize) #call splash "loading" image
+        print("Hello")
+        
+        # Setup main window and widgets     
         self.title("Der Winter Naht")
-        var.SetScrSize(int(self.winfo_screenwidth()), int(self.winfo_screenheight()))
         
         #Canvas
         myframe = tk.Frame(self)
@@ -383,22 +382,22 @@ class GameGui(tk.Tk):
     
             
 class Splash(tk.Toplevel):
-    def __init__(self, parent):
-        tk.Toplevel.__init__(self, parent)
+    def __init__(self, screenSize):
+        width = 540
+        height = 314
+        tk.Toplevel.__init__(self, width=width, height=height)
         self.myFrame = tk.Frame(self)
-        self.myFrame.pack(anchor=tk.CENTER, fill=tk.BOTH, expand=tk.YES)
-        self.videoScreen = tk.Label(self.myFrame\
-                                    ,width=600\
-                                    ,height=400)
-        self.videoScreen.pack(anchor=tk.CENTER, expand=tk.NO) 
-      
+        self.myFrame.pack(anchor=tk.CENTER, fill=tk.BOTH, expand=tk.NO)
+        self.videoScreen = tk.Label(self.myFrame, width=width, height=height)
+        centerCoordinates = [screenSize[0]/2 - width/2, screenSize[1]/2 - height/2]
+        self.geometry("+%d+%d" % (centerCoordinates[0], centerCoordinates[1]))
+        self.videoScreen.pack(anchor=tk.CENTER, expand=tk.NO)
+        self.overrideredirect(True)
+        self.PlayVideo()
         
     def PlayVideo(self):
-        video_name = "SplashTitle.mp4" #This is your video file path
+        video_name = "SplashScreen.mp4" #This is the splash video file path
         self.video = imageio.get_reader(video_name)
-        #thread = threading.Thread(target=self.stream)
-        #thread.daemon = 1
-        #thread.start()
         self.stream()
         
     def stream(self):
@@ -406,8 +405,8 @@ class Splash(tk.Toplevel):
                 frame_image = ImageTk.PhotoImage(Image.fromarray(image))
                 self.videoScreen.config(image=frame_image)
                 self.videoScreen.image = frame_image
+                self.videoScreen.update_idletasks()
                 self.videoScreen.update()
-
    
 def invokeTextScreenFontResize(self):
     print(self.textScrFr.width)

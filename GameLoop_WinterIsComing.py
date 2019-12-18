@@ -9,7 +9,7 @@ import time
 resp = 3
 while resp > 1:
     ctrStr = " "*23
-    ctBlanks = 25
+    ctBlanks = 3
     gui.textScreen.Clear()
     i = 0
     while i < ctBlanks:
