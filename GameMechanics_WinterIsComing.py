@@ -31,6 +31,7 @@ class Room:
         if not self.__roomList: #list is empty
             self.__roomBuilder(self.number)
         checkLooseItem(self.number)
+        gui.audioStream.play(self.number)
         
     def ReloadRoom(self):
         """This function re-writes the GUI with current room info, available spots
@@ -509,7 +510,7 @@ def playerAction_Selector():
     elif plAction == cmd_inpt.QUIT:
         #player wants to quit
         gui.textScreen.TypeWrite(GameMsg.SVQT)
-        GameStats.Quit(gui.root)
+        GameStats.Quit(gui)
     else: 
         actionHandler(plAction)
 

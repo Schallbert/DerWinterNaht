@@ -15,6 +15,7 @@ class GameStats:
     #----------------------------------------------
     @classmethod
     def Quit(cls, guiRoot):
+        guiRoot.audioStream.end()
         guiRoot.quit() #First end the gui's bindings
         guiRoot.destroy() #Then close gui
         sys.exit() #finally, exit program.

@@ -990,7 +990,7 @@ dictSpotChange = {
 
 #Defines item number and names
 dictItems = {
-    10 : "Ein Smartphone, fast leer",\
+    10 : "Ein Smartphone, Akku fast leer",\
     11 : "Unleserliches Foto der Umgebungskarte",\
     12 : "Leserliches Foto der Umgebungskarte",\
     13 : "Ein Fläschchen Entspannungsbad",\

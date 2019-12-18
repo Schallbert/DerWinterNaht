@@ -1,9 +1,11 @@
 import tkinter as tk
 import threading
 import imageio
+from pygame import mixer as mix
 from PIL import Image, ImageTk
 from Enums_WinterIsComing import cmd_inpt
 from Enums_WinterIsComing import consts
+from Enums_WinterIsComing import sounds
 
 
 # Window/helper classes
@@ -250,12 +252,21 @@ class OutputText(tk.Text):
     def __init__(self,parent,**kwargs):
         tk.Text.__init__(self,parent,**kwargs)
         self.__nrOfTags = 0
+        self.__BindToKey('<space>')
+        
+    def __BindToKey(self, key):
+        #bind self to event "space", calling function
+        #to draw text more quickly on this screen
+        self.bind(key, \
+                  lambda event, \
+                  : consts.shortenWaits()) #reduce typing speed
        
     def Clear(self):
         self.__Activate()
         self.delete('1.0', tk.END)
         self.__nrOfTags = 0
         self.__Deactivate()
+        consts.normalWaits() #extend typing speed to normal
 
     def LineWrite(self, text):
         self.__Activate()
@@ -311,7 +322,6 @@ class GameGui(tk.Tk):
         var.setGameGuiSize(screenSize)
         #Display splash video
         splash = Splash(screenSize) #call splash "loading" image
-        print("Hello")
         
         # Setup main window and widgets     
         self.title("Der Winter Naht")
@@ -336,6 +346,7 @@ class GameGui(tk.Tk):
         wid = textScrFr.winfo_id()
         self.textScreen = OutputText(textScrFr\
                                      , font=consts.GUI_FONT\
+                                     , insertontime=0\
                                      , fg=var.scrFg\
                                      , bg=var.scrBg\
                                      , width=85\
@@ -344,6 +355,7 @@ class GameGui(tk.Tk):
                                      , pady=9)  
         self.inventoryScreen = InventoryText(invtScrFr\
                                           , font=consts.GUI_FONT\
+                                          , insertontime=0\
                                           , bg=var.scrBg\
                                           , fg=var.scrFg\
                                           , width=4\
@@ -352,6 +364,7 @@ class GameGui(tk.Tk):
                                           , pady=9)
         self.statsScreen = StatusText(statsScrFr\
                                       , font=consts.GUI_FONT\
+                                      , insertontime=0\
                                       , bg=var.scrBg\
                                       , fg=var.scrFg\
                                       , width=40\
@@ -374,7 +387,7 @@ class GameGui(tk.Tk):
         self.inventoryScreen.pack(side = tk.LEFT, fill=tk.BOTH, expand=tk.YES) 
         self.statsScreen.pack(side = tk.LEFT, fill=tk.BOTH, expand=tk.YES)  
         self.inputScreen.pack(side = tk.LEFT, fill=tk.BOTH, expand=tk.YES)
-        
+        self.audioStream = Audio()
         #finished loading so destroy splash
         splash.destroy()
         #Show main window
@@ -407,10 +420,31 @@ class Splash(tk.Toplevel):
                 self.videoScreen.image = frame_image
                 self.videoScreen.update_idletasks()
                 self.videoScreen.update()
-   
+
 def invokeTextScreenFontResize(self):
     print(self.textScrFr.width)
-        
+  
+class Audio():
+    def __init__(self):
+        mix.init()
+        self.currentlyPlayingId = 0
+    
+    def play(self, itemNr):
+        if itemNr in sounds.dictMusic:
+            if not self.currentlyPlayingId == itemNr: #requested song is already playing
+                if mix.get_busy(): #mixer currently playing
+                    mix.music.fadeout(2000) #fadeout current song
+                self.currentlyPlayingId =itemNr
+                mix.music.load(sounds.dictMusic[itemNr])
+                mix.music.play(loops=-1) #loop indefinetely
+            else:
+                pass #requested song is already playing
+        else:
+            mix.music.fadeout(2000) #no song requested
+    
+    def end(self):
+        mix.music.stop()
+        mix.quit()
 
 #if __name__ == "__main__":
 #    gui = GameGui()

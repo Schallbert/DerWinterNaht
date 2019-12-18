@@ -9,19 +9,15 @@ import time
 resp = 3
 while resp > 1:
     ctrStr = " "*23
-    ctBlanks = 3
     gui.textScreen.Clear()
-    i = 0
-    while i < ctBlanks:
-        gui.textScreen.TypeWrite("             \n")
-        i = i+1
+    gui.textScreen.TypeWrite("\n\n\n\n")
     gui.textScreen.TypeWrite(ctrStr + "-----------Hauptmenü------------\n\n")
     gui.textScreen.LineWrite(ctrStr + "Bitte eingeben:   <Wert> <Enter>\n")
     gui.textScreen.LineWrite(ctrStr + "Spiel fortsetzen:     0\n")
     gui.textScreen.LineWrite(ctrStr + "Neues Spiel beginnen: 1\n")
     gui.textScreen.LineWrite(ctrStr + "Regeln und Tutorial:  2\n")
     gui.textScreen.LineWrite(ctrStr + "Credits:              3\n")
-    gui.textScreen.LineWrite(ctrStr + "Spiel beenden:     quit\n")
+    gui.textScreen.LineWrite(ctrStr + "Spiel beenden:     quit\n\n")
     resp = gui.inputScreen.GetInput()
     if resp == 0: #continue game
         try:
@@ -62,9 +58,10 @@ while resp > 1:
         gui.textScreen.TypeWrite(GameMsg.LOADING)   
     elif resp == 3: #credits
         gui.textScreen.TypeWrite("\n\n\n\n" + ctrStr + "Das alles hier: Lukas P. 'Schallbert'")
+        gui.textScreen.TypeWrite(GameMsg.LOADING)
     else:
         gui.textScreen.TypeWrite(GameMsg.QUIT)
-        GameStats.Quit(gui.root)
+        GameStats.Quit(gui)
 
 #gui preparation
 GameStats.GetCurrentRoom().OnEnter()
