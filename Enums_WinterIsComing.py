@@ -30,6 +30,10 @@ class Mod_typ():
 class cmd_inpt():
     UNKNOWN = 0
     QUIT = -1
+    
+class playermod():
+    CURRMOD = 0
+    LASTMOD = 1
 
 
 class consts():

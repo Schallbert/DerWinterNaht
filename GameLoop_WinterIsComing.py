@@ -39,7 +39,7 @@ while resp > 1:
             gui.statsScreen.Update(GameStats.GetListPlayers())
         else:
             gui.textScreen.TypeWrite(GameMsg.QUIT)
-            GameStats.Quit(gui.root)
+            GameStats.Quit(gui)
     elif resp == 2: #tutorial
         mockPlayer = Player("Spieler", 'white', [7,4], 0)
         gui.textScreen.Clear()

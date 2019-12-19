@@ -1,6 +1,7 @@
 from tkinter import *
 #import datetime
-import time
+#import time
+import copy
 
 #Import data structures   
 from TextData_WinterIsComing import *
@@ -280,6 +281,7 @@ class Player:
         self.__name = name
         self.__color = color
         self.__mod = mod
+        self.__lastMod = mod
         self.__gameOverWarn = False
 
     def GetName(self):
@@ -291,14 +293,20 @@ class Player:
     def GetPos(self):
         return self.__position
 
-    def GetMod(self):
-        return self.__mod
+    def GetMod(self, modVar):
+        if modVar == playermod.CURRMOD:
+            return self.__mod
+        elif modVar == playermod.LASTMOD:
+            return self.__lastMod
+        else:
+            pass
 
     def GetColor(self):
         return self.__color
 
     def ChangeMod(self, valueList):
         maxMod = [10, 10]
+        self.__lastMod = copy.copy(self.__mod) #list is mutable so "=" will not work
         for i in range(0, len(self.__mod)):
             self.__mod[i] = self.__mod[i] + valueList[i]
             if self.__mod[i] > maxMod[i]:
@@ -311,17 +319,15 @@ class Player:
                                      + GameMsg.CHMOD[1] + str(-1*valueList[1]) + "\n")
         gui.statsScreen.Update(GameStats.GetListPlayers())
         #check for "gameover" criterium Motivation
-        if self.__mod[0] <= 1: #motivation is very low
+        if self.__mod[0] <= 1: #motivation is v ery low
             if self.__gameOverWarn == True:
                 #player has been warned and is still unmotivated: end game!
                 gui.textScreen.TypeWrite(GameMsg.UNMOT_END)
                 gui.textScreen.TypeWrite(GameMsg.SVQT)
-                GameStats.Quit(gui.root)
+                GameStats.Quit(gui)
             self.__gameOverWarn = True
         else:
-            self.__gameOverWarn = False
-        
-
+            self.__gameOverWarn = False     
 
 #----------------------------------------------
 # Handlers
@@ -520,7 +526,7 @@ def CheckPlayerStats():
     is extremely low, the game offers to share motivation between players, while 1
     point is going to be lost. Should this not be successful, game will quit."""
     currPl = GameStats.GetCurrentPlayer()
-    currMod = currPl.GetMod()
+    currMod = currPl.GetMod(playermod.CURRMOD)
     if currMod[0] == 1:#low mod is motivation
         if len(GameStats.GetListPlayers()) == 1:
             #just one player, sharing not possible

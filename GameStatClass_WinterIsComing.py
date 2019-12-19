@@ -15,7 +15,8 @@ class GameStats:
     #----------------------------------------------
     @classmethod
     def Quit(cls, guiRoot):
-        guiRoot.audioStream.end()
+        if hasattr(guiRoot, 'audiostream'):
+            guiRoot.audioStream.end() #only end if has ben initialized
         guiRoot.quit() #First end the gui's bindings
         guiRoot.destroy() #Then close gui
         sys.exit() #finally, exit program.

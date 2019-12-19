@@ -1,11 +1,13 @@
 import tkinter as tk
-import threading
 import imageio
+from timeit import default_timer as timer
 from pygame import mixer as mix
 from PIL import Image, ImageTk
 from Enums_WinterIsComing import cmd_inpt
 from Enums_WinterIsComing import consts
 from Enums_WinterIsComing import sounds
+from Enums_WinterIsComing import playermod
+from GameStatClass_WinterIsComing import GameStats
 
 
 # Window/helper classes
@@ -144,36 +146,47 @@ Offers public function Update that takes the player list to output the player's 
         self.__Activate()
         self.delete('1.0', tk.END)
         self.insert('1.0', "Name        Motivation      Müdigkeit\n")
-        maxNamePlusSpaces = 12 #9 for name, 4 for whitespaces
+        maxNamePlusSpaces = 12 #planned 9 for name, 4 for whitespaces
         lineNr = 1
+        modStr = "|"*10
         for player in playerList:
             lineNr = lineNr + 1
-            currMod = player.GetMod()
-            modStr = "|"*10
+            currMod = player.GetMod(playermod.CURRMOD)
+            lastMod = player.GetMod(playermod.LASTMOD)
             currName = player.GetName()
             nrSpaces = maxNamePlusSpaces - len(currName)
+            if nrSpaces < 0 :
+                #name must be elided, does not fit into screen...
+                currName = currName[0:maxNamePlusSpaces-4]+"..." #-4 to leave one space blank
+                nrSpaces = 0       
             #define contents and tags of texts to get colors right
             tagPlrS = str(lineNr)+'.0'
             tagPlrE = str(lineNr)+'.'+str(maxNamePlusSpaces)
             tagMotE = str(lineNr)+'.'+str(maxNamePlusSpaces + currMod[0])
+            taglMotE = str(lineNr)+'.'+str(maxNamePlusSpaces + lastMod[0])
             tagTirS = str(lineNr)+'.26'
             tagTirE = str(lineNr)+'.'+str(26 + 10 - currMod[1]) #tiredness is calculated inversely
+            taglTirE = str(lineNr)+'.'+str(26 + 10 - lastMod[1])
             tagModE = str(lineNr)+'.37'
             
             self.insert(tagPlrS, currName \
                         + " " * nrSpaces + modStr \
                         + " " * + 4 + modStr + "\n")
-            self.tag_add(currName+"plrClr", tagPlrS, tagPlrE)
-            self.tag_add(currName+"modClr", tagPlrE, tagModE)
-            self.tag_add(currName+"motClr", tagPlrE, tagMotE)
-            self.tag_add(currName+"tirClr", tagTirS, tagTirE)
+            self.tag_add(currName+"plrClr", tagPlrS, tagPlrE) #player colour
+            self.tag_add(currName+"modClr", tagPlrE, tagModE) #background blue
+            self.tag_add(currName+"lMotClr", tagPlrE, taglMotE) #last tiredness: brown
+            self.tag_add(currName+"lTirClr", tagTirS, taglTirE) #last motivation: brown
+            self.tag_add(currName+"motClr", tagPlrE, tagMotE) #motivation's color G/Y/O/R
+            self.tag_add(currName+"tirClr", tagTirS, tagTirE) #tiredness's color
             #define text colors
             self.tag_config(currName+"modClr", foreground=GuiVars.dictCP["B4"], font=consts.GUI_BOLD)
             self.tag_config(currName+"plrClr", foreground=player.GetColor())
+            self.tag_config(currName+"lMotClr", foreground=GuiVars.dictCP["Y2"], font=consts.GUI_BOLD)
+            self.tag_config(currName+"lTirClr", foreground=GuiVars.dictCP["Y2"], font=consts.GUI_BOLD)
             self.tag_config(currName+"motClr", foreground=self.__GetModColor(currMod[0]), font=consts.GUI_BOLD)
             self.tag_config(currName+"tirClr", foreground=self.__GetModColor(currMod[1]), font=consts.GUI_BOLD)
             self.update()
-        self.after(consts.GUI_WAIT_UPDATE)
+            self.after(consts.GUI_WAIT_UPDATE)
         self.__Deactivate()
     
     def TypeWrite(self, text):
@@ -325,6 +338,7 @@ class GameGui(tk.Tk):
         
         # Setup main window and widgets     
         self.title("Der Winter Naht")
+        self.protocol("WM_DELETE_WINDOW", lambda arg=self: GameStats.Quit(arg)) #lambda needed as protocol does not take arguments
         
         #Canvas
         myframe = tk.Frame(self)
@@ -349,7 +363,7 @@ class GameGui(tk.Tk):
                                      , insertontime=0\
                                      , fg=var.scrFg\
                                      , bg=var.scrBg\
-                                     , width=85\
+                                     , width=82\
                                      , height=35\
                                      , padx=12\
                                      , pady=9)  
@@ -411,15 +425,21 @@ class Splash(tk.Toplevel):
     def PlayVideo(self):
         video_name = "SplashScreen.mp4" #This is the splash video file path
         self.video = imageio.get_reader(video_name)
+        self.frameRate = 25
         self.stream()
         
     def stream(self):
         for image in self.video.iter_data():
-                frame_image = ImageTk.PhotoImage(Image.fromarray(image))
-                self.videoScreen.config(image=frame_image)
-                self.videoScreen.image = frame_image
-                self.videoScreen.update_idletasks()
+                start = timer()
+                frame_image = ImageTk.PhotoImage(Image.fromarray(image)) #load image from object
+                self.videoScreen.config(image=frame_image) #load image into label
+                self.videoScreen.image = frame_image #display image
+                end = timer()
+                frameTimems = int(1000*(1/self.frameRate - (end-start))) #in milliseconds
+                if frameTimems > 0 :
+                    self.after(frameTimems)
                 self.videoScreen.update()
+                self.videoScreen.update_idletasks()
 
 def invokeTextScreenFontResize(self):
     print(self.textScrFr.width)
@@ -445,7 +465,3 @@ class Audio():
     def end(self):
         mix.music.stop()
         mix.quit()
-
-#if __name__ == "__main__":
-#    gui = GameGui()
-#    gui.mainloop()
