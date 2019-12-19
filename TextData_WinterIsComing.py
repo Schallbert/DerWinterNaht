@@ -361,9 +361,9 @@ eingeschlafen.\n",
 "Ein schmaler Spalt in der Tür Eurer Kammer. Durchsehen könnt Ihr nicht, doch\n\
 malt das hindurchfallende Licht einen Strich in den Raum.\n",
     189 : \
-"Da sich auf der Innenseite kein Riegel für die Tür befindet, kommt ihr hier nicht\n\
-durch. Auch die Fenster sind so klein, Ihr da niemals durch kommt. Auf dem Boden\n\
-scheint eine Fliese locker zu sein.\n\
+"Da sich auf der Innenseite kein Riegel für die Tür befindet, kommt ihr\n\
+hier nicht raus. Auch die Fenster sind so klein, Ihr da niemals durch kommt.\n\
+Auf dem Boden scheint eine Fliese locker zu sein.\n\
                                    \n\
 Aah, doch nicht. Die steht nur etwas höher als die anderen.\n\
 Kurzum, ihr sitzt hier fest. Warum haben die Mönche eigentlich nicht mal ein Wort\n\
@@ -443,9 +443,10 @@ dictAction = {
 "Das Entspannungsbad einfach so auszukippen war jetzt aber kein so besonders\n\
 kluger Einfall von Euch.\n",
     14: \
-"Jetzt ein Picknick! Ihr lasst Euch auf der mitgebrachten Decke nieder und genießt\n\
-ein fürstliches Mahl in der Natur. Auch wenn Ihr jetzt wieder motivierter seid,\n\
-euren Ausflug fortzusetzen, so hat Euch das viele Essen doch ein Kantinenkoma beschert.\n",
+"Jetzt ein Picknick! Ihr lasst Euch auf der mitgebrachten Decke nieder und\n\
+genießt ein fürstliches Mahl in der Natur. Auch wenn Ihr jetzt\n\
+wieder motivierter seid, euren Ausflug fortzusetzen, so hat Euch das viele Essen\n\
+doch ein Kantinenkoma beschert.\n",
     15 : \
 "Ihr cremt Euch gut ein. Der Duft erinnert Euch an Euren letzten Sommerurlaub.\n",
     18: \
