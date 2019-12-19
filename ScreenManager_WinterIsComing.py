@@ -12,16 +12,6 @@ from GameStatClass_WinterIsComing import GameStats
 
 # Window/helper classes
 #----------------------------------------------
-##class GameWindows:
-##
-textScreenText = "Euer Smartphone. Kann so ziemlich alles und ist natürlich auch mit Taschenlampe,\n\
-Kamera und Navigationssystem ausgestattet.\n\
-Hier draußen scheinen leider weder Mobilfunk noch Datenvervindung möglich zu sein.\n\
-Zudem ist der Akkustand niedrig und ihr habt keine Powerbank dabei.\n"
-
-# ------------------------------------
-# HELPERS
-
 #variables needed for gui setup
 class GuiVars:
     #Color Palette used throughout the game

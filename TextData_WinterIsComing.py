@@ -21,6 +21,16 @@ actionDict = {
 
 #Text Dictionary by IDs:
 dictTexts = {
+    1 : \
+"An einem Freitag Morgen im Spätherbst, Ihr habt ein langes Wochenende vor Euch,\n\
+packt Ihr Sachen für einen einigermaßen spontanen Wanderausflug in die Eifel.\n\
+Die Wettervorhersage ist hervorragend, und auch wenn die Nächte schon empfindlich\n\
+kühl werden können, so braucht Ihr tagsüber nicht mehr als eine dünne Jacke.\n\
+Nach einem ausgiebigen Frühstück macht Ihr Euch auf zum Bahnhof.\n\n\n\n\
+Die Bahnfahrt verläuft entspannt.\n\n\n\n\
+Als Ihr endlich aussteigt, findet Ihr Euch in Mendig wieder, einer Kleinstadt\n\
+etwa 25km westlich von Koblenz.\n\n\n\
+Nach kurzer Orientierung beginnt hier Euer Abenteuer.\n",
     10 : \
 "Euer Smartphone. Kann so ziemlich alles und ist natürlich auch mit Taschenlampe,\n\
 Kamera und Navigationssystem ausgestattet.\n\
@@ -1121,6 +1131,10 @@ class GameMsg():
     LOOSE = "Ihr verliert "
     NO_SVGAME = "Fehler: Keinen Spielstand zum Laden gefunden.\n\
 Beginne neues Spiel.\n"
+    GETMOT = ", wie motiviert fühlst Du Dich gerade? Bitte eine Zahl zwischen\n\
+0 [Thaddäus] bis 10 [Spongebob Schwammkopf] eingeben.\n"
+    GETTIR = ", wie müde bist Du gerade? Bitte eine Zahl zwischen\n\
+0 [Eichhörnchen auf Koffein] und 10 [*schnarch*] eingeben.\n"
     TIRED = ", du bist müde. Hundemüde. Sieh' zu, dass Du Dich schnleunigst ausruhst!\n\
 In so einem Zustand verlierst Du langsam Deine Motivation............................\n"
     UNMOT = [", du hast im Moment echt gar keinen Bock mehr auf diesen Ausflug,\n\
