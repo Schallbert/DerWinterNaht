@@ -1,4 +1,5 @@
 from tkinter import *
+import random
 #import datetime
 #import time
 import copy
@@ -114,15 +115,15 @@ class Room:
                     self.__roomList.append(roomId)
                     self.__roomObjects[posVal] = Room(roomId)
                 else: #already created but update list to reflect hidden rooms
-                    self.__roomList = self.__listUpdate(roomId, Exchange_dir.FORWARD, self.__roomList)
+                    self.__roomList = self.__listUpdate(roomId, EXCHANGEDIR.FORWARD, self.__roomList)
         
     def CheckInReach(self, plAction, spotRoom):
         """Checks if player requested spot input is reachable.
         Player input is positive (abs) so that only reachable
         spots/rooms can be returned."""
-        if plAction in self.__spotList and spotRoom == Reach.SPOT:
+        if plAction in self.__spotList and spotRoom == REACH.SPOT:
             return self.__spotObjects[plAction]
-        elif plAction in self.__roomList and spotRoom == Reach.ROOM:
+        elif plAction in self.__roomList and spotRoom == REACH.ROOM:
             return self.__roomObjects[plAction]
         else:
             return False #spot/room not in reach
@@ -141,9 +142,9 @@ class Spot:
         self.__room = room
         self.description = dictTexts[self.number]
         self.name = dictSpots[number] # as init spots may be negative...
-        self.__action_id = Action_id.NOC_NO #standard action ID
+        self.__action_id = ACTIONID.NOC_NO #standard action ID
         self.__mod = [0,0]
-        self.__modType = Mod_typ.NOTUSABLE
+        self.__modType = MOD.NOTUSABLE
         if self.number in dictActionType:
             self.__action_id = dictActionType[self.number]
         if self.number in dictMods:
@@ -160,7 +161,7 @@ class Spot:
             self.__action() #perform spot action
         checkLooseItem(self.number)
         if self.number in dictSpotChange: 
-            self.__room.ModifySpots(self.number, Exchange_dir.FORWARD)
+            self.__room.ModifySpots(self.number, EXCHANGEDIR.FORWARD)
 
     def OnLeave(self):
         """Checks dict if there's an action to be performed on exit of a spot"""
@@ -171,7 +172,7 @@ class Spot:
                 if element.GetPos().number == self.number:
                     playersOnSpot += 1
             if playersOnSpot <= 1:
-                self.__room.ModifySpots(self.number, Exchange_dir.REVERT)
+                self.__room.ModifySpots(self.number, EXCHANGEDIR.REVERT)
             else:
                 #as at least 1 player still is on the spot, 
                 #it cannot be changed back yet.
@@ -181,13 +182,13 @@ class Spot:
     def __action(self):
         """Interaction with the spot depending on context VIEW, GOTO, OPEN, GET or NOCHOICE
         May modify character's properties or set flags plot changes"""
-        if self.__action_id < Action_id.NOC_YES: #any action the user can choose from
+        if self.__action_id < ACTIONID.NOC_YES: #any action the user can choose from
             gui.textScreen.TypeWrite(GameMsg.ACTIONQ + self.name + actionDict[self.__action_id] + "\n")
             gui.textScreen.TypeWrite(GameMsg.ACTIONP)
             #Ask user for 0/1 whether to further investigate
             resp = gui.inputScreen.GetInput()
             if resp == 1:
-                self.__action_id = Action_id.NOC_NO #mitigate re-enter action
+                self.__action_id = ACTIONID.NOC_NO #mitigate re-enter action
                 if self.number in dictAction:
                     gui.textScreen.TypeWrite(dictAction[self.number])
                 if self.number in dictMods:
@@ -204,9 +205,9 @@ class Spot:
                     gui.textScreen.TypeWrite(GameMsg.ACTIONE)
                 if self.number in dictModsRefused:
                     invokeChangeMod(self.__mod, self.__modType)
-        elif self.__action_id == Action_id.NOC_YES:
+        elif self.__action_id == ACTIONID.NOC_YES:
             #player has no choice whether to further investigate :D
-            self.__action_id = Action_id.NOC_NO #reset to mitigate re-enter action
+            self.__action_id = ACTIONID.NOC_NO #reset to mitigate re-enter action
             if self.number in dictAction:
                 gui.textScreen.TypeWrite(dictAction[self.number])
             if self.number in dictMods:
@@ -226,7 +227,7 @@ class Item:
         self.number = number
         self.description = dictTexts[number]
         self.name = dictItems[number]
-        self.__type = Mod_typ.NOTUSABLE
+        self.__type = MOD.NOTUSABLE
         self.__mod = None
         if number in dictModType:
             self.__type = dictModType[number]
@@ -239,7 +240,7 @@ class Item:
 
     def DelItem(self):
         """"Deletes an item by removing it from the inventory dict."""
-        if self.__type == Mod_typ.PERMANENT:
+        if self.__type == MOD.PERMANENT:
             pass #item is permanent
         else:
             gui.inventoryScreen.Update(GameStats.DelFromInventory(self.number))
@@ -250,7 +251,7 @@ class Item:
         Items are only 'usable' if they do not need any other object for interaction
         except the player and the item itself."""
         gui.textScreen.TypeWrite(self.description)
-        if self.__type == Mod_typ.NOTUSABLE or self.__type == Mod_typ.PERMANENT:
+        if self.__type == MOD.NOTUSABLE or self.__type == MOD.PERMANENT:
             gui.textScreen.TypeWrite(GameMsg.MUST_COMB)
         else:
             gui.textScreen.TypeWrite(GameMsg.ACTIONQ + self.name + actionDict[3]) #use?
@@ -258,7 +259,7 @@ class Item:
             resp = gui.inputScreen.GetInput()
             if resp == 1:
                 gui.textScreen.TypeWrite(self.__action)
-                if self.__type == Mod_typ.EFFONE or self.__type == Mod_typ.EFFALL:
+                if self.__type == MOD.EFFONE or self.__type == MOD.EFFALL:
                     if self.__mod is not None:
                         invokeChangeMod(self.__mod, self.__type)
                     #item uses up and is then deleted
@@ -294,9 +295,9 @@ class Player:
         return self.__position
 
     def GetMod(self, modVar):
-        if modVar == playermod.CURRMOD:
+        if modVar == MOD.CURRMOD:
             return self.__mod
-        elif modVar == playermod.LASTMOD:
+        elif modVar == MOD.LASTMOD:
             return self.__lastMod
         else:
             pass
@@ -384,15 +385,15 @@ def spotRoom(plAction):
     currentPlayer = GameStats.GetCurrentPlayer()
     listPlayers = GameStats.GetListPlayers()
     activeSpot = currentPlayer.GetPos()
-    spotObj = currentRoom.CheckInReach(plAction, Reach.SPOT)
-    roomObj = currentRoom.CheckInReach(plAction, Reach.ROOM)
+    spotObj = currentRoom.CheckInReach(plAction, REACH.SPOT)
+    roomObj = currentRoom.CheckInReach(plAction, REACH.ROOM)
     #Logic 
     if plAction == currentRoom.number:
         gui.textScreen.TypeWrite(currentRoom.description) #only show description if specifically asked
     elif spotObj: #player enters a valid spot
         if not activeSpot.number == plAction:
             activeSpot.OnLeave()   
-            if currentRoom.CheckInReach(plAction, Reach.SPOT): #check again whether targeted spot is still in list
+            if currentRoom.CheckInReach(plAction, REACH.SPOT): #check again whether targeted spot is still in list
                 currentRoom.ModifyRooms(plAction) #Check if a connected room gets modified
                 currentPlayer.SetPos(spotObj)
                 currentPlayer.GetPos().OnEnter()
@@ -444,7 +445,7 @@ def itemSpot(generateFromNr):
     spot = generateFromNr%1000
     dictInventory = GameStats.GetInventory()
     currentRoom = GameStats.GetCurrentRoom()
-    spotObj = currentRoom.CheckInReach(spot, Reach.SPOT)
+    spotObj = currentRoom.CheckInReach(spot, REACH.SPOT)
     #Logic
     if spotObj:
         if item in dictInventory:
@@ -459,7 +460,7 @@ def itemSpot(generateFromNr):
                 dictInventory[item].DelItem() #delete old item
             elif generateFromNr in dictAction:
                 gui.textScreen.TypeWrite(dictAction[generateFromNr])
-                currentRoom.ModifySpots(generateFromNr, Exchange_dir.FORWARD)
+                currentRoom.ModifySpots(generateFromNr, EXCHANGEDIR.FORWARD)
                 if generateFromNr in dictMods:
                     GameStats.GetCurrentPlayer().ChangeMod(dictMods[generateFromNr])
                 dictInventory[item].DelItem()
@@ -478,9 +479,9 @@ def itemSpot(generateFromNr):
 #----------------------------------------------
 def invokeChangeMod(mod, modType):
     listPlayers = GameStats.GetListPlayers()
-    if modType == Mod_typ.EFFONE:
+    if modType == MOD.EFFONE:
             GameStats.GetCurrentPlayer().ChangeMod(mod)
-    elif modType == Mod_typ.EFFALL:
+    elif modType == MOD.EFFALL:
         for element in range(0, len(listPlayers)):
             listPlayers[element].ChangeMod(mod)
 #----------------------------------------------
@@ -500,7 +501,7 @@ def checkLooseItem(triggerNumber):
             for item in listDeleteItems:
                 if item in dictInventory:
                     itemToDel = dictInventory[item]
-                    itemToDel.SetType(Mod_typ.NOTUSABLE)
+                    itemToDel.SetType(MOD.NOTUSABLE)
                     gui.textScreen.TypeWrite(GameMsg.LOOSE + str(itemToDel.number) \
                                              + ": " + itemToDel.name + "\n")
                     itemToDel.DelItem()         
@@ -510,10 +511,10 @@ def playerAction_Selector():
     tries to match it to an existing object."""
     plAction = gui.inputScreen.GetInput()
     gui.textScreen.TypeWrite(str(plAction) + "\n")
-    if plAction == cmd_inpt.UNKNOWN:
+    if plAction == CMDINPUT.UNKNOWN:
         #unknown command
         gui.textScreen.TypeWrite(GameMsg.NAN)
-    elif plAction == cmd_inpt.QUIT:
+    elif plAction == CMDINPUT.QUIT:
         #player wants to quit
         gui.textScreen.TypeWrite(GameMsg.SVQT)
         GameStats.Quit(gui)
@@ -526,7 +527,7 @@ def CheckPlayerStats():
     is extremely low, the game offers to share motivation between players, while 1
     point is going to be lost. Should this not be successful, game will quit."""
     currPl = GameStats.GetCurrentPlayer()
-    currMod = currPl.GetMod(playermod.CURRMOD)
+    currMod = currPl.GetMod(MOD.CURRMOD)
     if currMod[0] == 1:#low mod is motivation
         if len(GameStats.GetListPlayers()) == 1:
             #just one player, sharing not possible
@@ -574,5 +575,43 @@ def NewGame():
         #Setup Player list (static Class)
         GameStats.SetListPlayers([Player("Lukas", "orange", [8,7], GameStats.GetCurrentRoom()), \
                                   Player("Marie", "cyan", [6,9], GameStats.GetCurrentRoom())]) 
+
+
+class RandomMod():
+    """This class evaluates motivation/tiredness input or status when the game
+    (re)continues and returns randomly selected values as buffs depending on
+    input values."""
+    
+    @classmethod
+    def rndm_PlayerInput(value):
+        """Returns a random number in case the player does not input a desired number.
+        To be called when GameStatClass.Load() is complete for each player."""
+        if value <= LORANGE :
+            gui.textScreen.TypeWrite(GameMsg.RNDM_INPT)
+            return random.choice(MOD.RNDM_LORANGE)
+        elif value > HIRANGE :
+            gui.textScreen.TypeWrite(GameMsg.RNDM_INPT)
+            return random.choice(MOD.RNDM_HIRANGE)
+        else:
+            return value
+            
+    @classmethod
+    def rndm_BufRestart(timeDiffSec):
+        """Returns a random buff depending on how long the players did not start the game.
+        This function is to be used like this:
+        Player.ChangeMod(RandomMod.rndm_BufRestart(timeDiffSec)"""
+        if timeDiffSec < MOD.SHORTBREAK :
+            gui.textScreen.TypeWrite(GameMsg.RNDM_PAUSE[0])
+            return 0
+        elif timeDiffSec < MOD.BREAK : 
+            gui.textScreen.TypeWrite(GameMsg.RNDM_PAUSE[1])
+            return random.choice(MOD.RNDM_MIRANGE)
+        elif timeDiffSec < MOD.LONGBREAK :
+            gui.textScreen.TypeWrite(GameMsg.RNDM_PAUSE[2])
+            return random.choice(MOD.RNDM_LORANGE)
+        else:
+            gui.textScreen.TypeWrite(GameMsg.RNDM_PAUSE[3])
+            return random.choice(MOD.RNDM_VLRANGE)
+    
 
 gui = GameGui() #constructor for GUI.

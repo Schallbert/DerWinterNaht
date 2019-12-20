@@ -30,7 +30,96 @@ Nach einem ausgiebigen Frühstück macht Ihr Euch auf zum Bahnhof.\n\n\n\n\
 Die Bahnfahrt verläuft entspannt.\n\n\n\n\
 Als Ihr endlich aussteigt, findet Ihr Euch in Mendig wieder, einer Kleinstadt\n\
 etwa 25km westlich von Koblenz.\n\n\n\
-Nach kurzer Orientierung beginnt hier Euer Abenteuer.\n",
+Nach kurzer Orientierung beginnt hier Eure Wanderung.\n",
+    7: \
+[\
+"Willkommen im Spiel 'Der Winter Naht'!\n\
+In diesem kooperativen Spiel macht Ihr einen gemeinsamen Wanderausflug\n\
+in die Eifel und kommt dort merkwürdigen Vorgängen auf die Spur.\n\
+Das Spiel enthält mehrere Kapitel, deren Verlauf Ihr selbst mitestaltet.\n\
+             \n\
+Es ist im Genre des sogenannten Text Adventure beheimatet,\n\
+die komplette Interaktion mit dem Spiel findet also per Text statt.\n\
+Grafiken oder gar Videos gibt es hier keine, es ist Spaß am Lesen gefragt ;)\n\
+                            \n\
+Das Spiel speichert Euren Fortschritt automatisch am Ende einer jeden Runde.\n\
+Ihr könnt das Spiel also jederzeit beenden und später dort weitermachen, wo\n\
+Ihr aufgehört habt.\n\
+Der Spielbildschirm ist aufgeteilt in vier Teile. Der jeweils aktive Teil des\n\
+Bildschirms ist farbig hervorgehoben - dies ist auch bei dem Hauptbildschirm,\n\
+auf dem dieser Text gerade erscheint, der Fall. Sein Hintergrund ist heller\n\
+als der der inaktiven, kleineren Anzeigen.\n\
+                                               \n\
+Auf dieser Anzeige hier findet die eigentliche Handlung des Spiels statt.\n\
+Das Spiel ist so aufgebaut, dass Ihr Euch in Räumen aufhaltet, die bestimmte\n\
+Eigenschaften haben und die wiederum Orte besitzen, mit denen Ihr\n\
+interagieren könnt. Des Weiteren gibt es Gegenstände im Spiel, die Ihr sammeln,\n\
+benutzen oder mit Orten kombinieren könnt, um das Spiel voranzubringen.\n\
+Selten habt Ihr nur eine Möglichkeit der Interaktion, deswegen wird sich die\n\
+Handlung bei jedem Durchlauf basierend auf Euren Entscheidungen unterscheiden.\n"\
+\
+, "Der lange Strich '______' eben war ein Ladebalken, der Euch anzeigen soll,\n\
+dass der Bildschirminhalt bald gelöscht wird und eine neue Runde beginnt.\n\
+        \n\
+Diser Bildschirm zeigt Euch alle wichtigen Informationen zu Räumen, Orten\n\
+und Gegenständen an. Er informiert Euch darüber, wo Ihr Euch gerade\n\
+befindet, welche Orte und Räume gerade in Reichweite sind und erzählt\n\
+die Handlung des Spiels.\n\
+Beachtet, dass nicht immer alle Orte eines Raumes oder alle angeschlossenen\n\
+Räume eines Raumes erreichbar sein müssen.\n\
+Besonders in späteren Teilen des Spiels ist es üblich, dass Ihr nur durch\n\
+das Lösen von Rätseln und Entdecken versteckte Räume, Gegenstände oder Orte\n\
+weiterkommen werdet.                                                   \n\
+\n\
+Zu den Objekten des Spiels:\n\
+Räume haben dreistellige Nummern in den 'Zehnern', z.B. 100, 110, 120 usw.\n\
+Orte sind mit dreistelligen Nummern, aber in den 'einern', z.B. 101, 102 usw.\n\
+gekennzeichnet.\n\
+Gegenstände haben zweistellige Nummern , z.B. 10, 11, 12 usw.\n\
+                                                             \n\
+Das Spiel erwartet von Euch Zahlen als Eingaben.\n\
+- Ausnahme ist das Kommando 'quit', mit dem Ihr das Spiel beenden könnt -\n\
+Um also z.B. den Raum '110: Wohnzimmer' zu betreten, der Euch 'in Reichweite'\n\
+angezeigt wird, gebt Ihr im Eingabefeld unten Rechts die Zahl des Raumes,\n\
+also 110 ein und drückt die <Enter>-Taste.\n\
+Wollt Ihr Orte untersuchen, so ist das Verfahren dasselbe wie bei Räumen\n\
+mit dem Unterschied, dass Ihr auf Orten Aktionen durchführt, die den Spielverlauf\n\
+dauerhaft beeinflussen können. Bei den meisten Aktionen werdet Ihr vorher\n\
+gefragt, ob Ihr die auch wirklich durchführen wollt, bei einigen aber nicht;\n\
+das macht das Spiel spannender für die Entwickler ;)\n"\
+\
+, "Manche Gegenstände aus Eurem Inventar können miteinander kombiniert werden,\n\
+um einen neuen Gegenstand zu erhalten. Dabei muss die niedrigere der beiden\n\
+Zahlen an erster Stelle stehen. Beispiel:\n\
+Ihr möchtet '23: Eine leere Taschenlampe'\n\
+mit '27: Batterien'\n\
+kombinieren. Dann gebt Ihr 2327 in das Eingabefeld\n\
+ein und drückt die <Enter>-Taste.\n\
+Wenn diese Kombination gültig ist, erhaltet Ihr in diesem Falle:\n\
+'28: Eine Taschenlampe mit frischen Batterien',\n\
+die sich zu mehr eignet, als sie einfach nur jemandem über den Kopf zu ziehen.\n\
+                                                                            \n\
+Ihr könnt auch Gegenstände mit Orten kombinieren, sodass dann eine fünfstellige\n\
+Zahl entsteht, die Ihr dann eingeben könnt. Auch hier kommt die kleinere Zahl\n\
+immer zuerst dran:\n\
+'12: Ein Schlüssel', kombiniert mit '117: Schwere Eisentür', eingegeben als\n\
+12117 in das Eingabefeld, kann beispielsweise dazu führen, dass sich ein neuer\n\
+Ort oder sogar ein Raum zeigt, den Ihr vorher noch nicht als 'in Reichweite'\n\
+auf dem Hauptbildschirm sehen konntet.                                     \n\
+\n\
+So, genug geschwafelt. Fangt einfach mal an!\n"\
+],
+    8: \
+"\nAuf diesem Bildschirm wird Euer\n\
+gemeinsames Inventar angezeigt.\n\
+Ihr könnt die Gegenstände benutzen\n\
+oder untersuchen, indem Ihr ihre\n\
+Nummern im Eingabefeld angebt und mit\n\
+<Enter> bestätigt.\n",
+    9: \
+"\nHier wird Euer Spielerstatus\n\
+angezeigt. Attribute in diesem Spiel:\n\
+Müdigkeit und Motivation.\n",
     10 : \
 "Euer Smartphone. Kann so ziemlich alles und ist natürlich auch mit Taschenlampe,\n\
 Kamera und Navigationssystem ausgestattet.\n\
@@ -915,47 +1004,47 @@ dictActionRefused = {
     }
     
 dictActionType = {
-    101 : Action_id.VIEW,\
-    102 : Action_id.NOC_YES,\
-    103 : Action_id.GOTO,\
-    104 : Action_id.GOTO,\
-    105 : Action_id.VIEW,\
-    111 : Action_id.NOC_YES,\
-    112 : Action_id.VIEW,\
-    114 : Action_id.GET,\
-    115 : Action_id.GOTO,
-    121 : Action_id.NOC_YES,\
-    122 : Action_id.NOC_YES,\
-    123 : Action_id.VIEW,\
-    124 : Action_id.VIEW,\
-    125 : Action_id.VIEW,\
-    126 : Action_id.VIEW,\
-    127 : Action_id.GET,\
-    128 : Action_id.USE,\
-    129 : Action_id.GOTO,\
-    136 : Action_id.USE,\
-    142 : Action_id.USE,\
-    153 : Action_id.VIEW,\
-    154 : Action_id.VIEW,\
-    155 : Action_id.OPEN,\
-    161 : Action_id.NOC_YES,\
-    163 : Action_id.OPEN,\
-    171 : Action_id.USE,\
-    172 : Action_id.USE,\
-    174 : Action_id.VIEW,\
-    175 : Action_id.GOTO,\
-    176 : Action_id.GOTO,\
-    180 : Action_id.GOTO,\
-    183 : Action_id.VIEW,\
-    184 : Action_id.GOTO,\
-    185 : Action_id.OPEN,\
-    186 : Action_id.VIEW,\
-    187 : Action_id.NOC_YES,\
-    190 : Action_id.VIEW,\
-    193 : Action_id.VIEW,\
-    196 : Action_id.USE,\
-    197 : Action_id.USE,\
-    198 : Action_id.NOC_YES,\
+    101 : ACTIONID.VIEW,\
+    102 : ACTIONID.NOC_YES,\
+    103 : ACTIONID.GOTO,\
+    104 : ACTIONID.GOTO,\
+    105 : ACTIONID.VIEW,\
+    111 : ACTIONID.NOC_YES,\
+    112 : ACTIONID.VIEW,\
+    114 : ACTIONID.GET,\
+    115 : ACTIONID.GOTO,
+    121 : ACTIONID.NOC_YES,\
+    122 : ACTIONID.NOC_YES,\
+    123 : ACTIONID.VIEW,\
+    124 : ACTIONID.VIEW,\
+    125 : ACTIONID.VIEW,\
+    126 : ACTIONID.VIEW,\
+    127 : ACTIONID.GET,\
+    128 : ACTIONID.USE,\
+    129 : ACTIONID.GOTO,\
+    136 : ACTIONID.USE,\
+    142 : ACTIONID.USE,\
+    153 : ACTIONID.VIEW,\
+    154 : ACTIONID.VIEW,\
+    155 : ACTIONID.OPEN,\
+    161 : ACTIONID.NOC_YES,\
+    163 : ACTIONID.OPEN,\
+    171 : ACTIONID.USE,\
+    172 : ACTIONID.USE,\
+    174 : ACTIONID.VIEW,\
+    175 : ACTIONID.GOTO,\
+    176 : ACTIONID.GOTO,\
+    180 : ACTIONID.GOTO,\
+    183 : ACTIONID.VIEW,\
+    184 : ACTIONID.GOTO,\
+    185 : ACTIONID.OPEN,\
+    186 : ACTIONID.VIEW,\
+    187 : ACTIONID.NOC_YES,\
+    190 : ACTIONID.VIEW,\
+    193 : ACTIONID.VIEW,\
+    196 : ACTIONID.USE,\
+    197 : ACTIONID.USE,\
+    198 : ACTIONID.NOC_YES,\
     }    
 
 #Defines how spots are connected to items   
@@ -1068,34 +1157,34 @@ dictMods = {
     }
 
 dictModType = {
-    10 : Mod_typ.PERMANENT,\
-    12 : Mod_typ.PERMANENT,\
-    13 : Mod_typ.EFFALL,\
-    14 : Mod_typ.EFFALL,\
-    15 : Mod_typ.EFFALL,\
-    16 : Mod_typ.PERMANENT,\
-    18 : Mod_typ.EFFONE,\
-    104 : Mod_typ.EFFONE,\
-    103 : Mod_typ.EFFONE,\
-    108 : Mod_typ.EFFONE,\
-    111 : Mod_typ.EFFALL,\
-    115 : Mod_typ.EFFONE,\
-    121 : Mod_typ.EFFONE,\
-    122 : Mod_typ.EFFALL,\
-    136 : Mod_typ.EFFALL,\
-    153 : Mod_typ.EFFALL,\
-    171 : Mod_typ.EFFALL,\
-    175 : Mod_typ.EFFALL,\
-    176 : Mod_typ.EFFALL,\
-    184 : Mod_typ.EFFALL,\
-    185 : Mod_typ.EFFALL,\
-    13197 : Mod_typ.EFFONE,\
-    196 : Mod_typ.EFFALL,\
-    197 : Mod_typ.EFFONE,\
-    198 : Mod_typ.EFFALL,\
-    24163 : Mod_typ.EFFALL,\
-    29193 : Mod_typ.EFFALL,\
-    10194 : Mod_typ.EFFALL,\
+    10 : MOD.PERMANENT,\
+    12 : MOD.PERMANENT,\
+    13 : MOD.EFFALL,\
+    14 : MOD.EFFALL,\
+    15 : MOD.EFFALL,\
+    16 : MOD.PERMANENT,\
+    18 : MOD.EFFONE,\
+    104 : MOD.EFFONE,\
+    103 : MOD.EFFONE,\
+    108 : MOD.EFFONE,\
+    111 : MOD.EFFALL,\
+    115 : MOD.EFFONE,\
+    121 : MOD.EFFONE,\
+    122 : MOD.EFFALL,\
+    136 : MOD.EFFALL,\
+    153 : MOD.EFFALL,\
+    171 : MOD.EFFALL,\
+    175 : MOD.EFFALL,\
+    176 : MOD.EFFALL,\
+    184 : MOD.EFFALL,\
+    185 : MOD.EFFALL,\
+    13197 : MOD.EFFONE,\
+    196 : MOD.EFFALL,\
+    197 : MOD.EFFONE,\
+    198 : MOD.EFFALL,\
+    24163 : MOD.EFFALL,\
+    29193 : MOD.EFFALL,\
+    10194 : MOD.EFFALL,\
     }
 
 dictModsRefused = {
@@ -1145,87 +1234,16 @@ Form der flammenden Motivationsansprache helfen und ", "\n\
 die Hälfte Deiner Motivation abgeben?\n"]
     UNMOT_END = "Puh, es hilft alles nichts. Ihr macht jetzt erstmal schön eine Pause.\n\
 Später - sagen wir ab in einer halben Stunde - könnt Ihr dann mit frischer\n\
-Motivation weitermachen........................................................\n"
-    INTRO = "Willkommen im Spiel 'Der Winter Naht'!\n\
-In diesem kooperativen Spiel macht Ihr einen gemeinsamen Wanderausflug\n\
-in die Eifel und kommt dort merkwürdigen Vorgängen auf die Spur.\n\
-Das Spiel enthält mehrere Kapitel, deren Verlauf Ihr selbst mitestaltet.\n\
-             \n\
-Es ist im Genre des sogenannten Text Adventure beheimatet,\n\
-die komplette Interaktion mit dem Spiel findet also per Text statt.\n\
-Grafiken oder gar Videos gibt es hier keine, es ist Spaß am Lesen gefragt ;)\n\
-                            \n\
-Das Spiel speichert Euren Fortschritt automatisch am Ende einer jeden Runde.\n\
-Ihr könnt das Spiel also jederzeit beenden und später dort weitermachen, wo\n\
-Ihr aufgehört habt.\n\
-Der Spielbildschirm ist aufgeteilt in vier Teile. Der jeweils aktive Teil des\n\
-Bildschirms ist farbig hervorgehoben - dies ist auch bei dem Hauptbildschirm,\n\
-auf dem dieser Text gerade erscheint, der Fall. Sein Hintergrund ist heller\n\
-als der der inaktiven, kleineren Anzeigen.\n\
-                                               \n\
-Auf dieser Anzeige hier findet die eigentliche Handlung des Spiels statt.\n\
-Das Spiel ist so aufgebaut, dass Ihr Euch in Räumen aufhaltet, die bestimmte\n\
-Eigenschaften haben und die wiederum Orte besitzen, mit denen Ihr\n\
-interagieren könnt. Des Weiteren gibt es Gegenstände im Spiel, die Ihr sammeln,\n\
-benutzen oder mit Orten kombinieren könnt, um das Spiel voranzubringen.\n\
-Selten habt Ihr nur eine Möglichkeit der Interaktion, deswegen wird sich die\n\
-Handlung bei jedem Durchlauf basierend auf Euren Entscheidungen unterscheiden.\n"
-    NUMBERS = "Der lange Strich '______' eben war ein Ladebalken, der Euch anzeigen soll,\n\
-dass der Bildschirminhalt bald gelöscht wird und eine neue Runde beginnt.\n\
-        \n\
-Diser Bildschirm zeigt Euch alle wichtigen Informationen zu Räumen, Orten\n\
-und Gegenständen an. Er informiert Euch darüber, wo Ihr Euch gerade\n\
-befindet, welche Orte und Räume gerade in Reichweite sind und erzählt\n\
-die Handlung des Spiels.\n\
-Beachtet, dass nicht immer alle Orte eines Raumes oder alle angeschlossenen\n\
-Räume eines Raumes erreichbar sein müssen.\n\
-Besonders in späteren Teilen des Spiels ist es üblich, dass Ihr nur durch\n\
-das Lösen von Rätseln und Entdecken versteckte Räume, Gegenstände oder Orte\n\
-weiterkommen werdet.                                                   \n\
-\n\
-Zu den Objekten des Spiels:\n\
-Räume haben dreistellige Nummern in den 'Zehnern', z.B. 100, 110, 120 usw.\n\
-Orte sind mit dreistelligen Nummern, aber in den 'einern', z.B. 101, 102 usw.\n\
-gekennzeichnet.\n\
-Gegenstände haben zweistellige Nummern , z.B. 10, 11, 12 usw.\n\
-                                                             \n\
-Das Spiel erwartet von Euch Zahlen als Eingaben.\n\
-- Ausnahme ist das Kommando 'quit', mit dem Ihr das Spiel beenden könnt -\n\
-Um also z.B. den Raum '110: Wohnzimmer' zu betreten, der Euch 'in Reichweite'\n\
-angezeigt wird, gebt Ihr im Eingabefeld unten Rechts die Zahl des Raumes,\n\
-also 110 ein und drückt die <Enter>-Taste.\n\
-Wollt Ihr Orte untersuchen, so ist das Verfahren dasselbe wie bei Räumen\n\
-mit dem Unterschied, dass Ihr auf Orten Aktionen durchführt, die den Spielverlauf\n\
-dauerhaft beeinflussen können. Bei den meisten Aktionen werdet Ihr vorher\n\
-gefragt, ob Ihr die auch wirklich durchführen wollt, bei einigen aber nicht;\n\
-das macht das Spiel spannender für die Entwickler ;)\n\
-                                                            \n"
-    COMBINATIONS = "Manche Gegenstände aus Eurem Inventar können miteinander kombiniert werden,\n\
-um einen neuen Gegenstand zu erhalten. Dabei muss die niedrigere der beiden\n\
-Zahlen an erster Stelle stehen. Beispiel:\n\
-Ihr möchtet '23: Eine leere Taschenlampe'\n\
-mit '27: Batterien'\n\
-kombinieren. Dann gebt Ihr 2327 in das Eingabefeld\n\
-ein und drückt die <Enter>-Taste.\n\
-Wenn diese Kombination gültig ist, erhaltet Ihr in diesem Falle:\n\
-'28: Eine Taschenlampe mit frischen Batterien',\n\
-die sich zu mehr eignet, als sie einfach nur jemandem über den Kopf zu ziehen.\n\
-                                                                            \n\
-Ihr könnt auch Gegenstände mit Orten kombinieren, sodass dann eine fünfstellige\n\
-Zahl entsteht, die Ihr dann eingeben könnt. Auch hier kommt die kleinere Zahl\n\
-immer zuerst dran:\n\
-'12: Ein Schlüssel', kombiniert mit '117: Schwere Eisentür', eingegeben als\n\
-12117 in das Eingabefeld, kann beispielsweise dazu führen, dass sich ein neuer\n\
-Ort oder sogar ein Raum zeigt, den Ihr vorher noch nicht als 'in Reichweite'\n\
-auf dem Hauptbildschirm sehen konntet.                                     \n\
-\n\
-So, genug geschwafelt. Fangt einfach mal an!\n"
-    INVSCR = "\nAuf diesem Bildschirm wird Euer\n\
-gemeinsames Inventar angezeigt.\n\
-Ihr könnt die Gegenstände benutzen\n\
-oder untersuchen, indem Ihr ihre\n\
-Nummern im Eingabefeld angebt und mit\n\
-<Enter> bestätigt.\n"
-    STATSCR = "\nHier wird Euer Spielerstatus\n\
-angezeigt. Attribute in diesem Spiel:\n\
-Müdigkeit und Motivation. \n"
+Motivation weitermachen...                                                 \n"
+    RNDM_INPT = "Na, übertreibt es mal nicht. Wenn Ihr schon so anfangt,\n\
+wird einfach ein Zufallswert gewählt!\n"
+    RNDM_PAUSE = [\
+"Ihr habt das Spiel doch erst vor Kurzem beendet\n\
+(oder beenden müssen)! Ihr könnt nicht erwarten, dass sich an Eurer Motivation\n\
+jetzt schon etwas geändert hat. Macht mindestens mal eine Kaffeepause ;)\n"\
+, "Perfekt: Ihr habt eine erholsame Pause eingelegt und fühlt Euch jetzt\n\
+wieder viel besser!\n"\
+, "Genau, manchmal muss man auch eine längere Pause einlegen.\n\
+Dafür erhaltet Ihr einen Motivationsschub!\n"\
+, "Puh, da habt Ihr Eur mit dem Weiterspielen aber ganz schön Zeit gelassen.\n\
+Trotzdem erhaltet Ihr einen Motivationsschub ;)                                  \n"]

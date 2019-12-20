@@ -3,43 +3,13 @@ import imageio
 from timeit import default_timer as timer
 from pygame import mixer as mix
 from PIL import Image, ImageTk
-from Enums_WinterIsComing import cmd_inpt
-from Enums_WinterIsComing import consts
-from Enums_WinterIsComing import sounds
-from Enums_WinterIsComing import playermod
 from GameStatClass_WinterIsComing import GameStats
-
-
-# Window/helper classes
-#----------------------------------------------
-#variables needed for gui setup
-class GuiVars:
-    #Color Palette used throughout the game
-    dictCP = {
-        "B0" : '#000000',\
-        "B1" : '#000040',\
-        "B2" : '#003870',\
-        "B3" : '#0064C0',\
-        "B4" : '#3990C0',\
-        "Y0" : '#5F4443',\
-        "Y1" : '#9C7868',\
-        "Y2" : '#E7E39B',\
-        "Y3" : '#CEC098',\
-        "Y4" : '#FFFFBF',\
-        "Y5" : '#FFFFE6'
-    }
-    #game window margin to screen size [pixels] 
-    __xWMgn = 200  
-    __yWMgn = 200
-    #color selection
-    frClr = dictCP["Y4"]
-    scrFg = dictCP["Y4"]
-    scrBg = dictCP["B1"]
-    frBdr = 2 #pixels, looks nice ;)
-
-    def setGameGuiSize(self, varWidHeight):
-        self.scr_w = varWidHeight[0]-self.__xWMgn
-        self.scr_h = varWidHeight[1]-self.__yWMgn
+#import constants
+from Enums_WinterIsComing import CMDINPUT
+from Enums_WinterIsComing import GUICONSTS
+from Enums_WinterIsComing import SOUNDS
+from Enums_WinterIsComing import VIDEOS
+from Enums_WinterIsComing import MOD
 
 # ------------------------------------
 # CLASSES
@@ -107,23 +77,23 @@ It binds to the return key to take input"""
         except :
             if inpt.lower() == "quit":
                 #Command quit
-                self.number.set(cmd_inpt.QUIT)
+                self.number.set(CMDINPUT.QUIT)
             else:
                 #Command invalid
-                self.number.set(cmd_inpt.UNKNOWN)
+                self.number.set(CMDINPUT.UNKNOWN)
         
     def __Activate(self):
         #Color and config set for activated status
         self.config(state=tk.NORMAL)
         self.delete('1.0', tk.END)
-        self.config(fg=GuiVars.dictCP["Y5"])
-        self.config(bg=GuiVars.dictCP["B2"])
+        self.config(fg=GUICONSTS.DICTCOLORPALETTE["Y5"])
+        self.config(bg=GUICONSTS.DICTCOLORPALETTE["B2"])
         self.focus_set()
         
     def __Deactivate(self):
         #Color and config set for deactivated status
-        self.config(fg=GuiVars.dictCP["B2"])
-        self.config(bg=GuiVars.dictCP["B1"])
+        self.config(fg=GUICONSTS.DICTCOLORPALETTE["B2"])
+        self.config(bg=GUICONSTS.DICTCOLORPALETTE["B1"])
         self.config(state=tk.DISABLED)
 
 class StatusText(tk.Text):
@@ -141,8 +111,8 @@ Offers public function Update that takes the player list to output the player's 
         modStr = "|"*10
         for player in playerList:
             lineNr = lineNr + 1
-            currMod = player.GetMod(playermod.CURRMOD)
-            lastMod = player.GetMod(playermod.LASTMOD)
+            currMod = player.GetMod(MOD.CURRMOD)
+            lastMod = player.GetMod(MOD.LASTMOD)
             currName = player.GetName()
             nrSpaces = maxNamePlusSpaces - len(currName)
             if nrSpaces < 0 :
@@ -157,7 +127,7 @@ Offers public function Update that takes the player list to output the player's 
             tagTirS = str(lineNr)+'.26'
             tagTirE = str(lineNr)+'.'+str(26 + 10 - currMod[1]) #tiredness is calculated inversely
             taglTirE = str(lineNr)+'.'+str(26 + 10 - lastMod[1])
-            tagModE = str(lineNr)+'.37'
+            tagModE = str(lineNr)+'.37' #end of widget [char count]
             
             self.insert(tagPlrS, currName \
                         + " " * nrSpaces + modStr \
@@ -169,14 +139,14 @@ Offers public function Update that takes the player list to output the player's 
             self.tag_add(currName+"motClr", tagPlrE, tagMotE) #motivation's color G/Y/O/R
             self.tag_add(currName+"tirClr", tagTirS, tagTirE) #tiredness's color
             #define text colors
-            self.tag_config(currName+"modClr", foreground=GuiVars.dictCP["B4"], font=consts.GUI_BOLD)
+            self.tag_config(currName+"modClr", foreground=GUICONSTS.DICTCOLORPALETTE["B4"], font=GUICONSTS.GUI_BOLD)
             self.tag_config(currName+"plrClr", foreground=player.GetColor())
-            self.tag_config(currName+"lMotClr", foreground=GuiVars.dictCP["Y2"], font=consts.GUI_BOLD)
-            self.tag_config(currName+"lTirClr", foreground=GuiVars.dictCP["Y2"], font=consts.GUI_BOLD)
-            self.tag_config(currName+"motClr", foreground=self.__GetModColor(currMod[0]), font=consts.GUI_BOLD)
-            self.tag_config(currName+"tirClr", foreground=self.__GetModColor(currMod[1]), font=consts.GUI_BOLD)
+            self.tag_config(currName+"lMotClr", foreground=GUICONSTS.DICTCOLORPALETTE["Y2"], font=GUICONSTS.GUI_BOLD)
+            self.tag_config(currName+"lTirClr", foreground=GUICONSTS.DICTCOLORPALETTE["Y2"], font=GUICONSTS.GUI_BOLD)
+            self.tag_config(currName+"motClr", foreground=self.__GetModColor(currMod[0]), font=GUICONSTS.GUI_BOLD)
+            self.tag_config(currName+"tirClr", foreground=self.__GetModColor(currMod[1]), font=GUICONSTS.GUI_BOLD)
             self.update()
-            self.after(consts.GUI_WAIT_UPDATE)
+            self.after(GUICONSTS.GUI_WAIT_UPDATE)
         self.__Deactivate()
     
     def TypeWrite(self, text):
@@ -188,7 +158,7 @@ Offers public function Update that takes the player list to output the player's 
         for text in text:
             self.insert(tk.INSERT, text)
             self.update()
-            self.after(consts.GUI_TYPEWRITE_WAIT)
+            self.after(GUICONSTS.GUI_TYPEWRITE_WAIT)
 
     def __GetModColor(self, mod):
         if mod > 5 :
@@ -202,20 +172,20 @@ Offers public function Update that takes the player list to output the player's 
 
     def __Activate(self):
         self.config(state=tk.NORMAL)
-        self.config(fg=GuiVars.dictCP["Y4"])
-        self.config(bg=GuiVars.dictCP["B2"])
+        self.config(fg=GUICONSTS.DICTCOLORPALETTE["Y4"])
+        self.config(bg=GUICONSTS.DICTCOLORPALETTE["B2"])
         self.focus_set()
         
     def __Deactivate(self):
-        self.config(bg=GuiVars.dictCP["B1"])
+        self.config(bg=GUICONSTS.DICTCOLORPALETTE["B1"])
         self.config(state=tk.DISABLED)
         self.update()
 
 class InventoryText(tk.Text):
     """Derived from Text, optimized for player inventory (table-type) text output
 Offers public function Update that takes the inventory dict to present its contents"""
-    def __init__(self,parent,**kwargs):
-        tk.Text.__init__(self,parent,**kwargs)
+    def __init__(self, parent, **kwargs):
+        super().__init__(parent,**kwargs)
         
     def Update(self, dictInventory):
         self.__Activate()
@@ -225,7 +195,7 @@ Offers public function Update that takes the inventory dict to present its conte
         for key, val in dictInventory.items():
             cnt = cnt + 1
             self.insert(str(cnt)+'.0', str(key) + "    " + val.name + "\n")
-        self.after(consts.GUI_WAIT_UPDATE)
+        self.after(GUICONSTS.GUI_WAIT_UPDATE)
         self.__Deactivate()
         
     def TypeWrite(self, text):
@@ -237,24 +207,26 @@ Offers public function Update that takes the inventory dict to present its conte
         for text in text:
             self.insert(tk.INSERT, text)
             self.update()
-            self.after(consts.GUI_TYPEWRITE_WAIT)
+            self.after(GUICONSTS.GUI_TYPEWRITE_WAIT)
 
     def __Activate(self):
         self.config(state=tk.NORMAL)
-        self.config(fg=GuiVars.dictCP["Y4"])
-        self.config(bg=GuiVars.dictCP["B2"])
+        self.config(fg=GUICONSTS.DICTCOLORPALETTE["Y4"])
+        self.config(bg=GUICONSTS.DICTCOLORPALETTE["B2"])
         self.focus_set()
         
     def __Deactivate(self):
-        self.config(bg=GuiVars.dictCP["B1"])
+        self.config(bg=GUICONSTS.DICTCOLORPALETTE["B1"])
         self.config(state=tk.DISABLED)
         self.update()
         
 class OutputText(tk.Text):
     #replace init function by "custom" init
-    def __init__(self,parent,**kwargs):
-        tk.Text.__init__(self,parent,**kwargs)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.__nrOfTags = 0
+        self.__width = kwargs.get('width') #width is not a "normal" class attribute but a dict'ed property.
+        self.__height = kwargs.get('height')
         self.__BindToKey('<space>')
         
     def __BindToKey(self, key):
@@ -262,18 +234,18 @@ class OutputText(tk.Text):
         #to draw text more quickly on this screen
         self.bind(key, \
                   lambda event, \
-                  : consts.shortenWaits()) #reduce typing speed
+                  : GUICONSTS.shortenWaits()) #reduce typing speed
        
     def Clear(self):
         self.__Activate()
         self.delete('1.0', tk.END)
         self.__nrOfTags = 0
         self.__Deactivate()
-        consts.normalWaits() #extend typing speed to normal
+        GUICONSTS.normalWaits() #extend typing speed to normal
 
     def LineWrite(self, text):
         self.__Activate()
-        self.after(consts.GUI_LINEWRITE_WAIT)
+        self.after(GUICONSTS.GUI_LINEWRITE_WAIT)
         self.insert(tk.INSERT, text)
         self.update()
         self.__Deactivate()
@@ -284,34 +256,54 @@ class OutputText(tk.Text):
         self.__nrOfTags += 1
         plName = player.GetName()
         endIndx = self.index('end-1c').split('.') #-1character added as tkinter adds an invisible newline char :/
-        linNr = int(endIndx[0])
-        colSt = int(endIndx[-1])
+        linNr = int(endIndx[0]) #current line number
+        colSt = int(endIndx[-1]) #current column number
         tagNameS = str(linNr) + '.' + str(colSt)
         tagNameE = str(linNr) + '.' + str(colSt+len(plName))
         self.__TypeWrite(plName)
         self.tag_add(self.__nrOfTags, tagNameS, tagNameE)
-        self.tag_config(self.__nrOfTags, foreground=player.GetColor(), font=consts.GUI_BOLD)
+        self.tag_config(self.__nrOfTags, foreground=player.GetColor(), font=GUICONSTS.GUI_BOLD)
         self.__Deactivate()
     
     def TypeWrite(self, text):
         self.__Activate()
         self.__TypeWrite(text)
         self.__Deactivate()
+        
+    def TitleWriteCentered(self, title):
+        """This function takes a string as 'title' and displays it with a bigger size
+        than 'normal' gui text using tags. Currently this function can only handle ONE
+        title per page. To center this text, it read's the widget's width and sets the
+        cursor accordingly."""
+        maxTagCnt = 1 #only one tag name, means only one tag per page.
+        tLen = len(title)
+        fontMult = int(GUICONSTS.GUI_FONT[1])/int(GUICONSTS.GUI_TITLE[1]) #to check how much bigger the title font is  
+        linNr = int(self.index('end-1c').split('.')[0]) #current index, line [0]
+        colSt = int((self.__width*fontMult-tLen)/2) #start of centered title text
+        tagTitleS = '%d.%d' %(linNr, 0)
+        tagTitleE = '%d.%d' %(linNr,colSt+tLen) #tag end
+        self.__Activate()
+        self.insert(tk.INSERT, " "*colSt+title)
+        self.insert(tk.INSERT, "\n\n") #add line breaks (to not count into title...)
+        #add tag and config text size
+        self.tag_add(maxTagCnt, tagTitleS, tagTitleE)
+        self.tag_config(maxTagCnt, font=GUICONSTS.GUI_TITLE) #change font to title font
+        self.__Deactivate()
 
     def __TypeWrite(self, text):
         for text in text:
             self.insert(tk.INSERT, text)
             self.update()
-            self.after(consts.GUI_TYPEWRITE_WAIT)
+            self.after(GUICONSTS.GUI_TYPEWRITE_WAIT)
         
     def __Activate(self):
         self.config(state=tk.NORMAL)
-        self.config(bg=GuiVars.dictCP["B2"])
+        self.config(bg=GUICONSTS.DICTCOLORPALETTE["B2"])
         self.focus_set()
         
     def __Deactivate(self):
         #clear text then disable text screen
-        self.config(bg=GuiVars.dictCP["B1"])
+        self.config(bg=GUICONSTS.DICTCOLORPALETTE["B1"])
         self.config(state=tk.DISABLED)
 
 class GameGui(tk.Tk):
@@ -320,9 +312,8 @@ class GameGui(tk.Tk):
         tk.Tk.__init__(self)
         self.withdraw()
         
-        var = GuiVars() #variable container for gui setup
         screenSize= [int(self.winfo_screenwidth()), int(self.winfo_screenheight())]
-        var.setGameGuiSize(screenSize)
+        GUICONSTS.setGameGuiSize(screenSize)
         #Display splash video
         splash = Splash(screenSize) #call splash "loading" image
         
@@ -333,13 +324,13 @@ class GameGui(tk.Tk):
         #Canvas
         myframe = tk.Frame(self)
         myframe.pack(fill=tk.BOTH, expand=tk.YES)
-        canvas = ResizingCanvas(myframe,width=var.scr_w, height=var.scr_w, bg="black")
+        canvas = ResizingCanvas(myframe,width=GUICONSTS.screenWidth, height=GUICONSTS.screenHeight, bg="black")
         canvas.pack(fill=tk.BOTH, expand=tk.YES)
         #Frames
-        textScrFr = tk.Frame(canvas, bg=var.frClr, bd=var.frBdr)
-        invtScrFr = tk.Frame(canvas, bg=var.frClr, bd=var.frBdr)
-        statsScrFr = tk.Frame(canvas, bg=var.frClr, bd=var.frBdr)
-        inputScrFr = tk.Frame(canvas, bg=var.frClr, bd=var.frBdr)
+        textScrFr = tk.Frame(canvas, bg=GUICONSTS.FRAMECOLOR, bd=GUICONSTS.FRAMEBORDER)
+        invtScrFr = tk.Frame(canvas, bg=GUICONSTS.FRAMECOLOR, bd=GUICONSTS.FRAMEBORDER)
+        statsScrFr = tk.Frame(canvas, bg=GUICONSTS.FRAMECOLOR, bd=GUICONSTS.FRAMEBORDER)
+        inputScrFr = tk.Frame(canvas, bg=GUICONSTS.FRAMECOLOR, bd=GUICONSTS.FRAMEBORDER)
         #Frame Pack
         textScrFr.pack(anchor=tk.W, side=tk.LEFT, fill=tk.BOTH, expand=tk.YES)
         invtScrFr.pack(anchor=tk.SW,side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
@@ -347,44 +338,43 @@ class GameGui(tk.Tk):
         inputScrFr.pack(anchor=tk.SW, side=tk.TOP, fill=tk.X, expand=tk.NO)
         
         #Screens   
-        wid = textScrFr.winfo_id()
         self.textScreen = OutputText(textScrFr\
-                                     , font=consts.GUI_FONT\
+                                     , font=GUICONSTS.GUI_FONT\
                                      , insertontime=0\
-                                     , fg=var.scrFg\
-                                     , bg=var.scrBg\
+                                     , fg=GUICONSTS.FONTCOLOR\
+                                     , bg=GUICONSTS.BGNDCOLOR\
                                      , width=82\
                                      , height=35\
                                      , padx=12\
                                      , pady=9)  
         self.inventoryScreen = InventoryText(invtScrFr\
-                                          , font=consts.GUI_FONT\
+                                          , font=GUICONSTS.GUI_FONT\
                                           , insertontime=0\
-                                          , bg=var.scrBg\
-                                          , fg=var.scrFg\
+                                          , bg=GUICONSTS.BGNDCOLOR\
+                                          , fg=GUICONSTS.FONTCOLOR\
                                           , width=4\
                                           , height=10\
                                           , padx=12\
                                           , pady=9)
         self.statsScreen = StatusText(statsScrFr\
-                                      , font=consts.GUI_FONT\
+                                      , font=GUICONSTS.GUI_FONT\
                                       , insertontime=0\
-                                      , bg=var.scrBg\
-                                      , fg=var.scrFg\
+                                      , bg=GUICONSTS.BGNDCOLOR\
+                                      , fg=GUICONSTS.FONTCOLOR\
                                       , width=40\
                                       , height=10\
                                       , padx=12\
                                       , pady=9)
         self.inputScreen = InputText(inputScrFr, font=("Lucida Console", "69") \
-                                         ,insertbackground=var.scrFg\
+                                         ,insertbackground=GUICONSTS.FONTCOLOR\
                                          , insertofftime=1200\
                                          , insertontime=1200\
                                          , insertwidth=5\
                                          , width=5\
                                          , height=1\
                                          , padx=6\
-                                         , bg=var.scrBg\
-                                         , fg=var.scrFg\
+                                         , bg=GUICONSTS.BGNDCOLOR\
+                                         , fg=GUICONSTS.FONTCOLOR\
                                          , pady=43)
         #Screen Pack
         self.textScreen.pack(side = tk.LEFT, fill=tk.BOTH, expand=tk.YES)
@@ -395,8 +385,7 @@ class GameGui(tk.Tk):
         #finished loading so destroy splash
         splash.destroy()
         #Show main window
-        self.deiconify()
-    
+        self.deiconify()    
             
 class Splash(tk.Toplevel):
     def __init__(self, screenSize):
@@ -413,9 +402,8 @@ class Splash(tk.Toplevel):
         self.PlayVideo()
         
     def PlayVideo(self):
-        video_name = "SplashScreen.mp4" #This is the splash video file path
+        video_name = VIDEOS.DICTVIDEO[0] #This is the title splash video file path
         self.video = imageio.get_reader(video_name)
-        self.frameRate = 25
         self.stream()
         
     def stream(self):
@@ -425,14 +413,11 @@ class Splash(tk.Toplevel):
                 self.videoScreen.config(image=frame_image) #load image into label
                 self.videoScreen.image = frame_image #display image
                 end = timer()
-                frameTimems = int(1000*(1/self.frameRate - (end-start))) #in milliseconds
+                frameTimems = int(1000*(1/VIDEOS.VIDEO_FRAMERATE - (end-start))) #in milliseconds
                 if frameTimems > 0 :
                     self.after(frameTimems)
                 self.videoScreen.update()
                 self.videoScreen.update_idletasks()
-
-def invokeTextScreenFontResize(self):
-    print(self.textScrFr.width)
   
 class Audio():
     def __init__(self):
@@ -440,18 +425,22 @@ class Audio():
         self.currentlyPlayingId = 0
     
     def play(self, itemNr):
-        if itemNr in sounds.dictMusic:
+        if itemNr in SOUNDS.DICTMUSIC:
             if not self.currentlyPlayingId == itemNr: #requested song is already playing
                 if mix.get_busy(): #mixer currently playing
-                    mix.music.fadeout(2000) #fadeout current song
+                    mix.music.fadeout(SOUNDS.SOUND_FADEOUT_TIME) #fadeout current song
                 self.currentlyPlayingId =itemNr
-                mix.music.load(sounds.dictMusic[itemNr])
+                mix.music.load(SOUNDS.DICTMUSIC[itemNr])
                 mix.music.play(loops=-1) #loop indefinetely
             else:
                 pass #requested song is already playing
         else:
-            mix.music.fadeout(2000) #no song requested
+            mix.music.fadeout(SOUNDS.SOUND_FADEOUT_TIME) #no song requested
     
     def end(self):
         mix.music.stop()
         mix.quit()
+        
+#TODO
+def invokeTextScreenFontResize(self):
+    print(self.textScrFr.width)

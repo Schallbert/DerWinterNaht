@@ -1,23 +1,55 @@
 #!/Program Files (x86)/Python python3
 from GameMechanics_WinterIsComing import *
-from Enums_WinterIsComing import cmd_inpt
 from GameStatClass_WinterIsComing import GameStats
+from Enums_WinterIsComing import GUICONSTS
 import time
-#Vorgeschichte!
-#Room1: Train station Mendig, RB26, 1.5h from cologne
+
+def playTutorial():
+    mockPlayer = Player("Spieler", 'white', [7,4], 0)
+    gui.textScreen.Clear()
+    gui.textScreen.TypeWrite(dictTexts[7][0]) #intro page 1
+    gui.textScreen.TypeWrite(GameMsg.LOADING)
+    Item(98)
+    Item(99)
+    gui.inventoryScreen.TypeWrite(dictTexts[8]) #inventory text
+    gui.statsScreen.Update([mockPlayer])
+    gui.statsScreen.TypeWrite(dictTexts[9]) #player stats text
+    gui.textScreen.Clear()
+    gui.textScreen.TypeWrite(dictTexts[7][1]) #intro page 2
+    gui.textScreen.TypeWrite(GameMsg.LOADING)
+    gui.textScreen.Clear()
+    gui.textScreen.TypeWrite(dictTexts[7][2]) #intro page 3
+    gui.textScreen.TypeWrite(GameMsg.LOADING)   
+        
+def playCredits():
+    gui.textScreen.TitleWriteCentered("Credits")
+    gui.textScreen.LineWrite("\n\n\n\n")
+    gui.textScreen.TypeWrite(GUICONSTS.CTRSTR + "Konzept und Idee: Lukas Preußer\n")
+    gui.textScreen.TypeWrite(GUICONSTS.CTRSTR + "Spielmechanik:    Lukas Preußer\n")
+    gui.textScreen.TypeWrite(GUICONSTS.CTRSTR + "Plot & Texte:     Lukas Preußer\n")
+    gui.textScreen.TypeWrite(GUICONSTS.CTRSTR + "Videos:           Lukas Preußer\n")
+    gui.textScreen.TypeWrite(GUICONSTS.CTRSTR + "Soundtrack:       Markus Hagen & Lukas Preußer\n")
+    gui.textScreen.TypeWrite(GUICONSTS.CTRSTR + "Test-Spieler:     noch keine ;)\n")
+    gui.textScreen.TypeWrite(GameMsg.LOADING)
+    
+def printTitleMenu():
+    gui.textScreen.Clear()
+    gui.textScreen.TypeWrite("\n\n\n")
+    gui.textScreen.TitleWriteCentered("Der Winter naht")
+    gui.textScreen.TypeWrite(GUICONSTS.CTRSTR + "     - Ein Textabenteuer -\n\n\n")
+    gui.textScreen.TypeWrite(GUICONSTS.CTRSTR + "----------- Hauptmenü ----------\n\n")
+    gui.textScreen.LineWrite(GUICONSTS.CTRSTR + "Bitte eingeben:   <Wert> <Enter>\n")
+    gui.textScreen.LineWrite(GUICONSTS.CTRSTR + "Spiel fortsetzen:     0\n")
+    gui.textScreen.LineWrite(GUICONSTS.CTRSTR + "Neues Spiel beginnen: 1\n")
+    gui.textScreen.LineWrite(GUICONSTS.CTRSTR + "Regeln und Tutorial:  2\n")
+    gui.textScreen.LineWrite(GUICONSTS.CTRSTR + "Credits:              3\n")
+    gui.textScreen.LineWrite(GUICONSTS.CTRSTR + "Spiel beenden:     quit\n\n")
+    resp = gui.inputScreen.GetInput()
+
 
 resp = 3
 while resp > 1:
-    ctrStr = " "*23
-    gui.textScreen.Clear()
-    gui.textScreen.TypeWrite("\n\n\n\n")
-    gui.textScreen.TypeWrite(ctrStr + "-----------Hauptmenü------------\n\n")
-    gui.textScreen.LineWrite(ctrStr + "Bitte eingeben:   <Wert> <Enter>\n")
-    gui.textScreen.LineWrite(ctrStr + "Spiel fortsetzen:     0\n")
-    gui.textScreen.LineWrite(ctrStr + "Neues Spiel beginnen: 1\n")
-    gui.textScreen.LineWrite(ctrStr + "Regeln und Tutorial:  2\n")
-    gui.textScreen.LineWrite(ctrStr + "Credits:              3\n")
-    gui.textScreen.LineWrite(ctrStr + "Spiel beenden:     quit\n\n")
+    printTitleMenu()
     resp = gui.inputScreen.GetInput()
     if resp == 0: #continue game
         try:
@@ -41,24 +73,9 @@ while resp > 1:
             gui.textScreen.TypeWrite(GameMsg.QUIT)
             GameStats.Quit(gui)
     elif resp == 2: #tutorial
-        mockPlayer = Player("Spieler", 'white', [7,4], 0)
-        gui.textScreen.Clear()
-        gui.textScreen.TypeWrite(GameMsg.INTRO)
-        gui.textScreen.TypeWrite(GameMsg.LOADING)
-        Item(98)
-        Item(99)
-        gui.inventoryScreen.TypeWrite(GameMsg.INVSCR)
-        gui.statsScreen.Update([mockPlayer])
-        gui.statsScreen.TypeWrite(GameMsg.STATSCR)
-        gui.textScreen.Clear()
-        gui.textScreen.TypeWrite(GameMsg.NUMBERS)
-        gui.textScreen.TypeWrite(GameMsg.LOADING)
-        gui.textScreen.Clear()
-        gui.textScreen.TypeWrite(GameMsg.COMBINATIONS)
-        gui.textScreen.TypeWrite(GameMsg.LOADING)   
+        playTutorial()
     elif resp == 3: #credits
-        gui.textScreen.TypeWrite("\n\n\n\n" + ctrStr + "Das alles hier: Lukas P. 'Schallbert'")
-        gui.textScreen.TypeWrite(GameMsg.LOADING)
+        playCredits()
     else:
         gui.textScreen.TypeWrite(GameMsg.QUIT)
         GameStats.Quit(gui)
