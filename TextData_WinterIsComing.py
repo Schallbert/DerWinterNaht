@@ -27,10 +27,10 @@ An einem Freitag Morgen im Spätherbst, Ihr habt ein langes Wochenende vor Euch,
 packt Ihr Sachen für einen einigermaßen spontanen Wanderausflug in die Eifel.\n\
 Die Wettervorhersage ist hervorragend, und auch wenn die Nächte schon empfindlich\n\
 kühl werden können, so braucht Ihr tagsüber nicht mehr als eine dünne Jacke.\n\
-Nach einem ausgiebigen Frühstück macht Ihr Euch auf zum Bahnhof.\n\n\n\n\
-Die Bahnfahrt verläuft entspannt.\n\n\n\n\
+Nach einem ausgiebigen Frühstück macht Ihr Euch auf zum Bahnhof.\n\n\n                                      \n\
+Die Bahnfahrt verläuft entspannt.\n\n\n                                    \n\
 Als Ihr endlich aussteigt, findet Ihr Euch in Mendig wieder, einer Kleinstadt\n\
-etwa 25km westlich von Koblenz.\n\n\n\
+etwa 25km westlich von Koblenz.\n\n                              \n\
 Nach kurzer Orientierung beginnt hier Eure Wanderung.\n\
 Als besonders nützlicher Gegenstand wird Euer Smartphone im Inventar angezeigt\n\
 und kann ab sofort verwendet werden.\n",
@@ -1196,10 +1196,13 @@ dictModsRefused = {
 
 class GameMsg():
     ASKCONT = "Möchtet Ihr Euer aktuelles Spiel (falls vorhanden) fortsetzen?\n"
+    ASKCLR = ", \nBitte wähle eine Farbe: "
+    CLRNOTSET = "\nKonnte die Farbe leider nicht übernehmen. Verwende die Standard-Farbe für Dich.\n"
     SUCCESS = "...erfolgreich!\n"
     LOAD = "Lade Spielstand..."
     INPTOK = ", alles klar, wird übernommen!\n"
     ASKOVWR = "Möchtet Ihr Euren alten Spielstand (falls vorhanden) überschreiben?\n"
+    NOTOVWR = "...Also nicht überschreiben? Na gut, dann also einfach weiterspielen!\n"
     NAN = "Keine Zahl erkannt. Zum Speichern und Beenden bitte 'quit' eingeben.\n"
     QUIT = "Keine Aktion gewählt. Das Spiel wird jetzt beendet.\n"
     SVQT = "Spiel wird gespeichert und beendet. Bis bald!\n"
@@ -1220,11 +1223,11 @@ class GameMsg():
     UNKNOWN_CMD = "Kein bekanntes Kommando.\n"
     SUCCESS_GET = "Das war erfolgreich! Ihr erhaltet "
     CHMOD = [", dein Wohlbefinden ändert sich um:\nMotivation: ", "\nMüdigkeit: "]
-    LOADING = "__________________________________________________________________________\n"
+    LOADING = "_____________________________________________________________________________\n"
     LOOSE = "Ihr verliert "
     NO_SVGAME = "Fehler: Keinen Spielstand zum Laden gefunden.\n\
 Beginne neues Spiel.\n"
-    MODBEFOREGAMESTART = "das Spiel braucht noch ein paar wenige Angaben von Dir,\n\
+    MODBEFOREGAMESTART = "\nDas Spiel braucht noch ein paar weitere Angaben von Dir,\n\
 bevor es losgehen kann:\n"
     GETMOT = "Wie motiviert fühlst Du Dich gerade? Bitte eine Zahl zwischen\n\
 0 [Thaddäus] bis 10 [Spongebob Schwammkopf] eingeben.\n"

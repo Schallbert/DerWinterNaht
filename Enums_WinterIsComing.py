@@ -75,7 +75,18 @@ class GUICONSTS():
         "Y3" : '#CEC098',\
         "Y4" : '#FFFFBF',\
         "Y5" : '#FFFFE6'
-    }
+        }
+    
+    DICTPLAYERCOLORS = {
+        1 : '#FFFFFF',\
+        2 : '#C18C66',\
+        3 : '#C10CD4',\
+        4 : '#AC6FFF',\
+        5 : '#15A7C1',\
+        6 : '#11D0FF',\
+        7 : '#7FE1AE',\
+        8 : '#8EF120',\
+        }
     #game window margin to screen size [pixels] 
     __XWINDOWMARGIN = 200  
     __YWINDOWMARGIN = 200

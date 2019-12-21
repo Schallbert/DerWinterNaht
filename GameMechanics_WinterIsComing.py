@@ -1,10 +1,9 @@
+#import modules
 from tkinter import *
 import random
-#import datetime
-#import time
 import copy
 
-#Import data structures   
+#import constants/ data structures
 from TextData_WinterIsComing import *
 from Enums_WinterIsComing import *
 from ScreenManager_WinterIsComing import *
@@ -296,8 +295,6 @@ class Player:
 
     def GetMod(self, modVar):
         if modVar == MOD.CURRMOD:
-            #reset lastMod to not show lost mod for ages...
-            self.__lastMod = self.__mod
             return self.__mod
         elif modVar == MOD.LASTMOD:
             return self.__lastMod
@@ -306,6 +303,15 @@ class Player:
 
     def GetColor(self):
         return self.__color
+        
+    def SetColor(self, color):
+        if color in GUICONSTS.DICTPLAYERCOLORS:
+            self.__color = GUICONSTS.DICTPLAYERCOLORS[color]
+        else:
+            gui.textScreen.TypeWrite(GameMsg.CLRNOTSET)
+        
+    def UpdateLastMod(self):
+        self.__lastMod = copy.copy(self.__mod)
 
     def ChangeMod(self, valueList):
         maxMod = [10, 10]
@@ -563,6 +569,7 @@ def newRound():
     GameStats.GetCurrentRoom().ReloadRoom()
     GameStats.NextPlayer()
     currentPlayer = GameStats.GetCurrentPlayer()
+    currentPlayer.UpdateLastMod() #set lastMod = Mod for vanishing "modchange" indicators
     gui.textScreen.NameWrite(currentPlayer)
     gui.textScreen.TypeWrite(GameMsg.TURN[0] \
                               + str(currentPlayer.GetPos().number) \
@@ -583,7 +590,9 @@ def NewGame():
             gui.textScreen.LineWrite("\n")
             gui.textScreen.TitleWriteCentered("Der Winter naht")
             gui.textScreen.NameWrite(player)
-            gui.textScreen.TypeWrite(", ")  
+            gui.textScreen.TypeWrite(GameMsg.ASKCLR)
+            gui.textScreen.ChooseColor()
+            player.SetColor(gui.inputScreen.GetInput())
             gui.textScreen.TypeWrite(GameMsg.MODBEFOREGAMESTART)
             gui.textScreen.TypeWrite(GameMsg.GETMOT)
             currPlrMot = RandomMod.rndm_PlayerInput(gui.inputScreen.GetInput())
@@ -628,17 +637,19 @@ class RandomMod():
             return value
             
     @classmethod
-    def rndm_BufRestart(cls, timeDiffSec):
+    def rndm_BufRestart(cls, timeDelta):
         """Returns a random buff depending on how long the players did not start the game.
         This function is to be used like this:
-        Player.ChangeMod(RandomMod.rndm_BufRestart(timeDiffSec)"""
-        if timeDiffSec < MOD.SHORTBREAK :
+        Player.ChangeMod(RandomMod.rndm_BufRestart(timedelta object)"""
+        diffSec = timeDelta.total_seconds()
+        gui.textScreen.TypeWrite("Eure Spielpause betrug: %s\n" %timeDelta)
+        if diffSec < MOD.SHORTBREAK :
             gui.textScreen.TypeWrite(GameMsg.RNDM_PAUSE[0])
             return 0
-        elif timeDiffSec < MOD.BREAK : 
+        elif diffSec < MOD.BREAK : 
             gui.textScreen.TypeWrite(GameMsg.RNDM_PAUSE[1])
             return random.choice(MOD.RNDM_MIRANGE)
-        elif timeDiffSec < MOD.LONGBREAK :
+        elif diffSec < MOD.LONGBREAK :
             gui.textScreen.TypeWrite(GameMsg.RNDM_PAUSE[2])
             return random.choice(MOD.RNDM_LORANGE)
         else:

@@ -1,3 +1,4 @@
+#import modules
 import tkinter as tk
 import imageio
 from timeit import default_timer as timer
@@ -264,7 +265,20 @@ class OutputText(tk.Text):
         self.tag_add(self.__nrOfTags, tagNameS, tagNameE)
         self.tag_config(self.__nrOfTags, foreground=player.GetColor(), font=GUICONSTS.GUI_BOLD)
         self.__Deactivate()
-    
+        
+    def ChooseColor(self):
+        self.__Activate()
+        endIndx = self.index('end-1c').split('.')
+        linNr = int(endIndx[0])
+        currCol = int(endIndx[-1])
+        for color in GUICONSTS.DICTPLAYERCOLORS.keys():
+            colorDescr = " "+ str(color)
+            self.__TypeWrite(colorDescr) #two chars, 
+            self.tag_add(currCol, '%d.%d' %(linNr, currCol), '%d.%d' %(linNr, currCol+len(colorDescr)))
+            self.tag_config(currCol, foreground=GUICONSTS.DICTPLAYERCOLORS[color], font=GUICONSTS.GUI_BOLD)
+            currCol = currCol+len(colorDescr)
+        self.update()
+        
     def TypeWrite(self, text):
         self.__Activate()
         self.__TypeWrite(text)

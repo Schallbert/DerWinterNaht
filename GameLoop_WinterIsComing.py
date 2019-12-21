@@ -47,7 +47,6 @@ def printTitleMenu():
     gui.textScreen.LineWrite(GUICONSTS.CTRSTR + "Regeln und Tutorial:  2\n")
     gui.textScreen.LineWrite(GUICONSTS.CTRSTR + "Credits:              3\n")
     gui.textScreen.LineWrite(GUICONSTS.CTRSTR + "Spiel beenden:     quit\n\n")
-    resp = gui.inputScreen.GetInput()
 
 
 resp = 3
@@ -57,10 +56,12 @@ while resp > 1:
     if resp == 0: #continue game
         try:
             gui.textScreen.TypeWrite(GameMsg.LOAD)
-            GameStats.Load()
+            timeDiff = GameStats.Load()
             gui.inventoryScreen.Update(GameStats.GetInventory())
             gui.statsScreen.Update(GameStats.GetListPlayers())
             gui.textScreen.TypeWrite(GameMsg.SUCCESS)
+            motBuff = RandomMod.rndm_BufRestart(timeDiff)
+            invokeChangeMod([motBuff,0], MOD.EFFALL)
         except:
             gui.textScreen.TypeWrite(GameMsg.NO_SVGAME)
             NewGame()
@@ -73,8 +74,8 @@ while resp > 1:
             gui.inventoryScreen.Update(GameStats.GetInventory())
             gui.statsScreen.Update(GameStats.GetListPlayers())
         else:
-            gui.textScreen.TypeWrite(GameMsg.QUIT)
-            GameStats.Quit(gui)
+            gui.textScreen.TypeWrite(GameMsg.NOTOVWR)
+            resp = 3 #to automatically resume game.
     elif resp == 2: #tutorial
         playTutorial()
     elif resp == 3: #credits

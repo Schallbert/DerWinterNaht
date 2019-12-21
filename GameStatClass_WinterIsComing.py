@@ -1,5 +1,7 @@
-import pickle
+#import modules
+import pickle #for savegame
 import sys
+import datetime #for savegame timestamp
 
 class GameStats:
     """This is a static class that does not need any instance. 
@@ -17,8 +19,6 @@ class GameStats:
     def Quit(cls, guiRoot):
         try:
             guiRoot.audioStream.end() #if existing, end audio stream (experimental)
-        #if hasattr(guiRoot, 'audiostream'):
-        #   guiRoot.audioStream.end() #only end if has ben initialized
         except:
             pass
         guiRoot.quit() #First end the gui's bindings
@@ -27,22 +27,27 @@ class GameStats:
         
     @classmethod
     def Save(cls):
+        saveTime = datetime.datetime.now()
         with open('savegame.dat', 'wb') as svGame:
              pickle.dump([cls.__listP \
                          , cls.__dictInventory \
                          , cls.__listRoomsVisited \
                          , cls.__listItemsYielded \
-                         , cls.__currentRoom], svGame, protocol=2)
+                         , cls.__currentRoom \
+                         , saveTime], svGame, protocol=2)
     
     @classmethod
     def Load(cls):
+        loadTime = datetime.datetime.now()
         with open('savegame.dat', 'rb') as svGame:
             cls.__listP \
             , cls.__dictInventory \
             , cls.__listRoomsVisited \
             , cls.__listItemsYielded \
             , cls.__currentRoom \
+            , saveTime \
             = pickle.load(svGame)
+        return (loadTime - saveTime) #time difference between loading and saving
    
     #----------------------------------------------
     # Player related methods
