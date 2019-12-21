@@ -22,7 +22,8 @@ actionDict = {
 #Text Dictionary by IDs:
 dictTexts = {
     1 : \
-"An einem Freitag Morgen im Spätherbst, Ihr habt ein langes Wochenende vor Euch,\n\
+"Euer Abenteuer beginnt wie folgt: \n\
+An einem Freitag Morgen im Spätherbst, Ihr habt ein langes Wochenende vor Euch,\n\
 packt Ihr Sachen für einen einigermaßen spontanen Wanderausflug in die Eifel.\n\
 Die Wettervorhersage ist hervorragend, und auch wenn die Nächte schon empfindlich\n\
 kühl werden können, so braucht Ihr tagsüber nicht mehr als eine dünne Jacke.\n\
@@ -30,7 +31,9 @@ Nach einem ausgiebigen Frühstück macht Ihr Euch auf zum Bahnhof.\n\n\n\n\
 Die Bahnfahrt verläuft entspannt.\n\n\n\n\
 Als Ihr endlich aussteigt, findet Ihr Euch in Mendig wieder, einer Kleinstadt\n\
 etwa 25km westlich von Koblenz.\n\n\n\
-Nach kurzer Orientierung beginnt hier Eure Wanderung.\n",
+Nach kurzer Orientierung beginnt hier Eure Wanderung.\n\
+Als besonders nützlicher Gegenstand wird Euer Smartphone im Inventar angezeigt\n\
+und kann ab sofort verwendet werden.\n",
     7: \
 [\
 "Willkommen im Spiel 'Der Winter Naht'!\n\
@@ -86,7 +89,7 @@ Wollt Ihr Orte untersuchen, so ist das Verfahren dasselbe wie bei Räumen\n\
 mit dem Unterschied, dass Ihr auf Orten Aktionen durchführt, die den Spielverlauf\n\
 dauerhaft beeinflussen können. Bei den meisten Aktionen werdet Ihr vorher\n\
 gefragt, ob Ihr die auch wirklich durchführen wollt, bei einigen aber nicht;\n\
-das macht das Spiel spannender für die Entwickler ;)\n"\
+das macht das Spiel spannender ;)\n"\
 \
 , "Manche Gegenstände aus Eurem Inventar können miteinander kombiniert werden,\n\
 um einen neuen Gegenstand zu erhalten. Dabei muss die niedrigere der beiden\n\
@@ -243,7 +246,7 @@ und endet in lockeren, aber leicht erhöhten, festen Grasbüscheln.\n\
 Die Natur hat Euch hier förmlich verschluckt.\n\
 Doch - halt - was glitzert da hinten im Gras?\n\n",
     121 : \
-"Hier ist es ziemlich nass überall. Obwohl alles mit Gras und Heide\n\
+"Hier ist es ziemlich nass überall. Obwohl das Gelände mit Gras und Heide\n\
 bewachsen ist, steht fast alles ein paar Zentimeter unter Wasser\n\
 bis auf ein paar Grasbüschel, die sich wie Inseln über dem\n\
 Wasserspiegel befinden und etwa in Schrittweite zueinander wachsen.\n",
@@ -1195,6 +1198,7 @@ class GameMsg():
     ASKCONT = "Möchtet Ihr Euer aktuelles Spiel (falls vorhanden) fortsetzen?\n"
     SUCCESS = "...erfolgreich!\n"
     LOAD = "Lade Spielstand..."
+    INPTOK = ", alles klar, wird übernommen!\n"
     ASKOVWR = "Möchtet Ihr Euren alten Spielstand (falls vorhanden) überschreiben?\n"
     NAN = "Keine Zahl erkannt. Zum Speichern und Beenden bitte 'quit' eingeben.\n"
     QUIT = "Keine Aktion gewählt. Das Spiel wird jetzt beendet.\n"
@@ -1216,13 +1220,15 @@ class GameMsg():
     UNKNOWN_CMD = "Kein bekanntes Kommando.\n"
     SUCCESS_GET = "Das war erfolgreich! Ihr erhaltet "
     CHMOD = [", dein Wohlbefinden ändert sich um:\nMotivation: ", "\nMüdigkeit: "]
-    LOADING = "______________________________________________________________________\n"
+    LOADING = "__________________________________________________________________________\n"
     LOOSE = "Ihr verliert "
     NO_SVGAME = "Fehler: Keinen Spielstand zum Laden gefunden.\n\
 Beginne neues Spiel.\n"
-    GETMOT = ", wie motiviert fühlst Du Dich gerade? Bitte eine Zahl zwischen\n\
+    MODBEFOREGAMESTART = "das Spiel braucht noch ein paar wenige Angaben von Dir,\n\
+bevor es losgehen kann:\n"
+    GETMOT = "Wie motiviert fühlst Du Dich gerade? Bitte eine Zahl zwischen\n\
 0 [Thaddäus] bis 10 [Spongebob Schwammkopf] eingeben.\n"
-    GETTIR = ", wie müde bist Du gerade? Bitte eine Zahl zwischen\n\
+    GETTIR = "Und wie müde bist Du gerade? Bitte eine Zahl zwischen\n\
 0 [Eichhörnchen auf Koffein] und 10 [*schnarch*] eingeben.\n"
     TIRED = ", du bist müde. Hundemüde. Sieh' zu, dass Du Dich schnleunigst ausruhst!\n\
 In so einem Zustand verlierst Du langsam Deine Motivation............................\n"
@@ -1235,8 +1241,9 @@ die Hälfte Deiner Motivation abgeben?\n"]
     UNMOT_END = "Puh, es hilft alles nichts. Ihr macht jetzt erstmal schön eine Pause.\n\
 Später - sagen wir ab in einer halben Stunde - könnt Ihr dann mit frischer\n\
 Motivation weitermachen...                                                 \n"
-    RNDM_INPT = "Na, übertreibt es mal nicht. Wenn Ihr schon so anfangt,\n\
-wird einfach ein Zufallswert gewählt!\n"
+    RNDM_INPT = "... Na, diesen Wert kauft Dir das Spiel aber nicht ab.\n\
+Bleib' realistisch! Jetzt wird einfach ein Zufallswert gewählt!\n\
+Hmmm... nehmen wir... diesen: "
     RNDM_PAUSE = [\
 "Ihr habt das Spiel doch erst vor Kurzem beendet\n\
 (oder beenden müssen)! Ihr könnt nicht erwarten, dass sich an Eurer Motivation\n\

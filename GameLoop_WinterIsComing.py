@@ -7,6 +7,8 @@ import time
 def playTutorial():
     mockPlayer = Player("Spieler", 'white', [7,4], 0)
     gui.textScreen.Clear()
+    gui.textScreen.TitleWriteCentered("Regeln und Tutorial")
+    gui.textScreen.LineWrite("\n\n")
     gui.textScreen.TypeWrite(dictTexts[7][0]) #intro page 1
     gui.textScreen.TypeWrite(GameMsg.LOADING)
     Item(98)
@@ -22,6 +24,7 @@ def playTutorial():
     gui.textScreen.TypeWrite(GameMsg.LOADING)   
         
 def playCredits():
+    gui.textScreen.Clear()
     gui.textScreen.TitleWriteCentered("Credits")
     gui.textScreen.LineWrite("\n\n\n\n")
     gui.textScreen.TypeWrite(GUICONSTS.CTRSTR + "Konzept und Idee: Lukas Preußer\n")
@@ -36,8 +39,8 @@ def printTitleMenu():
     gui.textScreen.Clear()
     gui.textScreen.TypeWrite("\n\n\n")
     gui.textScreen.TitleWriteCentered("Der Winter naht")
-    gui.textScreen.TypeWrite(GUICONSTS.CTRSTR + "     - Ein Textabenteuer -\n\n\n")
-    gui.textScreen.TypeWrite(GUICONSTS.CTRSTR + "----------- Hauptmenü ----------\n\n")
+    gui.textScreen.TypeWrite(GUICONSTS.CTRSTR + "      - Ein Textabenteuer -\n\n\n\n")
+    gui.textScreen.TypeWrite(GUICONSTS.CTRSTR + "----------- Hauptmenü -----------\n\n")
     gui.textScreen.LineWrite(GUICONSTS.CTRSTR + "Bitte eingeben:   <Wert> <Enter>\n")
     gui.textScreen.LineWrite(GUICONSTS.CTRSTR + "Spiel fortsetzen:     0\n")
     gui.textScreen.LineWrite(GUICONSTS.CTRSTR + "Neues Spiel beginnen: 1\n")

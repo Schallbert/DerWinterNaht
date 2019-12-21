@@ -275,7 +275,7 @@ class Item:
     
     def SetType(self, newType):
         self.__type = newType
-
+#---------------------------------------------------------------
 class Player:
     def __init__(self, name, color, mod, position):
         self.__position = position
@@ -296,6 +296,8 @@ class Player:
 
     def GetMod(self, modVar):
         if modVar == MOD.CURRMOD:
+            #reset lastMod to not show lost mod for ages...
+            self.__lastMod = self.__mod
             return self.__mod
         elif modVar == MOD.LASTMOD:
             return self.__lastMod
@@ -545,7 +547,7 @@ def CheckPlayerStats():
             resp = gui.inputScreen.GetInput()
             if resp == 1:
                 # shares motivation with UNMOT player.
-                nextPlMot = int(nextPl.GetMod()[0]/2)
+                nextPlMot = int(nextPl.GetMod(MOD.CURRMOD)[0]/2)
                 nextPl.ChangeMod([-nextPlMot, 0])
                 currPl.ChangeMod([nextPlMot-1, 0])
             else:
@@ -569,13 +571,35 @@ def newRound():
 def NewGame():
         """This method initializes the game with predefined values.
         Acts like a setter for the player list."""
-        GameStats.SetCurrentRoom(Room(100))
-        #generate start items in inventory
-        Item(10)
+        startRoom = 100
+        gui.audioStream.play(startRoom)
+       
+        GameStats.SetCurrentRoom(Room(startRoom))
         #Setup Player list (static Class)
-        GameStats.SetListPlayers([Player("Lukas", "orange", [8,7], GameStats.GetCurrentRoom()), \
-                                  Player("Marie", "cyan", [6,9], GameStats.GetCurrentRoom())]) 
-
+        GameStats.SetListPlayers([Player("Lukas", "orange", [0,0], GameStats.GetCurrentRoom()), \
+                                  Player("Marie", "cyan", [0,0], GameStats.GetCurrentRoom())]) 
+        for player in GameStats.GetListPlayers():
+            gui.textScreen.Clear()
+            gui.textScreen.LineWrite("\n")
+            gui.textScreen.TitleWriteCentered("Der Winter naht")
+            gui.textScreen.NameWrite(player)
+            gui.textScreen.TypeWrite(", ")  
+            gui.textScreen.TypeWrite(GameMsg.MODBEFOREGAMESTART)
+            gui.textScreen.TypeWrite(GameMsg.GETMOT)
+            currPlrMot = RandomMod.rndm_PlayerInput(gui.inputScreen.GetInput())
+            gui.textScreen.TypeWrite(GameMsg.GETTIR)
+            currPlrTir = RandomMod.rndm_PlayerInput(gui.inputScreen.GetInput())
+            player.ChangeMod([currPlrMot, 10-currPlrTir])
+            gui.textScreen.Clear()
+        gui.textScreen.LineWrite("\n")
+        gui.textScreen.TitleWriteCentered("Der Winter naht")
+        for player in GameStats.GetListPlayers():
+            gui.textScreen.NameWrite(player)
+            gui.textScreen.TypeWrite(", ")  
+        gui.textScreen.TypeWrite("\n\n\n" + dictTexts[1]) 
+        #generate start items in inventory
+        Item(10) #first item: Smartphone
+        gui.textScreen.TypeWrite(GameMsg.LOADING)
 
 class RandomMod():
     """This class evaluates motivation/tiredness input or status when the game
@@ -583,20 +607,28 @@ class RandomMod():
     input values."""
     
     @classmethod
-    def rndm_PlayerInput(value):
+    def rndm_PlayerInput(cls, value):
         """Returns a random number in case the player does not input a desired number.
         To be called when GameStatClass.Load() is complete for each player."""
-        if value <= LORANGE :
+        if value < MOD.LORANGE :
+            gui.textScreen.TypeWrite(str(value))
             gui.textScreen.TypeWrite(GameMsg.RNDM_INPT)
-            return random.choice(MOD.RNDM_LORANGE)
-        elif value > HIRANGE :
+            rndm = random.choice(MOD.RNDM_LORANGE)
+            gui.textScreen.TypeWrite(str(rndm) + "\n\n")
+            return rndm
+        elif value > MOD.HIRANGE :
+            gui.textScreen.TypeWrite(str(value))
             gui.textScreen.TypeWrite(GameMsg.RNDM_INPT)
-            return random.choice(MOD.RNDM_HIRANGE)
+            rndm = random.choice(MOD.RNDM_HIRANGE)
+            gui.textScreen.TypeWrite(str(rndm) + "\n\n")
+            return rndm
         else:
+            gui.textScreen.TypeWrite(str(value))
+            gui.textScreen.TypeWrite(GameMsg.INPTOK)
             return value
             
     @classmethod
-    def rndm_BufRestart(timeDiffSec):
+    def rndm_BufRestart(cls, timeDiffSec):
         """Returns a random buff depending on how long the players did not start the game.
         This function is to be used like this:
         Player.ChangeMod(RandomMod.rndm_BufRestart(timeDiffSec)"""

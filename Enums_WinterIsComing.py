@@ -60,7 +60,7 @@ class GUICONSTS():
     GUI_TITLE = ["Lucida Console", "18", "bold"]
     
     #number of spaces to center text of title menu
-    CTRSTR = " "*24
+    CTRSTR = " "*23
     
     #Color Palette used throughout the game
     DICTCOLORPALETTE = {

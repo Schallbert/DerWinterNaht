@@ -141,8 +141,8 @@ Offers public function Update that takes the player list to output the player's 
             #define text colors
             self.tag_config(currName+"modClr", foreground=GUICONSTS.DICTCOLORPALETTE["B4"], font=GUICONSTS.GUI_BOLD)
             self.tag_config(currName+"plrClr", foreground=player.GetColor())
-            self.tag_config(currName+"lMotClr", foreground=GUICONSTS.DICTCOLORPALETTE["Y2"], font=GUICONSTS.GUI_BOLD)
-            self.tag_config(currName+"lTirClr", foreground=GUICONSTS.DICTCOLORPALETTE["Y2"], font=GUICONSTS.GUI_BOLD)
+            self.tag_config(currName+"lMotClr", foreground=GUICONSTS.DICTCOLORPALETTE["Y1"], font=GUICONSTS.GUI_BOLD)
+            self.tag_config(currName+"lTirClr", foreground=GUICONSTS.DICTCOLORPALETTE["Y1"], font=GUICONSTS.GUI_BOLD)
             self.tag_config(currName+"motClr", foreground=self.__GetModColor(currMod[0]), font=GUICONSTS.GUI_BOLD)
             self.tag_config(currName+"tirClr", foreground=self.__GetModColor(currMod[1]), font=GUICONSTS.GUI_BOLD)
             self.update()
@@ -275,7 +275,6 @@ class OutputText(tk.Text):
         than 'normal' gui text using tags. Currently this function can only handle ONE
         title per page. To center this text, it read's the widget's width and sets the
         cursor accordingly."""
-        maxTagCnt = 1 #only one tag name, means only one tag per page.
         tLen = len(title)
         fontMult = int(GUICONSTS.GUI_FONT[1])/int(GUICONSTS.GUI_TITLE[1]) #to check how much bigger the title font is  
         linNr = int(self.index('end-1c').split('.')[0]) #current index, line [0]
@@ -286,8 +285,8 @@ class OutputText(tk.Text):
         self.insert(tk.INSERT, " "*colSt+title)
         self.insert(tk.INSERT, "\n\n") #add line breaks (to not count into title...)
         #add tag and config text size
-        self.tag_add(maxTagCnt, tagTitleS, tagTitleE)
-        self.tag_config(maxTagCnt, font=GUICONSTS.GUI_TITLE) #change font to title font
+        self.tag_add('title', tagTitleS, tagTitleE)
+        self.tag_config('title', font=GUICONSTS.GUI_TITLE) #change font to title font
         self.__Deactivate()
 
     def __TypeWrite(self, text):
