@@ -86,6 +86,7 @@ Wie viele Spieler seid ihr [1-4]?")
 
     @classmethod
     def playTutorial(cls, gui):
+        """Play the tutorial explaining actions and how game mechanics works"""
         mock_player = Player("Spieler", 'white', [7, 4], 0)
         gui.textScreen.Clear()
         gui.textScreen.TitleWriteCentered("Regeln und Tutorial")
@@ -106,6 +107,7 @@ Wie viele Spieler seid ihr [1-4]?")
 
     @classmethod
     def playCredits(cls, gui):
+        """Plays credits."""
         gui.textScreen.Clear()
         gui.textScreen.TitleWriteCentered("Credits")
         gui.textScreen.LineWrite("\n\n\n\n")
