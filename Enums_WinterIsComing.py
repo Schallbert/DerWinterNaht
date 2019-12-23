@@ -116,8 +116,12 @@ class GUICONSTS():
 class SOUNDS():
     SOUND_FADEOUT_TIME = 2000
     DICTMUSIC = {\
-        100: "Sound/DerWinterNaht_MainTheme.ogg",\
-        110: "Sound/Bootloader.mp3",\
+        100: "Sound/Train_Station_1_St_Scene.ogg", \
+        110: "Sound/DerWinterNaht_MainTheme.ogg", \
+        140: "Sound/Wellenstation.mp3",\
+        170: "Sound/SX018_Amb_forest_birds_02.ogg",\
+        200: "Sound/DerWinterNaht_MainTheme.ogg", \
+
         }
         
 class VIDEOS():

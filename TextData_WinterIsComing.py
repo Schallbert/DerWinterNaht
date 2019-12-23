@@ -565,8 +565,8 @@ sodass die Karte einwandfrei lesbar ist.\n",
 "Ihr betretet die Apotheke. Warum, das ist Euch selbst noch nicht ganz\n\
 klar geworden, als Euch schon ein freundlicher Herr hohen Alters mit Haarkranz,\n\
 goldener Brille und weißem Kittel - ganz nach dem Klischee - anspricht.\n\
-Aus Verlegenheit kauft Ihr einen Verbandkasten.\n\
-Tja, dieses sperrige Stück muss nun den ganzen Weg mitgeschleppt werden.\n",
+Aus Verlegenheit kauft Ihr ein Fläschchen Entspannungsbad.\n\
+Was für eine Sinnlose Geldverschwendung, nicht wahr?\n",
     104 : \
 "Hach, ganz wie zu Hause! So eine Zugfahrt macht echt hungrig, und so\n\
 kauft Ihr, obwohl Ihr Euch natürlich ein paar Brote geschmiert habt, einen\n\
@@ -1232,7 +1232,7 @@ bevor es losgehen kann:\n"
     GETMOT = "Wie motiviert fühlst Du Dich gerade? Bitte eine Zahl zwischen\n\
 0 [Thaddäus] bis 10 [Spongebob Schwammkopf] eingeben.\n"
     GETTIR = "Und wie müde bist Du gerade? Bitte eine Zahl zwischen\n\
-0 [Eichhörnchen auf Koffein] und 10 [*schnarch*] eingeben.\n"
+0 [Eichhörnchen auf Koffein] und 10 [Schlafsüchtiges Faultier] eingeben.\n"
     TIRED = ", du bist müde. Hundemüde. Sieh' zu, dass Du Dich schnleunigst ausruhst!\n\
 In so einem Zustand verlierst Du langsam Deine Motivation............................\n"
     UNMOT = [", du hast im Moment echt gar keinen Bock mehr auf diesen Ausflug,\n\
