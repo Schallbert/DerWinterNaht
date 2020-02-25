@@ -71,7 +71,7 @@ die Handlung des Spiels.\n\
 Beachtet, dass nicht immer alle Orte eines Raumes oder alle angeschlossenen\n\
 Räume eines Raumes erreichbar sein müssen.\n\
 Besonders in späteren Teilen des Spiels ist es üblich, dass Ihr nur durch\n\
-das Lösen von Rätseln und Entdecken versteckte Räume, Gegenstände oder Orte\n\
+das Lösen von Rätseln und Entdecken versteckter Räume, Gegenstände oder Orte\n\
 weiterkommen werdet.                                                   \n\
 \n\
 Zu den Objekten des Spiels:\n\
@@ -1058,7 +1058,8 @@ dictSpotItems = {
     10105 : [12],\
     112 : [17],\
     114 : [18],\
-    128 : [19,22],\
+    127 : [22],\
+    128 : [19],\
     125 : [21],\
     155 : [15],\
     1719 : [20],\
@@ -1118,6 +1119,7 @@ dictItems = {
 
 #Items that are deleted when player triggers action.  
 dictItemDelete = {
+    100 : [98, 99],\
     122 : [18, 22],\
     161 : [15],\
     180 : [25],\
@@ -1195,6 +1197,8 @@ dictModsRefused = {
     }
 
 class GameMsg():
+    WELCOME = "Seid willkommen bei 'Der Winter naht'!\n\
+Wie viele Spieler seid ihr [1-4]?"
     ASKCONT = "Möchtet Ihr Euer aktuelles Spiel (falls vorhanden) fortsetzen?\n"
     ASKCLR = ", \nBitte wähle eine Farbe: "
     CLRNOTSET = "\nKonnte die Farbe leider nicht übernehmen. Verwende die Standard-Farbe für Dich.\n"

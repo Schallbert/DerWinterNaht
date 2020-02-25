@@ -50,6 +50,5 @@ def main():
         gui.textScreen.TypeWrite(GameMsg.LOADING)
         GameStats.Save()
 
-
 if __name__ == "__main__":
     main()

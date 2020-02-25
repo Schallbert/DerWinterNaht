@@ -12,6 +12,7 @@ class TitleScreens:
 
     @classmethod
     def printTitleMenu(cls, gui):
+        """This method displays the game's main menu. in the GUI's main screen."""
         gui.textScreen.Clear()
         gui.textScreen.TypeWrite("\n\n\n")
         gui.textScreen.TitleWriteCentered("Der Winter naht")
@@ -37,8 +38,7 @@ class TitleScreens:
         gui.textScreen.LineWrite("\n")
         gui.textScreen.TitleWriteCentered("Der Winter naht")
         gui.textScreen.LineWrite("\n")
-        gui.textScreen.TypeWrite("Seid willkommen bei 'Der Winter naht'!\n\
-Wie viele Spieler seid ihr [1-4]?")
+        gui.textScreen.TypeWrite(GameMsg.WELCOME)
         resp = gui.inputScreen.getNumber()
         if resp < 1:
             resp = 1

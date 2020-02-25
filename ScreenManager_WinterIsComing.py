@@ -149,8 +149,8 @@ Offers public function Update that takes the player list to output the player's 
             tagMotE = str(lineNr) + '.' + str(maxNamePlusSpaces + currMod[0])
             taglMotE = str(lineNr) + '.' + str(maxNamePlusSpaces + lastMod[0])
             tagTirS = str(lineNr) + '.26'
-            tagTirE = str(lineNr) + '.' + str(26 + 10 - currMod[1])  # tiredness is calculated inversely
-            taglTirE = str(lineNr) + '.' + str(26 + 10 - lastMod[1])
+            tagTirE = str(lineNr) + '.' + str(26 + currMod[1])
+            taglTirE = str(lineNr) + '.' + str(26 + lastMod[1])
             tagModE = str(lineNr) + '.37'  # end of widget [char count]
 
             self.insert(tagPlrS, currName \
@@ -278,6 +278,8 @@ class OutputText(tk.Text):
         self.__Deactivate()
 
     def NameWrite(self, player):
+        """Method takes a player object and prints its name
+        in player's color to the textScreen """
         self.__Activate()
         self.update()
         self.__nrOfTags += 1
@@ -349,14 +351,16 @@ class OutputText(tk.Text):
 
 class GameGui(tk.Tk):
 
-    def __init__(self):
+    def __init__(self, playSplash):
         tk.Tk.__init__(self)
         self.withdraw()
+        self.playSplash = playSplash
 
         screenSize = [int(self.winfo_screenwidth()), int(self.winfo_screenheight())]
         GUICONSTS.setGameGuiSize(screenSize)
         # Display splash video
-        splash = Splash(screenSize)  # call splash "loading" image
+        if self.playSplash:
+            splash = Splash(screenSize)  # call splash "loading" image
 
         # Setup main window and widgets     
         self.title("Der Winter Naht")
@@ -425,7 +429,8 @@ class GameGui(tk.Tk):
         self.inputScreen.pack(side=tk.LEFT, fill=tk.BOTH, expand=tk.YES)
         self.audioStream = Audio()
         # finished loading so destroy splash
-        splash.destroy()
+        if self.playSplash:
+            splash.destroy()
         # Show main window
         self.deiconify()
 

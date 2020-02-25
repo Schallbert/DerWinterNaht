@@ -326,7 +326,7 @@ class Player:
         # show mod update
         gui.textScreen.NameWrite(self)
         gui.textScreen.TypeWrite(GameMsg.CHMOD[0] + str(valueList[0]) \
-                                 + GameMsg.CHMOD[1] + str(-1 * valueList[1]) + "\n")
+                                 + GameMsg.CHMOD[1] + str(valueList[1]) + "\n")
         gui.statsScreen.Update(GameStats.GetListPlayers())
         # check for "gameover" criterium Motivation
         if self.__mod[0] <= 1:  # motivation is v ery low
@@ -347,7 +347,15 @@ class Player:
 def actionHandler(generateFromNr):
     """Arbitrator, deciding which handling function to be called."""
     nrOfDigits = len(str(generateFromNr))
-    if nrOfDigits == 2:
+    if generateFromNr == CMDINPUT.QUIT:
+        #save and quit game
+        gui.textScreen.TypeWrite(GameMsg.SVQT)
+        GameStats.Quit(gui)
+    elif generateFromNr == CMDINPUT.NO:
+        gui.textScreen.TypeWrite(GameMsg.UNKNOWN_CMD)
+    elif generateFromNr == CMDINPUT.YES:
+        gui.textScreen.TypeWrite(GameMsg.UNKNOWN_CMD)
+    elif nrOfDigits == 2:
         itemUse(generateFromNr)
     elif nrOfDigits == 3:
         spotRoom(generateFromNr)
@@ -392,7 +400,7 @@ def itemUse(generateFromNr):
 
 def spotRoom(plAction):
     """Player has entered a 3-digit number which could be a spot/room.
-    function checks for rooms, whether reachable, and if so transfers 
+    function checks for rooms, whether reachable, and if so transfers
     players to this room, executing its OnEnter() method.
     Same goes for spots."""
     # init variables
@@ -599,8 +607,6 @@ def newRound():
 
 
 # --------------------------------------------
-
-
 class RandomMod():
     """This class evaluates motivation/tiredness input or status when the game
     (re)continues and returns randomly selected values as buffs depending on
@@ -647,4 +653,4 @@ class RandomMod():
             gui.textScreen.TypeWrite(GameMsg.RNDM_PAUSE[3])
             return random.choice(MOD.RNDM_VLRANGE)
 
-gui = GameGui()  # constructor for GUI.
+gui = GameGui(False)  # constructor for GUI.

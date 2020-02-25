@@ -42,7 +42,9 @@ class MOD():
     LONGBREAK = 86400
     
 class CMDINPUT():
-    UNKNOWN = 0
+    UNKNOWN = 2
+    NO = 0
+    YES = 1
     QUIT = -1
     
 class GUICONSTS():
