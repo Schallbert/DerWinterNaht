@@ -39,7 +39,7 @@ und kann ab sofort verwendet werden.\n",
 "Willkommen im Spiel 'Der Winter Naht'!\n\
 In diesem kooperativen Spiel macht Ihr einen gemeinsamen Wanderausflug\n\
 in die Eifel und kommt dort merkwürdigen Vorgängen auf die Spur.\n\
-Das Spiel enthält mehrere Kapitel, deren Verlauf Ihr selbst mitestaltet.\n\
+Das Spiel enthält mehrere Kapitel, deren Verlauf Ihr selbst mitgestaltet.\n\
              \n\
 Es ist im Genre des sogenannten Text Adventure beheimatet,\n\
 die komplette Interaktion mit dem Spiel findet also per Text statt.\n\
@@ -71,20 +71,20 @@ die Handlung des Spiels.\n\
 Beachtet, dass nicht immer alle Orte eines Raumes oder alle angeschlossenen\n\
 Räume eines Raumes erreichbar sein müssen.\n\
 Besonders in späteren Teilen des Spiels ist es üblich, dass Ihr nur durch\n\
-das Lösen von Rätseln und Entdecken versteckte Räume, Gegenstände oder Orte\n\
+das Lösen von Rätseln und Entdecken versteckter Räume, Gegenstände oder Orte\n\
 weiterkommen werdet.                                                   \n\
 \n\
 Zu den Objekten des Spiels:\n\
 Räume haben dreistellige Nummern in den 'Zehnern', z.B. 100, 110, 120 usw.\n\
-Orte sind mit dreistelligen Nummern, aber in den 'einern', z.B. 101, 102 usw.\n\
+Orte sind mit dreistelligen Nummern, aber in den 'Einern', z.B. 101, 102 usw.\n\
 gekennzeichnet.\n\
 Gegenstände haben zweistellige Nummern , z.B. 10, 11, 12 usw.\n\
                                                              \n\
 Das Spiel erwartet von Euch Zahlen als Eingaben.\n\
 - Ausnahme ist das Kommando 'quit', mit dem Ihr das Spiel beenden könnt -\n\
 Um also z.B. den Raum '110: Wohnzimmer' zu betreten, der Euch 'in Reichweite'\n\
-angezeigt wird, gebt Ihr im Eingabefeld unten Rechts die Zahl des Raumes,\n\
-also 110 ein und drückt die <Enter>-Taste.\n\
+angezeigt wird, gebt Ihr im Eingabefeld unten rechts die Zahl des Raumes,\n\
+also 110, ein und drückt die <Enter>-Taste.\n\
 Wollt Ihr Orte untersuchen, so ist das Verfahren dasselbe wie bei Räumen\n\
 mit dem Unterschied, dass Ihr auf Orten Aktionen durchführt, die den Spielverlauf\n\
 dauerhaft beeinflussen können. Bei den meisten Aktionen werdet Ihr vorher\n\
@@ -98,7 +98,7 @@ Ihr möchtet '23: Eine leere Taschenlampe'\n\
 mit '27: Batterien'\n\
 kombinieren. Dann gebt Ihr 2327 in das Eingabefeld\n\
 ein und drückt die <Enter>-Taste.\n\
-Wenn diese Kombination gültig ist, erhaltet Ihr in diesem Falle:\n\
+Wenn diese Kombination gültig ist, erhaltet Ihr ein neues Objekt; in diesem Falle:\n\
 '28: Eine Taschenlampe mit frischen Batterien',\n\
 die sich zu mehr eignet, als sie einfach nur jemandem über den Kopf zu ziehen.\n\
                                                                             \n\
@@ -116,7 +116,7 @@ So, genug geschwafelt. Fangt einfach mal an!\n"\
 "\nAuf diesem Bildschirm wird Euer\n\
 gemeinsames Inventar angezeigt.\n\
 Ihr könnt die Gegenstände benutzen\n\
-oder untersuchen, indem Ihr ihre\n\
+oder untersuchen, indem Ihr Ihre\n\
 Nummern im Eingabefeld angebt und mit\n\
 <Enter> bestätigt.\n",
     9: \
@@ -126,10 +126,10 @@ Müdigkeit und Motivation.\n",
     10 : \
 "Euer Smartphone. Kann so ziemlich alles und ist natürlich auch mit Taschenlampe,\n\
 Kamera und Navigationssystem ausgestattet.\n\
-Hier draußen scheinen leider weder Mobilfunk noch Datenvervindung möglich zu sein.\n\
+Hier draußen scheinen leider weder Mobilfunk noch Datenverbindung möglich zu sein.\n\
 Zudem ist der Akkustand niedrig und Ihr habt keine Powerbank dabei.\n",
     11 : \
-"Ein kaum leserliches Foto der Umgebungskare, aufgenommen mit dem Handy.\n\
+"Ein kaum leserliches Foto der Umgebungskarte, aufgenommen mit dem Handy.\n\
 Die Spiegelung der hellen Hauswand gegenüber links des Kastens hingegen\n\
 zeigt alle Details.\n",
     12 : \
@@ -149,10 +149,10 @@ um in der Sonne nicht auszudörren wie Rosinen.\n", #bonus item
     16 : \
 "Euer Smartphone. Es hat noch genug Saft, um über den Tag zu kommen.\n",
     17 : \
-"Blütenblätter der Heckenrose. Einige Insektenarten hassen ihren Duft.\n",
+"Blütenblätter der Heckenrose. Einige Insektenarten hassen Ihren Duft.\n",
     18 : \
-"Waldbrombeeren. Lecker. Keine Angst, sie werden euch schon nicht krank machen\n\
-oder einem Fuchsbandwurm als Heimat dienen\n",
+"Waldbrombeeren. Lecker. Keine Angst, sie werden Euch schon nicht krank machen\n\
+oder einem Fuchsbandwurm als Heimat dienen.\n",
     19 : \
 "Eine Sprühflasche mit Fensterreiniger, die vergessen worden sein muss.\n\
 Die Fenster sind jedenfalls sauber!\n",
@@ -163,7 +163,7 @@ zu entziehen, denn die leicht undichte Flasche riecht jetzt sehr stark\n\
 nach Heckenrose.",
     21 : \
 "Ein silberner Schlüssel mit Anhänger aus Metall. Nach gründlicher Reinigung\n\
-im trüben Wasser des Sumpfes könnt ihr lesen,\n\
+im trüben Wasser des Sumpfes könnt Ihr lesen,\n\
 was darauf eingraviert ist: 'S.M. JGU MZ 09'\n",
     22 : \
 "Eine SD-Karte, die Ihr dem Seismographen entnommen habt.\n\
@@ -182,11 +182,11 @@ greifen kann.\n",
 hier Euch noch nützlich sein.\n",
     27 : \
 "Auf dem Zettel sind Notizen eines früheren Besuchers der Kammer\n\
-niedergeschrieben. Zwar könnt ihr die Sauklaue nicht lückenfrei\n\
+niedergeschrieben. Zwar könnt Ihr die Sauklaue nicht lückenfrei\n\
 entziffern, doch wird Euch klar, dass alle Mönche ein Schweigegelübde abgelegt\n\
 haben und zudem ein Großteil von ihnen taubstumm sei. Sie lebten zurückgezogen\n\
-und seien sehr bedacht darauf, ihre Kultur der Enthaltsamkeit zu pflegen sowie\n\
-die Gemäuer, Anwesen und Gärten der Abtei zu pflegen.\n",
+und seien sehr bedacht darauf, Ihre Kultur der Enthaltsamkeit zu pflegen sowie\n\
+die Gemäuer, Anwesen und Gärten der Abtei in Stand zu halten.\n",
     29 : \
 "Ein goldenes Smartphone, schon ziemlich mitgenommen. Sieht vielbenutzt aus.\n\
 Es ist eingeschaltet, aber per Gesichtserkennung gesichert.\n\
@@ -200,7 +200,7 @@ schwarzwälder Schinken.\n",
 "Eine Bahnstation in der tiefsten Eifel...\n\n",
     101 : \
 "Eine große, ziemlich detaillierte Karte der Umgebung in einem\n\
-etwas ramponiert aussehendem Glaskasten.\n\
+etwas ramponiert aussehenden Glaskasten.\n\
 Die Sonne spiegelt sich so sehr darin, dass man kaum etwas erkennen kann.\n\
 Ihr Titel: 'Die V_____eifel: Mend__ ___ ____bung, 1:10000'\n\n",
     102 : \
@@ -223,18 +223,18 @@ durch das Blätterdach, es duftet nach Heckenrosen und ab und zu erhascht Ihr\n\
 einen Blick auf den Wald.\n",
     111 : \
 "Tiefe Wühlspuren im Gras links und rechts des Weges deuten darauf hin,\n\
-dass hier desöfteren Wildschweine auf der Suche nach Nahrung unterwegs sind.\n\
-Ihr hofft, dass Ihr keinem Keiler in die Quere kommt und setzt euren Weg\n\
+dass hier des Öfteren Wildschweine auf der Suche nach Nahrung unterwegs sind.\n\
+Ihr hofft, dass Ihr keinem Keiler in die Quere kommt und setzt Euren Weg\n\
 etwas wachsamer fort als vorher.\n",
     112 : \
 "Zwischen all dem Gestrüpp seht Ihr zwei Sträucher mit Heckenrosen,\n\
-die gerade mit zart pink leuchtenden, duftenden Blüten lockt.\n",    
+die gerade mit zart pink leuchtenden, duftenden Blüten locken.\n",    
     113 : \
-"Ein Vogelnest mit ein paar Eierschalen drin. Entweder ist\n\
+"Ein Vogelnest mit ein paar Eierschalen darin. Entweder ist\n\
 der Nachwuchs bereits aus dem Haus, oder wurde Opfer eines\n\
 Räubers.\n",
     114 : \
-"Brommbeeren. Dorniges, sehr verwachsenes und undurchdringliches Gestrüpp.\n\
+"Brombeeren. Dorniges, sehr verwachsenes und undurchdringliches Gestrüpp.\n\
 Ein paar fast schwarze, reife Beeren sind für Euch einigermaßen erreichbar\n\
 und sehen echt lecker aus.\n",
     115 : \
@@ -258,8 +258,8 @@ etwas ein.\n",
 "Waargh, Mücken! Dort hinten seht Ihr einen richtigen Schwarm davon.\n",
     124 : \
 "Ihr steht zwischen verrosteten Gleisen, die sich mit Weichen in der Ferne\n\
-verästeln und im Nebel verschwrinden. Vereinzelt stehen noch Loren herun,\n\
-Eine Lok entdeckt Ihr nirgendwo.\n",
+verästeln und im Nebel verschwinden. Vereinzelt stehen noch Loren herum,\n\
+eine Lok entdeckt Ihr nirgendwo.\n",
     125 : \
 "Ihr nähert Euch dem Gegenstand auf dem Boden, doch plötzlich ist\n\
 das Glitzern verschwunden.\n\
@@ -267,14 +267,14 @@ Nach längerer Suche ein paar Schritte vor und zurück ist das Glitzern\n\
 plötzlich wieder da. Doch nähert Ihr Euch, verschwindet es wieder.\n",
     126 : \
 "Nebel. Keine hundert Meter von Euch entfernt, wirkt die Nebelbank\n\
-durchdringlich wie eine Wand.\n",
+in etwa so durchdringlich wie eine Wand.\n",
     127 : \
-"Ihr betretet eine große Betonplatte. In ihrer Mitte steht, mit dem Boden\n\
-fest verschraubt, ein Zylinderförmiges Metallding auf drei Beinchen.\n\
-Es ist nicht sehr hoch, und sein Durchmesser ist etwa so groß wie ein\n\
+"Ihr betretet eine große Betonplatte. In Ihrer Mitte steht, mit dem Boden\n\
+fest verschraubt, ein zylinderförmiges Metallding auf drei Beinchen.\n\
+Es ist nicht sehr hoch und sein Durchmesser ist etwa so groß wie ein\n\
 Suppenteller. Auf einer Seite seht Ihr ein Bedienpanel, an dem eine rote\n\
 Leuchtdiode hektisch blinkt. Hinter dem Gerät steht eine große, schwarze Kiste.\n\
-Aus einem Loch an ihrer Seite steigt ein weißes Dampffähnchen empor.\n\
+Aus einem Loch an Ihrer Seite steigt ein weißes Dampffähnchen empor.\n\
 Sie ist mit dem Metallding durch eine Leitung verbunden.\n\
 Eine weitere, viel dickere Leitung führt von der Kiste zum Leitstand.\n",
     128 : \
@@ -282,7 +282,8 @@ Eine weitere, viel dickere Leitung führt von der Kiste zum Leitstand.\n",
 Könnte früher mal zur Bahnanlage gehört haben, allerdings steht in der Ecke\n\
 vor einem großen Fenster ein Bedienpult neuerer Bauart, als das Alter\n\
 der Bahnanlage vermuten lässt.",  #[hidden]
-    129 : "Ein ziemlich großes Gerät aus Metall, fast mannshoch und ebebnso\n\
+    129 : \
+"Ein ziemlich großes Gerät aus Metall, fast mannshoch und ebenso\n\
 breit. Von hier aus führen einige dicke Leitungen direkt in den Nebel.\n",
     130: \
 "Hier geht es eindeutig bergauf. Nicht, dass Ihr das am Gelände sehen könnt,\n\
@@ -292,7 +293,7 @@ Vorne seht Ihr eine Lichtung, vielleicht gut für eine Rast?\n\n",
     131 : \
 "Unten erstreckt sich ein kleiner Sumpf mit vielen alten, toten Bäumen\n\
 und mehreren brackigen Wasserflächen. Gen Horizont erstreckt sich\n\
-eine Nebelbank, sodass Ihr dort nicht mehr erkennen könnt.\n",
+eine Nebelbank, sodass Ihr dort nichts mehr erkennen könnt.\n",
     132 : \
 "Ein See glitzert ruhig in der Sonne, umsäumt von einer sanft\n\
 ansteigenden Hügelkette. Ihr seht einen kleinen Anleger mit\n\
@@ -307,21 +308,21 @@ am Feldesrand, ist sie sicher einen Besuch wert.\n",
 "Heiter mit einzelnen Schäfchenwolken. Kein Lüftchen regt sich.\n\
 Ein herrlicher Tag für so einen Auslug.\n",
     136 : \
-"Eine einfache Parkbank. Sie lädt euch zum Entspannen und Energie tanken ein.\n",
+"Eine einfache Parkbank. Sie lädt Euch zum Entspannen und Energie tanken ein.\n",
     140 : \
 "Das Seeufer. Der See liegt tiefblau und träge da, winzige Wellen plätschern\n\
 am schmalen Steinstrand und ein Steg ragt ein paar Meter in den See hinein.\n\
 An ihm sind ein paar weiße Tretboote vertäut.\n\
 Merkwürdigerweise ist hier kein Tier zu sehen, weder Schwäne noch Enten könnt\n\
-ihr ausmachen. Dass hier auch weit und breit keine Menschenseele ist,\n\
-stört euch allerdings nicht weiter.\n",
+Ihr ausmachen. Dass hier auch weit und breit keine Menschenseele ist,\n\
+stört Euch allerdings nicht weiter.\n",
     141 : \
 "Ein schmaler Streifen Steinstrand am Rande des Sees. Hier liegt alles herum,\n\
 von Kieselsteinen bis hin zu Findlingen. Ihr werft ein paar Steinchen\n\
 und seht zu, wie sich die Wasseroberfläche kräuselt.\n",
     142: \
 "Am Steg sind ein paar kleine, weiße Tretboote angebunden.\n\
-Es ist niemand zu entdecken, der sie euch ausleihen könnte, aber\n\
+Es ist niemand zu entdecken, der sie Euch ausleihen könnte, aber\n\
 an einem Poller des Stegs hängt eine kleine Metalldose mit Vorhängeschloss\n\
 und der Aufforderung, für die Nutzung eines Bootes doch bitte 5€ zu spenden.\n",
     143 : \
@@ -330,10 +331,10 @@ Jemand hat sie auf der Unterseite mit einem Dosenöffner geöffnet und ausgeleer
 Was für ein trauriges Bild.\n",
     150 : \
 "Ihr befindet Euch jetzt mit dem Boot mitten auf dem See.\n\
-Das Wetter ist herrlich und die Sonne knallt. Was wollt ihr mehr?\n",
+Das Wetter ist herrlich und die Sonne knallt. Was wollt Ihr mehr?\n",
     151 : \
 "Das Ufer des Sees ist von Bäumen gesäumt. Ringsherum geht das Terrain bergauf,\n\
-sodass ihr den Eindruck bekommt, in einem Suppenteller unterwegs zu sein.\n\
+sodass Ihr den Eindruck bekommt, in einem Suppenteller unterwegs zu sein.\n\
 Es ist wirklich sehr still hier und kein Windhauch regt sich. Die Sonne hat\n\
 trotz der fortgeschrittenen Jahreszeit noch ordentlich Kraft und bald ist Euch\n\
 ziemlich warm, sodass Ihr Euch Eurer Jacken und Pullover entledigt.\n",
@@ -344,10 +345,10 @@ mit dem Ruder habt Ihr das Boot gut unter Kontrolle. Ihr gleitet auf dem Wasser\
 hin zur Mitte des Sees und spürt den leichten Fahrtwind angenehm im Gesicht.\n",
     153 : \
 "Euch fallen ein paar größere Blasen auf, die um Euer Boot herum aufsteigen.\n\
-Ein Fisch oder ein Taucher? Schnell fahrt ihr weiter, als ihr bemerkt,\n\
+Ein Fisch oder ein Taucher? Schnell fahrt Ihr weiter, als Ihr bemerkt,\n\
 dass die Luft hier plötzlich faulig riecht.\n",
     154 : \
-"In der Ferne seht ihr eine silbrige, recht unförmige Boje\n\
+"In der Ferne seht Ihr eine silbrige, recht unförmige Boje\n\
 aus dem Wasser ragen. Sie ist mit gelb-schwarzen Aufklebern versehen,\n\
 die Ihr aus der Entfernung aber nicht entziffern könnt.\n",
     155 : \
@@ -356,7 +357,7 @@ Ausflügen normalerweise Sonnencreme dabei?\n",
     160 : \
 "Ihr seid bei der Boje angekommen. Aus der Nähe wirkt sie sogar noch komischer.\n\
 Sie besteht aus silbernem Stahl und ist mit Solarzellen übersät.\n\
-Von Nahem erinnert ihre Form nicht mehr so sehr an ein Ei, denn sie scheint\n\
+Von Nahem erinnert Ihre Form nicht mehr so sehr an ein Ei, denn sie scheint\n\
 komplett aus dreieckigen Stahlteilen gefertigt und sieht sehr futuristisch aus.\n\
 Sie hat einen Poller, wo man Boote festmachen kann und sieht so aus, als wäre sie\n\
 in letzter Zeit oft besucht worden.\n\
@@ -365,10 +366,10 @@ Ihr macht Euer Boot fest und beschließt, hier eine kurze Pause einzulegen.\n",
 "Die Sonne brennt gnadenlos auf Euch nieder.\n",
     162 : \
 "Euer Boot ist sicher an diesem Poller verzurrt. Ein an der Boje angebrachter\n\
-Gummipuffer quietscht, wenn ihr Euch auf Eurem Boot bewegt.",\
+Gummipuffer quietscht, wenn Ihr Euch auf Eurem Boot bewegt.",\
     163 : \
 "Die Wartungsklappe der Boje. Normalerweise wäre sie per Schlüssel\n\
-zu öffnen, doch die Schrauben, die das Schloss halten sind so locker,\n\
+zu öffnen, doch die Schrauben, die das Schloss halten, sind so locker,\n\
 dass das Schloss auf der Innenseite der Klappe verrutscht sein muss.\n\
 Jemand hat offensichtlich bereits versucht, die Klappe mit Gewalt zu öffnen,\n\
 denn überall sind Kratz- und Hebelspuren zu sehen.",
@@ -383,7 +384,7 @@ Zu erkennen sind folgende Meldungen:\n\
     165 : \
 "Ein leerer SD-Kartenschlitz. Sollte da nicht eigentlich eine Karte drinstecken?\n",
     170  : \
-"Der Pfad am See führt Euch erneut in den Wald. Bald schon geht ihr auf\n\
+"Der Pfad am See führt Euch erneut in den Wald. Bald schon geht Ihr auf\n\
 weichem Laub und trockenen Ästen, und wo der Wald dunkler wird, gibt es auch\n\
 immer weniger Buschwerk und Unterholz.\n\
 Völlig unvermutet taucht am Wegesrand eine Parkbank auf.\n\
@@ -392,7 +393,7 @@ Kurz darauf gelangt Ihr an eine Weggabelung in einer kleinen Senke.\n\
 Der Wegweiser wird den letzten Winter wohl nicht überlebt haben,\n\
 sein abgebrochener Stumpf ragt ein paar Zentimeter aus dem Boden.\n",
     171  : \
-"Seid ihr hungrig? Immerhin wart ihr jetzt schon eine ganze Weile auf den Beinen.\n",
+"Seid Ihr hungrig? Immerhin wart Ihr jetzt schon eine ganze Weile auf den Beinen.\n",
     172 : \
 "Bwah, dieser Mülleimer wurde schon viel zu lange nicht mehr geleert.\n\
 Er quillt über vor Unrat und um ihn herum liegen auch schon überall\n\
@@ -411,8 +412,8 @@ nach Rechts abknickt.",
 "Ein Weg in Richtung Norden, der ziemlich geradeaus verläuft und hinter\n\
 einer Kuppe verschwindet.\n",
     177 : 
-"Ein Weg in Richtung Westen. Er ist gewölbt und hier und da sind noch alte\n\
-Pflastersteine zu sehen, aus denen der Weg vor Langer Zeit mal bestand.\n\
+"Ein Weg in Richtung Westen. Er ist gewölbt und hier und da sind noch die alten\n\
+Pflastersteine zu sehen, aus denen der Weg vor langer Zeit mal bestand.\n\
 Große, alte Bäume stehen links und rechts des Weges wie Wachen und lassen\n\
 ihn so noch dunkler erscheinen als den Rest des Waldes.\n",
     180 : 
@@ -439,7 +440,7 @@ Euch fällt auf, dass Ihr eine Toilette jetzt ganz gut\n\
 gebrauchen könntet. Und etwas zu Essen. Und ein Bett!",
     184 : 
 "Der Waldfriedhof der Abtei. Gesäumt von alten Bäumen und durchzogen von\n\
-Sandwegen wirkt der Friedhof sehr gepflegt. Hie und da stehen Kreuze aus\n\
+Sandwegen wirkt der Friedhof sehr gepflegt. Hier und da stehen Kreuze aus\n\
 Sandstein in Reih und Glied. Im Halbdunkel ist die Kapelle an der Fernseite\n\
 des Friedhofs nur schemenhaft zu erkennen.\n", 
     185 : \
@@ -463,12 +464,12 @@ eingeschlafen.\n",
 "Ein schmaler Spalt in der Tür Eurer Kammer. Durchsehen könnt Ihr nicht, doch\n\
 malt das hindurchfallende Licht einen Strich in den Raum.\n",
     189 : \
-"Da sich auf der Innenseite kein Riegel für die Tür befindet, kommt ihr\n\
-hier nicht raus. Auch die Fenster sind so klein, Ihr da niemals durch kommt.\n\
+"Da sich auf der Innenseite kein Riegel für die Tür befindet, kommt Ihr\n\
+hier nicht raus. Auch die Fenster sind so klein, dass Ihr da niemals durch kommt.\n\
 Auf dem Boden scheint eine Fliese locker zu sein.\n\
                                    \n\
 Aah, doch nicht. Die steht nur etwas höher als die anderen.\n\
-Kurzum, ihr sitzt hier fest. Warum haben die Mönche eigentlich nicht mal ein Wort\n\
+Kurzum, Ihr sitzt hier fest. Warum haben die Mönche eigentlich nicht mal ein Wort\n\
 gesagt? Und wie geht es jetzt weiter?\n",
     190 : \
 "Der Weg zum Seehotel Maria Laach. In der Ferne steht der ziemlich schicke Bau\n\
@@ -490,15 +491,15 @@ Eine verunsichert wirkende junge Dame steht hinter der Rezeption.\n",
     193 : \
 "Ein aufgebrachter Gast steht an der Rezeption. Er spricht so laut, dass Ihr\n\
 einen Teil der Konversation verstehen könnt. Es geht wohl um sein Handy, dass\n\
-ihm aus dem Zimmertresor gestohlen worden sein sei, dass er die Polizei rufen\n\
+ihm aus dem Zimmertresor gestohlen worden sei, dass er die Polizei rufen\n\
 wolle, wie das sein könne, dass das Hotelpersonal nichts bemerkt habe, und so\n\
 weiter...",
     194 : \
-"Eine schwarze Limousine mit goldener Aufschrift 'Ophirias'. Darunter befindet\n\
+"Eine schwarze Limousine mit der goldenen Aufschrift 'Ophirias'. Darunter befindet\n\
 sich eine Telefonnummer. Das Fahrzeug steht direkt\n\
 vor dem Eingang des Hotels, wo eigentlich nicht geparkt werden darf.\n",
     195 : \
-"Die Rezeptionistin blickt Euch etwas müde an. 'Ein Zimmer kann Ihnen jetzt\n\
+"Die Rezeptionistin blickt Euch etwas müde an. 'Ein Zimmer kann ich Ihnen jetzt\n\
 ja wieder anbieten', sagt sie mit düsterem Blick auf den Eingang des Hotels.\n\
 'Spa und Restaurant haben um diese Zeit schon geschlossen, aber ich kann Ihnen\n\
 eine kalte Platte hochbringen lassen.' Ihr willigt ein, der Preis ist Euch\n\
@@ -512,7 +513,7 @@ Möchtet Ihr jetzt zu Abend essen und dann den Tag beenden?\n",
     198 : \
 "Im großen Raum, angrenzend dem Empfangsraum gegenüber dem Aufzug befindet sich\n\
 der Speisesaal, aus dem es verführerisch duftet. Obwohl das Hotel ausgebucht\n\
-sein soll, seid ihr hier fast ungestört. Das Buffet ist reichhaltig und Ihr\n\
+sein soll, seid Ihr hier fast ungestört. Das Buffet ist reichhaltig und Ihr\n\
 schlagt Euch die Mägen genüsslich voll - so voll, dass Ihr Euch am liebsten\n\
 den Rest des Tages nicht mehr bewegen würdet.\n",
     200 : \
@@ -521,7 +522,7 @@ Für weitere Kapitel gibt es bereits ein Konzept, aber das Ausarbeiten ist\n\
 verdammt viel Arbeit...\n\
 Bis eine spätere Version zur Verfügung steht, besucht das Projekt doch unter\n\
 https://github.com/Schallbert\n\
-Die Spielmechanik und das Kapitel1 von 'Der Winter Naht' sind unter\n\
+Die Spielmechanik und das Kapitel 1 von 'Der Winter Naht' sind unter\n\
 GPL als Open Source lizensiert und ich freue mich über engagierte Menschen,\n\
 die das Framework mit mir weiterentwickeln oder darauf basierend\n\
 eigene Stories schreiben.\n",
@@ -547,7 +548,7 @@ kluger Einfall von Euch.\n",
     14: \
 "Jetzt ein Picknick! Ihr lasst Euch auf der mitgebrachten Decke nieder und\n\
 genießt ein fürstliches Mahl in der Natur. Auch wenn Ihr jetzt\n\
-wieder motivierter seid, euren Ausflug fortzusetzen, so hat Euch das viele Essen\n\
+wieder motivierter seid, Euren Ausflug fortzusetzen, so hat Euch das viele Essen\n\
 doch ein Kantinenkoma beschert.\n",
     15 : \
 "Ihr cremt Euch gut ein. Der Duft erinnert Euch an Euren letzten Sommerurlaub.\n",
@@ -566,7 +567,7 @@ sodass die Karte einwandfrei lesbar ist.\n",
 klar geworden, als Euch schon ein freundlicher Herr hohen Alters mit Haarkranz,\n\
 goldener Brille und weißem Kittel - ganz nach dem Klischee - anspricht.\n\
 Aus Verlegenheit kauft Ihr ein Fläschchen Entspannungsbad.\n\
-Was für eine Sinnlose Geldverschwendung, nicht wahr?\n",
+Was für eine sinnlose Geldverschwendung, nicht wahr?\n",
     104 : \
 "Hach, ganz wie zu Hause! So eine Zugfahrt macht echt hungrig, und so\n\
 kauft Ihr, obwohl Ihr Euch natürlich ein paar Brote geschmiert habt, einen\n\
@@ -618,10 +619,10 @@ Ihr entscheidet Euch, diesen Ort bald zu verlassen.\n",
     125 : \
 "Genau prägt Ihr Euch den Ort des Gegenstandes ein und fixiert ihn.\n\
 Euch langsam annähernd, konzentriert Ihr Euch besonders, als das Ding\n\
-erneut unter der Wasserobefläche verschwindet, da der Boden unter Eurem\n\
+erneut unter der Wasseroberfläche verschwindet, da der Boden unter Eurem\n\
 Gewicht nachzugeben scheint. Um den Gegenstand nicht in der Tiefe zu verlieren,\n\
 tastet Ihr sehr vorsichtig im kalten, murkigen\n\
-Wasser herum, und schließlich habt Ihr ihn in der Hand - \n\
+Wasser herum und schließlich habt Ihr ihn in der Hand - \n\
 Es ist tatsächlich ein silberner Schlüssel!\n\
 Daran fällt ein schlammiger Schlüsselanhänger auf.\n",
     126 : \
@@ -657,13 +658,13 @@ Lümmelt nur nicht zu viel hier herum, sonst habt Ihr bald keine\n\
 Lust mehr, überhaupt noch weiter zu gehen.\n",
     142 : \
 "Ihr beschließt, eine Runde auf dem See zu drehen.\n\
-Das kleine Bötchen schwankt stark, als ihr es betretet.\n\
+Das kleine Bötchen schwankt stark, als Ihr es betretet.\n\
 Es gibt hier zwei Sitzplätze zum Treten und zwei weitere erhöht achtern,\n\
 von denen aus man einen tollen Rundumblick hat.\n\
 Zwischen den Vordersitzen befindet sich eine runde Erhöhung, in der sich\n\
 das Schaufelrad befinden muss. Links und rechts an der Seite befestigt ist\n\
 das Rudergestänge für die Steuerung.\n\
-Vorsichtig fahrt ihr los, mitten auf den See hinaus. Das klappt echt prima!\n",
+Vorsichtig fahrt Ihr los, mitten auf den See hinaus. Das klappt echt prima!\n",
     153 : \
 "Ihr wollt die Blasen genauer untersuchen, aber viel sieht man auch bei direktem\n\
 Blick nach unten nicht. Ins Wasser gehen möchte jetzt auch keiner so wirklich.\n\
@@ -671,21 +672,21 @@ Allmählich bekommt Ihr Kopfschmerzen und der Geruch wird unerträglich,\n\
 sodass Ihr beschließt, abzudrehen.\n",
     154 : \
 "Die Boje sieht ziemlich plump aus. Sie ist fast eiförmig und am oberen Ende\n\
-steckt eine Kugel an einer Stange. Auf ihrer Außenhaut sind mehrere dunkle\n\
+steckt eine Kugel an einer Stange. Auf Ihrer Außenhaut sind mehrere dunkle\n\
 Rechtecke zu sehen.\n",
     155 : \
 "Klasse, zum Glück habt Ihr Sonnencreme eingepackt. Als hättet Ihr es geahnt!\n\
 Die könnt Ihr ja dann direkt mal benutzen ;)\n",
     161 : \
-"Wenn ihr bis jetzt keine Sonnencreme auftragen konntet, ist es zu spät\n\
+"Wenn Ihr bis jetzt keine Sonnencreme auftragen konntet, ist es zu spät\n\
 und Ihr bekommt einen fetten Sonnenbrand.\n",
     163 : \
-"Die bekommt ihr so niemals auf. Wahrscheinlich ist sie nicht nur verschlossen,\n\
+"Die bekommt Ihr so niemals auf. Wahrscheinlich ist sie nicht nur verschlossen,\n\
 sondern durch den Aufbruchversuch auch total verklemmt.\n\
-Warum wollt ihr die Klappe überhaupt öffnen?\n",
+Warum wollt Ihr die Klappe überhaupt öffnen?\n",
     171  : \
 "Ihr setzt Euch auf die Parkbank, die sich unter Eurem Gewicht ganz schön\n\
-durchbiegt. Ihr packt Eure Brotmahlzeit aus und esst euch richtig satt,\n\
+durchbiegt. Ihr packt Eure Brotmahlzeit aus und esst Euch richtig satt,\n\
 dazu ein großer Schluck Wasser und etwas Tee aus der Thermoskanne.\n\
 So sollte ein Kurzurlaub sein!\n",
     172 : \
@@ -696,16 +697,16 @@ Direkt sieht es hier viel besser aus! Beim Aufsammeln des Mülls unter der\n\
 Parkbank findet Ihr etwas Kleingeld, das Touristen vor Euch aus der Tasche\n\
 gefallen sein muss. Prima!\n",
     174 : \
-"Bei näherer Betrachtung erkennt ihr, dass eine Art Pfeilspitze aus dem\n\
+"Bei näherer Betrachtung erkennt Ihr, dass eine Art Pfeilspitze aus dem\n\
 Laubhaufen ragt. Neugierig geworden, zieht Ihr daran und fördert den defekten\n\
-Wegweiser zutage. Zwei seiner drei Arme sind abgebrochen, sodass er euch nur\n\
+Wegweiser zutage. Zwei seiner drei Arme sind abgebrochen, sodass er Euch nur\n\
 noch zur 'Abtei Maria Laach' leiten kann.\n",
     175 : \
 "Ihr betretet den schlammigen Pfad. Schon bald versinkt Ihr\n\
-so sehr im Matsch, dass Eure Schuhe kaum noch als solche zu erkenen sind.\n\
+so sehr im Matsch, dass Eure Schuhe kaum noch als solche zu erkennen sind.\n\
 Etwas frustriert kehrt Ihr um.\n",
     176 : 
-"Frohen Mutes geht ihr in Richtung Norden. Der Pfad ist schön breit und wurde\n\
+"Frohen Mutes geht Ihr in Richtung Norden. Der Pfad ist schön breit und wurde\n\
 vor Kurzem erst von schwerem Gerät befahren. Eine ganze Weile lauft Ihr durch\n\
 den Wald, bis dieser plötzlich endet und den Blick freigibt auf eine weitläufige,\n\
 flache Wiesenlandschaft mit ein paar Bauernhöfen in größerer Entfernung.\n\
@@ -723,9 +724,9 @@ um zu sehen, welcher dieser Wege nun zur Abtei führt?\n",
     183 : \
 "Ihr setzt Euch auf das Geländer des Kreuzganges, um Euch den Brunnen\n\
 aus der Nähe anzusehen. Der Innenhof ist mit kurzem, unnatürlich grün\n\
-wirkendem Gras bewachsen. Als Ihr Euren Blick schweifen lässt, entdeckt Ihr\n\
+wirkendem Gras bewachsen. Als Ihr Euren Blick schweifen lasst, entdeckt Ihr\n\
 auf der gegenüberliegenden Seite einen kleinen, rechteckigen Gegenstand,\n\
-der sich in diesem Licht kaum von ihm umgebenen Sandstein abhebt.\n\
+der sich in diesem Licht kaum vom ihn umgebenen Sandstein abhebt.\n\
 Ihr hebt den Gegenstand auf, um ihn genauer zu begutachten.\n",
     184 : \
 "Der Abend dämmert bereits und Ihr besucht den Waldfriedhof. Ihr hört einen\n\
@@ -773,9 +774,9 @@ geöffnet, denn seine Tirade scheint ihn ins Schwitzen zu bringen.\n\
 Das Futter des Sakkos ist golden, genau wie die Nadelstreifen außen.\n\
 In der Innentasche steckt ein Zettel mit Aufschrift 'Edelmetalle O....'\n",
     196 : \
-"Ihr macht euch Bettfertig und wollt Euch schon hinlegen, als Ihr Euch erinnert,\n\
+"Ihr macht Euch bettfertig und wollt Euch schon hinlegen, als Ihr Euch erinnert,\n\
 dass das Smartphone leer ist. Ihr stopft es an sein Ladegerät.\n\
-Noch bevor ihr den Tag habt Revue passieren lassen,\n\
+Noch bevor Ihr den Tag habt Revue passieren lassen,\n\
 schlaft Ihr bereits tief und fest.\n",
     29193 : \
 "Ihr unterbrecht den Mann in seiner Wut mit einem vorsichtigen 'Entschuldigung'.\n\
@@ -783,9 +784,9 @@ Sichtlich verwirrt dreht er sich um und seine Mine verfinstert sich bei Eurem\n\
 Anblick. 'Ich bin hier noch nicht...', sagt er, unterbricht sich aber, als Ihr\n\
 Ihm das Handy unter die Nase haltet. Es entsperrt sich sofort von selber und\n\
 auf dem Bildschirm könnt Ihr lesen: 'Edelmetalle Ophirias'.\n\
-Euer gegenüber scheint mit Wut, Erleichterung und Verlegenheit zu ringen, als\n\
+Euer Gegenüber scheint mit Wut, Erleichterung und Verlegenheit zu ringen, als\n\
 er das Handy entgegennimmt. Die Rezeptionistin wirft kühl ein:\n\
-'Also doch verloren gegangen, das Handy. Ihr Zimmer have ich\n\
+'Also doch verloren gegangen, das Handy. Ihr Zimmer habe ich\n\
 jetzt aber schon storniert.\n\
 Ohne ein Wort schreitet der Mann durch die Lobby und verlässt das Hotel.\n", 
     197 : \
@@ -801,16 +802,16 @@ Jetzt kannst Du sicher gut schlafen.\n",
 #Euren Körpergeruch wahrnehmen kann. Auch dieser Hund nicht.\n\
 #Sichtlich irritiert wendet er sich von Euch ab und geht zurück in seine Hütte.\n",
     15123 : \
-"Whow, ihr seid aber gut vorbereitet! Zack, Mückenspray auf Mücken angewendet -\n\
+"Whow, Ihr seid aber gut vorbereitet! Zack, Mückenspray auf Mücken angewendet -\n\
 gut, es mag unkonventionell sein, sich nicht selbst damit einzureiben -\n\
 und schon sind sie weg und Euer Weg ist frei!\n",
     20123 : \
-"Na dann mal sehen, was euer Parfum bei den Mücken ausrichten kann!\n\
+"Na dann mal sehen, was Euer Parfum bei den Mücken ausrichten kann!\n\
 Ein paar Sprühstöße hier, da - und - weg sind die Mücken!\n\
 Ganz klar ist Euch allerdings nicht, ob das jetzt an den Heckenrosen lag\n\
 oder doch an der Chemie des Fensterreinigers. Sei's drum. Euer Weg ist frei.\n",
     21128 : \
-"Der Schlüssel passt! Beherzt dreht ihr den jetzt freigegebenen Schalter.\n\
+"Der Schlüssel passt! Beherzt dreht Ihr den jetzt freigegebenen Schalter.\n\
 Das Bedienpanel erwacht zum Leben und ein Lämpchen über einem grünen Knopf\n\
 beginnt weiß zu blinken.\n\
 Ihr drückt den Knopf.\n\
@@ -822,10 +823,10 @@ Noch bevor sie komplett verschwindet, fällt die Maschine plötzlich aus.\n\
 Das Display zeigt die 'Stack health' jetzt mit '00%' an.\n",
     24163 : \
 "Anstatt die Klappe aufzuhebeln, versucht Ihr zuerst, das Schloss wieder\n\
-ordentlich festzumachen. Als ihr fast fertig seid,\n\
+ordentlich festzumachen. Als Ihr fast fertig seid,\n\
 rutscht Euch der Schraubenzieher ab und fällt ins Wasser, aber nicht, bevor\n\
 sich ein Splitter vom Griff löst und sich in Eure Hand bohrt.\n\
-Wütend schlagt ihr auf die Wartungsklappe, die mit einem leichten Quietschen\n\
+Wütend schlagt Ihr auf die Wartungsklappe, die mit einem leichten Quietschen\n\
 prompt aufspringt.\n",
     11175 : \
 "Nur mit Mühe findet Ihr auf dem Foto der Karte den Punkt,\n\
@@ -859,7 +860,7 @@ Er zeigt Euch nun den richtigen Weg zur Abtei Maria Laach.\n",
     10175 : \
 "Clever, das GPS-System des Smartphones zu nutzen um zu prüfen, wo Ihr Euch\n\
 gerade befindet. Nur leider findet es hier im Wald nicht genügend Satelliten,\n\
-um euch den Standort anzuzeigen. Da Ihr zudem keinen Onboard-Kartendienst\n\
+um Euch den Standort anzuzeigen. Da Ihr zudem keinen Onboard-Kartendienst\n\
 installiert habt und sowieso kein Netz da ist, könnt Ihr das Handy als\n\
 Informationsquelle vorerst vergessen.\n",
     27188 : \
@@ -888,7 +889,7 @@ werden möchtet. Ihr entscheidet Euch für den Menüpunkt\n\
 Kurz darauf erscheint ein offensichtlich verärgerter Mann in auffälligem Sakko\n\
 mit einem Zettel in der Hand im Hoteleingang, steigt in die Limousine und\n\
 braust davon.\n\
-Keine besonders nette Art, jemanden aus dem Weg zu räumen. Aber der Zweckt\n\
+Keine besonders nette Art, jemanden aus dem Weg zu räumen. Aber der Zweck\n\
 heiligt manchmal die Mittel, nech?\n",
     }
     
@@ -1255,5 +1256,5 @@ jetzt schon etwas geändert hat. Macht mindestens mal eine Kaffeepause ;)\n"\
 wieder viel besser!\n"\
 , "Genau, manchmal muss man auch eine längere Pause einlegen.\n\
 Dafür erhaltet Ihr einen Motivationsschub!\n"\
-, "Puh, da habt Ihr Eur mit dem Weiterspielen aber ganz schön Zeit gelassen.\n\
+, "Puh, da habt Ihr Euch mit dem Weiterspielen aber ganz schön Zeit gelassen.\n\
 Trotzdem erhaltet Ihr einen Motivationsschub ;)                                  \n"]
