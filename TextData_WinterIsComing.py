@@ -116,7 +116,7 @@ So, genug geschwafelt. Fangt einfach mal an!\n"\
 "\nAuf diesem Bildschirm wird Euer\n\
 gemeinsames Inventar angezeigt.\n\
 Ihr könnt die Gegenstände benutzen\n\
-oder untersuchen, indem Ihr Ihre\n\
+oder untersuchen, indem Ihr ihre\n\
 Nummern im Eingabefeld angebt und mit\n\
 <Enter> bestätigt.\n",
     9: \
@@ -149,7 +149,7 @@ um in der Sonne nicht auszudörren wie Rosinen.\n", #bonus item
     16 : \
 "Euer Smartphone. Es hat noch genug Saft, um über den Tag zu kommen.\n",
     17 : \
-"Blütenblätter der Heckenrose. Einige Insektenarten hassen Ihren Duft.\n",
+"Blütenblätter der Heckenrose. Einige Insektenarten hassen ihren Duft.\n",
     18 : \
 "Waldbrombeeren. Lecker. Keine Angst, sie werden Euch schon nicht krank machen\n\
 oder einem Fuchsbandwurm als Heimat dienen.\n",
@@ -185,7 +185,7 @@ hier Euch noch nützlich sein.\n",
 niedergeschrieben. Zwar könnt Ihr die Sauklaue nicht lückenfrei\n\
 entziffern, doch wird Euch klar, dass alle Mönche ein Schweigegelübde abgelegt\n\
 haben und zudem ein Großteil von ihnen taubstumm sei. Sie lebten zurückgezogen\n\
-und seien sehr bedacht darauf, Ihre Kultur der Enthaltsamkeit zu pflegen sowie\n\
+und seien sehr bedacht darauf, ihre Kultur der Enthaltsamkeit zu pflegen sowie\n\
 die Gemäuer, Anwesen und Gärten der Abtei in Stand zu halten.\n",
     29 : \
 "Ein goldenes Smartphone, schon ziemlich mitgenommen. Sieht vielbenutzt aus.\n\
@@ -269,12 +269,12 @@ plötzlich wieder da. Doch nähert Ihr Euch, verschwindet es wieder.\n",
 "Nebel. Keine hundert Meter von Euch entfernt, wirkt die Nebelbank\n\
 in etwa so durchdringlich wie eine Wand.\n",
     127 : \
-"Ihr betretet eine große Betonplatte. In Ihrer Mitte steht, mit dem Boden\n\
+"Ihr betretet eine große Betonplatte. In ihrer Mitte steht, mit dem Boden\n\
 fest verschraubt, ein zylinderförmiges Metallding auf drei Beinchen.\n\
 Es ist nicht sehr hoch und sein Durchmesser ist etwa so groß wie ein\n\
 Suppenteller. Auf einer Seite seht Ihr ein Bedienpanel, an dem eine rote\n\
 Leuchtdiode hektisch blinkt. Hinter dem Gerät steht eine große, schwarze Kiste.\n\
-Aus einem Loch an Ihrer Seite steigt ein weißes Dampffähnchen empor.\n\
+Aus einem Loch an ihrer Seite steigt ein weißes Dampffähnchen empor.\n\
 Sie ist mit dem Metallding durch eine Leitung verbunden.\n\
 Eine weitere, viel dickere Leitung führt von der Kiste zum Leitstand.\n",
     128 : \
@@ -357,7 +357,7 @@ Ausflügen normalerweise Sonnencreme dabei?\n",
     160 : \
 "Ihr seid bei der Boje angekommen. Aus der Nähe wirkt sie sogar noch komischer.\n\
 Sie besteht aus silbernem Stahl und ist mit Solarzellen übersät.\n\
-Von Nahem erinnert Ihre Form nicht mehr so sehr an ein Ei, denn sie scheint\n\
+Von Nahem erinnert ihre Form nicht mehr so sehr an ein Ei, denn sie scheint\n\
 komplett aus dreieckigen Stahlteilen gefertigt und sieht sehr futuristisch aus.\n\
 Sie hat einen Poller, wo man Boote festmachen kann und sieht so aus, als wäre sie\n\
 in letzter Zeit oft besucht worden.\n\
@@ -672,7 +672,7 @@ Allmählich bekommt Ihr Kopfschmerzen und der Geruch wird unerträglich,\n\
 sodass Ihr beschließt, abzudrehen.\n",
     154 : \
 "Die Boje sieht ziemlich plump aus. Sie ist fast eiförmig und am oberen Ende\n\
-steckt eine Kugel an einer Stange. Auf Ihrer Außenhaut sind mehrere dunkle\n\
+steckt eine Kugel an einer Stange. Auf ihrer Außenhaut sind mehrere dunkle\n\
 Rechtecke zu sehen.\n",
     155 : \
 "Klasse, zum Glück habt Ihr Sonnencreme eingepackt. Als hättet Ihr es geahnt!\n\
